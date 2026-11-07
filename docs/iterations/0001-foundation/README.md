@@ -4,6 +4,7 @@
 - Branch: `phase/0001-foundation`
 - [PR #2](https://github.com/KateK77/careflow-ehr/pull/2)
 - [Initial Phase 0 commit cff7376](https://github.com/KateK77/careflow-ehr/commit/cff7376ae3de3458d519da58e1038dfe13966ada)
+- [CI implementation commit f64792e](https://github.com/KateK77/careflow-ehr/commit/f64792e6eabc33bce68c5a291ac3550825a64992)
 - [Baseline 1.0](../../requirements/README.md)
 - [Approved prompt](prompt.md), [feedback and scope](feedback.md), [test and acceptance results](verification.md)
 

@@ -1,0 +1,38 @@
+{
+  "source_baseline_version": "1.0",
+  "translation_revision": "1.0.0",
+  "date": "2026-11-07",
+  "source_commit": "61e12235d408120bab4639ed2ec6a04bb99508ab",
+  "entries": [
+    {
+      "source": "docs/requirements/v1.0/product-spec.md",
+      "sha256": "6380a3d699366c65284bc11d3ebdc6f6fa786ddb9e2a423bb71a95e3c17c1640",
+      "english_document": "docs/requirements/v1.0-en/product-spec.md"
+    },
+    {
+      "source": "docs/requirements/v1.0/README.md",
+      "sha256": "1d233f273bee358ce4ec824e85cf3b3d93e997531bc833c742d1daa7f15d5ce0",
+      "english_document": "docs/requirements/v1.0-en/package-readme.md"
+    },
+    {
+      "source": "docs/requirements/v1.0/codex-prompts.md",
+      "sha256": "377a56b1fa06373307fca750a915a480d6e39d4ca6a17e9dd8212297ad195b00",
+      "english_document": "docs/requirements/v1.0-en/codex-prompts.md"
+    },
+    {
+      "source": "docs/requirements/v1.0/AGENTS.md",
+      "sha256": "183aee4bf18d42ad25c732bb0779b697d099ff8612483a4a935bb8173f53844d",
+      "english_document": "docs/requirements/v1.0/AGENTS.md"
+    },
+    {
+      "source": "docs/iterations/0001-foundation/prompt.md",
+      "sha256": "a1ee548dadf3400104d04950b3ab1d75890e495b421964b7fa9e0633b12a6195",
+      "english_document": "docs/iterations/0001-foundation/prompt.en.v1.0.md"
+    },
+    {
+      "source": "docs/iterations/0002-patient-registration/prompt.md",
+      "sha256": "342ae2b69b15abbd6984bafe975f3f85d95fb943ffb945e8c28c82019385a7b9",
+      "english_document": "docs/iterations/0002-patient-registration/prompt.en.v1.0.md"
+    }
+  ]
+}

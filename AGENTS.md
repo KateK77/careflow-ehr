@@ -15,3 +15,12 @@ CareFlow EHR is an original educational prototype inspired by common EHR workflo
 - Run checks appropriate to the changes. For feature slices, cover success, permission denial, invalid data, conflicts, and data isolation where applicable.
 - Record the effective prompt, user feedback, decisions, files changed, commands and actual results, known gaps, and acceptance outcome. Use the [iteration template](docs/iterations/TEMPLATE.md).
 - Wait for human review and acceptance before merging or beginning the next milestone.
+
+## Mandatory documentation language and historical preservation
+
+- Follow [language policy v1.0](docs/policies/language/v1.0/README.md). Preserve original Phase 0 requirements and records, including Chinese documents, as immutable history.
+- Write all new GitHub Issues, PRs, commit messages, requirements, technical documents, reports, feedback summaries and acceptance records in professional English.
+- Read and maintain the [English requirements baseline](docs/requirements/v1.0-en/README.md) alongside its authoritative original sources and approved architecture decisions. Every translation must identify its source version, translation revision and original-document link.
+- Preserve approved prompts verbatim. For Chinese prompts, add a separate, accurately translated English file. Translate Chinese user feedback and instructions into English for GitHub documentation while preserving the original source.
+- Keep source documents and translations linked through the versioned registry. Record translation corrections as a new revision and substantive requirement changes as a separately approved source version.
+- Apply this policy through documentation changes. Application behavior changes require their own approved scope.

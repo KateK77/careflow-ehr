@@ -1,0 +1,9 @@
+{% extends "core/base.html" %}
+{% block content %}
+  <div class="panel">
+    <div class="eyebrow">ACCESS DENIED</div>
+    <h1>Permission required</h1>
+    <p>Your staff role does not allow this action. This access attempt has been audited.</p>
+    <a href="{% url 'dashboard' %}">Return to dashboard</a>
+  </div>
+{% endblock %}

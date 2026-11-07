@@ -13,3 +13,7 @@ Each phase is a proposed development increment. Refine its scope when workflow r
 | 6. Interoperability and decision support | HL7 FHIR profiles and exchange, clinical decision support, and clinician-reviewed AI assistance | Selected synthetic data passes FHIR conformance checks and a clinician reviews a traceable suggestion. |
 
 Design identifiers, provenance, and audit events from the first clinical increment. Keep external exchanges and AI evaluation in synthetic sandboxes.
+
+## Phase 1 split
+
+Phase 1A implements staff login and demographic patient management, reviewed through Issue #3. Scheduling and check-in remain a later approved increment. See the [Phase 1A report](iterations/0002-patient-registration/README.md) for implementation evidence and outstanding user acceptance.

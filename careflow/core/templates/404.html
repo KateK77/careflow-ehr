@@ -1,0 +1,8 @@
+{% extends "core/base.html" %}
+{% block content %}
+  <div class="panel">
+    <h1>Record not found</h1>
+    <p>The requested record is unavailable.</p>
+    <a href="{% url 'patient_list' %}">Return to patients</a>
+  </div>
+{% endblock %}

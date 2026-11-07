@@ -1,0 +1,98 @@
+{% extends "core/base.html" %}
+{% block title %}
+  Patients · CareFlow EHR
+{% endblock %}
+{% block content %}
+  <div class="eyebrow">WORKSPACE / PATIENT DIRECTORY</div>
+  <div class="page-heading">
+    <div>
+      <h1>Patients</h1>
+      <p class="muted">{{ page.paginator.count }} matching synthetic records</p>
+    </div>
+    {% if can_manage_patients %}
+      <a class="button" href="{% url 'patient_create' %}">＋ Register patient</a>
+    {% endif %}
+  </div>
+  <section class="panel">
+    <form method="get" class="filters">
+      <div class="field grow">
+        <label for="search">Search patients</label>
+        <input id="search"
+               name="q"
+               value="{{ query }}"
+               maxlength="120"
+               placeholder="Name, MRN, date of birth (YYYY-MM-DD), phone">
+      </div>
+      <div class="field">
+        <label for="sex">Recorded sex</label>
+        <select name="sex" id="sex">
+          <option value="">All</option>
+          {% for value,label in sex_choices %}
+            <option value="{{ value }}" {% if value == sex %}selected{% endif %}>{{ label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <button type="submit">Search</button>
+      <a href="{% url 'patient_list' %}">Clear</a>
+    </form>
+    <div class="table-scroll">
+      <table>
+        <caption class="sr-only">
+          Synthetic patient directory
+        </caption>
+        <thead>
+          <tr>
+            <th>Patient</th>
+            <th>MRN</th>
+            <th>Date of birth</th>
+            <th>Age</th>
+            <th>Recorded sex</th>
+            <th>Contact</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for patient in page %}
+            <tr>
+              <td>
+                <a class="patient-name" href="{% url 'patient_detail' patient.pk %}">{{ patient }}</a>
+                <span class="muted small block">Synthetic patient</span>
+              </td>
+              <td>
+                <span class="tag">{{ patient.mrn }}</span>
+              </td>
+              <td>{{ patient.dob|date:"Y-m-d" }}</td>
+              <td>{{ patient.age }}</td>
+              <td>{{ patient.get_sex_display }}</td>
+              <td>{{ patient.phone|default:"Not recorded" }}</td>
+              <td>
+                <a href="{% url 'patient_detail' patient.pk %}">Open →</a>
+              </td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="7">
+                <div class="empty">
+                  No patients match this search. Clear filters or register a synthetic patient.
+                </div>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <nav class="pagination" aria-label="Patient pages">
+      {% if page.has_previous %}
+        <a href="?q={{ query|urlencode }}&amp;sex={{ sex|urlencode }}&amp;page={{ page.previous_page_number }}">
+          ← Previous
+        </a>
+      {% endif %}
+      <span>Page {{ page.number }} of {{ page.paginator.num_pages }}</span>
+      {% if page.has_next %}
+        <a href="?q={{ query|urlencode }}&amp;sex={{ sex|urlencode }}&amp;page={{ page.next_page_number }}">
+          Next →
+        </a>
+      {% endif %}
+    </nav>
+  </section>
+{% endblock %}

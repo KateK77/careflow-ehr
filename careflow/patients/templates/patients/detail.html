@@ -1,0 +1,88 @@
+{% extends "core/base.html" %}
+{% block title %}
+  {{ patient }} · CareFlow EHR
+{% endblock %}
+{% block content %}
+  <div class="eyebrow">
+    <a href="{% url 'patient_list' %}">PATIENTS</a>
+    / DEMOGRAPHIC SUMMARY
+  </div>
+  <div class="page-heading">
+    <div>
+      <h1>{{ patient }}</h1>
+      <p>
+        <span class="tag">{{ patient.mrn }}</span>
+        <span class="muted">
+          {{ patient.age }} years · {{ patient.get_sex_display }} · Synthetic patient
+        </span>
+      </p>
+    </div>
+    {% if can_manage_patients %}
+      <a class="button" href="{% url 'patient_edit' patient.pk %}">Edit demographics</a>
+    {% endif %}
+  </div>
+  <div class="cards">
+    <section class="panel">
+      <h2>Identity</h2>
+      <dl>
+        <dt>Date of birth</dt>
+        <dd>
+          {{ patient.dob|date:"Y-m-d" }}
+        </dd>
+        <dt>Gender identity</dt>
+        <dd>
+          {{ patient.gender_identity|default:"Not recorded" }}
+        </dd>
+        <dt>Created</dt>
+        <dd>
+          {{ patient.created_at|date:"Y-m-d H:i T" }}
+        </dd>
+        <dt>Last updated</dt>
+        <dd>
+          {{ patient.updated_at|date:"Y-m-d H:i T" }} · v{{ patient.version }}
+        </dd>
+      </dl>
+    </section>
+    <section class="panel">
+      <h2>Contact</h2>
+      <dl>
+        <dt>Phone</dt>
+        <dd>
+          {{ patient.phone|default:"Not recorded" }}
+        </dd>
+        <dt>Email</dt>
+        <dd>
+          {{ patient.email|default:"Not recorded" }}
+        </dd>
+        <dt>Address</dt>
+        <dd>
+          {{ patient.address|default:"Not recorded" }}
+        </dd>
+        <dt>Emergency contact</dt>
+        <dd>
+          {{ patient.emergency_contact|default:"Not recorded" }}
+        </dd>
+      </dl>
+    </section>
+  </div>
+  <section class="panel">
+    <h2>Registration activity</h2>
+    <p class="muted small">
+      Latest 10 registration events. Times are shown in the configured clinic time zone.
+    </p>
+    <ul class="activity">
+      {% for event in events %}
+        <li>
+          <strong>{{ event.action }}</strong>
+          · {{ event.actor.get_full_name|default:"System" }}
+          <span class="muted block">{{ event.occurred_at|date:"Y-m-d H:i:s T" }}</span>
+          {% if event.changed_fields %}
+            <span class="small">Fields: {{ event.changed_fields|join:", " }}</span>
+          {% endif %}
+        </li>
+      {% empty %}
+        <li>No registration changes recorded.</li>
+      {% endfor %}
+    </ul>
+  </section>
+{% endblock %}

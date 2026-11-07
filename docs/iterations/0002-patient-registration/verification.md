@@ -11,7 +11,7 @@
 
 ## GitHub Actions
 
-The existing workflow installs only application requirements and runs the system check and default Django test discovery. The optional browser test is run locally and is not included in default discovery. CI results will be recorded after the branch is published.
+The existing workflow installs only application requirements and runs the system check and default Django test discovery. The optional browser test is run locally and is not included in default discovery. The [push run](https://github.com/KateK77/careflow-ehr/actions/runs/42341431350) and [PR run](https://github.com/KateK77/careflow-ehr/actions/runs/42341434174) passed for [implementation commit b6f59b8](https://github.com/KateK77/careflow-ehr/commit/b6f59b8d0932a14637d19ff0c0e1e6173ee71090). Both completed the Django system check and all 34 default tests. Subsequent documentation-only evidence commits are checked on the same workflow, with current results linked from [PR #4](https://github.com/KateK77/careflow-ehr/pull/4).
 
 ## Acceptance
 

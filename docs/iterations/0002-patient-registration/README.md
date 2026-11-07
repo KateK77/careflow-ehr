@@ -2,8 +2,8 @@
 
 - [Issue #3](https://github.com/KateK77/careflow-ehr/issues/3)
 - Branch: `phase/0002-patient-registration`, based on `863e91d3b5c2f89f0beeebe462dbfdc1c014009d`
-- [Implementation commits](https://github.com/KateK77/careflow-ehr/commits/phase/0002-patient-registration/)
-- [PR for this branch](https://github.com/KateK77/careflow-ehr/pulls?q=is%3Apr+head%3Aphase%2F0002-patient-registration)
+- [Implementation commit b6f59b8](https://github.com/KateK77/careflow-ehr/commit/b6f59b8d0932a14637d19ff0c0e1e6173ee71090)
+- [PR #4](https://github.com/KateK77/careflow-ehr/pull/4)
 - [Prompt](prompt.md), [feedback](feedback.md), [verification](verification.md)
 - Baseline v1.0, S01–S04 and the demographic subset of S06. [Access decision](../../decisions/0002-patient-management-access.md)
 

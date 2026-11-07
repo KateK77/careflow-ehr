@@ -13,3 +13,7 @@ staticfiles/
 .idea/
 .vscode/
 .DS_Store
+
+# Local requirements package. Reviewed copies live under docs/requirements.
+/CareFlow_EHR_产品规格与Codex开发包.zip
+/CareFlow_EHR_产品规格与Codex开发包/

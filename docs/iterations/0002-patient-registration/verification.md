@@ -15,6 +15,24 @@ The existing workflow installs only application requirements and runs the system
 
 ## Acceptance
 
-Hands-on user acceptance is pending. This branch must remain unmerged until approved. No production credentials, patient data, local database or browser artifacts are included in the commit.
+The user reported on 2026-11-08 that all ten listed manual acceptance checks passed and no blocking functional defects were identified. See the UAT-01–UAT-10 matrix in [feedback](feedback.md). PR #4 remains open pending a separate merge decision. The historical automated evidence above records the earlier implementation checks.
 
 A request to leave a hidden background development server running was rejected by automatic approval review. Browser tests did start and exercise their temporary local server successfully. Start the application manually with the documented runserver command for hands-on acceptance.
+
+## Evidence boundaries — acceptance follow-up
+
+| Evidence | Source and scope |
+| --- | --- |
+| Manual observations | User report dated 2026-11-08, UAT-01–UAT-10 in feedback.md. The documentation author did not rerun these manual checks. |
+| Existing automated evidence | The earlier 34 Django tests and separate Chromium workflow recorded above. Automated coverage is distinct from the user's manual observations. |
+| Documentation follow-up | Historical-file hashes, documentation links, acceptance-matrix completeness and staged diff checks. Latest GitHub CI evidence is added after publication. |
+
+Successful UI display of audit events does not establish database-level audit immutability or tamper resistance. Physician direct-URL denials demonstrate those tested manual routes. They do not establish protection against every HTTP method, crafted request or privilege-escalation attempt. FrontDesk and Nurse manual checks, patient-account isolation, session expiry, login throttling and broader security assessment were not reported as part of this manual acceptance. Some protections have targeted automated tests, as listed above, but no comprehensive security assessment is claimed.
+
+The five user-supplied UI/UX groups UX-01–UX-05 are future, non-blocking enhancements recorded in feedback.md. Clinical sections and new encounter/status data remain future scope. No UI/UX implementation is included in this follow-up.
+
+## Documentation follow-up checks — 2026-11-08
+
+The documentation check verified all 10 user-reported acceptance rows, all five future UX groups, English text and nine relative links. SHA-256 checks confirmed that the 66 existing tracked files outside the three updated acceptance documents were preserved, including application code, historical sources and the English language policy. The staged diff is limited to README.md, feedback.md, verification.md and the new verbatim acceptance-request.md within this iteration directory. Whitespace checks passed.
+
+Local application tests were not rerun for this documentation-only change. Earlier automated results remain identified as historical evidence, and the GitHub workflow will execute the existing application checks on the published commit.

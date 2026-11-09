@@ -23,7 +23,7 @@ This is a local DEBUG demo for a single synthetic clinic. Staff read access span
 
 ## Review boundary
 
-User-run acceptance and feedback are pending. Do not merge or begin the next increment without approval.
+The user reported all ten manual acceptance checks passed on 2026-11-08, with no blocking functional defects. See [feedback](feedback.md) for the acceptance matrix and five future UI/UX enhancement groups, and [verification](verification.md) for evidence boundaries. PR #4 remains open pending a separate merge decision. The next increment requires approval.
 
 ## Changed files
 

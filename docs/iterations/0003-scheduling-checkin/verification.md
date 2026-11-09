@@ -21,4 +21,16 @@ The [push run](https://github.com/KateK77/careflow-ehr/actions/runs/42574506148)
 
 ## Acceptance and limits
 
-Hands-on user acceptance is pending. No claim is made for production deployment, PostgreSQL exclusion constraints, stress testing, configurable clinician availability or comprehensive security assessment. The access and time policies are documented in ADR 0003. The branch must remain unmerged until approved.
+The user reported all eleven manual acceptance checks passed on 2026-11-09, with no blocking functional defects. The [feedback matrix](feedback.md) records UAT-1B-01–UAT-1B-11. No claim is made for production deployment, PostgreSQL exclusion constraints, stress testing, configurable clinician availability or comprehensive security assessment. The access and time policies are documented in ADR 0003. The branch must remain unmerged until approved.
+
+## Manual evidence and its boundaries
+
+The manual report covers confirmed creation, daily-calendar visibility, rescheduling and time updates, sequential overlap rejection and absence of the rejected booking, cancellation history, rebooking a released slot, check-in actor/time/history, persistence after refresh, Physician own-appointment visibility with management controls absent, and a direct edit-URL denial.
+
+These observations were supplied by the user. They do not add unreported manual checks for weekly calendars, Nurse/Administrator/FrontDesk role combinations, cross-physician detail isolation, direct cancellation POST requests, forged requests, CSRF, session expiry, database tampering, load or concurrency. Earlier targeted automated tests cover some of those concerns and remain separately identified above. UI history display does not establish database-level audit immutability, and no comprehensive security assessment is claimed.
+
+The four Phase 1B backlog groups in feedback.md are future enhancements for evaluation. In particular, configurable appointment types, working hours, leave and an early check-in window are not approved behavior changes in this documentation update.
+
+## Documentation follow-up verification
+
+Documentation checks passed for all eleven reported outcomes, four backlog groups, English text, ten relative links, staged scope and whitespace. SHA-256 checks confirmed preservation of all 88 existing tracked files outside the three updated acceptance documents and an unchanged local SQLite file. Local application/browser tests were not rerun and no database commands were executed. Latest GitHub CI evidence is recorded after publication.

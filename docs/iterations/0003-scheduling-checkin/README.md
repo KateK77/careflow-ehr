@@ -12,7 +12,7 @@
 
 Create, review, confirm, reschedule, cancel and check in appointments using existing synthetic patients and physician accounts. Provide daily/weekly calendars, physician/date filters, patient lookup, appointment details and a date-based check-in worklist. Persist every change with audit history and enforce role restrictions on direct URL/POST access.
 
-Backend validation must prevent overlapping reservations and stale edits, preserve UTC/local-time consistency and handle invalid/duplicate transitions. Concurrent booking must leave only one reservation. Preserve all existing patient records and Phase 1A behavior. User acceptance remains pending.
+Backend validation must prevent overlapping reservations and stale edits, preserve UTC/local-time consistency and handle invalid/duplicate transitions. Concurrent booking must leave only one reservation. Preserve all existing patient records and Phase 1A behavior. The user reported completion of all eleven manual checks on 2026-11-09, with no blocking functional defects. See [feedback](feedback.md) and [verification](verification.md).
 
 ## Implementation report
 
@@ -30,7 +30,7 @@ The five Phase 1A UX groups remain future, non-blocking backlog items. This iter
 
 ## Review boundary
 
-Publish the implementation and evidence for review, verify CI and stop for hands-on user acceptance. A merge or subsequent increment requires approval.
+Manual acceptance of the reported scope is complete. The four Phase 1B enhancement groups and prior Phase 1A UX items remain future, non-blocking backlog. PR #6 remains open for final review. A merge or subsequent increment requires separate approval.
 
 ## Changed files
 

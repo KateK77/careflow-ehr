@@ -80,3 +80,30 @@ The local database, virtual environment and passwords stay outside Git. This is 
 ```
 
 An optional Playwright browser test is in `careflow/patients/browser_tests.py`. It uses an isolated Django test database. Install `playwright` and Chromium in a development environment, then run `python manage.py test careflow.patients.browser_tests`. Browser tooling is not an application dependency and is not installed by CI.
+
+## Phase 1B scheduling and check-in
+
+Use the existing local staff accounts and passwords. Administrator and FrontDesk may manage appointments. Physician-only staff read their own appointments, and Nurses read the single-clinic schedule.
+
+```powershell
+Set-Location 'D:\AI-Workspace\Personal\careflow-ehr'
+.\.venv\Scripts\python.exe manage.py migrate
+.\.venv\Scripts\python.exe manage.py runserver 127.0.0.1:8000
+```
+
+1. Sign in at [staff login](http://127.0.0.1:8000/login/) as `frontdesk.demo` or `administrator.demo`.
+2. Open Schedule, choose a date and physician, then switch between Day and Week views.
+3. Choose New appointment. Search by patient name/MRN or start from Schedule appointment on an existing patient's demographic page.
+4. Select the patient and active physician, enter a future clinic-local start, duration, type and optional synthetic reason. Choose Review appointment, then Confirm appointment.
+5. Verify the booking in its detail page, patient context and physician calendar. Use Reschedule / edit to change it through the same review flow.
+6. Attempt an overlapping booking for the same physician to see a conflict. Adjacent bookings and different physicians are permitted. Cancel with a reason to release the slot.
+7. For check-in, create an appointment with a future start later on the clinic's current date. Open Patient check-in, search the patient's MRN, open the appointment and choose Mark Arrived. The status, actor and timestamp persist on refresh.
+8. Sign in as `physician.demo` to verify own-schedule read access and direct-URL write denials. The existing `changepassword` command can set a local password if needed.
+
+Pages are `/app/schedule/`, `/app/appointments/new/`, `/app/appointments/<id>/` and `/app/check-in/`. Clinic time zone defaults to America/Chicago and may be set with `CAREFLOW_TIME_ZONE`. Store UTC timestamps and display clinic-local labels. Ambiguous/nonexistent local DST input is rejected. Cross-midnight bookings appear on both dates.
+
+Creation and edits require a review token valid for ten minutes. Rescheduling requires the current version and a scheduled state. Check-in is limited to the appointment's local date. Cancellation/no-show require reasons. No-show can be recorded after the start has been reached. Cancelled/no_show are terminal. See [ADR 0003](docs/decisions/0003-scheduling-and-checkin.md) for the complete transition and concurrency policy.
+
+The new migration creates scheduling tables only. The existing patient data and staff passwords are preserved. No appointment seed is required. Current availability is based on active physicians and conflicting reservations, with provider working hours and leave deferred.
+
+Run `python manage.py check`, `python manage.py makemigrations --check --dry-run` and `python manage.py test`. Optional browser checks run with `python manage.py test careflow.scheduling.browser_tests careflow.patients.browser_tests` after installing Playwright/Chromium. The default GitHub workflow runs the Django suite, not the optional browser checks.

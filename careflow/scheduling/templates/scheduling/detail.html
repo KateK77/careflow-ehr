@@ -1,0 +1,147 @@
+{% extends "core/base.html" %}
+{% block title %}
+  Appointment #{{ appointment.pk }} · CareFlow EHR
+{% endblock %}
+{% block content %}
+  <div class="eyebrow">
+    <a href="{% url 'schedule' %}">SCHEDULE</a>
+    / APPOINTMENT #{{ appointment.pk }}
+  </div>
+  <div class="page-heading">
+    <div>
+      <h1>{{ appointment.patient }}</h1>
+      <p>
+        <span class="tag state-{{ appointment.status }}">{{ appointment.get_status_display }}</span>
+        <span class="muted">{{ appointment.patient.mrn }} · Version {{ appointment.version }}</span>
+      </p>
+    </div>
+    <a href="{% url 'patient_detail' appointment.patient_id %}">Patient demographics</a>
+  </div>
+  {% if transition_form.errors %}
+    <div class="notice warning" role="alert">{{ transition_form.errors }}</div>
+  {% endif %}
+  <section class="panel">
+    <h2>Appointment information</h2>
+    <dl>
+      <dt>Physician</dt>
+      <dd>
+        {{ appointment.physician.get_full_name|default:appointment.physician.username }}
+      </dd>
+      <dt>Start</dt>
+      <dd>
+        {{ appointment.start_at|date:"D, d M Y H:i T" }}
+      </dd>
+      <dt>End</dt>
+      <dd>
+        {{ appointment.end_at|date:"D, d M Y H:i T" }}
+      </dd>
+      <dt>Duration</dt>
+      <dd>
+        {{ appointment.duration }} minutes · {{ clinic_zone }}
+      </dd>
+      <dt>Type</dt>
+      <dd>
+        {{ appointment.appointment_type }}
+      </dd>
+      <dt>Synthetic reason</dt>
+      <dd>
+        {{ appointment.reason|default:"Not provided" }}
+      </dd>
+      <dt>Check-in</dt>
+      <dd>
+        {% if appointment.checked_in_at %}
+          {{ appointment.checked_in_at|date:"d M Y H:i:s T" }} · {{ appointment.checked_in_by.get_full_name|default:appointment.checked_in_by.username }}
+        {% else %}
+          Not checked in
+        {% endif %}
+      </dd>
+    </dl>
+    {% if can_manage_patients and appointment.status == "scheduled" %}
+      <div class="form-actions">
+        <a class="button" href="{% url 'appointment_edit' appointment.pk %}">Reschedule / edit</a>
+        {% if can_checkin_today %}
+          <form method="post"
+                action="{% url 'appointment_transition' appointment.pk %}">
+            {% csrf_token %}
+            <input type="hidden" name="version" value="{{ appointment.version }}">
+            <input type="hidden" name="action" value="arrive">
+            <button type="submit">Mark Arrived</button>
+          </form>
+        {% else %}
+          <span class="small muted">Check-in opens on the appointment's clinic-local date.</span>
+        {% endif %}
+      </div>
+    {% endif %}
+  </section>
+  {% if can_manage_patients %}
+    {% if appointment.status == "scheduled" or appointment.status == "arrived" %}
+      <section class="panel">
+        <h2>Cancel appointment</h2>
+        <form method="post"
+              action="{% url 'appointment_transition' appointment.pk %}"
+              class="filters">
+          {% csrf_token %}
+          <input type="hidden" name="version" value="{{ appointment.version }}">
+          <input type="hidden" name="action" value="cancel">
+          <div class="field grow">
+            <label for="cancel-reason">Cancellation reason</label>
+            <input id="cancel-reason" name="reason" required maxlength="240">
+          </div>
+          <button type="submit" class="danger">Cancel appointment</button>
+        </form>
+      </section>
+    {% endif %}
+    {% if appointment.status == "scheduled" and has_started %}
+      <section class="panel">
+        <h2>No-show recording</h2>
+        <form method="post"
+              action="{% url 'appointment_transition' appointment.pk %}"
+              class="filters">
+          {% csrf_token %}
+          <input type="hidden" name="version" value="{{ appointment.version }}">
+          <input type="hidden" name="action" value="no_show">
+          <div class="field grow">
+            <label for="no-show-reason">No-show reason</label>
+            <input id="no-show-reason" name="reason" required maxlength="240">
+          </div>
+          <button type="submit" class="quiet">Mark No show</button>
+        </form>
+      </section>
+    {% endif %}
+  {% endif %}
+  <section class="panel">
+    <h2>Appointment history</h2>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Event</th>
+            <th>Actor</th>
+            <th>Clinic-local time</th>
+            <th>Previous state</th>
+            <th>New state</th>
+            <th>Reason</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for event in events %}
+            <tr>
+              <td>{{ event.audit.action }}</td>
+              <td>
+                {{ event.audit.actor.get_full_name|default:event.audit.actor.username|default:"System" }}
+              </td>
+              <td>{{ event.audit.occurred_at|date:"d M Y H:i:s T" }}</td>
+              <td>{{ event.previous_status|default:"—" }}</td>
+              <td>{{ event.next_status }}</td>
+              <td>{{ event.reason|default:"—" }}</td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="6">No appointment events recorded.</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+{% endblock %}

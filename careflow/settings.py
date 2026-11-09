@@ -17,6 +17,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "careflow.core",
     "careflow.patients",
+    "careflow.scheduling",
 ]
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

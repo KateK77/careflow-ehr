@@ -17,3 +17,7 @@ Design identifiers, provenance, and audit events from the first clinical increme
 ## Phase 1 split
 
 Phase 1A implements staff login and demographic patient management, reviewed through Issue #3. Scheduling and check-in remain a later approved increment. See the [Phase 1A report](iterations/0002-patient-registration/README.md) for implementation evidence and outstanding user acceptance.
+
+## Phase 1B scheduling and check-in
+
+The approved scheduling increment follows merged Phase 1A and is tracked in Issue #5. See the [Phase 1B report](iterations/0003-scheduling-checkin/README.md). Clinical encounters and the Phase 1A future UX groups remain separately scoped.

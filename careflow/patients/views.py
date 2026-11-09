@@ -11,6 +11,7 @@ from django.views.decorators.http import require_http_methods, require_safe
 from .access import patient_access
 from .forms import PATIENT_FIELDS, PatientForm
 from .models import AuditEvent, Patient
+from careflow.scheduling.access import appointments_for
 
 
 @require_safe
@@ -53,6 +54,7 @@ def patient_detail(request, pk):
     AuditEvent.objects.create(actor=request.user, patient=patient, action="patient_view")
     return render(request, "patients/detail.html", {
         "patient": patient,
+        "appointments": appointments_for(request.user).filter(patient=patient).order_by("-updated_at")[:10],
         "events": patient.auditevent_set.filter(action__in=["patient_create", "patient_update"]).select_related("actor")[:10],
     })
 

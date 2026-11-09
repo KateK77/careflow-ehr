@@ -1,0 +1,7 @@
+{% extends "core/base.html" %}
+{% block content %}
+{% include "clinical/header.html" %}
+<h2>Review and sign</h2><p>Signing locks this note. Addenda and reopening are not available in this increment.</p>
+{% include "clinical/soap.html" %}
+<section class="panel"><form method="post">{% csrf_token %}{{ form.as_p }}<div class="form-actions"><button type="submit">Confirm and sign note</button><a href="{% url 'encounter_detail' patient.pk encounter.pk %}">Return to encounter</a></div></form></section>
+{% endblock %}

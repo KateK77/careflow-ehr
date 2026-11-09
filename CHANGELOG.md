@@ -15,3 +15,9 @@
 
 - Added physician day/week schedules, reviewed appointment creation/editing, cancellation and Front Desk check-in.
 - Added appointment/provider serialization models, transactional audit events, reservation conflict validation, UTC/local-time handling and scheduling access scopes.
+
+## Phase 2A — pending acceptance
+
+- Added physician workspace, authorized longitudinal charts and explicit encounters from arrived appointments.
+- Added persistent SOAP drafts, confirmed signing, signed-content protection and transactional clinical history.
+- Added role/ownership/isolation tests and migration consistency to CI. Preserved local patient and appointment records through additive migrations.

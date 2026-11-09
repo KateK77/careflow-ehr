@@ -9,6 +9,7 @@ urlpatterns = [
     path("logout/", DemoLogoutView.as_view(), name="logout"),
     path("app/", include("careflow.patients.urls")),
     path("app/", include("careflow.scheduling.urls")),
+    path("app/", include("careflow.clinical.urls")),
     path("", views.home, name="home"),
     path("health/", views.health, name="health"),
 ]

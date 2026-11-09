@@ -21,6 +21,19 @@
     <div class="notice warning" role="alert">{{ transition_form.errors }}</div>
   {% endif %}
   <section class="panel">
+    {% if can_read_clinical %}
+      <div class="form-actions">
+        <a href="{% url 'patient_chart' appointment.patient_id %}">Open patient chart</a>
+        <a href="{% url 'physician_workspace' %}">Physician workspace</a>
+        {% if user.pk == appointment.physician_id and 'Physician' in staff_roles and appointment.status == 'arrived' %}
+          {% if appointment.encounter %}
+            <a class="button" href="{% url 'encounter_detail' appointment.patient_id appointment.encounter.pk %}">Open encounter</a>
+          {% else %}
+            <a class="button" href="{% url 'encounter_start' appointment.pk %}">Start encounter</a>
+          {% endif %}
+        {% endif %}
+      </div>
+    {% endif %}
     <h2>Appointment information</h2>
     <dl>
       <dt>Physician</dt>
@@ -73,7 +86,7 @@
       </div>
     {% endif %}
   </section>
-  {% if can_manage_patients %}
+  {% if can_manage_patients and not appointment.encounter %}
     {% if appointment.status == "scheduled" or appointment.status == "arrived" %}
       <section class="panel">
         <h2>Cancel appointment</h2>

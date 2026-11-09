@@ -1,0 +1,8 @@
+{% extends "core/base.html" %}
+{% block content %}
+{% include "clinical/header.html" %}
+<section class="panel"><h2>SOAP draft</h2><p>Enter fictional information only. Drafts may be incomplete; signing requires all four sections. No diagnosis or treatment suggestions are generated.</p>
+<form method="post" class="soap-form">{% csrf_token %}{{ form.non_field_errors }}{{ form.version }}
+{% for field in form.visible_fields %}<div class="field">{{ field.errors }}{{ field.label_tag }}{{ field }}</div>{% endfor %}
+<div class="form-actions"><button type="submit">Save draft</button><a href="{% url 'encounter_detail' patient.pk encounter.pk %}">Return without saving</a></div></form></section>
+{% endblock %}

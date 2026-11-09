@@ -1,0 +1,8 @@
+<section class="panel" id="soap"><div class="page-heading"><h2>SOAP note</h2><span class="tag">{% if note.signed_at %}Signed — read-only{% else %}Draft{% endif %}</span></div>
+<p class="small">Author: {{ note.author.get_full_name|default:note.author.username }} · Created {{ note.created_at|date:"Y-m-d H:i:s T" }} · Updated {{ note.updated_at|date:"Y-m-d H:i:s T" }} · v{{ note.version }}</p>
+{% if note.signed_at %}<p>Signed by {{ note.author.get_full_name|default:note.author.username }} at {{ note.signed_at|date:"Y-m-d H:i:s T" }}.</p>{% endif %}
+<h3>Subjective</h3><div class="soap-text">{{ note.subjective|default:"Not recorded"|linebreaksbr }}</div>
+<h3>Objective</h3><div class="soap-text">{{ note.objective|default:"Not recorded"|linebreaksbr }}</div>
+<h3>Assessment</h3><div class="soap-text">{{ note.assessment|default:"Not recorded"|linebreaksbr }}</div>
+<h3>Plan</h3><div class="soap-text">{{ note.plan|default:"Not recorded"|linebreaksbr }}</div>
+</section>

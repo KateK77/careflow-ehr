@@ -1,0 +1,13 @@
+<header class="patient-banner">
+  <div><div class="eyebrow">SYNTHETIC PATIENT CHART</div><h1>{{ patient }}</h1></div>
+  <div><strong>{{ patient.mrn }}</strong><br>{{ patient.age }} years · {{ patient.get_sex_display }}<br>DOB {{ patient.dob|date:"Y-m-d" }}</div>
+  <div>{% if encounter %}Encounter #{{ encounter.pk }}<br><span class="tag">{{ encounter.get_status_display }}</span>{% else %}Longitudinal overview{% endif %}</div>
+</header>
+<nav class="chart-nav" aria-label="Chart navigation">
+  <a href="{% url 'physician_workspace' %}">Worklist</a>
+  <a href="{% url 'patient_chart' patient.pk %}">Chart overview</a>
+  <a href="{% url 'patient_detail' patient.pk %}">Demographics</a>
+  <a href="{% url 'patient_chart' patient.pk %}#appointments">Appointments</a>
+  <a href="{% url 'patient_chart' patient.pk %}#encounters">Encounters</a>
+  <a href="{% url 'patient_chart' patient.pk %}#notes">Clinical notes</a>
+</nav>

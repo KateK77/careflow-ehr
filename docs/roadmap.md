@@ -21,3 +21,7 @@ Phase 1A implements staff login and demographic patient management, reviewed thr
 ## Phase 1B scheduling and check-in
 
 The approved scheduling increment follows merged Phase 1A and is tracked in Issue #5. See the [Phase 1B report](iterations/0003-scheduling-checkin/README.md). Clinical encounters and the Phase 1A future UX groups remain separately scoped.
+
+## Approved Phase 2A increment
+
+Physician workspace, scoped patient chart, explicit encounters and SOAP drafts/signing are implemented for review in [iteration 0004](iterations/0004-physician-workspace/README.md). Manual acceptance is pending. Full clinical modules and Phase 2B remain outside the approved increment.

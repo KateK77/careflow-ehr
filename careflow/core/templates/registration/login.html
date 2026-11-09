@@ -1,0 +1,37 @@
+{% extends "core/base.html" %}
+{% block title %}
+  Sign in · CareFlow EHR
+{% endblock %}
+{% block content %}
+  <div class="login-layout">
+    <section>
+      <div class="eyebrow">CAREFLOW / SYNTHETIC CLINIC</div>
+      <h1>
+        One patient record.
+        <br>
+        A clearer workspace.
+      </h1>
+      <p class="lead">
+        Explore patient registration and demographic records in a local educational environment.
+      </p>
+      <div class="notice">
+        Use fictional information only. This application is for demonstrations and research.
+      </div>
+    </section>
+    <section class="panel">
+      <h2>Staff sign in</h2>
+      <p class="muted">Use a demo account initialized on this computer.</p>
+      <form method="post">
+        {% csrf_token %}{{ form.non_field_errors }}
+        {% for field in form %}
+          <div class="field">{{ field.label_tag }}{{ field }}{{ field.errors }}</div>
+        {% endfor %}
+        <input type="hidden" name="next" value="{{ next }}">
+        <button type="submit">Sign in to workspace</button>
+      </form>
+      <p class="muted small">
+        Four roles · Administrator, Physician, Nurse and FrontDesk. Contact the local operator for the demo password.
+      </p>
+    </section>
+  </div>
+{% endblock %}

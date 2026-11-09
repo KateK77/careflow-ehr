@@ -1,0 +1,32 @@
+{% extends "core/base.html" %}
+{% block title %}
+  Dashboard · CareFlow EHR
+{% endblock %}
+{% block content %}
+  <div class="eyebrow">WORKSPACE / OVERVIEW</div>
+  <h1>Patient management</h1>
+  <p class="lead">Your starting point for the synthetic clinic.</p>
+  <div class="cards">
+    <section class="panel stat">
+      <span class="muted">Registered synthetic patients</span>
+      <strong>{{ patient_count }}</strong>
+      <a href="{% url 'patient_list' %}">View patient directory →</a>
+    </section>
+    <section class="panel">
+      <h2>Registration desk</h2>
+      <p>Find an existing patient before creating a new demographic record.</p>
+      {% if can_manage_patients %}
+        <a class="button" href="{% url 'patient_create' %}">Register patient</a>
+      {% else %}
+        <span class="tag">Read-only staff access</span>
+      {% endif %}
+    </section>
+  </div>
+  <div class="panel">
+    <h2>This workspace</h2>
+    <p>Patient identity, demographic details and registration audit history are available in this phase.</p>
+    <p class="muted">
+      Appointments, clinical notes, orders and the patient portal are planned for later iterations.
+    </p>
+  </div>
+{% endblock %}

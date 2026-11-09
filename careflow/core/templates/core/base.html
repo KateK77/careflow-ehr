@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      {% block title %}
+        CareFlow EHR
+      {% endblock %}
+    </title>
+    <link rel="stylesheet" href="{% static 'core/app.css' %}">
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="topbar">
+      <a class="brand" href="{% url 'dashboard' %}">
+        <span class="brandmark">CF</span>
+        CareFlow
+        <strong>EHR</strong>
+      </a>
+      <span class="demo">DEMO — NOT FOR CLINICAL USE</span>
+      <div class="identity">
+        {% if user.is_authenticated %}
+          <strong>{{ user.get_full_name|default:user.username }}</strong>
+          <span>{{ staff_roles|join:" · "|default:"No staff role" }}</span>
+          <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button class="quiet" type="submit">Sign out</button>
+          </form>
+        {% else %}
+          <span>Research workspace</span>
+        {% endif %}
+      </div>
+    </header>
+    <div class="shell">
+      <aside class="sidebar">
+        <div class="section-label">WORKSPACE</div>
+        <nav aria-label="Main navigation">
+          <a href="{% url 'dashboard' %}">
+            <span aria-hidden="true">◫ &nbsp;</span>
+            Dashboard
+          </a>
+          <a href="{% url 'patient_list' %}">
+            <span aria-hidden="true">☷ &nbsp;</span>
+            Patients
+          </a>
+          {% if can_manage_patients %}
+            <a href="{% url 'patient_create' %}">
+              <span aria-hidden="true">＋ &nbsp;</span>
+              Register patient
+            </a>
+          {% endif %}
+        </nav>
+        <div class="sidebar-foot">
+          Synthetic clinic
+          <br>
+          Patient management · Phase 1A
+        </div>
+      </aside>
+      <main id="main" tabindex="-1">
+        {% if messages %}
+          <div aria-live="polite">
+            {% for message in messages %}
+              <div class="notice {{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+          </div>
+        {% endif %}
+        {% block content %}{% endblock %}
+        <footer>
+          Synthetic patient data only · Educational and research prototype
+        </footer>
+      </main>
+    </div>
+  </body>
+</html>

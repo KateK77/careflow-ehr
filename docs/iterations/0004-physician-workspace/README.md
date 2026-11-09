@@ -1,6 +1,8 @@
 # 0004 — Phase 2A physician workspace and SOAP documentation
 
 - [Issue #7](https://github.com/KateK77/careflow-ehr/issues/7)
+- [PR #8](https://github.com/KateK77/careflow-ehr/pull/8) — open, awaiting manual acceptance
+- [Implementation commit 63afb065](https://github.com/KateK77/careflow-ehr/commit/63afb0651de93a107eab58aafc9fbb1b2688a429)
 - Branch: `phase/0004-physician-workspace`, based on `9e04a80498303d588972394c90eb35028d766228`
 - [Approved prompt, preserved verbatim](prompt.md)
 - [Access, states and signing decision](../../decisions/0004-encounters-and-soap.md)

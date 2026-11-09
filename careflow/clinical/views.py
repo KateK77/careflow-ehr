@@ -5,6 +5,8 @@ from django.core.exceptions import PermissionDenied, ValidationError
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
+from django.db.models import Q
+from django.urls import reverse
 from django.views.decorators.http import require_http_methods, require_POST, require_safe
 
 from careflow.patients.models import AuditEvent
@@ -13,6 +15,7 @@ from .access import (can_write, charts_for, clinical_access, clinical_appointmen
 from .forms import NoteForm, SignForm, VersionForm
 from .models import ClinicalEvent, Note
 from .services import (ClinicalConflict, complete_encounter, save_note, sign_note, start_encounter)
+from careflow.history.models import AllergyState, HistoryEvent, MedicalHistory, MedicationStatement, Problem
 
 
 @require_safe
@@ -54,11 +57,28 @@ def chart(request, patient_id):
         timeline.append({"at": appointment.start_at, "label": "Appointment · " + appointment.get_status_display(),
                          "actor": appointment.physician, "appointment": appointment})
     timeline.sort(key=lambda item: item["at"], reverse=True)
+    history_events = HistoryEvent.objects.filter(patient=patient).filter(
+        Q(encounter__isnull=True) | Q(encounter__in=encounters)
+    ).select_related("audit__actor")
+    for event in history_events[:100]:
+        if event.kind == "allergy_state":
+            target = reverse("history_list", args=[patient.pk, "allergies"])
+        elif event.encounter_id:
+            target = reverse("diagnosis_detail", args=[patient.pk, event.encounter_id, event.record_id])
+        else:
+            target = reverse("history_detail", args=[patient.pk, event.kind, event.record_id])
+        timeline.append({"at": event.audit.occurred_at, "label": event.audit.action,
+                         "actor": event.audit.actor, "history_url": target})
+    timeline.sort(key=lambda item: item["at"], reverse=True)
     AuditEvent.objects.create(actor=request.user, patient=patient, action="chart_view")
     return render(request, "clinical/chart.html", {
         "patient": patient, "encounters": encounters[:50], "appointments": appointments.order_by("-start_at")[:10],
         "notes": Note.objects.filter(encounter__in=encounters).select_related("encounter", "author").order_by("-created_at")[:50],
         "timeline": timeline[:100],
+        "allergy_state": AllergyState.objects.filter(patient=patient).first(),
+        "history_count": MedicalHistory.objects.filter(patient=patient).count(),
+        "active_problems": Problem.objects.filter(patient=patient, status="active").count(),
+        "active_medications": MedicationStatement.objects.filter(patient=patient, status="active").count(),
     })
 
 

@@ -1,0 +1,24 @@
+{% extends "core/base.html" %}
+{% block title %}{{ record.label }} · {{ patient.mrn }}{% endblock %}
+{% block content %}
+{% include "clinical/header.html" %}
+<section class="panel">
+  <div class="page-heading"><h2 class="history-value">{{ record.label }}</h2><div><a href="{{ list_url }}">Return to {{ title|lower }}</a>{% if writable %} · <a href="{{ edit_url }}">Edit record</a>{% endif %}</div></div>
+  <dl>{% for label, value in values %}<dt>{{ label }}</dt><dd class="history-value">{{ value|linebreaksbr }}</dd>{% endfor %}</dl>
+  <p class="small">Original author: {{ record.author.get_full_name|default:record.author.username }} · {{ record.created_at|date:"Y-m-d H:i:s T" }}<br>Last editor: {{ record.updated_by.get_full_name|default:record.updated_by.username }} · {{ record.updated_at|date:"Y-m-d H:i:s T" }} · v{{ record.version }}</p>
+  <p>{{ record.review_status }}{% if record.reviewed_at %} · {{ record.reviewed_by.get_full_name|default:record.reviewed_by.username }} · {{ record.reviewed_at|date:"Y-m-d H:i:s T" }}{% endif %}</p>
+  {% if writable %}<form method="post" action="{{ review_url }}">{% csrf_token %}
+    <input type="hidden" name="version" value="{{ record.version }}">
+    <label><input type="checkbox" name="synthetic_confirmed" required> I reviewed this synthetic record and its provenance.</label>
+    <button type="submit">Record review</button>
+  </form>{% endif %}
+</section>
+<section class="panel"><h2>Record history</h2><p class="small muted">Latest 100 events. Synthetic before/after values are available only through clinical access.</p>
+{% for item in events %}<article class="history-event">
+  <h3>{{ item.event.audit.action }}</h3>
+  <p>{{ item.event.audit.actor.get_full_name|default:item.event.audit.actor.username }} · {{ item.event.audit.occurred_at|date:"Y-m-d H:i:s T" }}</p>
+  <details><summary>Changed fields and previous values</summary><div class="table-scroll"><table><thead><tr><th>Field</th><th>Before</th><th>After</th></tr></thead><tbody>
+  {% for name, before, after in item.changed %}<tr><td>{{ name }}</td><td class="history-value">{{ before }}</td><td class="history-value">{{ after }}</td></tr>{% endfor %}
+  </tbody></table></div></details>
+</article>{% empty %}<p>No events recorded.</p>{% endfor %}</section>
+{% endblock %}

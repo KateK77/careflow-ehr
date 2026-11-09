@@ -10,4 +10,9 @@
   <a href="{% url 'patient_chart' patient.pk %}#appointments">Appointments</a>
   <a href="{% url 'patient_chart' patient.pk %}#encounters">Encounters</a>
   <a href="{% url 'patient_chart' patient.pk %}#notes">Clinical notes</a>
+  <a href="{% url 'history_list' patient.pk 'medical' %}">Medical history</a>
+  <a href="{% url 'history_list' patient.pk 'problems' %}">Problems</a>
+  <a href="{% url 'history_list' patient.pk 'allergies' %}">Allergies</a>
+  <a href="{% url 'history_list' patient.pk 'medications' %}">Medications</a>
+  {% if encounter %}<a href="{% url 'diagnosis_list' patient.pk encounter.pk %}">Encounter diagnoses</a>{% endif %}
 </nav>

@@ -13,3 +13,5 @@
 - [Phase 1B scheduling and check-in report](iterations/0003-scheduling-checkin/README.md)
 
 - [Phase 2A physician workspace and SOAP documentation](iterations/0004-physician-workspace/README.md)
+
+- [Phase 2B clinical history v1.0](iterations/0005-clinical-history/README.md)

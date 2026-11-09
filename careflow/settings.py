@@ -19,6 +19,7 @@ INSTALLED_APPS = [
     "careflow.patients",
     "careflow.scheduling",
     "careflow.clinical",
+    "careflow.history",
 ]
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

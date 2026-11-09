@@ -17,7 +17,7 @@ Applied scheduling.0001_initial to the existing local SQLite database. A read-on
 
 ## GitHub Actions
 
-CI results will be recorded after publication. The existing workflow runs application requirements, the Django check and default Django test discovery. Optional browser tooling remains local.
+The [push run](https://github.com/KateK77/careflow-ehr/actions/runs/42574506148) and [PR run](https://github.com/KateK77/careflow-ehr/actions/runs/42574510773) passed for [implementation commit 9b8f884](https://github.com/KateK77/careflow-ehr/commit/9b8f884bef583aa338d490eb9cf4a3b9785a90b6), executing the Django system check and all 66 default tests. Later evidence-only commits use the same workflow, with current results linked from [PR #6](https://github.com/KateK77/careflow-ehr/pull/6). The existing workflow runs application requirements, the Django check and default Django test discovery. Optional browser tooling remains local.
 
 ## Acceptance and limits
 

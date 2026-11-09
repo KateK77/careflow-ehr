@@ -2,6 +2,8 @@
 
 - [Issue #5](https://github.com/KateK77/careflow-ehr/issues/5)
 - Branch: `phase/0003-scheduling-checkin`, from `030761a09b7257fdf1c9215c917d4cf604f1791c`
+- [Implementation commit 9b8f884](https://github.com/KateK77/careflow-ehr/commit/9b8f884bef583aa338d490eb9cf4a3b9785a90b6)
+- [PR #6](https://github.com/KateK77/careflow-ehr/pull/6)
 - [Approved prompt](prompt.md), [verification](verification.md), [feedback](feedback.md)
 - [Architecture decision and states](../../decisions/0003-scheduling-and-checkin.md)
 - Requirements baseline v1.0, S05, scheduling context in S06 and W06

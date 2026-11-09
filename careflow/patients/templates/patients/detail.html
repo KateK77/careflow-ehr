@@ -85,4 +85,11 @@
       {% endfor %}
     </ul>
   </section>
+  <section class="panel">
+    <div class="page-heading">
+      <div><h2>Latest appointment updates</h2><p class="small muted">Latest 10 updates within your scheduling access.</p></div>
+      {% if can_manage_patients %}<a class="button" href="{% url 'appointment_create' %}?patient={{ patient.pk }}">Schedule appointment</a>{% endif %}
+    </div>
+    {% include "scheduling/appointment_table.html" %}
+  </section>
 {% endblock %}

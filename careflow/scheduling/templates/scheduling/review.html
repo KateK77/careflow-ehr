@@ -1,0 +1,50 @@
+{% extends "core/base.html" %}
+{% block title %}
+  Review appointment · CareFlow EHR
+{% endblock %}
+{% block content %}
+  <div class="eyebrow">SCHEDULING / CONFIRMATION</div>
+  <h1>Review appointment</h1>
+  <section class="panel">
+    <dl>
+      <dt>Patient</dt>
+      <dd>
+        {{ data.patient }} · {{ data.patient.mrn }}
+      </dd>
+      <dt>Physician</dt>
+      <dd>
+        {{ data.physician.get_full_name|default:data.physician.username }}
+      </dd>
+      <dt>Clinic-local start</dt>
+      <dd>
+        {{ data.start_at|date:"D, d M Y H:i T" }} · {{ clinic_zone }}
+      </dd>
+      <dt>Duration</dt>
+      <dd>
+        {{ data.duration }} minutes
+      </dd>
+      <dt>Appointment type</dt>
+      <dd>
+        {{ data.appointment_type }}
+      </dd>
+      <dt>Synthetic reason</dt>
+      <dd>
+        {{ data.reason|default:"Not provided" }}
+      </dd>
+    </dl>
+    <p class="notice">
+      Confirm the patient, physician and time. Availability is checked again when you confirm.
+    </p>
+    <form method="post">
+      {% csrf_token %}
+      {% for field in form %}
+        {{ field.as_hidden }}
+      {% endfor %}
+      <input type="hidden" name="review_token" value="{{ review_token }}">
+      <div class="form-actions">
+        <button type="submit" name="action" value="confirm">Confirm appointment</button>
+        <button type="submit" name="action" value="edit" class="quiet">Back to editing</button>
+      </div>
+    </form>
+  </section>
+{% endblock %}

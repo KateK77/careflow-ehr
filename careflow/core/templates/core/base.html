@@ -45,6 +45,8 @@
             <span aria-hidden="true">☷ &nbsp;</span>
             Patients
           </a>
+          <a href="{% url 'schedule' %}">Schedule</a>
+          <a href="{% url 'checkin_worklist' %}">Patient check-in</a>
           {% if can_manage_patients %}
             <a href="{% url 'patient_create' %}">
               <span aria-hidden="true">＋ &nbsp;</span>
@@ -55,7 +57,7 @@
         <div class="sidebar-foot">
           Synthetic clinic
           <br>
-          Patient management · Phase 1A
+          Patient access &amp; scheduling
         </div>
       </aside>
       <main id="main" tabindex="-1">

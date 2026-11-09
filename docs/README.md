@@ -10,3 +10,4 @@
 - [Documentation language policy v1.0](policies/language/v1.0/README.md)
 - [English requirements baseline v1.0](requirements/v1.0-en/README.md)
 - [Language-policy implementation and verification](iterations/0002-patient-registration/language-policy.md)
+- [Phase 1B scheduling and check-in report](iterations/0003-scheduling-checkin/README.md)

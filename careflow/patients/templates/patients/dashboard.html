@@ -24,9 +24,10 @@
   </div>
   <div class="panel">
     <h2>This workspace</h2>
+    <p><a href="{% url 'schedule' %}">Open physician schedules</a> · <a href="{% url 'checkin_worklist' %}">Open check-in worklist</a></p>
     <p>Patient identity, demographic details and registration audit history are available in this phase.</p>
     <p class="muted">
-      Appointments, clinical notes, orders and the patient portal are planned for later iterations.
+      Clinical notes, orders and the patient portal are planned for later iterations.
     </p>
   </div>
 {% endblock %}

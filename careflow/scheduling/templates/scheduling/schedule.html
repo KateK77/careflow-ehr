@@ -1,0 +1,116 @@
+{% extends "core/base.html" %}
+{% block title %}
+  {% if checkin %}
+    Check-in
+  {% else %}
+    Schedule
+  {% endif %}
+  · CareFlow EHR
+{% endblock %}
+{% block content %}
+  <div class="eyebrow">
+    OUTPATIENT /
+    {% if checkin %}
+      FRONT DESK
+    {% else %}
+      PHYSICIAN SCHEDULE
+    {% endif %}
+  </div>
+  <div class="page-heading">
+    <div>
+      <h1>
+        {% if checkin %}
+          Patient check-in
+        {% else %}
+          Appointments
+        {% endif %}
+      </h1>
+      <p class="muted">
+        Clinic time zone · {{ clinic_zone }} · {{ appointments|length }} appointment{{ appointments|length|pluralize }}
+      </p>
+    </div>
+    {% if can_manage_patients %}
+      <a class="button" href="{% url 'appointment_create' %}">New appointment</a>
+    {% endif %}
+  </div>
+  <section class="panel">
+    <form method="get" class="filters">
+      {{ filter_form.non_field_errors }}
+      {% for field in filter_form %}
+        {% if not checkin or field.name != "view" %}
+          <div class="field {% if field.name == 'q' %}grow{% endif %}">
+            {{ field.label_tag }}{{ field }}{{ field.errors }}
+          </div>
+        {% endif %}
+      {% endfor %}
+      <button type="submit">Apply filters</button>
+      <a href="{% if checkin %}{% url 'checkin_worklist' %}{% else %}{% url 'schedule' %}{% endif %}">
+        Reset
+      </a>
+    </form>
+    <nav class="pagination schedule-period" aria-label="Schedule dates">
+      <a href="?date={{ previous_date|date:'Y-m-d' }}&amp;view={{ mode }}&amp;physician={{ physician_filter.pk|default:'' }}&amp;q={{ query|urlencode }}">
+        ← Previous
+      </a>
+      <strong>{{ selected_date|date:"D, d M Y" }} · {{ mode|capfirst }} view</strong>
+      <a href="?date={{ next_date|date:'Y-m-d' }}&amp;view={{ mode }}&amp;physician={{ physician_filter.pk|default:'' }}&amp;q={{ query|urlencode }}">
+        Next →
+      </a>
+    </nav>
+    {% if not checkin %}
+      <div class="calendar-scroll"
+           tabindex="0"
+           role="region"
+           aria-label="Scrollable appointment calendar">
+        <table class="calendar">
+          <caption class="sr-only">
+            Clinic-local appointment start slots. Open a booking for its full time interval.
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col">Local time</th>
+              {% for column in columns %}
+                <th scope="col">{{ column.label }}</th>
+              {% endfor %}
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in rows %}
+              <tr>
+                <th scope="row">{{ row.label }}</th>
+                {% for cell in row.cells %}
+                  <td>
+                    {% for item in cell.appointments %}
+                      <a class="calendar-booking state-{{ item.status }}"
+                         href="{% url 'appointment_detail' item.pk %}">
+                        <strong>
+                          {{ item.start_at|date:"d M H:i T" }}–{{ item.end_at|date:"d M H:i T" }}
+                        </strong>
+                        <span>{{ item.patient }} · {{ item.patient.mrn }}</span>
+                        <span>{{ item.physician.get_full_name|default:item.physician.username }}</span>
+                        <span>{{ item.appointment_type }} · {{ item.get_status_display }}</span>
+                      </a>
+                    {% endfor %}
+                  </td>
+                {% endfor %}
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <p class="small muted">
+        Bookings appear in their start-hour slot. A booking crossing midnight also appears on the following day. Full start and end times are shown on every booking.
+      </p>
+    {% endif %}
+  </section>
+  <section class="panel">
+    <h2>
+      {% if checkin %}
+        Arrivals worklist
+      {% else %}
+        Appointment agenda
+      {% endif %}
+    </h2>
+    {% include "scheduling/appointment_table.html" %}
+  </section>
+{% endblock %}

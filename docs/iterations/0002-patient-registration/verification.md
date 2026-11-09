@@ -36,3 +36,7 @@ The five user-supplied UI/UX groups UX-01–UX-05 are future, non-blocking enhan
 The documentation check verified all 10 user-reported acceptance rows, all five future UX groups, English text and nine relative links. SHA-256 checks confirmed that the 66 existing tracked files outside the three updated acceptance documents were preserved, including application code, historical sources and the English language policy. The staged diff is limited to README.md, feedback.md, verification.md and the new verbatim acceptance-request.md within this iteration directory. Whitespace checks passed.
 
 Local application tests were not rerun for this documentation-only change. Earlier automated results remain identified as historical evidence, and the GitHub workflow will execute the existing application checks on the published commit.
+
+## Acceptance follow-up CI evidence
+
+The [push run](https://github.com/KateK77/careflow-ehr/actions/runs/42567728171) and [pull request run](https://github.com/KateK77/careflow-ehr/actions/runs/42567734273) passed for [acceptance documentation commit 6ca234b](https://github.com/KateK77/careflow-ehr/commit/6ca234bfecc29778b483eb8ede88e13db191a6d2). Both ran the Django system check and the existing 34 automated tests. These are automated results, distinct from UAT-01–UAT-10 reported by the user. The subsequent evidence-only commit is checked by the same workflow; its latest runs are linked from [PR #4](https://github.com/KateK77/careflow-ehr/pull/4).

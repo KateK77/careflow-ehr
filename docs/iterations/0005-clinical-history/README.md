@@ -1,6 +1,8 @@
 # Iteration 0005 — Phase 2B clinical history v1.0
 
 - [Issue #9](https://github.com/KateK77/careflow-ehr/issues/9)
+- [Stacked PR #10](https://github.com/KateK77/careflow-ehr/pull/10) — open, targeting the Phase 2A branch
+- [Implementation commit bd44d22e](https://github.com/KateK77/careflow-ehr/commit/bd44d22e3942fd36f5431efe95a978b55436d226)
 - Branch: `phase/0005-clinical-history`
 - Base: `phase/0004-physician-workspace` at `eff5a2b94891e5deae8304ac2e9036c6dc8eaf43`
 - PR is stacked on Phase 2A, never directly on main. Phase 2A PR #8 remains open.

@@ -27,6 +27,6 @@ Initial form tests exposed date validation attempting to dereference an excluded
 
 ## CI and acceptance boundaries
 
-The stacked PR must target phase/0004-physician-workspace. Push/PR CI results are checked after publication and linked from the PR and final handoff. CI runs system checks, migration consistency and the default regression suite; optional Chromium dependencies are local only.
+The stacked PR must target phase/0004-physician-workspace. The [push run](https://github.com/KateK77/careflow-ehr/actions/runs/42722660536) and [PR run](https://github.com/KateK77/careflow-ehr/actions/runs/42722722654) passed for [implementation commit bd44d22e](https://github.com/KateK77/careflow-ehr/commit/bd44d22e3942fd36f5431efe95a978b55436d226), including all 126 tests, system checks and migration consistency. The evidence-only follow-up uses the same workflow; latest checks are linked from [stacked PR #10](https://github.com/KateK77/careflow-ehr/pull/10). CI runs system checks, migration consistency and the default regression suite; optional Chromium dependencies are local only.
 
 Neither Phase 2A nor Phase 2B has passed manual UAT. The [acceptance guide](acceptance.md) remains pending. No claim is made for comprehensive security testing, database-operator immutability, real clinical terminology, automated medication/allergy safety checking, production concurrency, deployment or clinical readiness.

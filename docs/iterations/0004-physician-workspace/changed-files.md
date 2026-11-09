@@ -43,3 +43,11 @@ New clinical app files implement models/migrations, policies/services, forms, sc
 - `docs/iterations/0004-physician-workspace/prompt.md`
 - `docs/iterations/0004-physician-workspace/verification.md`
 - `docs/roadmap.md`
+
+## Autonomous review follow-up files
+
+- `careflow/clinical/views.py`: local-day overlap filtering, bounded date validation and read-only redirect for already signed note previews.
+- `careflow/clinical/tests.py`: four regression cases.
+- `docs/iterations/0004-physician-workspace/autonomy-prompt.md`: continuation instruction preserved separately from the original prompt.
+- `docs/iterations/0004-physician-workspace/autonomous-review.md`: reproduction, decisions, permission inspection and outstanding manual checks.
+- Current iteration README, feedback, verification and acceptance records: continuation evidence and pending review.

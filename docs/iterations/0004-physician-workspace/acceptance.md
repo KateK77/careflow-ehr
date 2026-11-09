@@ -32,3 +32,7 @@ The migration is already applied on this computer; repeating migrate is safe. Ke
 - FrontDesk: registration/scheduling continues; direct chart, encounter and note requests denied, without clinical text leakage.
 
 Record actual pass/fail observations, account role, expected/actual results and non-sensitive reproduction steps in feedback.md. Do not enter real patient information. Existing default tests and optional developer browser checks are separate evidence.
+
+## Follow-up checks after autonomous review
+
+Manual acceptance remains postponed. When testing resumes, verify that a synthetic appointment spanning clinic-local midnight appears on both applicable worklist dates, and an appointment ending exactly at midnight is absent on the next date. Reopen a signed note's saved signing-preview URL: it should return to the read-only encounter. Check that repeated signing POST requests still fail without changing signed content. These are proposed manual checks, not completed observations.

@@ -100,6 +100,36 @@ class ClinicalTests(TestCase):
     def test_invalid_workspace_date(self):
         self.assertContains(self.client.get(reverse("physician_workspace"), {"date": "invalid"}), "Enter a valid date")
 
+    def test_workspace_includes_cross_midnight_appointments_on_both_dates(self):
+        from datetime import datetime, time
+        today = timezone.localdate()
+        midnight = timezone.make_aware(datetime.combine(today, time.min))
+        Appointment.objects.filter(pk=self.appointment.pk).update(
+            start_at=midnight - timedelta(minutes=15), end_at=midnight + timedelta(minutes=15))
+        for day in [today - timedelta(days=1), today]:
+            response = self.client.get(reverse("physician_workspace"), {"date": day.isoformat()})
+            self.assertContains(response, self.patient.mrn)
+
+    def test_signing_preview_does_not_offer_resigning_signed_note(self):
+        note = self.note()
+        sign_note(self.physician, note.pk, 1, True)
+        response = self.client.get(self.url("note_sign", note.encounter, note.pk))
+        self.assertRedirects(response, self.url("encounter_detail", note.encounter))
+
+    def test_workspace_excludes_appointments_ending_at_day_boundary(self):
+        from datetime import datetime, time
+        today = timezone.localdate()
+        midnight = timezone.make_aware(datetime.combine(today, time.min))
+        Appointment.objects.filter(pk=self.appointment.pk).update(
+            start_at=midnight - timedelta(minutes=30), end_at=midnight)
+        response = self.client.get(reverse("physician_workspace"), {"date": today.isoformat()})
+        self.assertNotContains(response, self.patient.mrn)
+
+    def test_workspace_rejects_dates_outside_calendar_range(self):
+        for day in ["0001-01-01", "9999-12-31"]:
+            self.assertContains(self.client.get(reverse("physician_workspace"), {"date": day}),
+                                "Enter a valid date between 1900 and 2100")
+
     def test_explicit_start_preserves_appointment(self):
         before = Appointment.objects.values().get(pk=self.appointment.pk)
         self.assertFalse(Encounter.objects.exists())

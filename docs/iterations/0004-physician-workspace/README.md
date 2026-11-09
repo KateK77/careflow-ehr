@@ -28,3 +28,7 @@ This is a local, single-clinic synthetic demonstration. Assignment derives from 
 Direct SQL and bulk ORM updates can bypass service controls, including signed-content protection. No database-level audit immutability, comprehensive security test, production readiness, PostgreSQL validation or clinical safety certification is claimed. Browser checks cover a primary workflow and responsive dimensions, not a full accessibility audit.
 
 Prior Phase 1A/1B UX feedback remains deferred. Medications, allergies, problems, laboratory, imaging, nursing, prescribing, billing, AI and deployment are excluded. Do not merge or begin Phase 2B until separately approved. User manual acceptance is pending.
+
+## Autonomous review continuation
+
+Manual acceptance is postponed under the [approved continuation instruction](autonomy-prompt.md). [Review report](autonomous-review.md) records two reproduced defects, their corrections, four regression tests, permission recommendations and the remaining manual checks. Local default tests now total 99; optional Chromium workflows remain three. No migration or existing-record changes are part of this follow-up. PR #8 remains unmerged.

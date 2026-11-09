@@ -26,3 +26,7 @@ These are developer-run automated results, not user-reported manual acceptance. 
 ## GitHub Actions
 
 The [push run](https://github.com/KateK77/careflow-ehr/actions/runs/42582821990) and [PR run](https://github.com/KateK77/careflow-ehr/actions/runs/42585485568) passed for [implementation commit 63afb065](https://github.com/KateK77/careflow-ehr/commit/63afb0651de93a107eab58aafc9fbb1b2688a429). CI executed Django checks, all 95 default tests and migration consistency. The evidence-only follow-up uses the same workflow; latest checks are visible on [PR #8](https://github.com/KateK77/careflow-ehr/pull/8). User manual acceptance remains pending; PR remains open.
+
+## Autonomous review follow-up — 2026-11-09
+
+See [review findings and permission inspection](autonomous-review.md). Two targeted reproduction tests failed against the previous implementation before corrections. Final `python manage.py check` passed; `makemigrations --check --dry-run` reported no changes. The complete default suite passed **99 tests** (previous 95 plus four regression cases). The combined clinical, scheduling and patient Chromium suite passed all **three workflows**. No migration or local database modification was performed in this follow-up. Historical source hashes and the review baseline database hash are checked before publication. Manual UAT remains postponed, with no new user acceptance observations. CI for the follow-up commit is verified separately after publication and linked from PR #8.

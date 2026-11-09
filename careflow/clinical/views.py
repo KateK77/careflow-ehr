@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, datetime, time, timedelta
 
 from django.contrib import messages
 from django.core.exceptions import PermissionDenied, ValidationError
@@ -23,9 +23,14 @@ def workspace(request):
     if request.GET.get("date"):
         try:
             selected = date.fromisoformat(request.GET["date"])
+            if not 1900 <= selected.year <= 2100:
+                raise ValueError
         except ValueError:
-            error = "Enter a valid date (YYYY-MM-DD)."
-    appointments = clinical_appointments_for(request.user).filter(start_at__date=selected)
+            selected = timezone.localdate()
+            error = "Enter a valid date between 1900 and 2100 (YYYY-MM-DD)."
+    start = timezone.make_aware(datetime.combine(selected, time.min))
+    end = timezone.make_aware(datetime.combine(selected + timedelta(days=1), time.min))
+    appointments = clinical_appointments_for(request.user).filter(start_at__lt=end, end_at__gt=start)
     return render(request, "clinical/workspace.html", {
         "appointments": appointments, "selected": selected, "filter_error": error,
         "encounters": Paginator(encounters_for(request.user), 25).get_page(request.GET.get("page")),
@@ -146,6 +151,8 @@ def note_sign(request, patient_id, encounter_id, note_id):
     note = get_object_or_404(Note, pk=note_id, encounter=encounter)
     if not can_write(request.user, encounter.physician_id) or note.author_id != request.user.pk:
         raise PermissionDenied
+    if request.method == "GET" and (note.signed_at or encounter.status != "in_progress"):
+        return redirect("encounter_detail", patient_id, encounter_id)
     form = SignForm(request.POST or None, initial={"version": note.version})
     status = 200
     if request.method == "POST":

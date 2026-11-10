@@ -21,3 +21,9 @@
 - Added physician workspace, authorized longitudinal charts and explicit encounters from arrived appointments.
 - Added persistent SOAP drafts, confirmed signing, signed-content protection and transactional clinical history.
 - Added role/ownership/isolation tests and migration consistency to CI. Preserved local patient and appointment records through additive migrations.
+
+## Phase 2B — pending acceptance (stacked on Phase 2A)
+
+- Added longitudinal medical/surgical/family/social history, problem list, allergy assessment/entries, medication statements and encounter diagnoses.
+- Added persisted reviews, before/after audit history, optimistic versions, role/context checks and consistent allergy summary transitions.
+- Added one additive migration, 27 regression/concurrency tests and an isolated browser workflow. Existing clinical records and signed notes are preserved.

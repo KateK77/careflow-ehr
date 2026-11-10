@@ -1,0 +1,36 @@
+{% extends "core/base.html" %}
+{% block title %}{{ title }} · {{ patient.mrn }}{% endblock %}
+{% block content %}
+{% include "clinical/header.html" %}
+<section class="panel">
+  <div class="page-heading">
+    <div><h2>{{ title }}</h2><p class="muted">Persisted synthetic records. Inactive, resolved and historical records remain visible.</p></div>
+    {% if writable %}<a class="button" href="{{ create_url }}">Add {{ title|lower }}</a>{% endif %}
+  </div>
+  {% if kind == 'medications' %}<p class="notice">Medication statements only — no prescribing, dispensing or administration.</p>{% endif %}
+  {% if not writable %}<p class="small muted">Read-only in your current role and treatment context.</p>{% endif %}
+  {% if kind == 'allergies' %}
+    <section class="allergy-assessment" aria-label="Allergy assessment">
+      <h3>Allergy assessment: {{ allergy_state.get_status_display|default:"Not reviewed" }}</h3>
+      <p>{% if allergy_state.reviewed_at %}Reviewed by {{ allergy_state.reviewed_by.get_full_name|default:allergy_state.reviewed_by.username }} · {{ allergy_state.reviewed_at|date:"Y-m-d H:i:s T" }}{% else %}No current summary review recorded. Missing records do not mean no known allergies.{% endif %}</p>
+      {% if writable %}<form method="post" action="{% url 'allergy_state_review' patient.pk %}">
+        {% csrf_token %}{{ state_form.as_p }}<button type="submit">Record allergy assessment</button>
+      </form>{% endif %}
+    </section>
+  {% endif %}
+  <div class="table-scroll"><table class="clinical-table">
+    <thead><tr><th>Record</th><th>Clinical state / category</th><th>Source / review / last update</th><th>Actions</th></tr></thead>
+    <tbody>{% for row in rows %}<tr>
+      <td class="history-value patient-cell">{{ row.record.label }}{% if row.record.code %}<br><span class="small">Mock code: {{ row.record.code }}</span>{% endif %}</td>
+      <td>{{ row.record.get_status_display }}{{ row.record.get_category_display }}{{ row.record.get_rank_display }}{% if row.record.verification %}<br>{{ row.record.get_verification_display }} · {{ row.record.get_severity_display }}{% endif %}</td>
+      <td>{{ row.record.get_source_display }} · {{ row.record.review_status }}<br>{{ row.record.updated_at|date:"Y-m-d H:i T" }}<br>{{ row.record.updated_by.get_full_name|default:row.record.updated_by.username }}</td>
+      <td><a href="{{ row.detail_url }}">View record</a>{% if writable %} · <a href="{{ row.edit_url }}">Edit</a>{% endif %}</td>
+    </tr>{% empty %}<tr><td colspan="4">No {{ title|lower }} recorded. This does not establish absence of clinical history.</td></tr>{% endfor %}</tbody>
+  </table></div>
+  <nav aria-label="Record pages">
+    {% if page.has_previous %}<a href="?page={{ page.previous_page_number }}">Previous</a>{% endif %}
+    Page {{ page.number }} of {{ page.paginator.num_pages }}
+    {% if page.has_next %}<a href="?page={{ page.next_page_number }}">Next</a>{% endif %}
+  </nav>
+</section>
+{% endblock %}

@@ -626,3 +626,8 @@ footer {
 .soap-form .field { margin-bottom:1rem; }
 .chart-nav a:focus-visible, .clinical-grid a:focus-visible { outline:3px solid #137d86; outline-offset:3px; }
 @media(max-width:900px) { .clinical-grid { grid-template-columns:minmax(0,1fr); } .patient-banner { gap:.75rem; } }
+
+/* Longitudinal record values and synthetic revision history. */
+.history-value { overflow-wrap:anywhere; white-space:normal; max-width:36rem; }
+.history-event { padding:.75rem 0; border-bottom:1px solid var(--line); }
+.allergy-assessment { padding:1rem; margin-bottom:1rem; background:#edf4f7; border-left:4px solid var(--accent); }

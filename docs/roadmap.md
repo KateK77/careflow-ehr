@@ -25,3 +25,7 @@ The approved scheduling increment follows merged Phase 1A and is tracked in Issu
 ## Approved Phase 2A increment
 
 Physician workspace, scoped patient chart, explicit encounters and SOAP drafts/signing are implemented for review in [iteration 0004](iterations/0004-physician-workspace/README.md). Manual acceptance is pending. Full clinical modules and Phase 2B remain outside the approved increment.
+
+## Approved Phase 2B stacked increment
+
+[Iteration 0005](iterations/0005-clinical-history/README.md) implements longitudinal medical history, problems, allergies, medication statements and encounter diagnoses on the Phase 2A branch. The user approved proceeding before Phase 2A manual UAT. Both phases remain pending user acceptance; no Phase 3 is authorized.

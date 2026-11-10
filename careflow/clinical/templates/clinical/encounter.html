@@ -6,7 +6,7 @@
 <div class="clinical-grid"><div>
 <section class="panel"><h2>Encounter #{{ encounter.pk }}</h2><p>{{ encounter.physician.get_full_name|default:encounter.physician.username }} · Started {{ encounter.started_at|date:"Y-m-d H:i:s T" }} · v{{ encounter.version }}</p>
 {% if encounter.completed_at %}<p>Completed {{ encounter.completed_at|date:"Y-m-d H:i:s T" }}</p>{% endif %}
-<p><a href="{% url 'appointment_detail' encounter.appointment_id %}">Appointment #{{ encounter.appointment_id }}</a> · {{ encounter.appointment.get_status_display }} · Check-in {{ encounter.appointment.checked_in_at|date:"Y-m-d H:i:s T" }} by {{ encounter.appointment.checked_in_by.get_full_name|default:encounter.appointment.checked_in_by.username }}</p>
+<p><a href="{% url 'appointment_detail' encounter.appointment_id %}">Appointment #{{ encounter.appointment_id }}</a> · {{ encounter.appointment.get_status_display }} · Check-in {{ encounter.appointment.checked_in_at|date:"Y-m-d H:i:s T"|default:"Not recorded" }}{% if encounter.appointment.checked_in_by %} by {{ encounter.appointment.checked_in_by.get_full_name|default:encounter.appointment.checked_in_by.username }}{% else %} · Recorder not recorded{% endif %}</p>
 {% if editable %}<div class="form-actions">
 {% if not note.signed_at %}<a class="button" href="{% url 'note_edit' patient.pk encounter.pk %}">{% if note %}Edit SOAP draft{% else %}Create SOAP draft{% endif %}</a>{% endif %}
 {% if note and not note.signed_at %}<a class="button" href="{% url 'note_sign' patient.pk encounter.pk note.pk %}">Review and sign</a>{% endif %}

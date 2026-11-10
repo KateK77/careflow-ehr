@@ -1,0 +1,2 @@
+{% extends "core/base.html" %}
+{% block content %}{% include "clinical/header.html" %}<section class="panel"><h2>Action not completed</h2>{% include "core/form_errors.html" %}<form method="post" action="{{ retry_url }}">{% csrf_token %}{{ form.as_p }}<button type="submit">Retry action</button></form><p>Your saved records were not changed.</p><a href="{{ return_url }}">Return and reload the record</a></section>{% endblock %}

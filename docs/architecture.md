@@ -24,3 +24,7 @@ The scheduling app owns appointments, provider serialization rows and appointmen
 ## Phase 2A clinical increment
 
 The clinical app adds encounters, structured SOAP notes and clinical events linked to existing audits. Scoped clinical access is separate from demographic/scheduling access. Shared provider locks serialize clinical start/completion/signing with scheduling transitions. See [ADR 0004](decisions/0004-encounters-and-soap.md) and the [iteration record](iterations/0004-physician-workspace/README.md).
+
+## Phase 2B longitudinal history increment
+
+The history app owns medical history, problems, allergies, medication statements, encounter diagnoses, allergy assessments and versioned history events. Patient serialization coordinates longitudinal writes; diagnosis edits also share the clinical provider lock. See [ADR 0005](decisions/0005-clinical-history.md) and [iteration 0005](iterations/0005-clinical-history/README.md). Signed SOAP notes remain unchanged by history updates.

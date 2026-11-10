@@ -1,3 +1,4 @@
+from careflow.labs.presentation import chart_context as laboratory_chart_context
 from datetime import date, datetime, time, timedelta
 
 from django.contrib import messages
@@ -80,9 +81,16 @@ def chart(request, patient_id):
                                                  event.assessment_id or event.observation_id])
         timeline.append({"at": event.audit.occurred_at, "label": event.audit.action,
                          "actor": event.audit.actor, "history_url": target})
+    from careflow.labs.access import publications_for
+    from careflow.labs.models import LabEvent
+    lab_events=LabEvent.objects.filter(order__patient=patient,order__in=publications_for(request.user)).select_related("audit__actor","order")
+    for event in lab_events[:100]:
+        # Timeline exposes event metadata only, never report values, reasons or review comments.
+        timeline.append({"at":event.audit.occurred_at,"label":event.audit.action,"actor":event.audit.actor,"history_url":reverse("lab_report_detail",args=[event.order.public_id])})
     timeline.sort(key=lambda item: item["at"], reverse=True)
     return render(request, "clinical/chart.html", {
         **nursing_chart_context(request.user, patient),
+        **laboratory_chart_context(request.user, patient),
         "patient": patient, "encounters": encounters[:50], "appointments": appointments.order_by("-start_at")[:10],
         "notes": Note.objects.filter(encounter__in=encounters).select_related("encounter", "author").order_by("-created_at")[:50],
         "timeline": timeline[:100],
@@ -126,6 +134,7 @@ def encounter_detail(request, patient_id, encounter_id):
     AuditEvent.objects.create(actor=request.user, patient=encounter.patient, action="encounter_view")
     return render(request, "clinical/encounter.html", {
         **nursing_chart_context(request.user, encounter.patient, encounter.appointment_id),
+        **laboratory_chart_context(request.user, encounter.patient, encounter),
         "patient": encounter.patient, "encounter": encounter,
         "note": Note.objects.filter(encounter=encounter).first(),
         "editable": can_write(request.user, encounter.physician_id) and encounter.status == "in_progress",

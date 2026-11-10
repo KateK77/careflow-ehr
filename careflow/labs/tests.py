@@ -257,7 +257,7 @@ class LaboratoryTests(LabFixture, TestCase):
         self.client.logout(); self.assertEqual(self.client.get(reverse('lab_catalog')).status_code,302)
         self.physician.is_active=False; self.physician.save()
         with self.assertRaises(PermissionDenied): self.submit(order)
-        self.assertEqual(self.client.get('/app/lab/results/').status_code,404)
+        self.assertEqual(self.client.get('/app/lab/results/').status_code,302)  # Approved 3B-3 route now exists; anonymous access still requires login.
 
     def test_context_and_published_content_model_guards(self):
         order=self.draft(); order.patient=self.foreign

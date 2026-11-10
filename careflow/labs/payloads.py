@@ -51,3 +51,15 @@ def validate_payload(order,specimen,payload,complete=False):
     except (ValueError,TypeError,KeyError,AttributeError,ValidationError):
         raise ValidationError("Invalid report snapshot: use the frozen panel, unique typed components, exact demo units and bounded decimal strings; publication requires every required component or an explicit not-performed reason.") from None
     return payload
+
+
+def withdrawal_payload(order, predecessor, code, reason):
+    return {"schema_version":1,"kind":"withdrawal","context":{"order_id":str(order.public_id),"specimen_id":str(predecessor.specimen.accession)},"catalog":{"code":order.catalog_snapshot["code"],"revision":order.catalog_snapshot["revision"]},"target_revision":predecessor.revision,"reason_code":code,"reason":reason}
+
+
+def validate_withdrawal(result):
+    if result.schema_version!=1 or result.status!="withdrawn" or not result.supersedes_id or result.performed_at or result.reason_code not in {"report_error","context_error"} or not 1<=len(result.reason.strip())<=1000:
+        raise ValidationError("Invalid withdrawal notice metadata.")
+    expected=withdrawal_payload(result.order,result.supersedes,result.reason_code,result.reason)
+    if result.payload!=expected or type(result.payload.get('schema_version')) is not int or type(result.payload.get('target_revision')) is not int:
+        raise ValidationError("Withdrawal notices must preserve exact target context and cannot contain result values.")

@@ -1,0 +1,46 @@
+# Changed files — Phase 3B-3
+
+- `README.md`
+- `careflow/clinical/templates/clinical/chart.html`
+- `careflow/clinical/templates/clinical/encounter.html`
+- `careflow/clinical/views.py`
+- `careflow/core/templates/core/base.html`
+- `careflow/labs/access.py`
+- `careflow/labs/forms.py`
+- `careflow/labs/integration_browser_tests.py`
+- `careflow/labs/management/commands/grant_lab_preview_permissions.py`
+- `careflow/labs/migrations/0003_labresultreview_labreviewassignment_and_more.py`
+- `careflow/labs/migrations/0004_labevent_system_source_alter_labevent_command_actor_and_more.py`
+- `careflow/labs/migrations/0005_labevent_lab_event_receipt_provenance_and_more.py`
+- `careflow/labs/models.py`
+- `careflow/labs/payloads.py`
+- `careflow/labs/presentation.py`
+- `careflow/labs/processing.py`
+- `careflow/labs/processing_views.py`
+- `careflow/labs/review.py`
+- `careflow/labs/review_views.py`
+- `careflow/labs/services.py`
+- `careflow/labs/templates/labs/chart_summary.html`
+- `careflow/labs/templates/labs/detail.html`
+- `careflow/labs/templates/labs/history.html`
+- `careflow/labs/templates/labs/processing_detail.html`
+- `careflow/labs/templates/labs/report_detail.html`
+- `careflow/labs/templates/labs/report_rows.html`
+- `careflow/labs/templates/labs/results_worklist.html`
+- `careflow/labs/templates/labs/review_form.html`
+- `careflow/labs/test_migration_review.py`
+- `careflow/labs/test_provisioning.py`
+- `careflow/labs/test_review.py`
+- `careflow/labs/tests.py`
+- `careflow/labs/urls.py`
+- `careflow/labs/views.py`
+- `docs/decisions/0008-laboratory-processing-and-review.md`
+- `docs/iterations/0009-lab-review-integration/README.md`
+- `docs/iterations/0009-lab-review-integration/acceptance.md`
+- `docs/iterations/0009-lab-review-integration/changed-files.md`
+- `docs/iterations/0009-lab-review-integration/feedback.md`
+- `docs/iterations/0009-lab-review-integration/prompt.md`
+- `docs/iterations/0009-lab-review-integration/requirements.md`
+- `docs/iterations/0009-lab-review-integration/verification.md`
+
+Clinical integration changes add lab projections/navigation only. All domain writes remain in labs, except linked append-only AuditEvent and explicit preview-only auth provisioning. No existing clinical model/service or historical iteration document was changed.

@@ -16,4 +16,5 @@
 {% include "nursing/chart_summary.html" %}
 {% if note %}{% include "clinical/soap.html" %}{% else %}<section class="panel"><h2>Documentation</h2><p>No SOAP note has been created.</p></section>{% endif %}
 </div><aside class="panel timeline"><h2>Encounter history</h2><ul class="activity">{% for event in events %}<li><strong>{{ event.audit.action|event_label }}</strong><br>{{ event.audit.actor.get_full_name|default:event.audit.actor.username }}<br>{{ event.audit.occurred_at|date:"Y-m-d H:i:s T" }}<br><span class="small">Fields: {{ event.audit.changed_fields|field_labels|join:", " }}</span></li>{% endfor %}</ul></aside></div>
+{% include 'labs/chart_summary.html' %}
 {% endblock %}

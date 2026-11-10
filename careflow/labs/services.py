@@ -77,14 +77,14 @@ def _snapshot(record):
     return json.loads(json.dumps({f.name: f.value_from_object(record) for f in record._meta.fields}, default=str))
 
 
-def _event(actor, key, fingerprint, action, record, before, specimen=None, result=None, extra=None):
+def _event(actor, key, fingerprint, action, record, before, specimen=None, result=None, extra=None, review_assignment=None, review=None):
     is_order = isinstance(record, LabOrder)
     after = _snapshot(record)
     changed = [k for k, v in after.items() if before.get(k) != v]
     audit = AuditEvent.objects.create(actor=actor, patient_id=record.patient_id if is_order else None,
                                       action=action, changed_fields=changed + (["pending_specimen"] if specimen else []))
     LabEvent.objects.create(order=record if is_order else None, catalog=None if is_order else record,
-        specimen=specimen, result=result, audit=audit, command_actor=actor, command_key=key, request_fingerprint=fingerprint,
+        specimen=specimen, result=result, review_assignment=review_assignment, review=review, audit=audit, command_actor=actor, command_key=key, request_fingerprint=fingerprint,
         before=before, after={**after, **({"specimen": _snapshot(specimen)} if specimen else {}), **(extra or {})})
     return Outcome(record, False)
 
@@ -222,6 +222,8 @@ def submit_order(actor, order_id, version, command_key, confirmed, repeat_confir
         before = _snapshot(order)
         order.catalog_snapshot = panel_snapshot(panel)
         order.identity_snapshot = {"mrn": order.patient.mrn, "name": str(order.patient), "dob": order.patient.dob.isoformat()}
+        from .review import initial_assignment
+        order.current_review_assignment = initial_assignment(order, actor)
         order.status = "submitted"
         order.submitted_at = timezone.now()
         order.repeat_reason = repeat_reason if repeat_confirmed else ""

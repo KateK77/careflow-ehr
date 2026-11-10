@@ -1,0 +1,10 @@
+{% extends "core/base.html" %}
+{% block title %}Nursing flowsheet · {{ patient.mrn }}{% endblock %}
+{% block content %}
+{% include "clinical/header.html" %}
+<section class="panel"><h2>Nursing vital-sign flowsheet</h2><p>Measurements are rows; observation times are columns, oldest to newest within each page. Units are preserved without conversion. Open an observation for provenance and permitted corrections.</p>
+{% if selected_appointment %}<p>Appointment #{{ selected_appointment.pk }} · <a href="{% url 'nursing_appointment' patient.pk selected_appointment.pk %}">Nursing record</a> · <a href="{% url 'nursing_flowsheet' patient.pk %}">All accessible appointment observations</a></p>{% endif %}
+{% if columns %}<div class="table-scroll flowsheet-scroll" role="region" aria-label="Vital-sign time columns" tabindex="0"><table class="flowsheet"><thead><tr><th scope="col">Measurement</th>{% for observation in columns %}<th scope="col"><a href="{% url 'nursing_record' patient.pk observation.appointment_id 'vitals' observation.pk %}">{{ observation.observed_at|date:"Y-m-d H:i:s T" }}</a><br><span class="small">#{{ observation.pk }} · Appointment #{{ observation.appointment_id }}<br>{{ observation.recorded_by.get_full_name|default:observation.recorded_by.username }}<br>{{ observation.get_source_display }}</span></th>{% endfor %}</tr></thead><tbody>{% for row in rows %}<tr><th scope="row">{{ row.label }}</th>{% for value in row.cells %}<td>{{ value }}</td>{% endfor %}</tr>{% endfor %}</tbody></table></div>
+<nav aria-label="Flowsheet time pages">{% if page.has_next %}<a href="?{{ filter_query }}page={{ page.next_page_number }}">Older observations</a>{% endif %} Page {{ page.number }} of {{ page.paginator.num_pages }} {% if page.has_previous %}<a href="?{{ filter_query }}page={{ page.previous_page_number }}">Newer observations</a>{% endif %}</nav>
+{% else %}<p>No vital observations within your access. Missing values do not imply normal measurements.</p>{% endif %}</section>
+{% endblock %}

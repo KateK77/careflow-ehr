@@ -47,6 +47,7 @@
           </a>
           <a href="{% url 'schedule' %}">Schedule</a>
           {% if can_read_clinical %}<a href="{% url 'physician_workspace' %}">Physician workspace</a>{% endif %}
+          {% if show_nursing_workspace %}<a href="{% url 'nursing_workspace' %}">Nursing workspace</a>{% endif %}
           <a href="{% url 'checkin_worklist' %}">Patient check-in</a>
           {% if can_manage_patients %}
             <a href="{% url 'patient_create' %}">

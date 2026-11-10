@@ -29,3 +29,7 @@ Physician workspace, scoped patient chart, explicit encounters and SOAP drafts/s
 ## Approved Phase 2B stacked increment
 
 [Iteration 0005](iterations/0005-clinical-history/README.md) implements longitudinal medical history, problems, allergies, medication statements and encounter diagnoses on the Phase 2A branch. The user approved proceeding before Phase 2A manual UAT. Both phases remain pending user acceptance; no Phase 3 is authorized.
+
+## Approved Phase 3A stacked increment
+
+[Iteration 0006](iterations/0006-nursing-workspace/README.md) adds nursing worklists, rooming, vitals and flowsheets on Phase 2B. The user subsequently approved Phase 3A while earlier clinical manual UAT remains postponed. No MAR, clinical decision rules, deployment or Phase 3B is authorized.

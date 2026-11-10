@@ -20,6 +20,7 @@ INSTALLED_APPS = [
     "careflow.scheduling",
     "careflow.clinical",
     "careflow.history",
+    "careflow.nursing",
 ]
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -42,6 +43,7 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "careflow.patients.access.staff_context",
                 "careflow.clinical.access.clinical_context",
+                "careflow.nursing.access.nursing_context",
             ],
         },
     }

@@ -1,0 +1,23 @@
+{% extends "core/base.html" %}
+{% block title %}Nursing workspace · CareFlow EHR{% endblock %}
+{% block content %}
+<div class="page-heading"><div><div class="eyebrow">SYNTHETIC OUTPATIENT CLINIC</div><h1>Nursing workspace</h1><p>Appointment worklist with persisted rooming and vital-sign documentation progress.</p></div></div>
+<form method="get" class="panel filters">
+  {% for field in form %}<div class="field">{{ field.label_tag }}{{ field }}{{ field.errors }}</div>{% endfor %}
+  <button type="submit">Filter worklist</button>
+</form>
+<section class="panel"><h2>Patient worklist</h2><p class="small muted">Times are clinic-local. Progress reflects saved records only; readiness is a Nurse assertion.</p>
+<div class="table-scroll"><table><thead><tr><th>Patient / MRN</th><th>Physician</th><th>Appointment interval</th><th>Status</th><th>Rooming</th><th>Vitals</th><th>Actions</th></tr></thead><tbody>
+{% for row in rows %}<tr>
+  <td>{{ row.appointment.patient }}<br>{{ row.appointment.patient.mrn }}</td>
+  <td>{{ row.appointment.physician.get_full_name|default:row.appointment.physician.username }}</td>
+  <td>{{ row.appointment.start_at|date:"Y-m-d H:i T" }}<br>to {{ row.appointment.end_at|date:"Y-m-d H:i T" }}</td>
+  <td>{{ row.appointment.get_status_display }}</td>
+  <td>{% if row.appointment.rooming %}{% if row.appointment.rooming.ready_for_provider %}Ready for provider{% else %}Assessment recorded{% endif %}{% else %}Not documented{% endif %}</td>
+  <td>{{ row.appointment.vital_count }} observation{{ row.appointment.vital_count|pluralize }}</td>
+  <td><a href="{% url 'patient_chart' row.appointment.patient_id %}">View chart</a> · <a href="{% url 'nursing_appointment' row.appointment.patient_id row.appointment.pk %}">Nursing record</a>{% if row.writable %}<br><a href="{% url 'nursing_create' row.appointment.patient_id row.appointment.pk 'vitals' %}">Record vitals</a>{% endif %}</td>
+</tr>{% empty %}<tr><td colspan="7">No appointments within your access match these filters.</td></tr>{% endfor %}
+</tbody></table></div>
+<nav aria-label="Worklist pages">{% if page.has_previous %}<a href="?{{ filter_query }}&amp;page={{ page.previous_page_number }}">Previous</a>{% endif %} Page {{ page.number }} of {{ page.paginator.num_pages }} {% if page.has_next %}<a href="?{{ filter_query }}&amp;page={{ page.next_page_number }}">Next</a>{% endif %}</nav>
+</section>
+{% endblock %}

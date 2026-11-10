@@ -15,3 +15,4 @@
 - [Phase 2A physician workspace and SOAP documentation](iterations/0004-physician-workspace/README.md)
 
 - [Phase 2B clinical history v1.0](iterations/0005-clinical-history/README.md)
+- [Phase 3A nursing workspace v1.0](iterations/0006-nursing-workspace/README.md)

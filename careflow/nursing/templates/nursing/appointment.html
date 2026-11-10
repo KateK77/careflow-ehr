@@ -1,0 +1,14 @@
+{% extends "core/base.html" %}
+{% block title %}Nursing record · {{ patient.mrn }}{% endblock %}
+{% block content %}
+{% include "clinical/header.html" %}{% include "nursing/context.html" %}
+<section class="panel"><h2>Rooming assessment</h2>
+{% if assessment %}<p><strong>{{ assessment.chief_complaint }}</strong></p><p>{% if assessment.ready_for_provider %}Ready for provider{% else %}Assessment recorded · Not marked ready{% endif %}</p><p>Assessment {{ assessment.observed_at|date:"Y-m-d H:i:s T" }} · {{ assessment.recorded_by.get_full_name|default:assessment.recorded_by.username }}</p><p><a href="{% url 'nursing_record' patient.pk appointment.pk 'assessment' assessment.pk %}">View assessment and history</a>{% if writable %} · <a href="{% url 'nursing_edit' patient.pk appointment.pk 'assessment' assessment.pk %}">Correct assessment</a>{% endif %}</p>
+{% else %}<p>No rooming assessment documented.</p>{% if writable %}<a class="button" href="{% url 'nursing_create' patient.pk appointment.pk 'assessment' %}">Record assessment</a>{% endif %}{% endif %}
+{% if not writable %}<p class="small muted">Read-only for this role or appointment/encounter state.</p>{% endif %}
+</section>
+<section class="panel"><div class="page-heading"><h2>Vital observations</h2>{% if writable %}<a class="button" href="{% url 'nursing_create' patient.pk appointment.pk 'vitals' %}">Record vitals</a>{% endif %}</div>
+<p><a href="{% url 'nursing_flowsheet' patient.pk %}?appointment={{ appointment.pk }}">Open time-oriented flowsheet</a></p>
+<ul class="activity">{% for observation in observations %}<li><a href="{% url 'nursing_record' patient.pk appointment.pk 'vitals' observation.pk %}">Observation #{{ observation.pk }}</a> · {{ observation.observed_at|date:"Y-m-d H:i:s T" }} · {{ observation.recorded_by.get_full_name|default:observation.recorded_by.username }} · {{ observation.get_source_display }}</li>{% empty %}<li>No vital-sign observations documented.</li>{% endfor %}</ul><p class="small muted">Latest 20 observations; the flowsheet provides chronological pages.</p>
+</section>
+{% endblock %}

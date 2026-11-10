@@ -610,3 +610,10 @@ footer {
 .history-value { overflow-wrap:anywhere; white-space:normal; max-width:36rem; }
 .history-event { padding:.75rem 0; border-bottom:1px solid var(--line); }
 .allergy-assessment { padding:1rem; margin-bottom:1rem; background:#edf4f7; border-left:4px solid var(--accent); }
+
+/* Persisted nursing flowsheet and observation context. */
+.flowsheet-scroll { max-width:100%; }
+.flowsheet th, .flowsheet td { min-width:10rem; vertical-align:top; }
+.flowsheet th:first-child { position:sticky; left:0; background:#edf4f7; z-index:1; }
+.nursing-context { margin-bottom:1rem; overflow-wrap:anywhere; }
+.vitals-summary { font-variant-numeric:tabular-nums; }

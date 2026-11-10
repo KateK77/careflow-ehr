@@ -28,3 +28,7 @@ The clinical app adds encounters, structured SOAP notes and clinical events link
 ## Phase 2B longitudinal history increment
 
 The history app owns medical history, problems, allergies, medication statements, encounter diagnoses, allergy assessments and versioned history events. Patient serialization coordinates longitudinal writes; diagnosis edits also share the clinical provider lock. See [ADR 0005](decisions/0005-clinical-history.md) and [iteration 0005](iterations/0005-clinical-history/README.md). Signed SOAP notes remain unchanged by history updates.
+
+## Phase 3A nursing increment
+
+The nursing app owns rooming assessments, structured vital panels and before/after nursing audit events. Nurse-group authoring is explicitly scoped to arrived appointments without completed encounters; provider locks coordinate with scheduling/clinical state changes. Chart/encounter summaries and chronological flowsheets reuse existing clinical read scope. See [ADR 0006](decisions/0006-nursing-rooming-and-vitals.md) and [iteration 0006](iterations/0006-nursing-workspace/README.md).

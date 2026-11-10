@@ -1,5 +1,9 @@
 # Feedback — Phase 2A
 
+## Manual observations supplied after the postponed-UAT review
+
+The user now reports twelve Phase 2A workflow observations passed, including chart/nursing review, explicit encounter start, draft persistence/editing, confirmed signing, direct edit denial and completion/provenance. The full matrix and the original request are in [UAT follow-up v1.0](uat-followup.md). This supersedes earlier pending-observation statements only for the reported checks. No comprehensive acceptance of every feature/role or approval to merge is implied. Shared UX fixes are automatically verified and await focused manual retesting.
+
 ## Approved request — 2026-11-09
 
 The user approved the scope in the linked [original English prompt](prompt.md). Its contents are preserved verbatim. The prompt is the iteration source; no translation is required.

@@ -136,7 +136,7 @@ class CrossPhaseIntegrationTests(IntegrationFixture, TestCase):
         self.assertEqual(Note.objects.values().get(pk=note.pk), signed)
         self.client.force_login(self.staff["Physician"])
         chart = self.client.get(reverse("patient_chart", args=[self.patient.pk]))
-        for label in ["nursing_vitals_edit", "history_medical_review", "note_sign", "encounter_complete"]:
+        for label in ["Vital observation corrected", "Medical history review recorded", "SOAP note signed", "Encounter completed"]:
             self.assertContains(chart, label)
         actions = set(AuditEvent.objects.filter(patient=self.patient).values_list("action", flat=True))
         self.assertTrue({"patient_create", "appointment_create", "appointment_arrive", "nursing_assessment_create",
@@ -168,7 +168,7 @@ class CrossPhaseIntegrationTests(IntegrationFixture, TestCase):
         chart = self.client.get(reverse("patient_chart", args=[self.patient.pk]))
         self.assertContains(chart, "Medical history: 1 records")
         self.assertNotContains(chart, "Synthetic integration complaint")
-        self.assertNotContains(chart, "history_diagnoses_create")
+        self.assertNotContains(chart, "Encounter diagnosis recorded")
         self.assertEqual(self.client.get(reverse("encounter_detail", args=[self.patient.pk, encounter.pk])).status_code, 404)
         vital = VitalObservation.objects.get()
         self.assertEqual(self.client.get(reverse("nursing_record", args=[self.patient.pk, self.appointment.pk, "vitals", vital.pk])).status_code, 404)

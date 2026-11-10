@@ -101,7 +101,7 @@ class IntegratedOutpatientBrowserTests(IntegrationFixture, StaticLiveServerTestC
             page.get_by_role("button", name="Save record", exact=True).click()
             page.get_by_label("I reviewed this synthetic record and its provenance.").check()
             page.get_by_role("button", name="Record review", exact=True).click()
-            expect(page.get_by_role("heading", name="history_medical_review", exact=True)).to_be_visible()
+            expect(page.get_by_role("heading", name="Medical history review recorded", exact=True)).to_be_visible()
             page.get_by_role("link", name="Chart overview", exact=True).click()
             page.locator("#encounters").get_by_role("link", name=f"Encounter #{encounter_id}", exact=True).click()
             page.get_by_role("link", name="Create SOAP draft", exact=True).click()
@@ -122,7 +122,7 @@ class IntegratedOutpatientBrowserTests(IntegrationFixture, StaticLiveServerTestC
             page.get_by_role("button", name="Complete encounter", exact=True).click()
             expect(page.locator(".patient-banner .tag")).to_have_text("Completed")
             page.get_by_role("link", name="Chart overview", exact=True).click()
-            for event in ["nursing_assessment_create", "history_medical_review", "note_sign", "encounter_complete"]:
+            for event in ["Rooming assessment recorded", "Medical history review recorded", "SOAP note signed", "Encounter completed"]:
                 expect(page.get_by_text(event, exact=True)).to_be_visible()
             output = os.environ.get("CAREFLOW_BROWSER_SCREENSHOT_DIR")
             if output:

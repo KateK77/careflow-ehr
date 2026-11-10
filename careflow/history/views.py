@@ -41,6 +41,8 @@ def _values(record, form_class):
     for name in form_class._meta.fields:
         field = record._meta.get_field(name)
         value = getattr(record, name)
+        if name == "problem" and value is not None:
+            value = f"{value.label} ({value.get_status_display()})"
         if field.choices:
             value = getattr(record, "get_" + name + "_display")()
         result.append((field.verbose_name.capitalize(), value if value not in (None, "") else "Not recorded"))
@@ -139,7 +141,7 @@ def record_review(request, patient_id, kind, record_id, encounter_id=None):
             _errors(form, error)
             status = 409 if isinstance(error, HistoryConflict) else 400
     return render(request, "history/error.html", {"patient": patient, "encounter": encounter,
-                  "form": form, "return_url": url("detail", record_id)}, status=status)
+                  "form": form, "retry_url": request.path, "return_url": url("detail", record_id)}, status=status)
 
 
 @require_POST
@@ -160,4 +162,4 @@ def allergy_state_review(request, patient_id):
             _errors(form, error)
             status = 409 if isinstance(error, HistoryConflict) else 400
     return render(request, "history/error.html", {"patient": patient, "form": form,
-                  "return_url": reverse("history_list", args=[patient.pk, "allergies"])}, status=status)
+                  "retry_url": request.path, "return_url": reverse("history_list", args=[patient.pk, "allergies"])}, status=status)

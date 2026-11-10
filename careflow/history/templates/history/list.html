@@ -18,15 +18,14 @@
       </form>{% endif %}
     </section>
   {% endif %}
-  <div class="table-scroll"><table>
-    <thead><tr><th>Record</th><th>Clinical state / category</th><th>Source</th><th>Review</th><th>Last update</th><th>Actions</th></tr></thead>
+  <div class="table-scroll"><table class="clinical-table">
+    <thead><tr><th>Record</th><th>Clinical state / category</th><th>Source / review / last update</th><th>Actions</th></tr></thead>
     <tbody>{% for row in rows %}<tr>
-      <td class="history-value">{{ row.record.label }}{% if row.record.code %}<br><span class="small">Mock code: {{ row.record.code }}</span>{% endif %}</td>
+      <td class="history-value patient-cell">{{ row.record.label }}{% if row.record.code %}<br><span class="small">Mock code: {{ row.record.code }}</span>{% endif %}</td>
       <td>{{ row.record.get_status_display }}{{ row.record.get_category_display }}{{ row.record.get_rank_display }}{% if row.record.verification %}<br>{{ row.record.get_verification_display }} · {{ row.record.get_severity_display }}{% endif %}</td>
-      <td>{{ row.record.get_source_display }}</td><td>{{ row.record.review_status }}</td>
-      <td>{{ row.record.updated_at|date:"Y-m-d H:i T" }}<br>{{ row.record.updated_by.get_full_name|default:row.record.updated_by.username }}</td>
+      <td>{{ row.record.get_source_display }} · {{ row.record.review_status }}<br>{{ row.record.updated_at|date:"Y-m-d H:i T" }}<br>{{ row.record.updated_by.get_full_name|default:row.record.updated_by.username }}</td>
       <td><a href="{{ row.detail_url }}">View record</a>{% if writable %} · <a href="{{ row.edit_url }}">Edit</a>{% endif %}</td>
-    </tr>{% empty %}<tr><td colspan="6">No {{ title|lower }} recorded. This does not establish absence of clinical history.</td></tr>{% endfor %}</tbody>
+    </tr>{% empty %}<tr><td colspan="4">No {{ title|lower }} recorded. This does not establish absence of clinical history.</td></tr>{% endfor %}</tbody>
   </table></div>
   <nav aria-label="Record pages">
     {% if page.has_previous %}<a href="?page={{ page.previous_page_number }}">Previous</a>{% endif %}

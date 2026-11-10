@@ -119,6 +119,10 @@ class MedicationStatement(ClinicalRecord):
             raise ValidationError({"end_date": "Provide an end date for a stopped medication."})
 
 
+PRIMARY_DIAGNOSIS_MESSAGE = ("This encounter already has a primary diagnosis. Change the existing primary "
+                             "diagnosis to secondary before assigning another.")
+
+
 class EncounterDiagnosis(ClinicalRecord):
     encounter = models.ForeignKey("clinical.Encounter", on_delete=models.PROTECT, related_name="diagnoses")
     problem = models.ForeignKey(Problem, null=True, blank=True, on_delete=models.PROTECT)
@@ -136,6 +140,9 @@ class EncounterDiagnosis(ClinicalRecord):
         super().clean()
         if self.encounter_id and self.encounter.patient_id != self.patient_id:
             raise ValidationError("Diagnosis patient must match the encounter.")
+        if (self.rank == "primary" and self.encounter_id and
+                EncounterDiagnosis.objects.filter(encounter_id=self.encounter_id, rank="primary").exclude(pk=self.pk).exists()):
+            raise ValidationError({"rank": PRIMARY_DIAGNOSIS_MESSAGE})
         if self.problem_id and self.problem.patient_id != self.patient_id:
             raise ValidationError({"problem": "Choose a longitudinal problem for this patient."})
 

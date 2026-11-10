@@ -32,3 +32,7 @@ Single synthetic clinic, local SQLite and application-service concurrency guaran
 At most one primary diagnosis, with any number of secondary diagnoses; a primary diagnosis is optional. Phase 2A completion still requires a signed SOAP note, without adding mandatory diagnoses. Longitudinal updates never rewrite signed notes. Record event detail displays the latest 100 events; lists paginate by 20 and chart timeline remains bounded. Direct database/bulk ORM operators can bypass service rules; no database immutability, production readiness, comprehensive security or clinical safety certification is claimed.
 
 The user authorized beginning Phase 2B before Phase 2A manual UAT. Neither phase has passed manual UAT. Keep both PRs open and unmerged; no Phase 3 work, release or deployment.
+
+## Manual UAT follow-up v1.0
+
+[User observations and UX investigation](uat-followup.md), [feedback](feedback.md), and [verification](verification.md) record 20 user-reported passes and focused follow-up fixes. [Issue #9](https://github.com/KateK77/careflow-ehr/issues/9) and [PR #10](https://github.com/KateK77/careflow-ehr/pull/10) retain owner-branch commit/CI traceability. The approved request is preserved verbatim on the parent iteration. The PR remains open; follow-up UI retesting and final review are pending.

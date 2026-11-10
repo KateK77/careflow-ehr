@@ -152,6 +152,7 @@ button:hover,
 }
 
 main {
+  min-width: 0;
   padding: 32px;
   max-width: 1600px;
   width: 100%;
@@ -280,7 +281,27 @@ input[type=checkbox] {
 
 .table-scroll {
   overflow-x: auto;
+  max-width: 100%;
+  overscroll-behavior-inline: contain;
 }
+
+.table-scroll.has-overflow { border-inline: 2px solid #b5cdd6; }
+.scroll-hint { margin: .5rem 0; }
+.scroll-hint[hidden] { display: none; }
+.clinical-table { white-space: normal; table-layout: auto; }
+.clinical-table th, .clinical-table td { vertical-align: top; padding: .65rem .7rem; }
+.clinical-table .patient-cell { min-width: 12rem; max-width: 20rem; overflow-wrap: anywhere; }
+.clinical-table .context-cell { min-width: 10rem; max-width: 17rem; overflow-wrap: anywhere; }
+.clinical-table .status-cell { min-width: 8rem; max-width: 14rem; }
+.clinical-table .actions-cell { min-width: 8rem; max-width: 13rem; }
+.clinical-table .actions-cell a { display: inline-block; margin: .15rem .35rem .15rem 0; }
+.audit-table { white-space: normal; table-layout: fixed; }
+.audit-table th:first-child { width: 24%; }
+.audit-table td { overflow-wrap: anywhere; vertical-align: top; }
+.patient-banner > div { min-width: 0; max-width: 100%; overflow-wrap: anywhere; }
+.chart-nav a { padding: .3rem .45rem; border-radius: .3rem; background: #eaf2f5; }
+.form-error-summary ul { margin-bottom: 0; padding-left: 1.2rem; }
+button[aria-disabled="true"] { opacity: .65; pointer-events: none; }
 
 table {
   width: 100%;

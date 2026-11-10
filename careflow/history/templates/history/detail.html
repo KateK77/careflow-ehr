@@ -1,4 +1,5 @@
 {% extends "core/base.html" %}
+{% load clinical_ui %}
 {% block title %}{{ record.label }} · {{ patient.mrn }}{% endblock %}
 {% block content %}
 {% include "clinical/header.html" %}
@@ -10,15 +11,16 @@
   {% if writable %}<form method="post" action="{{ review_url }}">{% csrf_token %}
     <input type="hidden" name="version" value="{{ record.version }}">
     <label><input type="checkbox" name="synthetic_confirmed" required> I reviewed this synthetic record and its provenance.</label>
-    <button type="submit">Record review</button>
+    {% if record.reviewed_at %}<p class="small">Submitting again records a new review with your identity and timestamp.</p>{% endif %}
+    <button type="submit">{% if record.reviewed_at %}Review again{% else %}Record review{% endif %}</button>
   </form>{% endif %}
 </section>
 <section class="panel"><h2>Record history</h2><p class="small muted">Latest 100 events. Synthetic before/after values are available only through clinical access.</p>
 {% for item in events %}<article class="history-event">
-  <h3>{{ item.event.audit.action }}</h3>
+  <h3>{{ item.event.audit.action|event_label }}</h3>
   <p>{{ item.event.audit.actor.get_full_name|default:item.event.audit.actor.username }} · {{ item.event.audit.occurred_at|date:"Y-m-d H:i:s T" }}</p>
-  <details><summary>Changed fields and previous values</summary><div class="table-scroll"><table><thead><tr><th>Field</th><th>Before</th><th>After</th></tr></thead><tbody>
-  {% for name, before, after in item.changed %}<tr><td>{{ name }}</td><td class="history-value">{{ before }}</td><td class="history-value">{{ after }}</td></tr>{% endfor %}
+  <details><summary>Changed fields and previous values</summary><div class="table-scroll"><table class="audit-table"><thead><tr><th>Field</th><th>Before</th><th>After</th></tr></thead><tbody>
+  {% for name, before, after in item.changed %}<tr><td>{{ name|field_label }}</td><td class="history-value">{{ before }}</td><td class="history-value">{{ after }}</td></tr>{% endfor %}
   </tbody></table></div></details>
 </article>{% empty %}<p>No events recorded.</p>{% endfor %}</section>
 {% endblock %}

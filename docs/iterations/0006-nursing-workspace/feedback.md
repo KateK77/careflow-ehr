@@ -7,3 +7,7 @@ No Phase 3A manual user acceptance observations have been received. Developer au
 ## Cross-phase review request
 
 The user requested a consolidated Phase 2A/2B/3A integration-readiness review, meaningful gap-driven tests only, and retention of the current branch/PR. [Original request](integration-review-prompt.md) and [findings](integration-readiness.md) are linked separately. No new user manual observations were supplied. The review added test coverage for a confirmed missing continuous journey and documented existing policy caveats, without changing application behavior or treating prior deferred UX feedback as current acceptance blockers. All three PRs remain open and unmerged.
+
+## Manual UAT follow-up v1.0 — 2026-11-09
+
+The earlier pending-UAT statement is historical. The user reported nine passing nursing observations, now recorded in [the consolidated follow-up](uat-followup.md). Parent records contain 12 Physician Workspace and 20 Clinical History passes. Reported observations are distinct from automated checks and pending follow-up UI retests; no comprehensive manual acceptance or merge approval is inferred.

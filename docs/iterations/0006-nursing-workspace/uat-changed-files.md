@@ -54,4 +54,5 @@ Parent updates are inherited with normal merge commits. No production settings, 
 - `docs/iterations/0006-nursing-workspace/feedback.md`
 - `docs/iterations/0006-nursing-workspace/uat-changed-files.md`
 - `docs/iterations/0006-nursing-workspace/uat-followup.md`
+- `docs/iterations/0006-nursing-workspace/uat-publication.md`
 - `docs/iterations/0006-nursing-workspace/verification.md`

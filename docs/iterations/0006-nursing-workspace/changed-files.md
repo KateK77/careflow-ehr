@@ -42,3 +42,16 @@ The nursing app owns models/migration, permission/state policies, forms, transac
 - `docs/iterations/0006-nursing-workspace/prompt.md`
 - `docs/iterations/0006-nursing-workspace/verification.md`
 - `docs/roadmap.md`
+
+## Cross-phase integration review follow-up
+
+Nine files are added/updated for this review; the original 40-file implementation list above remains intact. The combined Phase 3A PR therefore contains 45 distinct changed files.
+
+- `careflow/nursing/integration_support.py`: isolated synthetic staff/payload helpers and test-only clinic time-zone choice.
+- `careflow/nursing/test_integration.py`: four HTTP integration regressions spanning the existing domain boundaries.
+- `careflow/nursing/integration_browser_tests.py`: one full UI journey from actual registration through encounter completion.
+- `docs/iterations/0006-nursing-workspace/integration-review-prompt.md`: original approved review request.
+- `docs/iterations/0006-nursing-workspace/integration-readiness.md`: consolidated findings, evidence boundaries, risks and future merge sequence.
+- Current iteration `README.md`, `verification.md`, `feedback.md` and `changed-files.md`: review traceability and results.
+
+No application logic, settings, dependency or migration files are modified by the integration review. No prior iteration or historical source document is rewritten.

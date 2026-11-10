@@ -21,6 +21,10 @@ The new permission extension requires active Nurse membership for authoring, inc
 
 Writes require arrived appointments without completed encounters. Readiness is a Nurse assertion on rooming, independent of appointment and encounter states. Check-in and nursing saves do not create encounters. Optional encounter association is validated and fixed at record creation; pre-encounter records remain appointment-linked and appear in its encounter context. Partial vital panels are explicit, with at least one measurement and no inference of missing values. Numeric bounds and allowed units are documented in ADR 0006 as demo input validation, not clinical normal ranges or decision rules.
 
+## Cross-phase integration readiness review
+
+The [consolidated review](integration-readiness.md) and [approved review prompt](integration-review-prompt.md) cover Phase 2A/2B/3A. A confirmed gap in continuous handoff coverage led to four HTTP integration tests and one full registration-to-completion Chromium journey on this branch. No application logic or migration change was needed. The default suite now contains 157 tests; the optional combined browser suite contains six workflows. All manual UAT remains pending; future merge order is #8 → #10 → #12, with retargeting/checks and separate approval at each step.
+
 ## Known limitations and review boundary
 
 Local single-clinic SQLite prototype. No nurse-assignment roster, inpatient beds, care plans, fall-risk algorithm, nursing task engine, MAR, medication administration, prescribing, pharmacy, labs/orders, AI, billing, external integration or deployment. Progress indicators describe saved records only. No automated readiness or clinical abnormal-value interpretation is provided.

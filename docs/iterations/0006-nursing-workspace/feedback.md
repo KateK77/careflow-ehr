@@ -3,3 +3,7 @@
 2026-11-09: the user approved Phase 3A and explicitly kept Phase 2A/2B manual UAT postponed. The [approved prompt](prompt.md) is preserved verbatim as a separate original, without rewriting earlier iteration records.
 
 No Phase 3A manual user acceptance observations have been received. Developer automated/browser results are separate evidence and must not be treated as UAT. Earlier Phase 1A/1B UX backlog remains deferred. Nurse authoring applies only to the explicitly approved nursing documentation extension, not history/diagnosis/SOAP signing or appointment management.
+
+## Cross-phase review request
+
+The user requested a consolidated Phase 2A/2B/3A integration-readiness review, meaningful gap-driven tests only, and retention of the current branch/PR. [Original request](integration-review-prompt.md) and [findings](integration-readiness.md) are linked separately. No new user manual observations were supplied. The review added test coverage for a confirmed missing continuous journey and documented existing policy caveats, without changing application behavior or treating prior deferred UX feedback as current acceptance blockers. All three PRs remain open and unmerged.

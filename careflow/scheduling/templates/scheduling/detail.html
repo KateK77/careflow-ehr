@@ -18,7 +18,7 @@
     <a href="{% url 'patient_detail' appointment.patient_id %}">Patient demographics</a>
   </div>
   {% if transition_form.errors %}
-    <div class="notice warning" role="alert">{{ transition_form.errors }}</div>
+      {% include "core/form_errors.html" with form=transition_form %}
   {% endif %}
   <section class="panel">
     {% if can_read_clinical %}

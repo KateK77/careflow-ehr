@@ -1,5 +1,9 @@
 # Verification — Phase 2A
 
+## Latest UAT/UX follow-up
+
+The user-reported twelve passes are recorded separately in [uat-followup.md](uat-followup.md). New automated coverage checks date-year validation/historical dates, readable form errors, audit labels and shared browser behavior. Default suite: 102 passed. The shared UI scenario and existing clinical/scheduling/patient Chromium workflows are run before publication; final CI and commit evidence is linked from PR #8. These developer results do not expand the supplied manual observations or establish comprehensive security acceptance. No migration or local database change is required.
+
 ## Preparation and local database
 
 On 2026-11-09, local main, origin/main and GitHub main matched `9e04a80498303d588972394c90eb35028d766228`; index and worktree were clean. Created Issue #7 and the dedicated branch. Preserved the approved prompt byte-for-byte and retained historical Chinese originals and English translations.

@@ -72,7 +72,7 @@ class ClinicalBrowserTests(StaticLiveServerTestCase):
             expect(page.locator(".patient-banner .tag")).to_have_text("Completed")
             page.get_by_role("link", name="Chart overview", exact=True).click()
             expect(page.get_by_role("heading", name="Clinical timeline")).to_be_visible()
-            expect(page.get_by_text("note_sign", exact=True)).to_be_visible()
+            expect(page.get_by_text("SOAP note signed", exact=True)).to_be_visible()
             self.assertEqual(errors, [])
             browser.close()
         encounter = Encounter.objects.get(appointment=appointment)

@@ -1,6 +1,8 @@
 # Iteration 0006 — Phase 3A nursing workspace v1.0
 
 - [Issue #11](https://github.com/KateK77/careflow-ehr/issues/11)
+- [Stacked PR #12](https://github.com/KateK77/careflow-ehr/pull/12) — open, targeting Phase 2B
+- [Implementation commit 48ff86a](https://github.com/KateK77/careflow-ehr/commit/48ff86a250de2b5cab2b893cd2b12b1eb5329a37)
 - Branch: `phase/0006-nursing-workspace`
 - Base: `phase/0005-clinical-history` at `f5209f86dedc6ad7c3aa5e5b80b0c3039027b300`
 - Stack target is Phase 2B, not main. PRs #8 and #10 remain open and unmerged.

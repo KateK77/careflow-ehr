@@ -25,6 +25,6 @@ An initial queryset warning identified unspecified worklist pagination order aft
 
 ## GitHub and manual boundaries
 
-Push and stacked-PR CI results are verified after publication and linked from the PR/final handoff. The existing CI runs system checks, migration consistency and the full default test suite; optional browser dependencies are local only.
+The [push run](https://github.com/KateK77/careflow-ehr/actions/runs/42725909700) and [stacked-PR run](https://github.com/KateK77/careflow-ehr/actions/runs/42726047568) passed for [implementation commit 48ff86a](https://github.com/KateK77/careflow-ehr/commit/48ff86a250de2b5cab2b893cd2b12b1eb5329a37), running system checks, migration consistency and all 153 default tests. The evidence-only follow-up uses the same workflow; latest checks are linked from [PR #12](https://github.com/KateK77/careflow-ehr/pull/12). Optional browser dependencies are local only.
 
 Neither Phase 2A, Phase 2B nor Phase 3A has passed manual UAT. The [manual checklist](acceptance.md) is pending. No comprehensive security, database-operator immutability, clinical validity, automated medical advice, full accessibility or production concurrency assessment is claimed. The documented numeric ranges are demo input bounds, not normal ranges. No MAR, medication administration, clinical decision algorithms, external medical integrations, deployment, release or Phase 3B was implemented.

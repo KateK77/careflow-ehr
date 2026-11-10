@@ -32,3 +32,7 @@ Prior Phase 1A/1B UX feedback remains deferred. Medications, allergies, problems
 ## Autonomous review continuation
 
 Manual acceptance is postponed under the [approved continuation instruction](autonomy-prompt.md). [Review report](autonomous-review.md) records two reproduced defects, their corrections, four regression tests, permission recommendations and the remaining manual checks. Local default tests now total 99; optional Chromium workflows remain three. No migration or existing-record changes are part of this follow-up. PR #8 remains unmerged.
+
+## Targeted manual UAT retest v1.0
+
+[Retest evidence and remaining limits](uat-retest.md), [feedback](feedback.md) and [verification](verification.md) record the latest user-reported checks. [PR #8](https://github.com/KateK77/careflow-ehr/pull/8) retains publication commit and CI traceability. Earlier prompts and evidence are preserved. No merge approval is inferred.

@@ -38,3 +38,7 @@ Direct SQL/bulk ORM can bypass application services. No database-operator immuta
 [Publication receipt](uat-publication.md) records the exact implementation commit and successful CI links for each owner branch.
 
 [Consolidated cross-phase report](uat-followup.md), [feedback](feedback.md), [verification](verification.md) and [follow-up changed files](uat-changed-files.md) supplement the preserved implementation history. [Issue #11](https://github.com/KateK77/careflow-ehr/issues/11) and [PR #12](https://github.com/KateK77/careflow-ehr/pull/12) carry publication commit and CI links. Nine user-reported nursing passes are documented; follow-up UI retesting and final review remain pending.
+
+## Targeted manual UAT retest v1.0
+
+[Retest evidence and remaining limits](uat-retest.md), [feedback](feedback.md) and [verification](verification.md) record the latest user-reported checks. [PR #12](https://github.com/KateK77/careflow-ehr/pull/12) retains publication commit and CI traceability. Earlier prompts and evidence are preserved. No merge approval is inferred.

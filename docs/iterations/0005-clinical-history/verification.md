@@ -41,3 +41,11 @@ The user-reported 20 manual passes are listed in [the follow-up](uat-followup.md
 - No schema migration or local database write. Before/after whole-file SQLite hash and available immutable source/prompt bytes matched; final integrated preservation is also checked on Phase 3A. Tests use disposable synthetic test databases.
 - Phase 2A Push and PR CI passed: [Push](https://github.com/KateK77/careflow-ehr/actions/runs/42741609207), [PR](https://github.com/KateK77/careflow-ehr/actions/runs/42741615233). Phase 2B actual HEAD checks and resulting commit are linked in [PR #10](https://github.com/KateK77/careflow-ehr/pull/10). Local results are not described as GitHub results.
 - UI changes still require user retesting. No comprehensive security or database-level audit immutability claim.
+
+## Documentation-only retest verification v1.0
+
+[User-reported retest results](uat-retest.md) are distinct from automated results. The prior passing manual observations remain preserved; targeted passes have the stated date/viewport limitations. No additional malformed-date cases, nursing retests or comprehensive security testing are claimed.
+
+Current owner-branch local verification: Django system check passed; migration consistency reported no changes; **133 default regression tests passed** using isolated synthetic test databases. Documentation whitespace, relative links and staged documentation-only scope passed. The local SQLite whole-file hash and available original historical source/prompt bytes matched a fresh pre-task baseline. No migration, reseed, signed-note modification or application code change occurred. Prior Chromium results are cited as historical evidence and were not rerun for this documentation-only change.
+
+Actual latest documentation HEAD Push/PR Actions results and commit links are verified after publication and recorded on [PR #10](https://github.com/KateK77/careflow-ehr/pull/10). Local test results are not substituted for GitHub results. All three stacked PRs remain open and require separate merge approval.

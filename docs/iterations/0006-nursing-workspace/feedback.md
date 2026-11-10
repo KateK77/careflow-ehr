@@ -11,3 +11,9 @@ The user requested a consolidated Phase 2A/2B/3A integration-readiness review, m
 ## Manual UAT follow-up v1.0 — 2026-11-09
 
 The earlier pending-UAT statement is historical. The user reported nine passing nursing observations, now recorded in [the consolidated follow-up](uat-followup.md). Parent records contain 12 Physician Workspace and 20 Clinical History passes. Reported observations are distinct from automated checks and pending follow-up UI retests; no comprehensive manual acceptance or merge approval is inferred.
+
+## Targeted manual retest addendum v1.0
+
+The five targeted cross-phase retests are now recorded: diagnosis/allergy/linked-problem checks passed, date behavior was user-reported acceptable, and Physician Workspace responsiveness passed at the tested width. The prior nine reported nursing observations remain passed; no new nursing or flowsheet manual retest was supplied. Parent records preserve the prior 12 Physician Workspace and 20 Clinical History passes. Broader manual/security acceptance and merge approval are not inferred.
+
+See [the retest evidence and limits](uat-retest.md). Deferred, non-blocking enhancements: consolidate duplicated allergy summary/inline errors; resolve numeric audit IDs to authorized readable labels; monitor narrower responsive layouts. No enhancement is implemented now. Earlier pending statements are historical and are superseded only for explicitly reported checks.

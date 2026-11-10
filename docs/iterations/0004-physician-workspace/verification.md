@@ -34,3 +34,11 @@ The [push run](https://github.com/KateK77/careflow-ehr/actions/runs/42582821990)
 ## Autonomous review follow-up — 2026-11-09
 
 See [review findings and permission inspection](autonomous-review.md). Two targeted reproduction tests failed against the previous implementation before corrections. Final `python manage.py check` passed; `makemigrations --check --dry-run` reported no changes. The complete default suite passed **99 tests** (previous 95 plus four regression cases). The combined clinical, scheduling and patient Chromium suite passed all **three workflows**. No migration or local database modification was performed in this follow-up. Historical source hashes and the review baseline database hash are checked before publication. Manual UAT remains postponed, with no new user acceptance observations. CI for the follow-up commit is verified separately after publication and linked from PR #8.
+
+## Documentation-only retest verification v1.0
+
+[User-reported retest results](uat-retest.md) are distinct from automated results. The prior passing manual observations remain preserved; targeted passes have the stated date/viewport limitations. No additional malformed-date cases, nursing retests or comprehensive security testing are claimed.
+
+Current owner-branch local verification: Django system check passed; migration consistency reported no changes; **102 default regression tests passed** using isolated synthetic test databases. Documentation whitespace, relative links and staged documentation-only scope passed. The local SQLite whole-file hash and available original historical source/prompt bytes matched a fresh pre-task baseline. No migration, reseed, signed-note modification or application code change occurred. Prior Chromium results are cited as historical evidence and were not rerun for this documentation-only change.
+
+Actual latest documentation HEAD Push/PR Actions results and commit links are verified after publication and recorded on [PR #8](https://github.com/KateK77/careflow-ehr/pull/8). Local test results are not substituted for GitHub results. All three stacked PRs remain open and require separate merge approval.

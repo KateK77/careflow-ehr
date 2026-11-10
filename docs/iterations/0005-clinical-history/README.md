@@ -36,3 +36,7 @@ The user authorized beginning Phase 2B before Phase 2A manual UAT. Neither phase
 ## Manual UAT follow-up v1.0
 
 [User observations and UX investigation](uat-followup.md), [feedback](feedback.md), and [verification](verification.md) record 20 user-reported passes and focused follow-up fixes. [Issue #9](https://github.com/KateK77/careflow-ehr/issues/9) and [PR #10](https://github.com/KateK77/careflow-ehr/pull/10) retain owner-branch commit/CI traceability. The approved request is preserved verbatim on the parent iteration. The PR remains open; follow-up UI retesting and final review are pending.
+
+## Targeted manual UAT retest v1.0
+
+[Retest evidence and remaining limits](uat-retest.md), [feedback](feedback.md) and [verification](verification.md) record the latest user-reported checks. [PR #10](https://github.com/KateK77/careflow-ehr/pull/10) retains publication commit and CI traceability. Earlier prompts and evidence are preserved. No merge approval is inferred.

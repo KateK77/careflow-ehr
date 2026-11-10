@@ -12,6 +12,8 @@ See [current status, evidence and limitations](docs/project-status.md). Earlier 
 
 ## Run locally
 
+**Phase 3B-1 feature-branch testing:** laboratory catalog/orders are implemented for review on this branch, not yet merged or manually accepted. The original local database has deliberately **not** received the new migration. Use the [prepared isolated preview and UAT instructions](docs/iterations/0007-lab-catalog-orders/acceptance.md) with `CAREFLOW_DB_PATH` and port 8001; do not migrate/reseed the original database without separate approval. No specimen collection or results workflow is implemented.
+
 Install Python 3.12 or newer and create a virtual environment from the repository root.
 
 ```sh

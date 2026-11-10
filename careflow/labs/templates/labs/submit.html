@@ -1,0 +1,15 @@
+{% extends "core/base.html" %}
+{% block title %}Review laboratory order{% endblock %}
+{% block content %}{% include "clinical/header.html" %}
+<section class="panel"><h1>{% if preview %}Confirm laboratory submission{% else %}Review laboratory order{% endif %}</h1>
+<p><strong>{{ patient }} · {{ patient.mrn }}</strong><br>Encounter #{{ encounter.pk }} · {{ encounter.get_status_display }}<br>{{ order.catalog_snapshot.display_name }} · {{ order.catalog_snapshot.code }} r{{ order.catalog_snapshot.revision }}<br>Specimen: {{ order.catalog.get_specimen_type_display }} · Routine (demo)</p><p class="history-value">Reason: {{ order.reason|default:"Not recorded" }}</p>
+{% if duplicate %}<p class="notice warning">A non-cancelled order for this panel already exists in this encounter. Intentional repeat testing requires confirmation and a reason.</p>{% endif %}
+{% include "core/form_errors.html" %}
+<form method="post">{% csrf_token %}
+{% if preview %}
+{% for field in form %}{% if field.name != 'review_token' %}{{ field.as_hidden }}{% endif %}{% endfor %}<input type="hidden" name="review_token" value="{{ token }}">
+<p>Confirm submission of exactly this draft version. One pending specimen and its audit will be saved atomically. Collection and results are not implemented.</p>{% if form.cleaned_data.repeat_confirmed %}<p>Intentional repeat reason: {{ form.cleaned_data.repeat_reason }}</p>{% endif %}
+<button name="action" value="confirm" type="submit">Confirm submission</button>
+{% else %}{% for field in form %}{% if field.is_hidden %}{{ field }}{% else %}<div class="field">{{ field.label_tag }}{{ field }}</div>{% endif %}{% endfor %}<button name="action" value="review" type="submit">Review order</button>{% endif %}
+<a href="{% url 'lab_order_detail' order.public_id %}">Return to order</a></form></section>
+{% endblock %}

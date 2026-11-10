@@ -8,6 +8,7 @@
 {% if encounter.completed_at %}<p>Completed {{ encounter.completed_at|date:"Y-m-d H:i:s T" }}</p>{% endif %}
 <p><a href="{% url 'appointment_detail' encounter.appointment_id %}">Appointment #{{ encounter.appointment_id }}</a> · {{ encounter.appointment.get_status_display }} · Check-in {{ encounter.appointment.checked_in_at|date:"Y-m-d H:i:s T"|default:"Not recorded" }}{% if encounter.appointment.checked_in_by %} by {{ encounter.appointment.checked_in_by.get_full_name|default:encounter.appointment.checked_in_by.username }}{% else %} · Recorder not recorded{% endif %}</p>
 {% if editable %}<div class="form-actions">
+<a href="{% url 'lab_order_create' patient.pk encounter.pk %}">Create lab order</a><a href="{% url 'lab_encounter_orders' patient.pk encounter.pk %}">Encounter laboratory orders</a>
 {% if not note.signed_at %}<a class="button" href="{% url 'note_edit' patient.pk encounter.pk %}">{% if note %}Edit SOAP draft{% else %}Create SOAP draft{% endif %}</a>{% endif %}
 {% if note and not note.signed_at %}<a class="button" href="{% url 'note_sign' patient.pk encounter.pk note.pk %}">Review and sign</a>{% endif %}
 {% if note.signed_at %}<form method="post" action="{% url 'encounter_complete' patient.pk encounter.pk %}">{% csrf_token %}<input type="hidden" name="version" value="{{ encounter.version }}"><button type="submit">Complete encounter</button></form>{% endif %}

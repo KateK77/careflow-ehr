@@ -1,0 +1,13 @@
+{% extends "core/base.html" %}
+{% block title %}Laboratory catalog · CareFlow EHR{% endblock %}
+{% block content %}
+<div class="page-heading"><div><div class="eyebrow">SYNTHETIC LABORATORY</div><h1>Laboratory catalog</h1><p>Versioned fictional panels and mock units, not clinical decision rules or reference ranges.</p></div>{% if admin %}<a class="button" href="{% url 'lab_catalog_create' %}">Create catalog revision</a>{% endif %}</div>
+<p class="notice">Phase 3B-1: physician orders and pending specimens only. Collection and results are not available.</p>
+<section class="panel"><div class="table-scroll"><table class="clinical-table"><thead><tr><th>Panel</th><th>Specimen / definitions</th><th>Status / provenance</th>{% if admin %}<th>Manage activation</th>{% endif %}</tr></thead><tbody>
+{% for row in rows %}<tr><td class="patient-cell"><strong>{{ row.panel.display_name }}</strong><br>{{ row.panel.code }} · revision {{ row.panel.revision }}</td>
+<td class="context-cell">{{ row.panel.get_specimen_type_display }}<details><summary>Component definitions</summary>{% for item in row.panel.components %}<p>{{ item.code }} · {{ item.label }} · {{ item.type }}{% if item.type == 'numeric' %}<br>{{ item.unit }} · demo input bounds {{ item.minimum }}–{{ item.maximum }} · precision {{ item.precision }}{% else %}<br>{{ item.allowed_codes|join:", " }}{% endif %}</p>{% endfor %}</details></td>
+<td>{% if row.panel.is_active %}Active{% else %}Inactive{% endif %}<br>Activation v{{ row.panel.edit_version }}<br>{{ row.panel.created_by.get_full_name|default:row.panel.created_by.username }}<br>{{ row.panel.created_at|date:"Y-m-d H:i T" }}</td>
+{% if admin %}<td class="actions-cell"><form method="post" action="{% if row.panel.is_active %}{% url 'lab_catalog_deactivate' row.panel.pk %}{% else %}{% url 'lab_catalog_activate' row.panel.pk %}{% endif %}">{% csrf_token %}<input type="hidden" name="version" value="{{ row.panel.edit_version }}"><input type="hidden" name="command_key" value="{{ row.command_key }}"><label><input type="checkbox" name="synthetic_confirmed" required> Confirm synthetic catalog action</label><button type="submit">{% if row.panel.is_active %}Deactivate{% else %}Activate{% endif %}</button></form></td>{% endif %}</tr>
+{% empty %}<tr><td colspan="4">No active panels available. An Administrator can create an immutable synthetic revision and activate it.</td></tr>{% endfor %}</tbody></table></div>
+<nav aria-label="Catalog pages">{% if page.has_previous %}<a href="?page={{ page.previous_page_number }}">Previous</a>{% endif %} Page {{ page.number }} of {{ page.paginator.num_pages }} {% if page.has_next %}<a href="?page={{ page.next_page_number }}">Next</a>{% endif %}</nav></section>
+{% endblock %}

@@ -2,7 +2,13 @@
 
 CareFlow EHR is an independently developed educational and research prototype for electronic health records and hospital workflows. Its scope is inspired by workflows found in enterprise EHRs such as Epic. It uses original code and design.
 
-**Use only synthetic data.** Keep real patient records, credentials, and production exports out of the application, repository, and logs. The scaffold is for local development and research.
+**Use only synthetic data.** Keep real patient records, credentials, and production exports out of the application, repository, and logs. This prototype is for local development and research.
+
+## Current project status
+
+Phase 2A — Physician Workspace, Phase 2B — Clinical History, and Phase 3A — Nursing Workspace completed their approved local-prototype review and were merged through PRs [#8](https://github.com/KateK77/careflow-ehr/pull/8), [#10](https://github.com/KateK77/careflow-ehr/pull/10), and [#12](https://github.com/KateK77/careflow-ehr/pull/12). The verified integrated baseline is [65a7d3e](https://github.com/KateK77/careflow-ehr/commit/65a7d3e2f01d9af0c99126c340e9f426c954401c), with 164 regression tests, seven local Chromium workflows and merged-main CI passed.
+
+See [current status, evidence and limitations](docs/project-status.md). Earlier pending-acceptance/stacked-PR statements in original iteration records describe their historical delivery state; they are not the current status. The proposed next increment is **Orders & Laboratory Results**, pending separate approval. No new phase identifier or implementation scope is approved by this documentation closeout.
 
 ## Run locally
 
@@ -39,7 +45,7 @@ Run these commands in PowerShell from `D:\AI-Workspace\Personal\careflow-ehr`. A
 .\.venv\Scripts\python.exe manage.py runserver 127.0.0.1:8000
 ```
 
-Open [staff sign in](http://127.0.0.1:8000/login/). This computer has 30 synthetic patients and the four accounts below, initialized with a generated bootstrap password that was not saved or disclosed. Use `changepassword` locally to choose the password for each account you want to test. Passwords must contain at least 12 characters and meet Django's common/numeric-password checks.
+Open [staff sign in](http://127.0.0.1:8000/login/). Local record counts depend on prior synthetic testing. The seed command creates the four accounts below with a locally supplied bootstrap password; no password is published in the repository. Continue using existing local accounts and records. Use `changepassword` only when you need to choose a new local password. Passwords must contain at least 12 characters and meet Django's common/numeric-password checks.
 
 | Username | Role | Patient demographics access |
 | --- | --- | --- |
@@ -69,7 +75,7 @@ try {
 }
 ```
 
-The local database, virtual environment and passwords stay outside Git. This is a DEBUG-only, single-clinic educational application. Time is stored in UTC and displayed in `CAREFLOW_TIME_ZONE` (default `America/Chicago`). Clinical charts, scheduling, portal access and deployment hardening are future work.
+The local database, virtual environment and passwords stay outside Git. This is a DEBUG-only, single-clinic educational application. Time is stored in UTC and displayed in `CAREFLOW_TIME_ZONE` (default `America/Chicago`). Scheduling, clinical charts, SOAP documentation, clinical history and nursing workflows are implemented. Patient portal access and deployment hardening remain future work. Do not reseed or reset an existing database as part of routine startup.
 
 ### Verification
 
@@ -79,7 +85,13 @@ The local database, virtual environment and passwords stay outside Git. This is 
 .\.venv\Scripts\python.exe manage.py test
 ```
 
-An optional Playwright browser test is in `careflow/patients/browser_tests.py`. It uses an isolated Django test database. Install `playwright` and Chromium in a development environment, then run `python manage.py test careflow.patients.browser_tests`. Browser tooling is not an application dependency and is not installed by CI.
+Optional Playwright tests use isolated Django test databases. Install `playwright` and Chromium in a development environment, then run:
+
+```sh
+python manage.py test careflow.core.ui_browser_tests careflow.nursing.integration_browser_tests careflow.nursing.browser_tests careflow.history.browser_tests careflow.clinical.browser_tests careflow.scheduling.browser_tests careflow.patients.browser_tests
+```
+
+On this prepared Windows workspace, set `PLAYWRIGHT_BROWSERS_PATH` to `D:\AI-Workspace\Personal\careflow-ehr\.venv\browsers` if using its existing Chromium installation. Browser tooling is not an application dependency and is not installed by CI.
 
 ## Phase 1B scheduling and check-in
 
@@ -112,16 +124,16 @@ Run `python manage.py check`, `python manage.py makemigrations --check --dry-run
 
 Run the existing Django application using the commands above; the local additive clinical migrations have been applied. Existing accounts/passwords and data remain. Open [Physician workspace](http://127.0.0.1:8000/app/physician/) as physician.demo. Start an encounter explicitly from an arrived appointment, save/reopen/edit a synthetic SOAP draft, review and confirm signing, then complete the encounter. Administrator/Nurse read clinic clinical records; FrontDesk has no clinical note access.
 
-See the [complete startup and manual acceptance guide](docs/iterations/0004-physician-workspace/acceptance.md), [access/state policy](docs/decisions/0004-encounters-and-soap.md) and [verification record](docs/iterations/0004-physician-workspace/verification.md). One SOAP note per encounter, explicit draft saves and no addenda/reopening are provided. Signed content is protected through supported application paths, not against database administrators. No real clinical use is supported. Phase 2A is awaiting manual acceptance.
+See the [startup and historical manual checklist](docs/iterations/0004-physician-workspace/acceptance.md), [access/state policy](docs/decisions/0004-encounters-and-soap.md) and [verification record](docs/iterations/0004-physician-workspace/verification.md). One SOAP note per encounter, explicit draft saves and no addenda/reopening are provided. Signed content is protected through supported application paths, not against database administrators. No real clinical use is supported. Phase 2A completed its approved review and was merged in PR #8; [current status](docs/project-status.md) distinguishes reported manual observations from automated coverage.
 
 ## Phase 2B longitudinal clinical history
 
-This increment is stacked on Phase 2A and is pending manual acceptance. Continue the same local Django startup; `python manage.py migrate` applies the additive history schema (already applied on this computer). Use existing local accounts/passwords, without reseeding. Open the physician chart and use Medical history, Problems, Allergies and Medications; open an encounter for Encounter diagnoses. Treating Physicians maintain records; Nurse/Administrator read access remains and FrontDesk is denied detailed clinical content. Medication records are history statements, never prescriptions.
+Phase 2B completed its approved review and was merged in PR #10. Continue the same local Django startup; `python manage.py migrate` applies the additive history schema on a fresh checkout (already applied on this computer). Use existing local accounts/passwords, without reseeding. Open the physician chart and use Medical history, Problems, Allergies and Medications; open an encounter for Encounter diagnoses. Treating Physicians maintain records; Nurse/Administrator read access remains and FrontDesk is denied detailed clinical content. Medication records are history statements, never prescriptions.
 
-See the [startup and manual checklist](docs/iterations/0005-clinical-history/acceptance.md), [verification](docs/iterations/0005-clinical-history/verification.md), [changed-file report](docs/iterations/0005-clinical-history/changed-files.md) and [state/access policy](docs/decisions/0005-clinical-history.md). Both Phase 2A and 2B await manual UAT; neither PR is to be merged automatically.
+See the [startup and historical manual checklist](docs/iterations/0005-clinical-history/acceptance.md), [verification](docs/iterations/0005-clinical-history/verification.md), [changed-file report](docs/iterations/0005-clinical-history/changed-files.md) and [state/access policy](docs/decisions/0005-clinical-history.md). Reported workflow checks and targeted retests passed within their documented limits; [the closeout status](docs/project-status.md) supersedes historical pending-merge statements.
 
 ## Phase 3A nursing workspace, rooming and vitals
 
-This increment is stacked on Phase 2B; all unmerged clinical phases remain pending manual acceptance. Apply `python manage.py migrate` and use the same local server and passwords. As nurse.demo, open [Nursing workspace](http://127.0.0.1:8000/app/nursing/), filter an arrived synthetic appointment and open Nursing record to document rooming/readiness and vital observations. Flowsheet time columns open record history and permitted corrections. Assigned Physicians review through their charts; Administrator alone is read-only and FrontDesk has no detailed nursing access. Nursing saves do not start encounters.
+Phase 3A completed its approved review and was merged in PR #12. The additive nursing schema is already applied on this computer; fresh checkouts use the normal migration command. Continue using the existing server, records and passwords. As nurse.demo, open [Nursing workspace](http://127.0.0.1:8000/app/nursing/), filter an arrived synthetic appointment and open Nursing record to document rooming/readiness and vital observations. Flowsheet time columns open record history and permitted corrections. Assigned Physicians review through their charts; Administrator alone is read-only and FrontDesk has no detailed nursing access. Nursing saves do not start encounters.
 
 See the [startup/manual checklist](docs/iterations/0006-nursing-workspace/acceptance.md), [verification](docs/iterations/0006-nursing-workspace/verification.md), [changed files](docs/iterations/0006-nursing-workspace/changed-files.md) and [state/access/input policy](docs/decisions/0006-nursing-rooming-and-vitals.md). Numeric bounds are demo data-entry checks, not clinical interpretation. No real medical use, medication administration or deployment is supported.

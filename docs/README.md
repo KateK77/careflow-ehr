@@ -1,5 +1,8 @@
 # Development documentation
 
+- [Current project status and completed-phase closeout](project-status.md) — authoritative current disposition; original phase records below retain their historical status statements.
+- [Documentation maintenance closeout](maintenance/0001-project-closeout/README.md) — scope, preservation and verification for this documentation-only update.
+
 - [Product requirements and baseline history](requirements/README.md)
 - [Architecture](architecture.md), [technical decisions](decisions/), and [roadmap](roadmap.md)
 - [Development workflow](workflow.md) and [iteration template](iterations/TEMPLATE.md)

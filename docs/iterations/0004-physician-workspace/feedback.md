@@ -17,3 +17,9 @@ The five Phase 1A and four Phase 1B UX enhancement groups remain future, non-blo
 ## Autonomous continuation — 2026-11-09
 
 The user postponed manual acceptance and pre-authorized routine Phase 2A fixes, testing, commits, publication and documentation. See [the complete instruction](autonomy-prompt.md). Two reproducible issues were corrected during developer review; these are not user-reported UAT results. Manual acceptance remains pending. Merge, history rewriting, branch deletion, database resets, outside-workspace modifications, deployment, costs and new phases still require separate approval.
+
+## Targeted manual retest addendum v1.0
+
+The user reported Retest 04 date entry acceptable (user-reported passed, without additional evidenced malformed-date cases) and Retest 05 Physician Workspace passed at the tested, unspecified width. Names/MRNs, both statuses, clinical links and Recent Encounters were readable. The prior 12 reported workflow passes remain recorded. Broader manual coverage is unverified; this is not merge approval.
+
+See [the retest evidence and limits](uat-retest.md). Deferred, non-blocking enhancements: consolidate duplicated allergy summary/inline errors; resolve numeric audit IDs to authorized readable labels; monitor narrower responsive layouts. No enhancement is implemented now. Earlier pending statements are historical and are superseded only for explicitly reported checks.

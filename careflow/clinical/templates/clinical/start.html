@@ -1,0 +1,5 @@
+{% extends "core/base.html" %}
+{% block content %}
+<section class="panel"><h1>Start clinical encounter</h1><p>{{ appointment.patient }} · {{ appointment.patient.mrn }} · Appointment #{{ appointment.pk }}</p><p>Appointment: {{ appointment.get_status_display }}. Starting creates one encounter and retains the existing check-in information.</p>
+<form method="post">{% csrf_token %}{{ form.as_p }}<div class="form-actions"><button type="submit">Confirm encounter start</button><a href="{% url 'appointment_detail' appointment.pk %}">Return to appointment</a></div></form></section>
+{% endblock %}

@@ -22,3 +22,5 @@ jobs:
         run: python manage.py check
       - name: Run tests
         run: python manage.py test
+      - name: Check migration consistency
+        run: python manage.py makemigrations --check --dry-run

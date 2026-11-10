@@ -1,4 +1,6 @@
 from django import forms
+from django.utils import timezone
+from careflow.core.forms import configure_date_field
 
 from .models import Patient
 
@@ -23,6 +25,7 @@ class PatientForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        configure_date_field(self.fields["dob"], maximum=timezone.localdate().isoformat())
         self.duplicates = Patient.objects.none()
         if self.instance.pk:
             self.fields["version"].initial = self.instance.version

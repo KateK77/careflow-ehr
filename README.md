@@ -107,3 +107,9 @@ Creation and edits require a review token valid for ten minutes. Rescheduling re
 The new migration creates scheduling tables only. The existing patient data and staff passwords are preserved. No appointment seed is required. Current availability is based on active physicians and conflicting reservations, with provider working hours and leave deferred.
 
 Run `python manage.py check`, `python manage.py makemigrations --check --dry-run` and `python manage.py test`. Optional browser checks run with `python manage.py test careflow.scheduling.browser_tests careflow.patients.browser_tests` after installing Playwright/Chromium. The default GitHub workflow runs the Django suite, not the optional browser checks.
+
+## Phase 2A physician workspace and clinical documentation
+
+Run the existing Django application using the commands above; the local additive clinical migrations have been applied. Existing accounts/passwords and data remain. Open [Physician workspace](http://127.0.0.1:8000/app/physician/) as physician.demo. Start an encounter explicitly from an arrived appointment, save/reopen/edit a synthetic SOAP draft, review and confirm signing, then complete the encounter. Administrator/Nurse read clinic clinical records; FrontDesk has no clinical note access.
+
+See the [complete startup and manual acceptance guide](docs/iterations/0004-physician-workspace/acceptance.md), [access/state policy](docs/decisions/0004-encounters-and-soap.md) and [verification record](docs/iterations/0004-physician-workspace/verification.md). One SOAP note per encounter, explicit draft saves and no addenda/reopening are provided. Signed content is protected through supported application paths, not against database administrators. No real clinical use is supported. Phase 2A is awaiting manual acceptance.

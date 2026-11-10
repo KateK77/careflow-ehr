@@ -1,0 +1,53 @@
+# Phase 2A changed files
+
+New clinical app files implement models/migrations, policies/services, forms, scoped views/routes, templates and tests. Existing files add clinical navigation, a post-start scheduling guard, styling, configuration, CI consistency checks and current documentation. Historical iteration records are unchanged.
+
+- `.github/workflows/ci.yml`
+- `CHANGELOG.md`
+- `README.md`
+- `careflow/clinical/__init__.py`
+- `careflow/clinical/access.py`
+- `careflow/clinical/browser_tests.py`
+- `careflow/clinical/forms.py`
+- `careflow/clinical/migrations/0001_initial.py`
+- `careflow/clinical/migrations/0002_alter_note_assessment_alter_note_objective_and_more.py`
+- `careflow/clinical/migrations/__init__.py`
+- `careflow/clinical/models.py`
+- `careflow/clinical/services.py`
+- `careflow/clinical/templates/clinical/action_error.html`
+- `careflow/clinical/templates/clinical/chart.html`
+- `careflow/clinical/templates/clinical/encounter.html`
+- `careflow/clinical/templates/clinical/header.html`
+- `careflow/clinical/templates/clinical/note_form.html`
+- `careflow/clinical/templates/clinical/sign.html`
+- `careflow/clinical/templates/clinical/soap.html`
+- `careflow/clinical/templates/clinical/start.html`
+- `careflow/clinical/templates/clinical/workspace.html`
+- `careflow/clinical/tests.py`
+- `careflow/clinical/urls.py`
+- `careflow/clinical/views.py`
+- `careflow/core/static/core/app.css`
+- `careflow/core/templates/core/base.html`
+- `careflow/patients/templates/patients/detail.html`
+- `careflow/scheduling/services.py`
+- `careflow/scheduling/templates/scheduling/detail.html`
+- `careflow/settings.py`
+- `careflow/urls.py`
+- `docs/README.md`
+- `docs/architecture.md`
+- `docs/decisions/0004-encounters-and-soap.md`
+- `docs/iterations/0004-physician-workspace/README.md`
+- `docs/iterations/0004-physician-workspace/acceptance.md`
+- `docs/iterations/0004-physician-workspace/changed-files.md`
+- `docs/iterations/0004-physician-workspace/feedback.md`
+- `docs/iterations/0004-physician-workspace/prompt.md`
+- `docs/iterations/0004-physician-workspace/verification.md`
+- `docs/roadmap.md`
+
+## Autonomous review follow-up files
+
+- `careflow/clinical/views.py`: local-day overlap filtering, bounded date validation and read-only redirect for already signed note previews.
+- `careflow/clinical/tests.py`: four regression cases.
+- `docs/iterations/0004-physician-workspace/autonomy-prompt.md`: continuation instruction preserved separately from the original prompt.
+- `docs/iterations/0004-physician-workspace/autonomous-review.md`: reproduction, decisions, permission inspection and outstanding manual checks.
+- Current iteration README, feedback, verification and acceptance records: continuation evidence and pending review.

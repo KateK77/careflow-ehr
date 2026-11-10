@@ -1,0 +1,42 @@
+from django import template
+
+register = template.Library()
+EVENTS = {
+    "patient_create": "Patient registered", "patient_update": "Demographics updated", "patient_view": "Demographics viewed",
+    "appointment_create": "Appointment booked", "appointment_reschedule": "Appointment rescheduled",
+    "appointment_arrive": "Patient checked in", "appointment_cancel": "Appointment cancelled", "appointment_no_show": "No-show recorded",
+    "encounter_start": "Encounter started", "encounter_complete": "Encounter completed",
+    "note_create": "SOAP draft created", "note_edit": "SOAP draft updated", "note_sign": "SOAP note signed",
+    "history_allergy_state_sync": "Allergy assessment updated", "history_allergy_state_review": "Allergy assessment reviewed",
+}
+DOMAINS = {"medical": "Medical history", "problems": "Problem", "allergies": "Allergy", "medications": "Medication statement", "diagnoses": "Encounter diagnosis"}
+FIELDS = {"mrn": "MRN", "dob": "Date of birth", "signed_at": "Signing time", "checked_in_by": "Check-in staff",
+          "checked_in_at": "Check-in time", "observed_at": "Observation time", "recorded_by": "Recording nurse",
+          "updated_by": "Last editor", "reviewed_by": "Reviewing staff", "ready_for_provider": "Ready for provider",
+          "pk": "Record number", "id": "Record number"}
+
+
+@register.filter
+def event_label(value):
+    value = str(value)
+    if value in EVENTS:
+        return EVENTS[value]
+    for kind, label in DOMAINS.items():
+        for suffix, action in {"create": "recorded", "edit": "updated", "review": "review recorded"}.items():
+            if value == f"history_{kind}_{suffix}":
+                return f"{label} {action}"
+    for kind, label in {"assessment": "Rooming assessment", "vitals": "Vital observation"}.items():
+        for suffix, action in {"create": "recorded", "edit": "corrected"}.items():
+            if value == f"nursing_{kind}_{suffix}":
+                return f"{label} {action}"
+    return value.replace("_", " ").capitalize() if "_" in value else value
+
+
+@register.filter
+def field_label(value):
+    return FIELDS.get(str(value), str(value).replace("_", " ").capitalize())
+
+
+@register.filter
+def field_labels(values):
+    return [field_label(value) for value in values]

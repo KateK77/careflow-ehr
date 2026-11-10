@@ -115,6 +115,9 @@ def transition_appointment(actor, appointment_id, action, version, reason=""):
         with transaction.atomic():
             _lock_providers([original.physician_id])
             appointment = Appointment.objects.select_for_update().get(pk=appointment_id)
+            # Clinical start uses the same provider lock; preserve started encounter context.
+            if hasattr(appointment, "encounter"):
+                raise AppointmentConflict("An encounter has started. Appointment transitions are no longer available.")
             if appointment.version != version:
                 raise AppointmentConflict("This appointment changed. Reload before retrying.")
             permitted = {

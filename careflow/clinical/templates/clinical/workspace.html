@@ -1,0 +1,22 @@
+{% extends "core/base.html" %}
+{% block title %}Physician workspace · CareFlow EHR{% endblock %}
+{% block content %}
+<div class="page-heading"><div><div class="eyebrow">CLINICAL WORKSPACE</div><h1>Physician worklist</h1><p>Appointments for the selected clinic-local date and recent encounters within your access.</p></div><a href="{% url 'schedule' %}">Calendar</a></div>
+<form method="get" class="filters panel"><div class="field"><label for="date">Appointment date</label><input type="date" id="date" name="date" min="1900-01-01" max="2100-12-31" value="{{ selected|date:'Y-m-d' }}"></div><button type="submit">Apply date</button></form>
+{% if filter_error %}<div role="alert" class="notice warning">{{ filter_error }}</div>{% endif %}
+<section class="panel"><h2>Appointments</h2><div class="table-scroll"><table class="clinical-table">
+<thead><tr><th>Time</th><th>Patient / clinician</th><th>Clinical status</th><th>Actions</th></tr></thead><tbody>
+{% for appointment in appointments %}<tr>
+<td class="context-cell">{{ appointment.start_at|date:"Y-m-d H:i T" }}</td><td class="patient-cell"><strong>{{ appointment.patient }}</strong><br>{{ appointment.patient.mrn }}<br><span class="small muted">Physician: {{ appointment.physician.get_full_name|default:appointment.physician.username }}</span></td><td class="status-cell">Appointment: {{ appointment.get_status_display }}<br>Encounter: {{ appointment.encounter.get_status_display|default:"Not started" }}</td>
+<td class="actions-cell"><a href="{% url 'patient_chart' appointment.patient_id %}">View chart</a> · <a href="{% url 'appointment_detail' appointment.pk %}">Appointment details</a>
+{% if appointment.encounter %} · <a href="{% url 'encounter_detail' appointment.patient_id appointment.encounter.pk %}">Open encounter</a>
+{% elif appointment.status == 'arrived' and user.pk == appointment.physician_id and 'Physician' in staff_roles %} · <a href="{% url 'encounter_start' appointment.pk %}">Start encounter</a>{% endif %}</td></tr>
+{% empty %}<tr><td colspan="4">No appointments within your access for this date.</td></tr>{% endfor %}
+</tbody></table></div></section>
+<section class="panel"><h2>Recent encounters</h2><div class="table-scroll"><table><thead><tr><th>Patient</th><th>Started</th><th>Physician</th><th>Status</th><th>Action</th></tr></thead><tbody>
+{% for encounter in encounters %}<tr><td>{{ encounter.patient }} · {{ encounter.patient.mrn }}</td><td>{{ encounter.started_at|date:"Y-m-d H:i T" }}</td><td>{{ encounter.physician.get_full_name|default:encounter.physician.username }}</td><td>{{ encounter.get_status_display }}</td><td><a href="{% url 'encounter_detail' encounter.patient_id encounter.pk %}">Open encounter</a></td></tr>{% empty %}<tr><td colspan="5">No encounters yet. Arrived appointments require an explicit physician start.</td></tr>{% endfor %}
+</tbody></table></div>
+{% if encounters.has_previous %}<a href="?date={{ selected|date:'Y-m-d' }}&page={{ encounters.previous_page_number }}">Previous</a>{% endif %}
+<span>Page {{ encounters.number }} of {{ encounters.paginator.num_pages }}</span>
+{% if encounters.has_next %}<a href="?date={{ selected|date:'Y-m-d' }}&page={{ encounters.next_page_number }}">Next</a>{% endif %}</section>
+{% endblock %}

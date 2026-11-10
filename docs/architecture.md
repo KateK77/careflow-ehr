@@ -20,3 +20,7 @@ The `patients` app owns Patient, AuditEvent, demographic validation, backend sta
 ## Phase 1B scheduling increment
 
 The scheduling app owns appointments, provider serialization rows and appointment events linked to existing AuditEvent records. Write services provide reservation conflict checks, state transitions and transactional audit writes. Scoped views reuse the existing staff-role policies. See [ADR 0003](decisions/0003-scheduling-and-checkin.md).
+
+## Phase 2A clinical increment
+
+The clinical app adds encounters, structured SOAP notes and clinical events linked to existing audits. Scoped clinical access is separate from demographic/scheduling access. Shared provider locks serialize clinical start/completion/signing with scheduling transitions. See [ADR 0004](decisions/0004-encounters-and-soap.md) and the [iteration record](iterations/0004-physician-workspace/README.md).

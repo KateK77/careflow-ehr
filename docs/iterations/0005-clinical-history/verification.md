@@ -30,3 +30,14 @@ Initial form tests exposed date validation attempting to dereference an excluded
 The stacked PR must target phase/0004-physician-workspace. The [push run](https://github.com/KateK77/careflow-ehr/actions/runs/42722660536) and [PR run](https://github.com/KateK77/careflow-ehr/actions/runs/42722722654) passed for [implementation commit bd44d22e](https://github.com/KateK77/careflow-ehr/commit/bd44d22e3942fd36f5431efe95a978b55436d226), including all 126 tests, system checks and migration consistency. The evidence-only follow-up uses the same workflow; latest checks are linked from [stacked PR #10](https://github.com/KateK77/careflow-ehr/pull/10). CI runs system checks, migration consistency and the default regression suite; optional Chromium dependencies are local only.
 
 Neither Phase 2A nor Phase 2B has passed manual UAT. The [acceptance guide](acceptance.md) remains pending. No claim is made for comprehensive security testing, database-operator immutability, real clinical terminology, automated medication/allergy safety checking, production concurrency, deployment or clinical readiness.
+
+## UAT follow-up verification v1.0 — 2026-11-09
+
+The user-reported 20 manual passes are listed in [the follow-up](uat-followup.md); they do not replace automated or security verification. Shared changes were inherited by a normal parent-branch merge from [Phase 2A commit 6490841](https://github.com/KateK77/careflow-ehr/commit/6490841ab18e67b14c9409552a619f1279f1fcf0), preserving history.
+
+- Django system check passed; migration consistency: no changes detected.
+- Complete default suite: **133 tests passed**. Four focused tests cover malformed/extended/historical dates, retained allergy-conflict input, friendly duplicate-primary errors and unchanged database constraint, resolved linked-problem status, rejected same-version review replay and permitted fresh re-review.
+- Five local Chromium workflows passed: shared date/responsive/submit guard, clinical history with allergy conflict and duplicate-primary feedback, physician SOAP, scheduling and patient registration. A wrong CSS selector in the new browser assertion was corrected before the successful rerun.
+- No schema migration or local database write. Before/after whole-file SQLite hash and available immutable source/prompt bytes matched; final integrated preservation is also checked on Phase 3A. Tests use disposable synthetic test databases.
+- Phase 2A Push and PR CI passed: [Push](https://github.com/KateK77/careflow-ehr/actions/runs/42741609207), [PR](https://github.com/KateK77/careflow-ehr/actions/runs/42741615233). Phase 2B actual HEAD checks and resulting commit are linked in [PR #10](https://github.com/KateK77/careflow-ehr/pull/10). Local results are not described as GitHub results.
+- UI changes still require user retesting. No comprehensive security or database-level audit immutability claim.

@@ -9,7 +9,7 @@ from careflow.patients.models import AuditEvent
 from careflow.scheduling.services import _lock_providers
 from .access import can_maintain
 from .forms import REGISTRY
-from .models import Allergy, AllergyState, HistoryEvent, PatientHistoryLock
+from .models import Allergy, AllergyState, HistoryEvent, PatientHistoryLock, PRIMARY_DIAGNOSIS_MESSAGE
 
 
 class HistoryConflict(ValidationError):
@@ -47,7 +47,7 @@ def _require_treating(actor, patient_id):
 
 def _busy(error):
     if isinstance(error, IntegrityError) or "locked" in str(error).lower():
-        raise HistoryConflict("The record changed, a primary diagnosis already exists, or the database is busy. Reload and retry.") from error
+        raise HistoryConflict("The record changed or the database is busy. Reload and retry.") from error
     raise error
 
 
@@ -123,6 +123,8 @@ def save_record(actor, patient_id, kind, data, version, record_id=None, encounte
                 _sync_allergy_state(patient_id, actor)
             return record
     except (IntegrityError, OperationalError) as error:
+        if isinstance(error, IntegrityError) and kind == "diagnoses" and data.get("rank") == "primary":
+            raise HistoryConflict(PRIMARY_DIAGNOSIS_MESSAGE) from error
         _busy(error)
 
 
@@ -139,7 +141,7 @@ def review_allergy_state(actor, patient_id, status, version, confirmed):
                 raise ValidationError("Explicit synthetic review confirmation is required.")
             active = Allergy.objects.filter(patient_id=patient_id, status="active").exists()
             if (active and status != "documented") or (not active and status == "documented"):
-                raise ValidationError("The allergy assessment must agree with the active allergy entries.")
+                raise ValidationError("The allergy assessment conflicts with the patient's active allergy records.")
             before = snapshot(state) if state else {}
             state = state or AllergyState(patient_id=patient_id)
             state.status = status

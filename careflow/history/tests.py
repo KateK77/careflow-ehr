@@ -323,7 +323,7 @@ class HistoryTests(TestCase):
         self.assertContains(response, "&lt;script&gt;")
         self.assertNotContains(response, "<script>synthetic")
         chart = self.client.get(reverse("patient_chart", args=[self.patient.pk]))
-        self.assertContains(chart, "history_medical_create")
+        self.assertContains(chart, "Medical history recorded")
         self.assertContains(chart, "DEMO — NOT FOR CLINICAL USE")
 
     def test_csrf_anonymous_and_unknown_modules(self):

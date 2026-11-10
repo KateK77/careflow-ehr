@@ -1,4 +1,6 @@
 from django import forms
+from django.utils import timezone
+from careflow.core.forms import configure_date_field
 
 from .models import Allergy, AllergyState, EncounterDiagnosis, MedicalHistory, MedicationStatement, Problem
 
@@ -17,7 +19,7 @@ class RecordForm(forms.ModelForm):
         self.initial["version"] = self.instance.version if self.instance.pk else 0
         for name, field in self.fields.items():
             if isinstance(field, forms.DateField):
-                field.widget = forms.DateInput(attrs={"type": "date"})
+                configure_date_field(field, maximum=timezone.localdate().isoformat())
         self.fields["comments"].widget = forms.Textarea(attrs={"rows": 3})
 
 

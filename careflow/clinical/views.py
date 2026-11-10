@@ -16,6 +16,8 @@ from .forms import NoteForm, SignForm, VersionForm
 from .models import ClinicalEvent, Note
 from .services import (ClinicalConflict, complete_encounter, save_note, sign_note, start_encounter)
 from careflow.history.models import AllergyState, HistoryEvent, MedicalHistory, MedicationStatement, Problem
+from careflow.nursing.models import NursingEvent
+from careflow.nursing.presentation import chart_context as nursing_chart_context
 
 
 @require_safe
@@ -71,7 +73,16 @@ def chart(request, patient_id):
                          "actor": event.audit.actor, "history_url": target})
     timeline.sort(key=lambda item: item["at"], reverse=True)
     AuditEvent.objects.create(actor=request.user, patient=patient, action="chart_view")
+    nursing_events = NursingEvent.objects.filter(appointment__in=appointments).select_related("audit__actor")
+    for event in nursing_events[:100]:
+        kind = "assessment" if event.assessment_id else "vitals"
+        target = reverse("nursing_record", args=[patient.pk, event.appointment_id, kind,
+                                                 event.assessment_id or event.observation_id])
+        timeline.append({"at": event.audit.occurred_at, "label": event.audit.action,
+                         "actor": event.audit.actor, "history_url": target})
+    timeline.sort(key=lambda item: item["at"], reverse=True)
     return render(request, "clinical/chart.html", {
+        **nursing_chart_context(request.user, patient),
         "patient": patient, "encounters": encounters[:50], "appointments": appointments.order_by("-start_at")[:10],
         "notes": Note.objects.filter(encounter__in=encounters).select_related("encounter", "author").order_by("-created_at")[:50],
         "timeline": timeline[:100],
@@ -114,6 +125,7 @@ def encounter_detail(request, patient_id, encounter_id):
     encounter = _encounter(request, patient_id, encounter_id)
     AuditEvent.objects.create(actor=request.user, patient=encounter.patient, action="encounter_view")
     return render(request, "clinical/encounter.html", {
+        **nursing_chart_context(request.user, encounter.patient, encounter.appointment_id),
         "patient": encounter.patient, "encounter": encounter,
         "note": Note.objects.filter(encounter=encounter).first(),
         "editable": can_write(request.user, encounter.physician_id) and encounter.status == "in_progress",

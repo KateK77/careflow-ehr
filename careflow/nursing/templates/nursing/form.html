@@ -1,0 +1,12 @@
+{% extends "core/base.html" %}
+{% block title %}Nursing {{ kind }} · {{ patient.mrn }}{% endblock %}
+{% block content %}
+{% include "clinical/header.html" %}{% include "nursing/context.html" %}
+<section class="panel"><h2>{% if kind == 'assessment' %}Rooming assessment{% else %}Vital-sign observation{% endif %}</h2>
+<p>Synthetic documentation only. This action does not start an encounter or change the appointment status.</p>
+{% if kind == 'vitals' %}<p class="small muted">Partial observations are permitted; record at least one measurement. Enter both BP values or neither. Temperature, height and weight need explicit units. Demo input bounds reject malformed entries; they are not normal ranges or clinical recommendations.</p>{% endif %}
+<form method="post" class="soap-form">{% csrf_token %}{{ form.non_field_errors }}{{ form.version }}
+{% for field in form.visible_fields %}<div class="field">{{ field.errors }}{{ field.label_tag }}{{ field }}{% if field.help_text %}<p class="small muted">{{ field.help_text }}</p>{% endif %}</div>{% endfor %}
+<div class="form-actions"><button type="submit">Save nursing documentation</button><a href="{% url 'nursing_appointment' patient.pk appointment.pk %}">Return without saving</a></div></form>
+</section>
+{% endblock %}

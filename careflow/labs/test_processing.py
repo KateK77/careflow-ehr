@@ -30,7 +30,7 @@ class ProcessingFixture(LabFixture):
 
     def receive(self):
         self.command('claim',reason='Synthetic processing'); self.collect(); s=self.order.specimens.get()
-        self.command('receive',specimen_id=s.pk,specimen_version=s.version)
+        self.command('receive',specimen_id=s.pk,specimen_version=s.version,accession=str(s.accession))
 
     def result_draft(self):
         self.receive(); s=self.order.specimens.get(); self.command('result_create',specimen_id=s.pk,specimen_version=s.version)
@@ -142,8 +142,20 @@ class ProcessingTests(ProcessingFixture,TestCase):
         with self.assertRaises(LabConflict): process(self.lab,self.order.public_id,version,uuid.uuid4(),'claim',data,True)
         self.collect(); s=self.order.specimens.get(); before=LabEvent.objects.count()
         with patch('careflow.labs.services.AuditEvent.objects.create',side_effect=RuntimeError('Injected audit failure')):
-            with self.assertRaises(RuntimeError): self.command('receive',specimen_id=s.pk,specimen_version=s.version)
+            with self.assertRaises(RuntimeError): self.command('receive',specimen_id=s.pk,specimen_version=s.version,accession=str(s.accession))
         s.refresh_from_db(); self.assertEqual(s.status,'collected'); self.assertEqual(before,LabEvent.objects.count())
+
+    def test_admin_can_reassign_lab_staff_and_revoke_prior_access(self):
+        self.command('claim',reason='Initial assignment')
+        target=get_user_model().objects.create_user('new.lab'); target.groups.add(self.lab.groups.get(name='Lab Staff'))
+        self.command('assign',self.admin,assignee_id=target.pk,reason='Explicit laboratory coverage')
+        with self.assertRaises(PermissionDenied): self.command('result_create',self.lab)
+        self.order.refresh_from_db(); self.assertEqual(self.order.assigned_lab_staff,target)
+
+    def test_receipt_requires_correct_accession(self):
+        self.command('claim',reason='Synthetic processing'); self.collect(); s=self.order.specimens.get()
+        with self.assertRaises(ValidationError): self.command('receive',specimen_id=s.pk,specimen_version=s.version,accession=str(uuid.uuid4()))
+        s.refresh_from_db(); self.assertEqual(s.status,'collected')
 
     def test_result_edit_form_post(self):
         import json
@@ -181,7 +193,7 @@ class ProcessingConcurrencyTests(ProcessingFixture,TransactionTestCase):
         def race(action):
             close_old_connections(); barrier.wait()
             try:
-                if action=='receive': process(get_user_model().objects.get(pk=self.lab.pk),order_id,version,uuid.uuid4(),'receive',{'specimen_id':s.pk,'specimen_version':s.version},True)
+                if action=='receive': process(get_user_model().objects.get(pk=self.lab.pk),order_id,version,uuid.uuid4(),'receive',{'specimen_id':s.pk,'specimen_version':s.version,'accession':str(s.accession)},True)
                 else: cancel_order(get_user_model().objects.get(pk=self.physician.pk),order_id,version,'Race cancel',uuid.uuid4(),True)
                 return 'ok'
             except ValidationError: return 'conflict'

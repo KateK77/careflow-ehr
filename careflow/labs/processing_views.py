@@ -43,6 +43,7 @@ class ProcessingForm(CommandForm):
             self.fields['result_version']=forms.IntegerField(widget=forms.HiddenInput,initial=draft.edit_version if draft else 0)
         if action in {'assign','claim','correct_collection','reject','recollect','abandon'}:
             self.fields['reason']=forms.CharField(max_length=1000,widget=forms.Textarea(attrs={'rows':3}))
+        if action=='receive': self.fields['accession']=forms.UUIDField(label='Confirm specimen accession')
         if action=='assign':
             self.fields['assignee']=forms.ModelChoiceField(queryset=get_user_model().objects.filter(is_active=True,groups__name='Lab Staff').distinct())
         if action in {'collect','correct_collection'}:
@@ -61,6 +62,7 @@ class ProcessingForm(CommandForm):
     def command_data(self):
         d={k:v for k,v in self.cleaned_data.items() if k not in {'command_key','version','synthetic_confirmed'}}
         if 'assignee' in d: d['assignee_id']=d.pop('assignee').pk
+        if 'accession' in d: d['accession']=str(d['accession'])
         if 'dob' in d: d['dob']=d['dob'].isoformat()
         return d
 

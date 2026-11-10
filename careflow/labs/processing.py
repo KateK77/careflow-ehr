@@ -91,7 +91,7 @@ def process(actor,order_id,version,command_key,action,data,confirmed):
             if not target: raise ValidationError('Select an active Lab Staff account.')
             if order.assigned_lab_staff_id:
                 previous=get_user_model().objects.get(pk=order.assigned_lab_staff_id)
-                if previous.is_active and previous.groups.filter(name='Lab Staff').exists(): raise LabConflict('An eligible laboratory assignee cannot be replaced.')
+                if action=='claim' and previous.is_active and previous.groups.filter(name='Lab Staff').exists(): raise LabConflict('An eligible laboratory assignee cannot be claimed by another actor.')
             text(data,'reason')
             order.assigned_lab_staff=target
         elif action=='recollect':
@@ -107,10 +107,12 @@ def process(actor,order_id,version,command_key,action,data,confirmed):
                 if action=='correct_collection': text(data,'reason')
                 collected=parse_time(data.get('collected_at'))
                 if collected<order.submitted_at: raise ValidationError('Collection cannot precede submission.')
-                specimen.status='collected'; specimen.collected_at=collected; specimen.collected_by=actor
+                specimen.status='collected'; specimen.collected_at=collected
+                if action=='collect': specimen.collected_by=actor
                 specimen.comments=data.get('reason','')
             elif action=='receive':
                 if specimen.status!='collected': raise LabConflict('Receipt requires a collected active attempt.')
+                if data.get('accession')!=str(specimen.accession): raise ValidationError('Confirm the exact specimen accession before receipt.')
                 specimen.status='received'; specimen.received_at=timezone.now(); specimen.received_by=actor
                 if specimen.collected_at>specimen.received_at: raise ValidationError('Receipt cannot precede collection.')
             else:
@@ -125,6 +127,7 @@ def process(actor,order_id,version,command_key,action,data,confirmed):
             result.full_clean(); result.save()
         elif action in {'result_save','abandon','publish'}:
             result=result_for(order,data); specimen=result.specimen
+            before['result_snapshot']=_snapshot(result)
             if specimen.status!='received': raise LabConflict('A received specimen is required.')
             if action=='result_save':
                 components=data.get('components')
@@ -149,5 +152,5 @@ def process(actor,order_id,version,command_key,action,data,confirmed):
         else: raise ValidationError('Unknown laboratory command.')
         order.version+=1; order.full_clean(); order.save()
         extra={'operation_reason':data.get('reason','')}
-        if result: extra['result_metadata']={'id':result.pk,'revision':result.revision,'status':result.status,'edit_version':result.edit_version}
+        if result: extra['result_snapshot']=_snapshot(result)
         return _event(actor,key,fingerprint,'lab_'+action,order,before,specimen,result,extra)

@@ -13,7 +13,7 @@ class ProcessingBrowserTests(ProcessingFixture,StaticLiveServerTestCase):
         from playwright.sync_api import sync_playwright,expect
         self.setup_processing(); password=secrets.token_urlsafe(24)
         for user in self.staff.values(): user.set_password(password); user.save()
-        order_id=str(self.order.public_id)
+        order_id=str(self.order.public_id); accession=str(self.order.specimens.get().accession)
         with sync_playwright() as pw:
             browser=pw.chromium.launch(); page=browser.new_page(viewport={'width':1280,'height':1000})
             def login(role):
@@ -28,7 +28,7 @@ class ProcessingBrowserTests(ProcessingFixture,StaticLiveServerTestCase):
             expect(page.locator('main')).to_contain_text('Collected')
             page.get_by_role('button',name='Sign out',exact=True).click(); login('Lab Staff')
             page.get_by_role('link',name='Claim requisition',exact=True).click(); page.locator('#id_reason').fill('Synthetic browser processing'); page.locator('#id_synthetic_confirmed').check(); confirm()
-            action('Receive specimen'); confirm(); expect(page.locator('main')).to_contain_text('Received')
+            action('Receive specimen'); page.locator('#id_accession').fill(accession); confirm(); expect(page.locator('main')).to_contain_text('Received')
             action('Start result draft'); confirm(); action('Edit result draft')
             page.locator('#id_components').fill('[{"code":"SYN-A","value_kind":"numeric","value":"3.5","unit":"demo-U"}]')
             page.locator('#id_performed_at').fill(timezone.now().isoformat()); confirm()

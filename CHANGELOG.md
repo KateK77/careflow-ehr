@@ -1,5 +1,9 @@
 # Changelog
 
+## Documentation closeout — 2026-11-10
+
+Phase 2A — Physician Workspace (PR #8), Phase 2B — Clinical History (PR #10), and Phase 3A — Nursing Workspace (PR #12) completed their approved local-prototype reviews and are merged into main. See [current status and evidence](docs/project-status.md). Earlier pending-review/acceptance headings below are preserved historical delivery entries and do not describe the current state. This documentation maintenance creates no release or new functional phase.
+
 ## Unreleased
 
 - Added a versioned product requirements baseline and archived the supplied development-package documents.

@@ -145,7 +145,7 @@ def order_submit(request, order_id):
             elif request.POST.get("action") == "confirm":
                 try:
                     result = submit_order(request.user, order.public_id, d["version"], d["command_key"], d["synthetic_confirmed"], d["repeat_confirmed"], d["repeat_reason"], d["review_token"])
-                    saved(request, result, "Order submitted with one pending specimen. Collection and results are not available in this increment.")
+                    saved(request, result, "Order submitted with one pending specimen. Continue in the laboratory workspace.")
                     return redirect("lab_order_detail", order_id=order.public_id)
                 except ValidationError as error:
                     errors(form, error)

@@ -1,0 +1,31 @@
+# Changed files
+
+- `careflow/core/auth_views.py`
+- `careflow/core/templates/core/base.html`
+- `careflow/labs/access.py`
+- `careflow/labs/management/__init__.py`
+- `careflow/labs/management/commands/__init__.py`
+- `careflow/labs/management/commands/provision_lab_staff.py`
+- `careflow/labs/migrations/0002_labresult_remove_laborder_lab_order_state_times_and_more.py`
+- `careflow/labs/models.py`
+- `careflow/labs/payloads.py`
+- `careflow/labs/processing.py`
+- `careflow/labs/processing_browser_tests.py`
+- `careflow/labs/processing_views.py`
+- `careflow/labs/services.py`
+- `careflow/labs/templates/labs/detail.html`
+- `careflow/labs/templates/labs/form.html`
+- `careflow/labs/templates/labs/history.html`
+- `careflow/labs/templates/labs/processing_detail.html`
+- `careflow/labs/templates/labs/processing_form.html`
+- `careflow/labs/templates/labs/worklist.html`
+- `careflow/labs/test_processing.py`
+- `careflow/labs/urls.py`
+- `careflow/labs/views.py`
+- `careflow/settings.py`
+- `docs/iterations/0008-lab-processing/README.md`
+- `docs/iterations/0008-lab-processing/acceptance.md`
+- `docs/iterations/0008-lab-processing/changed-files.md`
+- `docs/iterations/0008-lab-processing/feedback.md`
+- `docs/iterations/0008-lab-processing/prompt.md`
+- `docs/iterations/0008-lab-processing/verification.md`

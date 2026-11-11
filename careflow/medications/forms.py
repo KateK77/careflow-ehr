@@ -2,7 +2,7 @@ import uuid
 
 from django import forms
 
-from .models import CATALOG_CONTENT, MedicationOrder, SyntheticMedicationCatalog
+from .models import FORMS, FREQUENCIES, ROUTES, MedicationOrder, SyntheticMedicationCatalog
 
 
 class CommandForm(forms.Form):
@@ -11,10 +11,14 @@ class CommandForm(forms.Form):
     confirmed = forms.BooleanField(label="I confirm this action uses fictional medication data")
 
 
-class CatalogForm(forms.ModelForm, CommandForm):
-    class Meta:
-        model = SyntheticMedicationCatalog
-        fields = CATALOG_CONTENT
+class CatalogForm(CommandForm):
+    code = forms.CharField(max_length=40)
+    revision = forms.IntegerField(min_value=1)
+    name = forms.CharField(max_length=100)
+    dosage_form = forms.ChoiceField(choices=FORMS)
+    strength = forms.CharField(max_length=40)
+    route = forms.ChoiceField(choices=ROUTES)
+    frequency = forms.ChoiceField(choices=FREQUENCIES)
 
 
 class DraftForm(forms.ModelForm, CommandForm):

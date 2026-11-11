@@ -56,6 +56,16 @@ class MedicationTests(MedicationFixture, TestCase):
         with self.assertRaises(ValidationError):
             second.save()
 
+    def test_catalog_http_replay_precedes_duplicate_revision_validation(self):
+        self.client.force_login(self.admin)
+        url = reverse("med_catalog_create")
+        data = {**self.catalog_data, "revision": 2, "version": 0, "key": str(uuid.uuid4()), "confirmed": True}
+        self.assertRedirects(self.client.post(url, data), reverse("med_catalog"))
+        self.assertRedirects(self.client.post(url, data), reverse("med_catalog"))
+        conflict = self.client.post(url, {**data, "key": str(uuid.uuid4())})
+        self.assertContains(conflict, "This code and revision already exist.", status_code=400)
+        self.assertEqual(MedicationOrderEvent.objects.filter(audit__action="med_catalog_create").count(), 2)
+
     def test_catalog_rejects_nonfictional_configuration(self):
         for changes in ({"code": "REAL"}, {"strength": "10 mg"}, {"name": "Medication"}):
             with self.subTest(changes=changes), self.assertRaises(ValidationError):

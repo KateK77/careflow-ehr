@@ -103,7 +103,9 @@ def create_catalog(actor, data, key, confirmed):
     if prior := replay(actor, key, digest):
         return prior
     revision = SyntheticMedicationCatalog(**data)
-    revision.full_clean()
+    revision.full_clean(validate_constraints=False)
+    if SyntheticMedicationCatalog.objects.filter(code=revision.code, revision=revision.revision).exists():
+        raise ValidationError("This code and revision already exist.")
     revision.save()
     return record_event(actor, key, digest, "med_catalog_create", revision, {})
 

@@ -147,3 +147,85 @@ class BillingEvent(Immutable):
     class Meta:
         ordering = ["-audit__occurred_at", "-pk"]
         constraints = [models.UniqueConstraint(fields=["actor", "key"], name="billing_command_unique")]
+
+
+class MockClaim(models.Model):
+    class Status(models.TextChoices):
+        DRAFT = "draft", "Draft"
+        SUBMITTED = "submitted", "Submitted to simulator"
+        PENDING = "pending", "Pending simulated adjudication"
+        APPROVED = "approved", "Simulated approval"
+        PARTIAL = "partial", "Simulated partial approval"
+        DENIED = "denied", "Simulated denial"
+
+    statement = models.OneToOneField(PatientStatement, on_delete=models.PROTECT, related_name="mock_claim")
+    coverage = models.ForeignKey(PatientCoverage, on_delete=models.PROTECT)
+    status = models.CharField(max_length=12, choices=Status.choices, default=Status.DRAFT)
+    version = models.PositiveIntegerField(default=1)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [models.CheckConstraint(condition=Q(status__in=[
+            "draft", "submitted", "pending", "approved", "partial", "denied",
+        ]), name="billing_claim_state")]
+
+
+class MockAppeal(models.Model):
+    claim = models.ForeignKey(MockClaim, on_delete=models.PROTECT, related_name="appeals")
+    status = models.CharField(max_length=12, default="draft", choices=[
+        ("draft", "Draft"), ("submitted", "Submitted to simulator"),
+        ("upheld", "Denial upheld"), ("overturned", "Denial overturned"),
+    ])
+    explanation = models.CharField(max_length=500)
+    supporting_line = models.ForeignKey(StatementLine, null=True, on_delete=models.PROTECT)
+    resolution = models.CharField(max_length=240, blank=True)
+    version = models.PositiveIntegerField(default=1)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-pk"]
+        constraints = [
+            models.UniqueConstraint(fields=["claim"], condition=Q(status__in=["draft", "submitted"]),
+                                    name="billing_open_appeal"),
+            models.CheckConstraint(condition=Q(status__in=["draft", "submitted", "upheld", "overturned"]),
+                                   name="billing_appeal_state"),
+        ]
+
+
+class MockAdjudication(Immutable):
+    DENIALS = [("demo_scope", "Synthetic plan scope"), ("demo_reference", "Synthetic reference mismatch"),
+               ("demo_limit", "Synthetic plan limit")]
+    claim = models.ForeignKey(MockClaim, on_delete=models.PROTECT, related_name="decisions")
+    appeal = models.OneToOneField(MockAppeal, null=True, on_delete=models.PROTECT)
+    outcome = models.CharField(max_length=12, choices=MockClaim.Status.choices)
+    payer_cents = models.PositiveBigIntegerField()
+    denial = models.CharField(max_length=20, choices=DENIALS, blank=True)
+    claim_version = models.PositiveIntegerField()
+
+    class Meta:
+        ordering = ["-claim_version"]
+        constraints = [
+            models.UniqueConstraint(fields=["claim", "claim_version"], name="billing_adjudication_version"),
+            models.CheckConstraint(condition=(
+                Q(outcome="denied", payer_cents=0, denial__in=["demo_scope", "demo_reference", "demo_limit"])
+                | Q(outcome__in=["approved", "partial"], payer_cents__gt=0, denial="")
+            ), name="billing_adjudication_outcome"),
+        ]
+
+
+class SimulatedPayment(Immutable):
+    SOURCE = [("patient", "Simulated patient"), ("payer", "Simulated payer")]
+    statement = models.ForeignKey(PatientStatement, on_delete=models.PROTECT, related_name="payments")
+    source = models.CharField(max_length=8, choices=SOURCE)
+    cents = models.PositiveBigIntegerField()
+    reference = models.CharField(max_length=40, unique=True)
+    recorded_at = models.DateTimeField(auto_now_add=True)
+    recorder = models.ForeignKey("auth.User", on_delete=models.PROTECT)
+    reversal_of = models.OneToOneField("self", null=True, on_delete=models.PROTECT, related_name="reversal")
+
+    class Meta:
+        ordering = ["-pk"]
+        constraints = [
+            models.CheckConstraint(condition=Q(cents__gt=0), name="billing_payment_positive"),
+            models.CheckConstraint(condition=Q(source__in=["patient", "payer"]), name="billing_payment_source"),
+        ]

@@ -1,0 +1,42 @@
+{% extends "core/base.html" %}
+{% block content %}
+<h1>Mock claim #{{ claim.pk }}</h1>
+{% include "billing/nav.html" %}
+<p>{{ claim.get_status_display }} · v{{ claim.version }} · {{ claim.coverage }} · Total {{ total }}</p>
+<p><a href="{% url 'billing_encounter' claim.statement.encounter_id %}">Encounter #{{ claim.statement.encounter_id }} · Statement #{{ claim.statement_id }}</a></p>
+<section class="panel"><h2>Finalized charges</h2>
+{% with rows=line_rows %}<div class="scroll" tabindex="0" role="region" aria-label="Finalized charges">
+<table><thead><tr><th>Code</th><th>Description</th><th>Quantity</th><th>Subtotal</th></tr></thead>
+<tbody>{% for row in rows %}<tr>{% for value in row %}<td>{{ value }}</td>{% endfor %}</tr>{% endfor %}</tbody>
+</table></div>{% endwith %}</section>
+{% if claim_form.fields.action.choices or claim_form.errors %}
+<section class="panel"><h2>Simulator action</h2>
+<form method="post">{% csrf_token %}{{ claim_form.as_p }}<button type="submit">Apply claim action</button></form>
+</section>{% endif %}
+<section class="panel"><h2>Adjudication history</h2>
+{% if provisional %}<p>Financial responsibility is provisional while review is open.</p>{% endif %}
+<p>Simulated payer responsibility {{ payer_responsibility }} · Patient responsibility {{ patient_responsibility }}</p>
+{% if decisions %}<div class="scroll" tabindex="0" role="region" aria-label="Adjudication history">
+<table><thead><tr><th>Outcome</th><th>Payer allocation</th><th>Denial category</th><th>Claim version</th><th>Review</th></tr></thead>
+<tbody>{% for row in decisions %}<tr>{% for value in row %}<td>{{ value }}</td>{% endfor %}</tr>{% endfor %}</tbody></table>
+</div>{% else %}<p>No adjudication recorded.</p>{% endif %}
+<ul>{% for label, version, actor, date in history %}<li>{{ label }} · v{{ version }} · {{ actor }} · {{ date|date:"Y-m-d H:i T" }}</li>{% endfor %}</ul>
+</section>
+<section class="panel"><h2>Appeal history</h2>
+{% for appeal, events, revisions in appeals %}
+<article><h3>Appeal #{{ appeal.pk }} · {{ appeal.get_status_display }}</h3>
+<p>{{ appeal.explanation }}</p>
+{% if appeal.supporting_line %}<p>Supporting finalized charge: {{ appeal.supporting_line.code }} · {{ appeal.supporting_line.description }}</p>{% endif %}
+{% if appeal.resolution %}<p>Resolution: {{ appeal.resolution }}</p>{% endif %}
+<details><summary>Draft revision history</summary><ol>
+{% for revision in revisions %}<li>v{{ revision.version }} · {{ revision.audit.occurred_at|date:"Y-m-d H:i T" }}
+<p>{{ revision.details.explanation }}</p></li>{% endfor %}
+</ol></details>
+<ul>{% for label, version, actor, date in events %}<li>{{ label }} · v{{ version }} · {{ actor }} · {{ date|date:"Y-m-d H:i T" }}</li>{% endfor %}</ul>
+</article>
+{% empty %}<p>No appeals recorded.</p>{% endfor %}
+{% if claim.status == "denied" or appeal_form.errors %}
+<form method="post">{% csrf_token %}<input type="hidden" name="kind" value="appeal">{{ appeal_form.as_p }}
+<button type="submit">Apply appeal action</button></form>{% endif %}
+</section>
+{% endblock %}

@@ -15,7 +15,12 @@
 </table></div>
 {% else %}<p>No charges to display.</p>{% endif %}
 <p>Statement total {{ total }} · Simulated balance {{ balance }} · {{ financial_status }}</p></section>
+{% if item.status == "released" %}
+<p>{% if form %}<a href="{% url 'billing_payments' item.pk %}">Simulated payments</a>
+{% else %}<a href="{% url 'portal_payments' item.pk %}">Simulated payment history</a>{% endif %}</p>
+{% endif %}
 {% if form %}
+{% if item.mock_claim %}<p><a href="{% url 'billing_claim' item.mock_claim.pk %}">View mock claim</a></p>{% endif %}
 {% if not item or item.status == "draft" or item.status == "finalized" or form.errors %}
 <section class="panel"><h2>Statement action</h2>
 <form method="post">{% csrf_token %}{{ form.as_p }}<button type="submit">Apply action</button></form></section>

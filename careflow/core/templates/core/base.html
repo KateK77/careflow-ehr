@@ -24,7 +24,7 @@
       <div class="identity">
         {% if user.is_authenticated %}
           <strong>{{ user.get_full_name|default:user.username }}</strong>
-          <span>{% if show_pharmacy_workspace %}Pharmacist{% if staff_roles %} · {{ staff_roles|join:" · " }}{% endif %}{% else %}{{ staff_roles|join:" · "|default:"No staff role" }}{% endif %}</span>
+          <span>{% if show_billing_workspace %}BillingStaff{% if show_pharmacy_workspace or staff_roles %} · {% endif %}{% endif %}{% if show_pharmacy_workspace %}Pharmacist{% if staff_roles %} · {% endif %}{% endif %}{% if staff_roles %}{{ staff_roles|join:" · " }}{% elif not show_billing_workspace and not show_pharmacy_workspace %}No staff role{% endif %}</span>
           <form method="post" action="{% url 'logout' %}">
             {% csrf_token %}
             <button class="quiet" type="submit">Sign out</button>

@@ -1,0 +1,23 @@
+{% extends layout %}
+{% block content %}
+<h1>Simulated payments</h1>
+{% if form %}
+{% include "billing/nav.html" %}
+<p><a href="{% url 'billing_encounter' item.encounter_id %}">Statement #{{ item.pk }}</a></p>
+{% else %}
+<p>All amounts, policies and transactions are fictitious.</p>
+<p><a href="{% url 'portal_statement' item.pk %}">Statement #{{ item.pk }}</a></p>
+{% endif %}
+<section class="panel"><h2>Balance</h2>
+<p>Total {{ total }} · {{ summary.status }}</p>
+{% if summary.pending %}<p>Balances are provisional while the simulator review is open.</p>{% endif %}
+<dl><dt>Patient balance</dt><dd>{{ patient_due }}</dd><dt>Simulated payer balance</dt><dd>{{ payer_due }}</dd>
+<dt>Combined outstanding balance</dt><dd>{{ overall_due }}</dd></dl>
+</section>
+<section class="panel"><h2>Payment history</h2>{% include "billing/table.html" %}</section>
+{% if form %}
+<section class="panel"><h2>Record a simulated payment or reversal</h2>
+<p>For a reversal, select the original payment and enter a reason. The original amount and source are used.</p>
+<form method="post">{% csrf_token %}{{ form.as_p }}<button type="submit">Record simulated transaction</button></form></section>
+{% endif %}
+{% endblock %}

@@ -103,8 +103,8 @@ def submit(form, callback):
     return None
 
 
-def event_rows(subject, item_id):
-    return [(ACTIONS.get(event.audit.action, "Financial event"), event.version, event.actor,
+def event_rows(subject, item_id, labels=ACTIONS):
+    return [(labels.get(event.audit.action, "Financial event"), event.version, event.actor,
              event.audit.occurred_at) for event in BillingEvent.objects.filter(subject=subject, subject_id=item_id)
             .select_related("audit", "actor")]
 
@@ -207,9 +207,16 @@ def statement_context(item, visit, form=None):
     total = item.total_cents if item else 0
     if item and item.status == "draft":
         total = sum(line.subtotal_cents for line in item.charges.filter(void=False).select_related("catalog"))
+    balance = total
+    financial_status = "Balance due" if total else "No balance"
+    if item and item.status == "released":
+        from .claims import position
+        summary = position(item)
+        balance = summary["patient_due"] + (summary["payer_due"] if staff else 0)
+        financial_status = summary["status"]
     return {"layout": "core/base.html" if staff else "portal/base.html", "item": item, "visit": visit,
-            "form": form, "lines": lines, "total": money(total), "balance": money(total),
-            "financial_status": "Balance due" if total else "No balance",
+            "form": form, "lines": lines, "total": money(total), "balance": money(balance),
+            "financial_status": financial_status,
             "history": event_rows("statement", item.pk) if item and staff else []}
 
 

@@ -15,8 +15,26 @@ def orders_for(user):
         if "Physician" in roles:
             scope |= Q(ordering_physician=user)
         return records.filter(scope)
-    return records.filter(ordering_physician=user) if "Physician" in roles else records.none()
+    from django.db.models import Q
+    scope=Q(ordering_physician=user) if "Physician" in roles else Q(pk__in=[])
+    if is_lab(user): scope |= Q(assigned_lab_staff=user,submitted_at__isnull=False)
+    return records.filter(scope)
 
 
 def may_write(user, order):
     return can_write(user, order.ordering_physician_id)
+
+
+def is_lab(user):
+    from django.contrib.auth import get_user_model
+    return bool(user.is_authenticated and get_user_model().objects.filter(pk=user.pk,is_active=True,groups__name="Lab Staff").exists())
+
+
+def lab_roles(user):
+    from django.contrib.auth import get_user_model
+    if not user.is_authenticated: return []
+    return list(get_user_model().objects.filter(pk=user.pk,is_active=True).values_list("groups__name",flat=True))
+
+
+def lab_context(request):
+    return {"show_lab_workspace":bool(set(lab_roles(request.user)) & {"Administrator","Physician","Nurse","Lab Staff"}),"lab_staff_role":is_lab(request.user)}

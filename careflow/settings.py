@@ -45,6 +45,7 @@ TEMPLATES = [
                 "careflow.patients.access.staff_context",
                 "careflow.clinical.access.clinical_context",
                 "careflow.nursing.access.nursing_context",
+                "careflow.labs.access.lab_context",
             ],
         },
     }

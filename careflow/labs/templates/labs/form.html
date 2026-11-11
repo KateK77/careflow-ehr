@@ -3,7 +3,7 @@
 {% block content %}
 {% if patient %}{% include "clinical/header.html" %}{% endif %}
 <section class="panel"><div class="page-heading"><h1>{{ title }}</h1><a href="{% url 'lab_catalog' %}">Laboratory catalog</a></div>
-<p class="notice">Synthetic laboratory orders only. Specimen collection, receipt and results are not available in Phase 3B-1.</p>
+<p class="notice">Synthetic laboratory orders only. Use the laboratory workspace for specimen collection and report publication.</p>
 {% if encounter %}<p>Fixed context: {{ patient }} · {{ patient.mrn }} · Encounter #{{ encounter.pk }} · {{ encounter.get_status_display }}</p>{% endif %}
 {% include "core/form_errors.html" %}
 <form method="post">{% csrf_token %}

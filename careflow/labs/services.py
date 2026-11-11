@@ -77,15 +77,15 @@ def _snapshot(record):
     return json.loads(json.dumps({f.name: f.value_from_object(record) for f in record._meta.fields}, default=str))
 
 
-def _event(actor, key, fingerprint, action, record, before, specimen=None):
+def _event(actor, key, fingerprint, action, record, before, specimen=None, result=None, extra=None):
     is_order = isinstance(record, LabOrder)
     after = _snapshot(record)
     changed = [k for k, v in after.items() if before.get(k) != v]
     audit = AuditEvent.objects.create(actor=actor, patient_id=record.patient_id if is_order else None,
                                       action=action, changed_fields=changed + (["pending_specimen"] if specimen else []))
     LabEvent.objects.create(order=record if is_order else None, catalog=None if is_order else record,
-        specimen=specimen, audit=audit, command_actor=actor, command_key=key, request_fingerprint=fingerprint,
-        before=before, after={**after, **({"pending_specimen": _snapshot(specimen)} if specimen else {})})
+        specimen=specimen, result=result, audit=audit, command_actor=actor, command_key=key, request_fingerprint=fingerprint,
+        before=before, after={**after, **({"specimen": _snapshot(specimen)} if specimen else {}), **(extra or {})})
     return Outcome(record, False)
 
 

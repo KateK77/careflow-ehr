@@ -1,0 +1,24 @@
+<div class="table-scroll">
+  <table>
+    <caption>Report components</caption>
+    <thead><tr><th scope="col">Component</th><th scope="col">Result</th><th scope="col">Unit</th></tr></thead>
+    <tbody>
+      {% for component in components %}
+        <tr>
+          <th scope="row">{{ component.code }}</th>
+          <td>
+            {% if component.value_kind == 'absent' %}
+              Not performed: {{ component.absence_explanation }}
+            {% else %}
+              {{ component.value }}
+            {% endif %}
+            {% if component.comment %}<p>{{ component.comment }}</p>{% endif %}
+          </td>
+          <td>{{ component.unit|default:"—" }}</td>
+        </tr>
+      {% empty %}
+        <tr><td colspan="3">No component results recorded.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,13 @@
+{% extends "core/base.html" %}{% block content %}<section class="panel"><h1>{{ title }}</h1>
+{% if not claim %}<p>{{ order.patient }} · MRN {{ order.patient.mrn }} · DOB {{ order.patient.dob|date:"Y-m-d" }}<br>Encounter #{{ order.encounter_id }} · {{ order.encounter.get_status_display }}</p>{% endif %}<p>Order {{ order.public_id }} · {{ order.catalog_snapshot.display_name }} · v{{ order.version }}</p>
+{% include 'core/form_errors.html' %}
+{% if preview %}<h2>Confirm immutable publication</h2><p>Review the specimen and component results before confirming publication.</p>
+<dl>
+  <dt>Report revision</dt><dd>{{ draft.revision }}</dd>
+  <dt>Specimen accession</dt><dd>{{ draft.specimen.accession }}</dd>
+  <dt>Performed</dt><dd>{{ draft.performed_at|date:"Y-m-d H:i:s T"|default:"Not performed" }}</dd>
+</dl>
+{% include 'labs/report_components.html' with components=draft.payload.components only %}{% endif %}
+<form method="post">{% csrf_token %}{% for field in form %}{% if field.name != 'preview_token' %}{% if field.is_hidden %}{{ field }}{% else %}<div class="field">{{ field.label_tag }}{{ field }}<p class="small">{{ field.help_text }}</p></div>{% endif %}{% endif %}{% endfor %}
+{% if action == 'publish' %}{% if preview %}<input type="hidden" name="preview_token" value="{{ token }}"><button name="step" value="confirm">Confirm publication</button>{% else %}<button name="step" value="preview">Preview report</button>{% endif %}{% else %}<button type="submit">Confirm laboratory action</button>{% endif %}
+</form><a href="{% url 'lab_worklist' %}">Laboratory workspace</a></section>{% endblock %}

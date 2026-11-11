@@ -1,4 +1,6 @@
 <ul>{% for order in orders %}
 <li><a href="{% url 'imaging_order' order.pk %}">{{ order.catalog.name }}</a>
- · {{ order.get_status_display }}{% if order.exam %} · {{ order.exam.scheduled_at|date:"Y-m-d H:i T" }}{% endif %}</li>
+ · {{ order.get_status_display }}{% if order.exam %} · {{ order.exam.scheduled_at|date:"Y-m-d H:i T" }}{% endif %}
+{% if order.workflow %} · Examination {{ order.workflow.get_status_display }}{% endif %}
+{% if order.publication_status == "final" %} · Final report{% elif order.publication_status == "corrected" %} · Corrected report{% elif order.publication_status == "withdrawn" %} · Report withdrawn{% elif order.publication_status == "preliminary" and user.pk == order.encounter.physician_id %} · Preliminary report{% endif %}</li>
 {% empty %}<li>No imaging orders within your access.</li>{% endfor %}</ul>

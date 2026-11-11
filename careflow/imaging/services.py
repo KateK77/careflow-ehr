@@ -78,7 +78,9 @@ def order_snapshot(order):
 
 
 def can_cancel(order):
-    return order.status in ("draft", "signed")
+    return order.status in ("draft", "signed") and not (
+        hasattr(order, "workflow") and order.workflow.status != "assigned"
+    )
 
 
 @command_transaction
@@ -125,6 +127,8 @@ def order_command(actor, patient_id, encounter_id, action, version, key, confirm
 
 
 def schedule(order, scheduled_at):
+    if hasattr(order, "workflow") and order.workflow.status != "assigned":
+        raise ValidationError("An examination that has started cannot be rescheduled.")
     if scheduled_at is None or timezone.is_naive(scheduled_at) or scheduled_at <= timezone.now():
         raise ValidationError("Enter a future clinic-local examination time.")
     exam, created = ImagingExam.objects.get_or_create(order=order, defaults={"scheduled_at": scheduled_at})

@@ -13,7 +13,7 @@ from careflow.patients.access import roles_for
 
 from .access import orders_for
 from .models import ImagingCatalog, ImagingOrder
-from .services import active_catalog, catalog_revision, order_command
+from .services import active_catalog, can_cancel, catalog_revision, order_command
 
 
 LABELS = {
@@ -58,7 +58,7 @@ class OrderForm(CommandForm):
                 if order:
                     allowed.append("imaging_cancel")
             elif order.status == "signed":
-                allowed = ["imaging_schedule", "imaging_cancel"]
+                allowed = ["imaging_schedule", "imaging_cancel"] if can_cancel(order) else []
             self.fields["action"].choices = [(key, ACTIONS[key]) for key in allowed]
 
 
@@ -88,7 +88,9 @@ def catalog(request):
 
 
 def order_history(order):
-    return [(LABELS.get(event.audit.action, "Imaging activity"), event.actor, event.audit.occurred_at,
+    from .workspace_views import WORKFLOW_ACTIONS
+    labels = {**LABELS, **WORKFLOW_ACTIONS}
+    return [(labels.get(event.audit.action, "Imaging activity"), event.actor, event.audit.occurred_at,
              event.details.get("reason"), event.details.get("scheduled_at"))
             for event in order.events.select_related("audit", "actor")]
 

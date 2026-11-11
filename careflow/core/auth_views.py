@@ -11,6 +11,9 @@ class DemoLoginView(LoginView):
         from careflow.patients.access import roles_for
         from django.urls import reverse
         from careflow.medications.pharmacy_access import is_pharmacist
+        from careflow.imaging.access import is_radiology
+        if is_radiology(self.request.user) and not roles_for(self.request.user):
+            return reverse("imaging_workspace")
         if is_pharmacist(self.request.user) and not roles_for(self.request.user):
             return reverse("pharmacy_worklist")
         if is_lab(self.request.user) and not roles_for(self.request.user):

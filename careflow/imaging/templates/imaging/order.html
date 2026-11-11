@@ -9,6 +9,11 @@
 <p>{{ order.indication }}</p>
 {% if order.signed_at %}<p>Signed by {{ order.signed_by }} · {{ order.signed_at|date:"Y-m-d H:i T" }}</p>{% endif %}
 {% if order.exam %}<p>Examination scheduled {{ order.exam.scheduled_at|date:"Y-m-d H:i T" }}</p>{% endif %}
+{% if order.workflow %}<p>Examination: {{ order.workflow.get_status_display }}</p>{% endif %}
+{% if order.signed_at %}
+{% if 'Nurse' in staff_roles or 'Physician' in staff_roles and user.pk == order.encounter.physician_id %}
+<p><a href="{% url 'imaging_report' order.pk %}">View imaging report</a></p>
+{% endif %}{% endif %}
 {% if order.cancellation_reason %}<p>Cancellation reason: {{ order.cancellation_reason }}</p>{% endif %}
 </section>{% endif %}
 {% if form and form.fields.action.choices or form.errors %}

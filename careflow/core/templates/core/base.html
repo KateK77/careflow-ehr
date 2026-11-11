@@ -15,7 +15,7 @@
   <body>
     <a class="skip" href="#main">Skip to content</a>
     <header class="topbar">
-      <a class="brand" href="{% if show_pharmacy_workspace and not staff_roles %}{% url 'pharmacy_worklist' %}{% else %}{% url 'dashboard' %}{% endif %}">
+      <a class="brand" href="{% if show_radiology_workspace and not staff_roles %}{% url 'imaging_workspace' %}{% elif show_pharmacy_workspace and not staff_roles %}{% url 'pharmacy_worklist' %}{% else %}{% url 'dashboard' %}{% endif %}">
         <span class="brandmark">CF</span>
         CareFlow
         <strong>EHR</strong>
@@ -24,7 +24,7 @@
       <div class="identity">
         {% if user.is_authenticated %}
           <strong>{{ user.get_full_name|default:user.username }}</strong>
-          <span>{% if show_pharmacy_workspace %}Pharmacist{% if staff_roles %} · {{ staff_roles|join:" · " }}{% endif %}{% else %}{{ staff_roles|join:" · "|default:"No staff role" }}{% endif %}</span>
+          <span>{% if show_radiology_workspace %}RadiologyStaff{% if show_pharmacy_workspace or staff_roles %} · {% endif %}{% endif %}{% if show_pharmacy_workspace %}Pharmacist{% if staff_roles %} · {% endif %}{% endif %}{% if staff_roles %}{{ staff_roles|join:" · " }}{% elif not show_radiology_workspace and not show_pharmacy_workspace %}No staff role{% endif %}</span>
           <form method="post" action="{% url 'logout' %}">
             {% csrf_token %}
             <button class="quiet" type="submit">Sign out</button>
@@ -56,6 +56,7 @@
           {% if can_browse_medications %}<a href="{% url 'med_catalog' %}">Medication Catalog</a>{% endif %}
           {% if show_lab_review %}<a href="{% url 'lab_results_worklist' %}">Laboratory review</a>{% endif %}
           {% if show_lab_workspace %}<a href="{% url 'lab_worklist' %}">Laboratory workspace</a>{% endif %}
+          {% if show_radiology_workspace %}<a href="{% url 'imaging_workspace' %}">Radiology Workspace</a>{% endif %}
           {% if show_pharmacy_workspace %}<a href="{% url 'pharmacy_worklist' %}">Pharmacy Workspace</a>{% endif %}
           {% if can_manage_patients %}
             <a href="{% url 'patient_create' %}">

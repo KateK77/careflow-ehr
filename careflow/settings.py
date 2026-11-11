@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     "careflow.clinical",
     "careflow.history",
     "careflow.nursing",
+    "careflow.labs",
 ]
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -51,7 +52,7 @@ TEMPLATES = [
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "NAME": Path(os.environ.get("CAREFLOW_DB_PATH", str(BASE_DIR / "db.sqlite3"))),
     }
 }
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

@@ -25,9 +25,15 @@
   <div class="panel">
     <h2>This workspace</h2>
     <p><a href="{% url 'schedule' %}">Open physician schedules</a> · <a href="{% url 'checkin_worklist' %}">Open check-in worklist</a></p>
-    <p>Patient identity, demographic details and registration audit history are available in this phase.</p>
-    <p class="muted">
-      Clinical notes, orders and the patient portal are planned for later iterations.
-    </p>
+    <p>Use the patient directory to find demographics and registration history.</p>
+    {% if can_read_clinical %}
+      <p><a href="{% url 'physician_workspace' %}">Open clinical workspace</a> · <a href="{% url 'lab_catalog' %}">Browse laboratory catalog</a></p>
+    {% endif %}
+    {% if show_lab_workspace %}
+      <p><a href="{% url 'lab_worklist' %}">Open laboratory workspace</a></p>
+    {% endif %}
+    {% if show_lab_review %}
+      <p><a href="{% url 'lab_results_worklist' %}">Open laboratory review worklist</a></p>
+    {% endif %}
   </div>
 {% endblock %}

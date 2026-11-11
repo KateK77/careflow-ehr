@@ -13,3 +13,8 @@ Provision a separate Lab Staff account only in the preview with `python manage.p
 7. Complete encounter before results; continue submitted processing and verify signed documentation is unchanged.
 
 Routes: `/app/lab/workspace/`, `/app/lab/processing/<order_uuid>/`, action forms under `/app/lab/processing/<order_uuid>/<action>/`. Do not treat unperformed manual cases as passed. Consolidated 3B-3 acceptance will extend this checklist.
+
+
+## Cross-phase UAT follow-up
+
+The user reported successful Nurse specimen collection, incorrect-MRN rejection, Lab Staff claim, specimen receipt and report finalization. Laboratory processing also succeeded after Encounter completion. These observations supersede the earlier pending status for the listed workflows. The updated labels and preview await a targeted manual retest.

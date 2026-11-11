@@ -45,3 +45,8 @@ There are no collection, receipt, result publishing/review or covering-assignmen
 ## Cross-phase UAT follow-up
 
 The user reported successful catalog creation and activation and physician order creation, editing, submission and intentional-repeat confirmation during integrated Phase 3B manual UAT. These observations supersede the earlier pending status for the listed workflows. The catalog and Dashboard presentation fixes await a targeted manual retest.
+
+
+## Final Phase 3B UAT closeout
+
+The user created and activated a laboratory catalog item and created, edited and submitted a physician order. Duplicate-order validation and intentional-repeat confirmation were observed. The user retested and passed current Dashboard and Laboratory Catalog guidance.

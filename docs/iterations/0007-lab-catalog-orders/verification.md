@@ -26,3 +26,8 @@ Documentation links, changed-file scope, whitespace and migration shape are chec
 ## Cross-phase UAT follow-up
 
 The integrated user observations are recorded in [acceptance.md](acceptance.md). Automated coverage for this follow-up checks catalog guidance, current Dashboard links and FrontDesk link visibility. The latest branch checks and CI are tracked in [PR #18](https://github.com/KateK77/careflow-ehr/pull/18).
+
+
+## Final Phase 3B UAT closeout
+
+The listed observations and retests are user-reported. Automated checks are tracked in [PR #18](https://github.com/KateK77/careflow-ehr/pull/18). Comprehensive security, accessibility, concurrency and negative-case manual verification remain outside the reported scope.

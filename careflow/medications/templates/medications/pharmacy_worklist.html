@@ -1,0 +1,29 @@
+{% extends "core/base.html" %}
+{% block content %}
+<section class="panel">
+  <h1>Pharmacy Workspace</h1>
+  <p>Verification and dispensing simulation for signed synthetic orders.</p>
+  <div class="table-scroll"><table>
+    <caption>Unclaimed signed requisitions</caption>
+    <thead><tr><th scope="col">Requisition</th><th scope="col">Medication</th><th scope="col">Signed</th><th scope="col">Assignment</th></tr></thead>
+    <tbody>{% for order in waiting %}
+      <tr><th scope="row">{{ order.public_id }}</th><td>{{ order.catalog_snapshot.name }}</td>
+      <td>{{ order.signed_at|date:"Y-m-d H:i T" }}</td><td><a href="{% url 'pharmacy_claim' order.public_id %}">Claim order</a></td></tr>
+    {% empty %}<tr><td colspan="4">No unclaimed requisitions.</td></tr>{% endfor %}</tbody>
+  </table></div>
+  {% include "medications/pages.html" with rows=waiting page_parameter="waiting_page" %}
+</section>
+<section class="panel">
+  <div class="table-scroll"><table>
+    <caption>Your assigned orders</caption>
+    <thead><tr><th scope="col">Medication</th><th scope="col">Patient</th><th scope="col">Verification</th><th scope="col">Simulated dispensing</th></tr></thead>
+    <tbody>{% for order in assigned %}
+      <tr><th scope="row"><a href="{% url 'pharmacy_detail' order.public_id %}">{{ order.catalog_snapshot.name }}</a></th>
+      <td>{{ order.encounter.patient }} · MRN {{ order.encounter.patient.mrn }}</td>
+      <td>{{ order.pharmacy_review.get_status_display }}</td>
+      <td>{% if order.pharmacy_review.dispense %}Recorded{% else %}Not recorded{% endif %}</td></tr>
+    {% empty %}<tr><td colspan="4">No orders assigned to you.</td></tr>{% endfor %}</tbody>
+  </table></div>
+  {% include "medications/pages.html" with rows=assigned page_parameter="assigned_page" %}
+</section>
+{% endblock %}

@@ -8,7 +8,9 @@
   {% include "medications/fields.html" %}
   {% if order.signed_at %}<p>Signed by {{ order.signed_by }} on {{ order.signed_at|date:"Y-m-d H:i:s T" }}</p>{% endif %}
   {% if order.cancelled_at %}<p>Cancelled {{ order.cancelled_at|date:"Y-m-d H:i:s T" }}. {{ order.cancellation_reason }}</p>{% endif %}
+  {% include "medications/pharmacy_status.html" %}
   <div class="form-actions">
+    {% if may_respond %}<a href="{% url 'pharmacy_respond' order.public_id %}">Respond to clarification</a>{% endif %}
     {% if editable %}
       <a href="{% url 'med_edit' patient.pk encounter.pk order.public_id %}">Edit draft</a>
       <a href="{% url 'med_sign' order.public_id %}">Review and Sign</a>

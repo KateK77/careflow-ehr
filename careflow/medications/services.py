@@ -14,7 +14,7 @@ from careflow.clinical.models import Encounter
 from careflow.patients.access import roles_for
 from careflow.patients.models import AuditEvent
 from careflow.scheduling.services import _lock_providers
-from .models import CATALOG_CONTENT, MedicationOrder, MedicationOrderEvent, SyntheticMedicationCatalog
+from .models import CATALOG_CONTENT, MedicationOrder, MedicationOrderEvent, PharmacyReview, SyntheticMedicationCatalog
 
 
 class MedicationConflict(ValidationError):
@@ -24,12 +24,11 @@ class MedicationConflict(ValidationError):
 ORDER_FIELDS = ("catalog_id", "dose", "route", "frequency", "duration", "quantity", "instructions")
 
 
-def command_transaction(function):
+def command_conflicts(function):
     @wraps(function)
     def execute(*args, **kwargs):
         try:
-            with transaction.atomic():
-                return function(*args, **kwargs)
+            return function(*args, **kwargs)
         except IntegrityError as exc:
             raise MedicationConflict("This change conflicts with another record. Reload and try again.") from exc
         except OperationalError as exc:
@@ -37,6 +36,10 @@ def command_transaction(function):
                 raise MedicationConflict("Another action is in progress. Reload and try again.") from exc
             raise
     return execute
+
+
+def command_transaction(function):
+    return command_conflicts(transaction.atomic(function))
 
 
 def command_identity(key, action, *payload):
@@ -219,6 +222,8 @@ def transition_order(actor, order_id, action, version, key, confirmed, token="",
             raise MedicationConflict("This order cannot be cancelled.")
         if order.status == "draft":
             require_open(encounter)
+        if PharmacyReview.objects.filter(order=order).exists():
+            raise MedicationConflict("A claimed order must remain available for pharmacy review.")
         if not isinstance(reason, str) or not reason.strip() or len(reason) > 1000:
             raise ValidationError("Enter a cancellation reason of up to 1,000 characters.")
         order.status = "cancelled"

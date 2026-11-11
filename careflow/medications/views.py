@@ -114,7 +114,9 @@ def detail(request, order_id):
     return render(request, "medications/detail.html", {
         "order": order, "patient": order.encounter.patient, "encounter": order.encounter,
         "editable": owns and open_encounter and order.status == "draft",
-        "cancellable": owns and (order.status == "signed" or (open_encounter and order.status == "draft")),
+        "cancellable": owns and not hasattr(order, "pharmacy_review")
+        and (order.status == "signed" or (open_encounter and order.status == "draft")),
+        "may_respond": owns and hasattr(order, "pharmacy_review") and order.pharmacy_review.status == "clarification",
         "events": order.events.select_related("actor", "audit"),
     })
 

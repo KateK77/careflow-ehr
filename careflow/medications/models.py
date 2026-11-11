@@ -118,6 +118,58 @@ class MedicationOrder(models.Model):
         super().save(*args, **kwargs)
 
 
+class PharmacyReview(models.Model):
+    order = models.OneToOneField(MedicationOrder, on_delete=models.PROTECT, related_name="pharmacy_review")
+    assignee = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
+    claimed_at = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=16, default="pending", choices=[
+        ("pending", "Awaiting verification"),
+        ("clarification", "Clarification requested"),
+        ("approved", "Approved"),
+        ("rejected", "Rejected"),
+    ])
+    reason = models.CharField(max_length=1000, blank=True)
+    version = models.PositiveIntegerField(default=1)
+
+    class Meta:
+        constraints = [
+            models.CheckConstraint(condition=Q(version__gte=1), name="pharmacy_review_positive_version"),
+            models.CheckConstraint(condition=(
+                (Q(status__in=["pending", "approved"]) & Q(reason=""))
+                | (Q(status__in=["clarification", "rejected"]) & ~Q(reason=""))
+            ), name="pharmacy_review_reason_state"),
+        ]
+
+
+    def save(self, *args, **kwargs):
+        if self.pk:
+            old = type(self).objects.get(pk=self.pk)
+            if (old.order_id, old.assignee_id, old.claimed_at) != (self.order_id, self.assignee_id, self.claimed_at):
+                raise ValidationError("The pharmacy claim and its provenance are immutable.")
+        super().save(*args, **kwargs)
+
+
+class PharmacyDispenseEvent(models.Model):
+    review = models.OneToOneField(PharmacyReview, on_delete=models.PROTECT, related_name="dispense")
+    event = models.OneToOneField("MedicationOrderEvent", on_delete=models.PROTECT)
+    quantity = models.PositiveIntegerField(validators=[MinValueValidator(1)])
+
+    class Meta:
+        constraints = [models.CheckConstraint(condition=Q(quantity__gte=1), name="pharmacy_dispense_positive")]
+
+    def save(self, *args, **kwargs):
+        if self.pk:
+            raise ValidationError("Simulated dispensing records are immutable.")
+        if (self.event.order_id != self.review.order_id or self.event.actor_id != self.review.assignee_id
+                or self.event.audit.action != "pharmacy_dispense" or self.review.status != "approved"
+                or self.quantity != self.review.order.quantity):
+            raise ValidationError("The dispensing receipt must match the approved order and pharmacy event.")
+        super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        raise ValidationError("Simulated dispensing records are immutable.")
+
+
 class MedicationOrderEvent(models.Model):
     order = models.ForeignKey(MedicationOrder, null=True, blank=True, on_delete=models.PROTECT, related_name="events")
     catalog = models.ForeignKey(SyntheticMedicationCatalog, null=True, blank=True, on_delete=models.PROTECT, related_name="events")

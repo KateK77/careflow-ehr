@@ -11,6 +11,10 @@
           <p>{{ event.after.duration }} days · Quantity {{ event.after.quantity }}</p>
           <p class="history-value">{{ event.after.instructions }}</p>
         </details>
+      {% elif event.after.status_label %}
+        <p>Review version {{ event.after.version }} · {{ event.after.status_label }}</p>
+        {% if event.before.status_label %}<p>Previous verification state: {{ event.before.status_label }}</p>{% endif %}
+        {% if event.after.dispensed_quantity %}<p>Simulated quantity: {{ event.after.dispensed_quantity }} units</p>{% endif %}
       {% endif %}
     </li>
   {% empty %}<li>No recorded events.</li>{% endfor %}</ol>

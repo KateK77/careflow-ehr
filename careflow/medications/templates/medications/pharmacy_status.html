@@ -1,0 +1,13 @@
+{% with review=order.pharmacy_review %}
+{% if review %}
+  <p>Pharmacy verification: <strong>{{ review.get_status_display }}</strong> · Review version {{ review.version }}</p>
+  {% if review.reason %}<p class="history-value">{{ review.reason }}</p>{% endif %}
+  {% if review.dispense %}
+    <p>Simulated dispensing recorded: {{ review.dispense.quantity }} units by {{ review.dispense.event.actor }} on {{ review.dispense.event.audit.occurred_at|date:"Y-m-d H:i:s T" }}</p>
+  {% else %}
+    <p>Simulated dispensing: Not recorded</p>
+  {% endif %}
+{% elif order.status == "signed" %}
+  <p>Pharmacy verification: Awaiting claim</p>
+{% endif %}
+{% endwith %}

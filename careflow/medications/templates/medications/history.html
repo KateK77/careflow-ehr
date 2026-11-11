@@ -8,7 +8,7 @@
     <thead><tr><th scope="col">Medication</th><th scope="col">Encounter</th><th scope="col">Ordering Physician</th><th scope="col">Order state</th></tr></thead>
     <tbody>{% for order in rows %}
       <tr><th scope="row"><a href="{% url 'med_detail' order.public_id %}">{{ order.catalog_snapshot.name }}</a></th>
-      <td>#{{ order.encounter_id }}</td><td>{{ order.author }}</td><td>{{ order.get_status_display }}</td></tr>
+      <td>#{{ order.encounter_id }}</td><td>{{ order.author }}</td><td>{{ order.get_status_display }}{% if order.pharmacy_review %}<br>Pharmacy: {{ order.pharmacy_review.get_status_display }}{% endif %}{% if order.pharmacy_review.dispense %}<br>Simulated dispensing recorded{% endif %}</td></tr>
     {% empty %}<tr><td colspan="4">No medication orders within your access.</td></tr>{% endfor %}</tbody>
   </table></div>
   {% include "medications/pages.html" %}

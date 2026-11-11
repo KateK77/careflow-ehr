@@ -1,0 +1,24 @@
+{% extends "core/base.html" %}
+{% block content %}
+<section class="panel">
+  <h1>Pharmacy Verification</h1>
+  <p><strong>{{ patient }}</strong> · MRN {{ patient.mrn }}</p>
+  <p>Requisition {{ order.public_id }} · Encounter #{{ order.encounter_id }} · {{ order.encounter.get_status_display }}</p>
+  <p>Signed by {{ order.signed_by }} on {{ order.signed_at|date:"Y-m-d H:i:s T" }}</p>
+  <p>Historical allergy assessment: {{ allergy_state.get_status_display|default:"Not reviewed" }}. This information provides no medication clearance.</p>
+  {% include "medications/fields.html" %}
+  {% include "medications/pharmacy_status.html" %}
+  <p>Claimed by {{ review.assignee }} on {{ review.claimed_at|date:"Y-m-d H:i:s T" }}</p>
+  <div class="form-actions">
+    {% if review.status == "pending" %}
+      <a href="{% url 'pharmacy_action' order.public_id 'approve' %}">Approve verification</a>
+      <a href="{% url 'pharmacy_action' order.public_id 'clarify' %}">Request clarification</a>
+      <a href="{% url 'pharmacy_action' order.public_id 'reject' %}">Reject order</a>
+    {% elif review.status == "approved" and not review.dispense %}
+      <a href="{% url 'pharmacy_action' order.public_id 'dispense' %}">Record simulated dispensing</a>
+    {% endif %}
+  </div>
+  <p><a href="{% url 'pharmacy_worklist' %}">Return to Pharmacy Workspace</a></p>
+</section>
+{% include "medications/events.html" %}
+{% endblock %}

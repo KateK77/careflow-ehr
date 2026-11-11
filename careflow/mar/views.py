@@ -9,7 +9,7 @@ from careflow.history.models import AllergyState
 from careflow.medications.views import action_page
 from careflow.nursing.access import can_document, nursing_writer
 from .access import receipts_for
-from .forms import AdministrationForm, FilterForm
+from .forms import AdministrationForm, CorrectionForm, ExceptionForm, FilterForm
 from .services import record
 
 
@@ -61,7 +61,7 @@ def detail(request, receipt_id):
 
 @require_http_methods(["GET", "POST"])
 @clinical_access
-def administer(request, patient_id, encounter_id, receipt_id):
+def administer(request, patient_id, encounter_id, receipt_id, kind="administer"):
     if not nursing_writer(request.user):
         raise PermissionDenied
     receipt = get_object_or_404(receipts_for(request.user), pk=receipt_id,
@@ -69,15 +69,29 @@ def administer(request, patient_id, encounter_id, receipt_id):
                                 review__order__encounter__patient_id=patient_id)
     order = receipt.review.order
     encounter = order.encounter
-    if request.method == "GET" and (receipt.effective_status or encounter.status != "in_progress"
-                                    or not can_document(request.user, encounter.appointment)):
-        raise PermissionDenied
-    form = AdministrationForm(request.POST if request.method == "POST" else None,
-                              initial={"version": 0, "quantity": receipt.quantity,
-                                       "occurred_at": timezone.localtime()})
+    correction = kind == "correct"
+    state = receipt.effective_status
+    if request.method == "GET":
+        allowed_state = bool(state) if correction else state in (None, "held")
+        if not allowed_state or encounter.status != "in_progress" or not can_document(request.user, encounter.appointment):
+            raise PermissionDenied
+    form_type, title, button = {
+        "administer": (AdministrationForm, "Record simulated administration", "Record administration"),
+        "exception": (ExceptionForm, "Record MAR exception", "Record exception"),
+        "correct": (CorrectionForm, "Correct MAR documentation", "Record correction"),
+    }[kind]
+    initial = {"version": receipt.effective_revision or 0, "quantity": receipt.quantity,
+               "occurred_at": timezone.localtime()}
+    if correction and (current := receipt.administration_events.first()):
+        initial.update(status=current.status, quantity=current.quantity, occurred_at=current.occurred_at,
+                       notes=current.notes, reason=current.reason)
+    form = form_type(request.POST if request.method == "POST" else None, initial=initial)
+    if kind == "exception" and request.method == "GET" and state == "held":
+        form.fields["status"].choices = [(value, label) for value, label in form.fields["status"].choices
+                                        if value != "held"]
     return action_page(
-        request, form, "Record simulated administration", "Record administration",
-        lambda data: record(request.user, receipt_id, patient_id, encounter_id, **data),
+        request, form, title, button,
+        lambda data: record(request.user, receipt_id, patient_id, encounter_id, correction=correction, **data),
         lambda event: redirect("mar_detail", receipt_id=receipt_id),
-        order=order, patient=encounter.patient, encounter=encounter,
+        order=order, patient=encounter.patient, encounter=encounter, mar_task=receipt,
     )

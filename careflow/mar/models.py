@@ -7,11 +7,18 @@ class MedicationAdministrationEvent(models.Model):
     receipt = models.ForeignKey("medications.PharmacyDispenseEvent", on_delete=models.PROTECT,
                                 related_name="administration_events")
     revision = models.PositiveIntegerField()
-    status = models.CharField(max_length=16, choices=[("administered", "Administered")])
+    class Status(models.TextChoices):
+        ADMINISTERED = "administered", "Administered"
+        HELD = "held", "Held"
+        REFUSED = "refused", "Refused"
+        OMITTED = "omitted", "Omitted / Not given"
+
+    status = models.CharField(max_length=16, choices=Status.choices)
     quantity = models.PositiveIntegerField(null=True, blank=True)
     occurred_at = models.DateTimeField()
     notes = models.CharField(max_length=1000, blank=True)
     reason = models.CharField(max_length=1000, blank=True)
+    correction_reason = models.CharField(max_length=1000, blank=True)
     actor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
     audit = models.OneToOneField("patients.AuditEvent", on_delete=models.PROTECT)
     command_key = models.UUIDField()
@@ -23,8 +30,10 @@ class MedicationAdministrationEvent(models.Model):
             models.UniqueConstraint(fields=["receipt", "revision"], name="mar_receipt_revision_unique"),
             models.UniqueConstraint(fields=["actor", "command_key"], name="mar_actor_command_unique"),
             models.CheckConstraint(condition=models.Q(revision__gte=1), name="mar_positive_revision"),
-            models.CheckConstraint(condition=models.Q(status="administered", quantity__isnull=False, quantity__gte=1),
-                                   name="mar_status_quantity"),
+            models.CheckConstraint(condition=(
+                models.Q(status="administered", quantity__isnull=False, quantity__gte=1, reason="")
+                | (models.Q(status__in=["held", "refused", "omitted"], quantity__isnull=True) & ~models.Q(reason=""))
+            ), name="mar_status_quantity"),
         ]
 
     def save(self, *args, **kwargs):

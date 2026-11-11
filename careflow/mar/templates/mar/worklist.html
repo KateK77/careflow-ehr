@@ -1,4 +1,5 @@
 {% extends "core/base.html" %}
+{% load clinical_ui %}
 {% block content %}
 {% if patient %}{% include "clinical/header.html" %}{% endif %}
 <section class="panel">
@@ -20,7 +21,7 @@
             <th scope="row"><a href="{% url 'mar_detail' receipt.pk %}">Task {{ receipt.pk }} · {{ order.catalog_snapshot.name }}</a><br>Order {{ order.public_id|stringformat:"s"|slice:":8" }}</th>
             <td>{{ encounter.patient }} · MRN {{ encounter.patient.mrn }}</td>
             <td>#{{ encounter.pk }} · {{ encounter.get_status_display }}</td>
-            <td>{{ receipt.effective_status|default:"Pending"|capfirst }}</td>
+            <td>{{ receipt.effective_status|mar_state }}</td>
           </tr>
         {% endwith %}
       {% empty %}<tr><td colspan="4">No MAR tasks match these filters.</td></tr>{% endfor %}

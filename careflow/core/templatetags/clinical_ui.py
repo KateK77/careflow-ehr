@@ -1,8 +1,16 @@
 from django import template
 
 register = template.Library()
+@register.filter
+def mar_state(value):
+    from careflow.mar.models import MedicationAdministrationEvent
+    return MedicationAdministrationEvent.Status(value).label if value else "Pending"
+
+
 EVENTS = {
     "mar_administer": "Simulated administration recorded",
+    "mar_exception": "MAR exception recorded",
+    "mar_correct": "MAR correction recorded",
     "pharmacy_claim": "Pharmacy order claimed",
     "pharmacy_approve": "Verification approved",
     "pharmacy_clarify": "Clarification requested",

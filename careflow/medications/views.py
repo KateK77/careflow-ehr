@@ -5,6 +5,7 @@ from django.views.decorators.http import require_http_methods, require_safe
 
 from careflow.clinical.access import can_write, charts_for, clinical_access, encounters_for
 from careflow.history.models import AllergyState
+from careflow.mar.access import receipts_for as mar_receipts_for
 from careflow.patients.access import roles_for
 from .access import orders_for
 from .forms import CatalogForm, CommandForm, DraftForm, ReasonForm, SignForm
@@ -100,9 +101,15 @@ def history(request, patient_id, encounter_id=None):
     if encounter_id is not None:
         encounter = get_object_or_404(encounters_for(request.user), pk=encounter_id, patient=patient)
         orders = orders.filter(encounter=encounter)
-    return render(request, "medications/history.html", {
-        "patient": patient, "encounter": encounter, "rows": Paginator(orders, 30).get_page(request.GET.get("page")),
-    })
+    rows = Paginator(orders, 30).get_page(request.GET.get("page"))
+    page_orders = list(rows.object_list)
+    tasks = {task.review.order_id: task for task in mar_receipts_for(request.user).filter(
+        review__order_id__in=[order.pk for order in page_orders],
+    )}
+    for order in page_orders:
+        order.mar_task = tasks.get(order.pk)
+    rows.object_list = page_orders
+    return render(request, "medications/history.html", {"patient": patient, "encounter": encounter, "rows": rows})
 
 
 @require_safe
@@ -118,6 +125,7 @@ def detail(request, order_id):
         and (order.status == "signed" or (open_encounter and order.status == "draft")),
         "may_respond": owns and hasattr(order, "pharmacy_review") and order.pharmacy_review.status == "clarification",
         "events": order.events.select_related("actor", "audit"),
+        "mar_task": mar_receipts_for(request.user).filter(review__order=order).first(),
     })
 
 

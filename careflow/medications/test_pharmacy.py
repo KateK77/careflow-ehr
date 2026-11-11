@@ -163,6 +163,19 @@ class PharmacyTests(PharmacyFixture, TestCase):
         self.encounter.refresh_from_db()
         self.assertEqual(self.encounter.status, "completed")
 
+    def test_encounter_summary_distinguishes_same_name_orders_and_shows_dispense_time(self):
+        other_order = self.sign(self.make_order())
+        self.finish_encounter()
+        self.pharmacy_action("claim", self.signed.version)
+        self.pharmacy_action("approve", 1)
+        self.pharmacy_action("dispense", 2, quantity=self.signed.quantity)
+        self.client.force_login(self.physician)
+        for route in ("encounter_detail", "med_encounter_history"):
+            page = self.client.get(reverse(route, args=[self.patient.pk, self.encounter.pk]))
+            for order in (self.signed, other_order):
+                self.assertContains(page, f"Synthetic Amber · Order {str(order.public_id)[:8]}")
+            self.assertContains(page, "Simulated dispensing recorded ")
+
     def test_completed_encounter_rejects_inconsistent_signature_time(self):
         self.finish_encounter()
         # Simulate inconsistent imported metadata in this isolated test only.

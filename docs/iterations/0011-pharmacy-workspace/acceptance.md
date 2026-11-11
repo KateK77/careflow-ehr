@@ -1,6 +1,13 @@
 # Phase 4A consolidated manual UAT
 
-Status: pending user execution. Run on `phase/0011-pharmacy-workspace`. The prepared preview is a separate migrated clone of the verified Phase 3B backup.
+Status: two scenarios passed in user-reported manual UAT. Other checklist items have no recorded manual outcome here. Run on `phase/0011-pharmacy-workspace`. The prepared preview is a separate migrated clone of the verified Phase 3B backup.
+
+## Passed user-reported manual UAT
+
+- **Pharmacy follow-up after Encounter completion.** Encounter #3 completed on November 11, 2026 at 01:41:39 CST. For order `8c82d26f-ef6f-4786-83e1-5a2bf83820db`, pharmacy claim occurred at 01:43:15 CST, verification approval at 01:44:31 CST and simulated dispensing at 01:45:06 CST.
+- **Encounter and signed SOAP preservation.** The before-and-after comparison confirmed Encounter #3 remained Completed at version 2. SOAP Note #3 remained Signed and read-only at version 2. The original signing time remained 01:41:27 CST and all four SOAP sections were unchanged.
+
+These completed scenarios require no repeat manual run. The scope of the observations is the stated Encounter, note and order.
 
 ## Start the integrated preview
 
@@ -26,7 +33,7 @@ Provision the new account once and enter its password at the hidden prompt. An e
 6. Request clarification with a fictional reason. Check the Physician order detail for the reason and respond. Verify the original signed content and signature. The Pharmacist can approve once the review is pending again.
 7. Record simulated dispensing for the full signed quantity. Verify Approved remains the verification state and the dispensing receipt has quantity, actor and time. Refresh or submit a stale form to check that another receipt is not created. Confirm the Physician sees the result in chart and Encounter views.
 8. Use a separate signed order to reject with a reason. Verify approval and dispensing are unavailable for that review. Check that a claimed order cannot be cancelled and that an unsigned draft is absent from the pharmacy queue.
-9. Sign an order before completing its Encounter. Complete the Encounter, then process the signed order in pharmacy. Compare the completed Encounter, SOAP signature, signed order and historical medication records before and after.
+9. **Passed for post-completion pharmacy processing and preservation of the Encounter and signed SOAP note.** See the recorded observations above.
 10. Check keyboard navigation, validation messages and responsive tables at the widths you use. Record exact observations and any defects before approving merges.
 
 The prototype supports one claim per order and a single full-quantity simulated receipt. Claims have no transfer workflow. A clarification response adds an audited explanation. Changed medication content requires a new signed order. There is no real dosing, safety certification, physical dispensing or MAR in this phase.

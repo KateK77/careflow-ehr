@@ -1,0 +1,17 @@
+{% load clinical_ui %}
+<section class="panel">
+  <h2>Order history</h2>
+  <ol class="activity">{% for event in events %}
+    <li><strong>{{ event.audit.action|event_label }}</strong> · {{ event.actor }} · {{ event.audit.occurred_at|date:"Y-m-d H:i:s T" }}
+      {% if event.reason %}<p class="history-value">{{ event.reason }}</p>{% endif %}
+      {% if event.after.catalog_snapshot %}
+        <details><summary>Order version {{ event.after.version }}</summary>
+          <p>{{ event.after.catalog_snapshot.name }} · Revision {{ event.after.catalog_snapshot.revision }}</p>
+          <p>{{ event.after.dose }} · {{ event.after.route_label }} · {{ event.after.frequency_label }}</p>
+          <p>{{ event.after.duration }} days · Quantity {{ event.after.quantity }}</p>
+          <p class="history-value">{{ event.after.instructions }}</p>
+        </details>
+      {% endif %}
+    </li>
+  {% empty %}<li>No recorded events.</li>{% endfor %}</ol>
+</section>

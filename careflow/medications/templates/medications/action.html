@@ -1,0 +1,26 @@
+{% extends "core/base.html" %}
+{% block content %}
+<section class="panel">
+  <h1>{{ title }}</h1>
+  <p>Synthetic medication workflow</p>
+  {% if patient %}<p><strong>{{ patient }}</strong> · MRN {{ patient.mrn }} · Encounter #{{ encounter.pk }}</p>{% endif %}
+  {% if revision %}<p>{{ revision }}</p>{% endif %}
+  {% if order %}{% include "medications/fields.html" %}{% endif %}
+  {% if show_allergy_context %}
+    <p>Historical allergy assessment: {{ allergy_state.get_status_display|default:"Not reviewed" }}. This information provides no medication clearance.</p>
+  {% endif %}
+  {% include "core/form_errors.html" %}
+  <form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+      {% if field.is_hidden %}{{ field }}{% else %}
+        <div class="field">{{ field.label_tag }}{{ field }}
+          {% if field.help_text %}<p class="small muted">{{ field.help_text }}</p>{% endif %}
+        </div>
+      {% endif %}
+    {% endfor %}
+    <button type="submit">{{ button }}</button>
+  </form>
+  {% if order %}<p><a href="{% url 'med_detail' order.public_id %}">Return to order</a></p>{% endif %}
+</section>
+{% endblock %}

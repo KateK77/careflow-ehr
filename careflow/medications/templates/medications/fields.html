@@ -1,0 +1,10 @@
+<dl>
+  <dt>Medication</dt><dd>{{ order.catalog_snapshot.name }} · {{ order.catalog_snapshot.code }} revision {{ order.catalog_snapshot.revision }}</dd>
+  <dt>Form and strength</dt><dd>{{ order.catalog_snapshot.dosage_form }} · {{ order.catalog_snapshot.strength }}</dd>
+  <dt>Proposed dose</dt><dd>{{ order.dose }}</dd>
+  <dt>Route</dt><dd>{{ order.get_route_display }}</dd>
+  <dt>Frequency</dt><dd>{{ order.get_frequency_display }}</dd>
+  <dt>Duration</dt><dd>{{ order.duration }} days</dd>
+  <dt>Quantity</dt><dd>{{ order.quantity }} simulated units</dd>
+  <dt>Instructions</dt><dd class="history-value">{{ order.instructions }}</dd>
+</dl>

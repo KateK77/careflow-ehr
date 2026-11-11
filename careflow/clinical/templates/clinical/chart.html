@@ -14,4 +14,5 @@
 </div><aside class="panel timeline"><h2>Clinical timeline</h2><p class="small muted">Latest 100 available events and recent appointments; clinic-local time.</p><ol class="activity">{% for event in timeline %}<li><strong>{{ event.label|event_label }}</strong><br>{{ event.at|date:"Y-m-d H:i:s T" }}<br>{{ event.actor.get_full_name|default:event.actor.username }}<br>{% if event.history_url %}<a href="{{ event.history_url }}">View history record</a>{% elif event.encounter %}<a href="{% url 'encounter_detail' patient.pk event.encounter.pk %}">Encounter #{{ event.encounter.pk }}</a>{% elif event.appointment %}<a href="{% url 'appointment_detail' event.appointment.pk %}">Appointment #{{ event.appointment.pk }}</a>{% endif %}</li>{% empty %}<li>No clinical events within your access.</li>{% endfor %}</ol></aside></div>
 
 {% include 'labs/chart_summary.html' %}
+{% include 'medications/summary.html' %}
 {% endblock %}

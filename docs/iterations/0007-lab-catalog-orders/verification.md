@@ -21,3 +21,8 @@ Development harness corrections: JSON initial rendering uses a list rather than 
 ## Publication and limitations
 
 Documentation links, changed-file scope, whitespace and migration shape are checked before commit. Exact commit and Push/PR CI results are recorded on the implementation PR linked from [Issue #17](https://github.com/KateK77/careflow-ehr/issues/17). CI runs the default regression suite, system checks and migration consistency; Chromium is separate local evidence. No manual UAT has been supplied. Keep both design and implementation PRs unmerged, and do not start 3B-2/3B-3.
+
+
+## Cross-phase UAT follow-up
+
+The integrated user observations are recorded in [acceptance.md](acceptance.md). Automated coverage for this follow-up checks catalog guidance, current Dashboard links and FrontDesk link visibility. The latest branch checks and CI are tracked in [PR #18](https://github.com/KateK77/careflow-ehr/pull/18).

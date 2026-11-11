@@ -70,6 +70,19 @@ class LaboratoryTests(LabFixture, TestCase):
         self.make_fixture()
         self.client.force_login(self.physician)
 
+    def test_catalog_and_dashboard_describe_available_workspaces(self):
+        catalog = self.client.get(reverse("lab_catalog"))
+        self.assertContains(catalog, "Select an active synthetic test")
+        self.assertNotContains(catalog, "Phase 3B-1")
+        self.assertNotContains(catalog, "Collection and results are not available")
+        dashboard = self.client.get(reverse("dashboard"))
+        self.assertContains(dashboard, "Open clinical workspace")
+        self.assertContains(dashboard, "Browse laboratory catalog")
+        self.assertNotContains(dashboard, "Clinical notes, orders and the patient portal are planned")
+        self.client.force_login(self.staff["FrontDesk"])
+        dashboard = self.client.get(reverse("dashboard"))
+        self.assertNotContains(dashboard, "Browse laboratory catalog")
+
     def test_catalog_schema_versions_and_immutable_content(self):
         next_panel=self.catalog(revision=2,display_name='Demo revision two')
         with self.assertRaises(ValidationError): set_catalog_active(self.admin,next_panel.pk,1,True,uuid.uuid4(),True)

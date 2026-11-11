@@ -40,3 +40,8 @@ For a fresh checkout, create a virtual environment and install requirements.txt;
 Catalog: `/app/lab/catalog/`, creation `/app/lab/catalog/new/`. Composer: `/app/patients/<patient_id>/encounters/<encounter_id>/lab-orders/new/`. Patient history: `/app/patients/<patient_id>/lab-orders/`; encounter history adds `/encounters/<encounter_id>/lab-orders/`. Detail/edit/submit/cancel: `/app/lab/orders/<order_uuid>/` with corresponding action suffix.
 
 There are no collection, receipt, result publishing/review or covering-assignment pages. Do not treat pending-specimen preparation as actual collection. Automated tests are not user acceptance; record actual observations and any defects before requesting merge. Tests use isolated databases, not either user database.
+
+
+## Cross-phase UAT follow-up
+
+The user reported successful catalog creation and activation and physician order creation, editing, submission and intentional-repeat confirmation during integrated Phase 3B manual UAT. These observations supersede the earlier pending status for the listed workflows. The catalog and Dashboard presentation fixes await a targeted manual retest.

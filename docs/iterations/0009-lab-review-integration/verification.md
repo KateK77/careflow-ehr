@@ -32,3 +32,10 @@ The reported manual observations and targeted retest are recorded in [acceptance
 A read-only query of the existing integrated preview returned an initial acknowledgement comment length of 678 characters and four later lengths of 58, 71, 64 and 72. The first length is within the existing 1,000-character form and service limits. The original input and client interaction are unavailable. The cause of the longer entry remains undetermined. A separate synthetic regression exercises a 678-character submission through the acknowledgement form and verifies exact persistence. The original acknowledgement and audit records remain as recorded.
 
 Automated coverage checks the affected pages and preserves the existing quarantine, workflow and record-integrity tests. The final branch and CI evidence is tracked in [PR #22](https://github.com/KateK77/careflow-ehr/pull/22).
+
+
+## Final Phase 3B UAT closeout
+
+The final user-reported outcomes are recorded in [acceptance.md](acceptance.md). The unpublished draft label and finalization preview were exercised by automated tests. The 678-character synthetic round trip provides automated evidence for exact comment persistence. The cause of the longer historical entry remains undetermined.
+
+The additive laboratory migrations were reviewed for schema and backfill scope. Automated tests use isolated databases. The original SQLite database remains at its pre-laboratory migration state. See [PR #22](https://github.com/KateK77/careflow-ehr/pull/22) for the verification head and Actions checks after retargeting to main.

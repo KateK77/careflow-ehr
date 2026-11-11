@@ -6,7 +6,7 @@ CareFlow EHR is an independently developed educational and research prototype fo
 
 ## Current development branch
 
-The user completed the main Phase 3B manual workflows. The targeted presentation fixes are ready for retest. Specimen collection, lab processing, immutable reports/corrections/withdrawals and version-specific review are implemented for review. No production or independent laboratory verification is claimed. See [the current iteration](docs/iterations/0009-lab-review-integration/README.md) and [laboratory architecture decision](docs/decisions/0008-laboratory-processing-and-review.md).
+The user completed the main Phase 3B manual workflows. The user passed the reported targeted UI retests. Manual retests of the unpublished draft label and finalization preview remain outstanding. Specimen collection, lab processing, immutable reports/corrections/withdrawals and version-specific review are implemented for review. No production or independent laboratory verification is claimed. See [the current iteration](docs/iterations/0009-lab-review-integration/README.md) and [laboratory architecture decision](docs/decisions/0008-laboratory-processing-and-review.md).
 
 ## Merged main baseline (prior closeout)
 

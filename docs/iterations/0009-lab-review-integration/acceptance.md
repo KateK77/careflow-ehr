@@ -78,3 +78,22 @@ There is no new general account-administration UI in this scope. Automated tests
 - Existing patient charts and encounter pages include safe laboratory summaries and metadata timeline navigation. Covering assignment does not create general chart access.
 
 Use the reported observations above as the manual UAT record. Record the targeted UI retest and any additional observations separately.
+
+
+## Final Phase 3B UAT closeout
+
+The user reported successful catalog creation and activation, physician order creation, editing and submission, and duplicate-order validation. The Nurse collected the specimen and observed incorrect-MRN rejection. Lab Staff claimed the order, received the specimen and published the report. The user observed version-specific physician acknowledgement, immutable correction and renewed review, and withdrawal with notice acknowledgement. After reassignment, a covering physician independently acknowledged the report and had restricted patient-chart access. The user observed context-error quarantine in the tested Physician, Administrator and Nurse report views. Laboratory processing and acknowledgement continued after Encounter completion. Signed SOAP content, version and signing time were preserved in the reported workflow.
+
+The following targeted UI retests passed:
+
+- Dashboard current feature guidance.
+- Laboratory Catalog current guidance.
+- Processing page separator encoding.
+- Human-readable audit labels.
+- Laboratory Report History presentation.
+- Human-readable correction action title.
+- Responsive laboratory workspace at the tested widths.
+
+The unpublished draft label and structured finalization preview have automated evidence. Their manual retests remain outstanding. The first acknowledgement comment was unusually long. Investigation found no reproducible saving defect and preserved the original comment.
+
+The reported manual UAT was limited to the listed workflows, roles, views and widths. Full security, accessibility, concurrency and comprehensive negative-case manual verification remain outstanding.

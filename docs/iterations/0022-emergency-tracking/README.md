@@ -1,0 +1,11 @@
+# Phase 8B — Emergency Department Tracking & Disposition
+
+[Issue #45](https://github.com/KateK77/careflow-ehr/issues/45) · [Approved prompt](../0020-phase5-7-integration/prompt.md) · [Phase 8A PR #44](https://github.com/KateK77/careflow-ehr/pull/44) · [Unified preview and UAT](preview-and-uat.md) · [Verification](verification.md)
+
+The ED visit is a dedicated Patient-linked episode. It does not create an Appointment or Encounter. HospitalOperations and Administrator register a fictional arrival. Nurses record or revise a fictional triage label and can room a patient. HospitalOperations can also room a triaged patient. The assigned Physician starts provider review, can record observation and can discharge. HospitalOperations and Administrator can admit from provider or observation status by explicitly choosing an available inpatient bed.
+
+The state machine is Waiting → Triage → Roomed → Provider → optional Observation → Discharged or Admitted. Wait measures elapsed minutes from recorded arrival until provider review starts. It has no clinical interpretation. The one active ED visit and one occupant per ED room rules are enforced by database constraints and the shared hospital writer lock. A disposition releases the ED room. ED-to-inpatient disposition reuses the existing admission request and approval services inside the same transaction, assigns the ED clinician as attending, and links the resulting stay. The workflow preserves existing signed SOAP, orders and audits.
+
+The event timeline preserves actor, time, previous and next state, triage revisions, rooming, and disposition. Scoped chart summaries follow existing chart access and episode-level authorization. Physicians see assigned ED visits. Nurses and operational staff see the tracking board. Billing, Radiology, Pharmacy, FrontDesk and Patient Portal membership alone confer no ED or inpatient access.
+
+The additive migration `hospital.0002_emergencyvisit_hospitalevent_visit_and_more` creates EmergencyVisit, extends HospitalEvent with a protected ED association, and adds state and occupancy constraints. A final-preview-only command provisions new role-specific accounts. The prototype has no clinical acuity algorithm, automatic interventions, ED treatment documentation, inpatient order authoring, or portal display of ED or inpatient episodes. Consolidated UAT remains pending.

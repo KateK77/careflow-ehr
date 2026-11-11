@@ -107,7 +107,11 @@ def require_reader(user):
 
 
 def chart_context(user, patient):
-    return {"inpatient_summary": stays_for(user).filter(request__patient=patient).order_by("-pk")[:10]}
+    from .emergency import visits_for
+    return {
+        "inpatient_summary": stays_for(user).filter(request__patient=patient).order_by("-pk")[:10],
+        "ed_summary": visits_for(user).filter(patient=patient).order_by("-pk")[:10],
+    }
 
 
 @never_cache

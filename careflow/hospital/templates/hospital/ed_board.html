@@ -1,0 +1,21 @@
+{% extends "core/base.html" %}
+{% block content %}
+<h1>Emergency Department Tracking Board</h1>
+{% include "hospital/nav.html" %}
+<p>Fictional triage labels are entered by staff for the demo.</p>
+{% if form %}<section class="panel"><h2>Register ED arrival</h2>
+<form method="post">{% csrf_token %}{{ form.as_p }}<button type="submit">Register arrival</button></form></section>{% endif %}
+<section class="panel"><h2>ED visits</h2>
+<form method="get"><label for="ed-state">Visit status</label><select id="ed-state" name="status"><option value="">All visits</option>
+{% for key, label in states %}<option value="{{ key }}"{% if request.GET.status == key %} selected{% endif %}>{{ label }}</option>{% endfor %}
+</select><button type="submit">Filter visits</button></form>
+<div class="table-scroll" tabindex="0" role="region" aria-label="ED tracking">
+<table><thead><tr><th>Visit</th><th>Patient</th><th>Arrived</th><th>Wait</th><th>State</th><th>Triage</th><th>Room</th><th>Clinician</th></tr></thead>
+<tbody>{% for item, wait in rows %}<tr>
+<th scope="row"><a href="{% url 'ed_visit' item.patient_id item.pk %}">ED Visit #{{ item.pk }}</a></th>
+<td>{{ item.patient }} · {{ item.patient.mrn }}</td><td>{{ item.arrived_at|date:"Y-m-d H:i T" }}</td><td>{{ wait }} min</td>
+<td>{{ item.get_status_display }}</td><td>{{ item.get_triage_category_display|default:"Pending" }}</td>
+<td>{{ item.room|default:"Unassigned or released" }}</td><td>{{ item.clinician|default:"Unassigned" }}</td>
+</tr>{% empty %}<tr><td colspan="8">No visits within your access.</td></tr>{% endfor %}</tbody>
+</table></div></section>
+{% endblock %}

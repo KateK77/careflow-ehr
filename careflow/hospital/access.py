@@ -27,4 +27,6 @@ def stays_for(actor):
 
 def hospital_context(request):
     return {"show_hospital": is_operator(request.user) or bool(set(roles_for(request.user)) & {"Physician", "Nurse"}),
-            "hospital_operator": is_operator(request.user)}
+            "hospital_operator": is_operator(request.user),
+            "has_hospital_role": request.user.is_authenticated and request.user.is_active
+            and request.user.groups.filter(name="HospitalOperations").exists()}

@@ -3,3 +3,8 @@
 <li><a href="{% url 'hospital_stay' patient.pk stay.pk %}">Stay #{{ stay.pk }}</a> · {{ stay.get_status_display }} · {{ stay.admitted_at|date:"Y-m-d H:i T" }}</li>
 {% empty %}<li>No inpatient stays within your access.</li>{% endfor %}</ul>
 </section>
+<section class="panel"><h2>Emergency Department visit history</h2><ul>
+{% for visit in ed_summary %}<li><a href="{% url 'ed_visit' patient.pk visit.pk %}">ED Visit #{{ visit.pk }}</a>
+ · {{ visit.get_status_display }} · {{ visit.arrived_at|date:"Y-m-d H:i T" }}</li>
+{% empty %}<li>No ED visits within your access.</li>{% endfor %}
+</ul></section>

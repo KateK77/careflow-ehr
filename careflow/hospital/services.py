@@ -7,7 +7,7 @@ from careflow.medications.services import check_version, command_identity, comma
 from careflow.patients.access import roles_for
 from careflow.patients.models import AuditEvent, Patient
 from .access import require_operator
-from .models import AdmissionRequest, Bed, Department, HospitalEvent, InpatientStay, OperationLock, Room, Ward
+from .models import AdmissionRequest, Bed, Department, EmergencyVisit, HospitalEvent, InpatientStay, OperationLock, Room, Ward
 
 
 def lock_operations():
@@ -79,12 +79,18 @@ def add_facility(actor, kind, name, parent_id, ward_kind, key):
 
 
 @command_transaction
-def request_admission(actor, patient_id, reason, key):
+def request_admission(actor, patient_id, reason, key, *, ed_visit_id=None):
     require_operator(actor)
-    identity, prior = begin(actor, key, "hospital_admission_request", patient_id, reason)
+    context = () if ed_visit_id is None else (ed_visit_id,)
+    identity, prior = begin(actor, key, "hospital_admission_request", patient_id, reason, *context)
     if prior:
         return prior.request
     patient = selected(Patient.objects, pk=patient_id)
+    ed_visit = EmergencyVisit.objects.filter(patient=patient, disposed_at__isnull=True).first()
+    if ed_visit and ed_visit.pk != ed_visit_id:
+        raise ValidationError("Use the ED disposition to admit a patient with an active ED visit.")
+    if ed_visit_id is not None and (not ed_visit or ed_visit.status not in ("provider", "observation")):
+        raise ValidationError("The ED visit is unavailable for admission.")
     if (InpatientStay.objects.filter(request__patient=patient, status="active").exists()
             or AdmissionRequest.objects.filter(patient=patient, status="pending").exists()):
         raise ValidationError("This patient already has an active stay or pending request.")

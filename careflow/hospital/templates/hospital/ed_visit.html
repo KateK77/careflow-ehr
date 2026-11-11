@@ -1,0 +1,24 @@
+{% extends "core/base.html" %}
+{% block content %}
+<h1>ED Visit #{{ item.pk }}</h1>{% include "hospital/nav.html" %}
+<p>{{ item.patient }} · {{ item.patient.mrn }}{% if can_chart %} · <a href="{% url 'patient_chart' item.patient_id %}">Patient Chart</a>{% endif %}</p>
+<section class="panel"><h2>ED visit details</h2>
+<p>{{ item.get_status_display }} · v{{ item.version }} · Wait {{ wait }} min</p>
+<p>Arrived {{ item.arrived_at|date:"Y-m-d H:i T" }} · {{ item.get_arrival_method_display }}</p>
+<p>Chief complaint: {{ item.complaint }}</p>
+<p>Fictional triage: {{ item.get_triage_category_display|default:"Pending" }} · Clinician {{ item.clinician|default:"Unassigned" }}</p>
+{% if item.room %}<p>Room {{ item.room }}</p>{% endif %}
+{% if item.disposed_at %}<p>Disposition recorded {{ item.disposed_at|date:"Y-m-d H:i T" }}</p><p>{{ item.disposition_note }}</p>{% endif %}
+{% if can_open_stay %}<p><a href="{% url 'hospital_stay' item.patient_id item.inpatient_stay_id %}">Inpatient Stay #{{ item.inpatient_stay_id }}</a></p>{% endif %}
+</section>
+{% if actions or form.errors %}<section class="panel"><h2>Tracking and disposition action</h2>
+<form method="post">{% csrf_token %}{{ form.as_p }}<button type="submit">Apply ED action</button></form>
+</section>{% endif %}
+<section class="panel"><h2>ED event timeline</h2><ol>
+{% for event in history %}
+<li>{{ event.label }} · {{ event.actor }} · {{ event.at|date:"Y-m-d H:i T" }}
+<br>{% if event.before %}{{ event.before }} → {% endif %}{{ event.after }}
+{% if event.category %} · {{ event.category }}{% endif %}{% if event.room %} · {{ event.room }}{% endif %}
+{% if event.clinician %} · {{ event.clinician }}{% endif %}{% if event.note %}<br>{{ event.note }}{% endif %}</li>
+{% endfor %}</ol></section>
+{% endblock %}

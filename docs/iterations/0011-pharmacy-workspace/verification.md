@@ -15,3 +15,11 @@ The user confirmed post-completion pharmacy processing and preservation of Encou
 The supplied chart showed several orders with identical medication names. The Encounter and chart summaries and full order history now show short order references and simulated dispensing times where available. A targeted regression covers two same-name orders on a completed Encounter.
 
 Django system checks and migration consistency passed. All 276 regression tests and both medication and pharmacy Chromium workflows passed on isolated test databases. The PR tracks CI for the follow-up commit.
+
+## Final Phase 4A closeout
+
+The acceptance record consolidates 16 passed user-reported manual observations. The recorded order UUIDs and timing evidence are preserved. The scope excludes additional role-denial paths, competing catalog revisions, stale POST replay, concurrency and accessibility manual testing.
+
+Order display and history now use singular day and unit labels where applicable. The composer explains the accepted fictional dose format before submission. The dose validator and stored records are unchanged.
+
+Django system checks and migration consistency passed. All 277 regression tests and both medication and pharmacy Chromium workflows passed using isolated test databases. All 19 pre-existing SQLite files and sidecars matched their starting SHA-256 hashes, including the original database and the active UAT preview.

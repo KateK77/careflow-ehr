@@ -8,13 +8,13 @@
         <details><summary>Order version {{ event.after.version }}</summary>
           <p>{{ event.after.catalog_snapshot.name }} · Revision {{ event.after.catalog_snapshot.revision }}</p>
           <p>{{ event.after.dose }} · {{ event.after.route_label }} · {{ event.after.frequency_label }}</p>
-          <p>{{ event.after.duration }} days · Quantity {{ event.after.quantity }}</p>
+          <p>{{ event.after.duration }} day{{ event.after.duration|pluralize }} · Quantity {{ event.after.quantity }}</p>
           <p class="history-value">{{ event.after.instructions }}</p>
         </details>
       {% elif event.after.status_label %}
         <p>Review version {{ event.after.version }} · {{ event.after.status_label }}</p>
         {% if event.before.status_label %}<p>Previous verification state: {{ event.before.status_label }}</p>{% endif %}
-        {% if event.after.dispensed_quantity %}<p>Simulated quantity: {{ event.after.dispensed_quantity }} units</p>{% endif %}
+        {% if event.after.dispensed_quantity %}<p>Simulated quantity: {{ event.after.dispensed_quantity }} unit{{ event.after.dispensed_quantity|pluralize }}</p>{% endif %}
       {% endif %}
     </li>
   {% empty %}<li>No recorded events.</li>{% endfor %}</ol>

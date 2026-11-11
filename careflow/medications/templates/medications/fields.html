@@ -4,7 +4,7 @@
   <dt>Proposed dose</dt><dd>{{ order.dose }}</dd>
   <dt>Route</dt><dd>{{ order.get_route_display }}</dd>
   <dt>Frequency</dt><dd>{{ order.get_frequency_display }}</dd>
-  <dt>Duration</dt><dd>{{ order.duration }} days</dd>
-  <dt>Quantity</dt><dd>{{ order.quantity }} simulated units</dd>
+  <dt>Duration</dt><dd>{{ order.duration }} day{{ order.duration|pluralize }}</dd>
+  <dt>Quantity</dt><dd>{{ order.quantity }} simulated unit{{ order.quantity|pluralize }}</dd>
   <dt>Instructions</dt><dd class="history-value">{{ order.instructions }}</dd>
 </dl>

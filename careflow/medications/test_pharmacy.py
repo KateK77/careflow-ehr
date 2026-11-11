@@ -163,6 +163,18 @@ class PharmacyTests(PharmacyFixture, TestCase):
         self.encounter.refresh_from_db()
         self.assertEqual(self.encounter.status, "completed")
 
+    def test_dose_guidance_and_singular_order_display(self):
+        order = self.sign(self.make_order(duration=1, quantity=1))
+        self.client.force_login(self.physician)
+        compose = self.client.get(reverse("med_create", args=[self.patient.pk, self.encounter.pk]))
+        self.assertContains(compose, "Enter a whole number from 1 to 9999")
+        self.assertContains(compose, "2 demo units")
+        detail = self.client.get(reverse("med_detail", args=[order.public_id]))
+        self.assertContains(detail, "<dd>1 day</dd>", html=True)
+        self.assertContains(detail, "<dd>1 simulated unit</dd>", html=True)
+        self.assertNotContains(detail, "1 days")
+        self.assertNotContains(detail, "1 simulated units")
+
     def test_encounter_summary_distinguishes_same_name_orders_and_shows_dispense_time(self):
         other_order = self.sign(self.make_order())
         self.finish_encounter()

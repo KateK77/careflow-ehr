@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     "careflow.labs",
     "careflow.medications",
     "careflow.mar",
+    "careflow.portal",
 ]
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -31,6 +32,7 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "careflow.portal.access.PortalBoundary",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]

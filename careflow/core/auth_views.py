@@ -18,6 +18,10 @@ class DemoLoginView(LoginView):
         return super().get_success_url()
 
     def form_valid(self, form):
+        from careflow.portal.models import PatientPortalAccount
+        if PatientPortalAccount.objects.filter(user=form.get_user()).exists():
+            form.add_error(None, "Use the patient portal sign-in for this account.")
+            return self.form_invalid(form)
         response = super().form_valid(form)
         AuditEvent.objects.create(actor=self.request.user, action="login")
         return response

@@ -1,0 +1,31 @@
+{% extends "portal/base.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<h1>{{ title }}</h1><p class="identity">{{ patient }}</p>
+{% if notice %}<p>{{ notice }}</p>{% endif %}
+<div class="records">
+{% for table in tables %}
+<section class="panel">
+<h2>{{ table.title }}</h2>
+{% if table.rows %}
+<div class="scroll" tabindex="0" role="region" aria-label="{{ table.title }}">
+<table><thead><tr>{% for header in table.headers %}<th scope="col">{{ header }}</th>{% endfor %}</tr></thead>
+<tbody>{% for row in table.rows %}<tr>{% for value in row %}<td>{{ value }}</td>{% endfor %}</tr>{% endfor %}</tbody></table>
+</div>
+{% else %}<p>No records to display.</p>{% endif %}
+</section>
+{% endfor %}
+{% if show_results %}
+<section class="panel"><h2>Released laboratory reports</h2>
+{% for report in results %}
+<article><h3><a href="{% url 'portal_result' report.id %}">{{ report.name }}</a></h3>
+<p>{{ report.status }} · {{ report.published_at|date:"Y-m-d H:i T" }}</p>
+<div class="scroll" tabindex="0" role="region" aria-label="{{ report.name }} components">
+<table><thead><tr><th scope="col">Component</th><th scope="col">Value</th><th scope="col">Unit</th></tr></thead>
+<tbody>{% for c in report.components %}<tr><th scope="row">{{ c.code }}</th><td>{{ c.value }}</td><td>{{ c.unit }}</td></tr>{% endfor %}</tbody></table>
+</div></article>
+{% empty %}<p>No reports have been released to the portal.</p>{% endfor %}
+</section>
+{% endif %}
+</div>
+{% endblock %}

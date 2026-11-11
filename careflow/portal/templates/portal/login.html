@@ -1,0 +1,3 @@
+{% extends "portal/base.html" %}
+{% block content %}<section class="panel login"><h1>Sign in to the Patient Portal</h1><p>Use your linked synthetic patient account.</p>
+<form method="post">{% csrf_token %}{{ form.as_p }}<button type="submit">Sign in</button></form></section>{% endblock %}

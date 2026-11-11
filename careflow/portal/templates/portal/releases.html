@@ -1,0 +1,14 @@
+{% extends "core/base.html" %}
+{% block content %}<section class="panel"><h1>Patient result releases</h1>
+<p>Confirm release of the current report revision. A corrected revision needs a separate release.</p>
+{% if error %}<p role="alert">{{ error }}</p>{% endif %}
+<ul class="activity">{% for result in candidates %}
+<li>{{ result.order.patient }} · {{ result.order.catalog_snapshot.display_name }} · Revision {{ result.revision }}
+{% if result.portal_release %} · Released
+{% else %}
+<form method="post">{% csrf_token %}<input type="hidden" name="result" value="{{ result.pk }}">
+<label><input type="checkbox" name="confirm" value="yes" required> Confirm patient release</label>
+<button>Release report</button></form>
+{% endif %}</li>
+{% empty %}<li>No eligible reports within your access.</li>{% endfor %}</ul>
+</section>{% endblock %}

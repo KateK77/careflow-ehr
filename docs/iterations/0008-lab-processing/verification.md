@@ -19,3 +19,8 @@ Final contract review added exact accession confirmation for receipt, explicit A
 ## Cross-phase UAT follow-up
 
 The follow-up adds regression coverage for processing labels, UTF-8 separators, current order guidance and structured publication preview. Chromium checks the component row and unit before finalization. User observations are recorded in [acceptance.md](acceptance.md). Branch checks and CI are tracked in [PR #20](https://github.com/KateK77/careflow-ehr/pull/20).
+
+
+## Final Phase 3B UAT closeout
+
+The finalization preview has automated evidence and was outside the reported manual retest. See [PR #20](https://github.com/KateK77/careflow-ehr/pull/20) for CI on the documentation head after retargeting to main. The reported retests cover the observed views and widths.

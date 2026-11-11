@@ -18,3 +18,8 @@ Routes: `/app/lab/workspace/`, `/app/lab/processing/<order_uuid>/`, action forms
 ## Cross-phase UAT follow-up
 
 The user reported successful Nurse specimen collection, incorrect-MRN rejection, Lab Staff claim, specimen receipt and report finalization. Laboratory processing also succeeded after Encounter completion. These observations supersede the earlier pending status for the listed workflows. The updated labels and preview await a targeted manual retest.
+
+
+## Final Phase 3B UAT closeout
+
+The user collected a specimen as Nurse and observed rejection of an incorrect MRN. Lab Staff claimed the order, received the specimen and published the report. Laboratory processing continued after Encounter completion. The user passed the processing separator, readable audit labels and responsive laboratory workspace retests at the tested widths.

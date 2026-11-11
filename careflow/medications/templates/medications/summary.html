@@ -2,7 +2,7 @@
   <h2>Medication orders</h2>
   <ul class="activity">
   {% for order in medication_summary %}
-    <li><a href="{% url 'med_detail' order.public_id %}">{{ order.catalog_snapshot.name }}</a> · {{ order.get_status_display }}</li>
+    <li><a href="{% url 'med_detail' order.public_id %}">{{ order.catalog_snapshot.name }} · Order {{ order.public_id|stringformat:"s"|slice:":8" }}</a> · {{ order.get_status_display }}{% if order.pharmacy_review %} · {{ order.pharmacy_review.get_status_display }}{% endif %}{% if order.pharmacy_review.dispense %} · Simulated dispensing recorded {{ order.pharmacy_review.dispense.event.audit.occurred_at|date:"Y-m-d H:i:s T" }}{% endif %}</li>
   {% empty %}<li>No orders within your access.</li>{% endfor %}
   </ul>
   {% if encounter %}

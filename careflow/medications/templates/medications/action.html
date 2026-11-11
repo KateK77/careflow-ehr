@@ -5,6 +5,8 @@
   <p>Synthetic medication workflow</p>
   {% if patient %}<p><strong>{{ patient }}</strong> · MRN {{ patient.mrn }} · Encounter #{{ encounter.pk }}</p>{% endif %}
   {% if revision %}<p>{{ revision }}</p>{% endif %}
+  {% if requisition %}<p>Requisition {{ requisition.public_id }} · {{ requisition.catalog_snapshot.name }}</p>{% endif %}
+  {% if clarification %}<p class="history-value">Clarification requested: {{ clarification }}</p>{% endif %}
   {% if order %}{% include "medications/fields.html" %}{% endif %}
   {% if show_allergy_context %}
     <p>Historical allergy assessment: {{ allergy_state.get_status_display|default:"Not reviewed" }}. This information provides no medication clearance.</p>
@@ -21,6 +23,9 @@
     {% endfor %}
     <button type="submit">{{ button }}</button>
   </form>
-  {% if order %}<p><a href="{% url 'med_detail' order.public_id %}">Return to order</a></p>{% endif %}
+  {% if pharmacy_action %}
+    {% if order %}<p><a href="{% url 'pharmacy_detail' order.public_id %}">Return to verification</a></p>{% endif %}
+    <p><a href="{% url 'pharmacy_worklist' %}">Return to Pharmacy Workspace</a></p>
+  {% elif order %}<p><a href="{% url 'med_detail' order.public_id %}">Return to order</a></p>{% endif %}
 </section>
 {% endblock %}

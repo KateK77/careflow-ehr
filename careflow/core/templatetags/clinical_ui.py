@@ -2,6 +2,13 @@ from django import template
 
 register = template.Library()
 EVENTS = {
+    "pharmacy_claim": "Pharmacy order claimed",
+    "pharmacy_approve": "Verification approved",
+    "pharmacy_clarify": "Clarification requested",
+    "pharmacy_respond": "Physician clarification response",
+    "pharmacy_reject": "Verification rejected",
+    "pharmacy_dispense": "Simulated dispensing recorded",
+    "pharmacy_view": "Pharmacy requisition viewed",
     "med_catalog_create": "Medication catalog revision created",
     "med_catalog_activate": "Medication catalog revision activated",
     "med_catalog_retire": "Medication catalog revision retired",

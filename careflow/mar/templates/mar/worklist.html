@@ -1,0 +1,32 @@
+{% extends "core/base.html" %}
+{% block content %}
+{% if patient %}{% include "clinical/header.html" %}{% endif %}
+<section class="panel">
+  <h1>Medication Administration Record</h1>
+  <p>One fictional task per simulated dispensing receipt.</p>
+  <form method="get">
+    {% for field in filter_form %}
+      <div class="field">{{ field.label_tag }}{{ field }}{{ field.errors }}</div>
+    {% endfor %}
+    <button type="submit">Filter tasks</button>
+  </form>
+  <div class="table-scroll"><table>
+    <caption>MAR tasks within your access</caption>
+    <thead><tr><th scope="col">Task and order</th><th scope="col">Patient</th><th scope="col">Encounter</th><th scope="col">Effective MAR state</th></tr></thead>
+    <tbody>
+      {% for receipt in rows %}
+        {% with order=receipt.review.order encounter=receipt.review.order.encounter %}
+          <tr>
+            <th scope="row"><a href="{% url 'mar_detail' receipt.pk %}">Task {{ receipt.pk }} · {{ order.catalog_snapshot.name }}</a><br>Order {{ order.public_id|stringformat:"s"|slice:":8" }}</th>
+            <td>{{ encounter.patient }} · MRN {{ encounter.patient.mrn }}</td>
+            <td>#{{ encounter.pk }} · {{ encounter.get_status_display }}</td>
+            <td>{{ receipt.effective_status|default:"Pending"|capfirst }}</td>
+          </tr>
+        {% endwith %}
+      {% empty %}<tr><td colspan="4">No MAR tasks match these filters.</td></tr>{% endfor %}
+    </tbody>
+  </table></div>
+  {% if rows.has_previous %}<a href="?{{ query }}&amp;page={{ rows.previous_page_number }}">Previous page</a>{% endif %}
+  {% if rows.has_next %}<a href="?{{ query }}&amp;page={{ rows.next_page_number }}">Next page</a>{% endif %}
+</section>
+{% endblock %}

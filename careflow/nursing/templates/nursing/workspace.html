@@ -1,6 +1,7 @@
 {% extends "core/base.html" %}
 {% block title %}Nursing workspace · CareFlow EHR{% endblock %}
 {% block content %}
+<p><a href="{% url 'mar_worklist' %}">Open Medication Administration Record</a></p>
 <div class="page-heading"><div><div class="eyebrow">SYNTHETIC OUTPATIENT CLINIC</div><h1>Nursing workspace</h1><p>Appointment worklist with persisted rooming and vital-sign documentation progress.</p></div></div>
 <form method="get" class="panel filters">
   {% for field in form %}<div class="field">{{ field.label_tag }}{{ field }}{{ field.errors }}</div>{% endfor %}

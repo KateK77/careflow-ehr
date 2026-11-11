@@ -1,0 +1,7 @@
+{% extends layout %}
+{% block content %}
+<h1>New message</h1>
+{% include "portal/message_notice.html" %}
+<p>Choose a clinician from your existing synthetic appointment history.</p>
+<form class="panel" method="post">{% csrf_token %}{{ form.as_p }}<button type="submit">Send message</button></form>
+{% endblock %}

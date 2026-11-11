@@ -1,0 +1,30 @@
+{% extends layout %}
+{% block content %}
+<p>{% if patient %}<a href="{% url 'portal_requests' %}">Appointment requests</a>{% else %}<a href="{% url 'staff_portal_requests' %}">Request worklist</a>{% endif %}</p>
+<h1>{{ item.get_kind_display }} request</h1>
+<section class="panel" aria-label="Request details">
+<dl>
+{% if not patient %}<dt>Patient</dt><dd>{{ item.patient }}</dd>{% endif %}
+<dt>Request status</dt><dd>{{ item.get_status_display }}</dd>
+<dt>Clinician</dt><dd>{{ item.physician }}</dd>
+{% if item.target %}<dt>Current state of selected appointment</dt><dd>{{ item.target.start_at|date:"Y-m-d H:i T" }} · {{ item.target.get_status_display }}</dd>{% endif %}
+{% if item.proposed_start %}<dt>Proposed time</dt><dd>{{ item.proposed_start|date:"Y-m-d H:i T" }} · {{ item.duration }} minutes</dd>{% endif %}
+<dt>Reason</dt><dd>{{ item.explanation }}</dd>
+{% if item.response %}<dt>Staff response</dt><dd>{{ item.response }}</dd>{% endif %}
+{% if item.resulting_appointment %}<dt>Current appointment status</dt><dd>{{ item.resulting_appointment.get_status_display }} · {{ item.resulting_appointment.start_at|date:"Y-m-d H:i T" }}</dd>{% endif %}
+</dl>
+</section>
+<section class="panel"><h2>Request history</h2>
+<ol>{% for event in events %}
+<li>{% if event.audit.action == "portal_request_submit" %}Submitted{% elif event.audit.action == "portal_request_approved" %}Approved{% else %}Rejected{% endif %}
+ · {{ event.audit.actor }} · {{ event.audit.occurred_at|date:"Y-m-d H:i T" }}</li>
+{% endfor %}</ol>
+</section>
+{% if not patient %}
+{% if item.status == "pending" or form.errors %}
+<section class="panel"><h2>Review request</h2>
+<form method="post">{% csrf_token %}{{ form.as_p }}<button type="submit">Submit decision</button></form>
+</section>
+{% endif %}
+{% endif %}
+{% endblock %}

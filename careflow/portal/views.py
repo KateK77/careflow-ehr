@@ -14,6 +14,7 @@ from careflow.patients.models import AuditEvent
 from careflow.scheduling.models import Appointment
 from careflow.clinical.models import Encounter
 from .access import patient_for, patient_only
+from .communication import conversations, with_unread
 from .records import display_result, eligible_results, patient_results, release_result
 
 
@@ -100,7 +101,8 @@ def dashboard(request, patient):
     ]
     return render(request, "portal/records.html", {"title": "Patient dashboard", "patient": patient, "tables": tables,
                                                   "results": [display_result(r) for r in patient_results(patient)[:5]],
-                                                  "show_results": True})
+                                                  "show_results": True, "show_messages": True,
+                                                  "unread": with_unread(conversations(request.user, patient), False).filter(unread=True).count()})
 
 
 @require_safe

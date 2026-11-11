@@ -56,7 +56,11 @@
           {% if show_lab_review %}<a href="{% url 'lab_results_worklist' %}">Laboratory review</a>{% endif %}
           {% if show_lab_workspace %}<a href="{% url 'lab_worklist' %}">Laboratory workspace</a>{% endif %}
           {% if show_pharmacy_workspace %}<a href="{% url 'pharmacy_worklist' %}">Pharmacy Workspace</a>{% endif %}
-          {% if 'Physician' in staff_roles %}<a href="{% url 'portal_releases' %}">Patient result releases</a>{% endif %}
+          {% if 'Physician' in staff_roles %}
+            <a href="{% url 'portal_releases' %}">Patient result releases</a>
+            <a href="{% url 'staff_portal_messages' %}">Patient messages</a>
+          {% endif %}
+          {% if can_manage_patients %}<a href="{% url 'staff_portal_requests' %}">Portal appointment requests</a>{% endif %}
           {% if can_manage_patients %}
             <a href="{% url 'patient_create' %}">
               <span aria-hidden="true">＋ &nbsp;</span>

@@ -1,0 +1,29 @@
+{% extends "core/base.html" %}
+{% block content %}
+{% include "clinical/header.html" %}
+<section class="panel">
+  <h1>MAR task {{ receipt.pk }}</h1>
+  <p>Medication order {{ order.public_id }} · {{ order.get_status_display }} · Signed by {{ order.signed_by }} at {{ order.signed_at|date:"Y-m-d H:i:s T" }}</p>
+  {% include "medications/fields.html" %}
+  {% include "medications/pharmacy_status.html" %}
+  <p>Historical allergy assessment: {{ allergy_state.get_status_display|default:"Not reviewed" }}. This provides no medication clearance.</p>
+  <p>Effective MAR state: <strong>{{ current.get_status_display|default:"Pending" }}</strong></p>
+  {% if writable and not current %}
+    <p><a href="{% url 'mar_administer' patient.pk encounter.pk receipt.pk %}">Record simulated administration</a></p>
+  {% endif %}
+  <p><a href="{% url 'mar_patient' patient.pk %}">Patient MAR</a></p>
+</section>
+<section class="panel">
+  <h2>Administration history</h2>
+  <ol class="activity">
+    {% for event in events %}
+      <li>
+        <strong>Version {{ event.revision }} · {{ event.get_status_display }}</strong>
+        <p>Event time {{ event.occurred_at|date:"Y-m-d H:i:s T" }} · Recorded by {{ event.actor }} at {{ event.audit.occurred_at|date:"Y-m-d H:i:s T" }}</p>
+        {% if event.quantity %}<p>{{ event.quantity }} simulated unit{{ event.quantity|pluralize }}</p>{% endif %}
+        {% if event.notes %}<p class="history-value">{{ event.notes }}</p>{% endif %}
+      </li>
+    {% empty %}<li>No administration events recorded.</li>{% endfor %}
+  </ol>
+</section>
+{% endblock %}

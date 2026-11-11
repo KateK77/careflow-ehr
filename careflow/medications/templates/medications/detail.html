@@ -9,6 +9,7 @@
   {% if order.signed_at %}<p>Signed by {{ order.signed_by }} on {{ order.signed_at|date:"Y-m-d H:i:s T" }}</p>{% endif %}
   {% if order.cancelled_at %}<p>Cancelled {{ order.cancelled_at|date:"Y-m-d H:i:s T" }}. {{ order.cancellation_reason }}</p>{% endif %}
   {% include "medications/pharmacy_status.html" %}
+  {% if mar_task %}<p><a href="{% url 'mar_detail' mar_task.pk %}">MAR task {{ mar_task.pk }}</a> · {{ mar_task.effective_status|mar_state }}</p>{% endif %}
   <div class="form-actions">
     {% if may_respond %}<a href="{% url 'pharmacy_respond' order.public_id %}">Respond to clarification</a>{% endif %}
     {% if editable %}

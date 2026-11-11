@@ -11,6 +11,7 @@ from django.views.decorators.http import require_http_methods, require_safe
 
 from careflow.clinical.access import charts_for, clinical_access
 from careflow.patients.models import AuditEvent
+from careflow.mar.access import receipts_for as mar_receipts_for
 from .access import appointments_for, can_document
 from .forms import FORMS, WorklistFilterForm
 from .models import NursingEvent, RoomingAssessment, VitalObservation
@@ -46,7 +47,8 @@ def workspace(request):
     query_data = request.GET.copy()
     query_data.pop("page", None)
     return render(request, "nursing/workspace.html", {"form": form, "rows": rows, "page": page,
-                  "filter_query": query_data.urlencode()})
+                  "filter_query": query_data.urlencode(),
+                  "mar_summary": mar_receipts_for(request.user).filter(effective_status__isnull=False).order_by("-effective_time", "-pk")[:5]})
 
 
 def _appointment(request, patient_id, appointment_id):

@@ -12,6 +12,7 @@ from django.views.decorators.http import require_http_methods, require_POST, req
 
 from careflow.patients.models import AuditEvent
 from careflow.medications.access import orders_for as medication_orders_for
+from careflow.mar.access import receipts_for as mar_receipts_for
 from careflow.scheduling.models import AppointmentEvent
 from .access import (can_write, charts_for, clinical_access, clinical_appointments_for, encounters_for)
 from .forms import NoteForm, SignForm, VersionForm
@@ -39,6 +40,7 @@ def workspace(request):
     end = timezone.make_aware(datetime.combine(selected + timedelta(days=1), time.min))
     appointments = clinical_appointments_for(request.user).filter(start_at__lt=end, end_at__gt=start)
     return render(request, "clinical/workspace.html", {
+        "mar_summary": mar_receipts_for(request.user).filter(effective_status__isnull=False).order_by("-effective_time", "-pk")[:5],
         "appointments": appointments, "selected": selected, "filter_error": error,
         "encounters": Paginator(encounters_for(request.user), 25).get_page(request.GET.get("page")),
     })
@@ -93,6 +95,7 @@ def chart(request, patient_id):
         **nursing_chart_context(request.user, patient),
         **laboratory_chart_context(request.user, patient),
         "medication_summary": medication_orders_for(request.user).filter(encounter__patient=patient)[:5],
+        "mar_summary": mar_receipts_for(request.user).filter(review__order__encounter__patient=patient).order_by("-pk")[:5],
         "patient": patient, "encounters": encounters[:50], "appointments": appointments.order_by("-start_at")[:10],
         "notes": Note.objects.filter(encounter__in=encounters).select_related("encounter", "author").order_by("-created_at")[:50],
         "timeline": timeline[:100],
@@ -138,6 +141,7 @@ def encounter_detail(request, patient_id, encounter_id):
         **nursing_chart_context(request.user, encounter.patient, encounter.appointment_id),
         **laboratory_chart_context(request.user, encounter.patient, encounter),
         "medication_summary": medication_orders_for(request.user).filter(encounter=encounter)[:5],
+        "mar_summary": mar_receipts_for(request.user).filter(review__order__encounter=encounter).order_by("-pk")[:5],
         "patient": encounter.patient, "encounter": encounter,
         "note": Note.objects.filter(encounter=encounter).first(),
         "editable": can_write(request.user, encounter.physician_id) and encounter.status == "in_progress",

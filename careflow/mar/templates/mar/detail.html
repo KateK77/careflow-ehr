@@ -8,10 +8,15 @@
   {% include "medications/pharmacy_status.html" %}
   <p>Historical allergy assessment: {{ allergy_state.get_status_display|default:"Not reviewed" }}. This provides no medication clearance.</p>
   <p>Effective MAR state: <strong>{{ current.get_status_display|default:"Pending" }}</strong></p>
-  {% if writable and not current %}
-    <p><a href="{% url 'mar_administer' patient.pk encounter.pk receipt.pk %}">Record simulated administration</a></p>
+  {% if writable %}
+    {% if not current or current.status == "held" %}
+      <p><a href="{% url 'mar_administer' patient.pk encounter.pk receipt.pk %}">Record simulated administration</a></p>
+      <p><a href="{% url 'mar_exception' patient.pk encounter.pk receipt.pk %}">Record MAR exception</a></p>
+    {% endif %}
+    {% if current %}
+      <p><a href="{% url 'mar_correct' patient.pk encounter.pk receipt.pk %}">Correct MAR documentation</a></p>
+    {% endif %}
   {% endif %}
-  <p><a href="{% url 'mar_patient' patient.pk %}">Patient MAR</a></p>
 </section>
 <section class="panel">
   <h2>Administration history</h2>
@@ -19,8 +24,11 @@
     {% for event in events %}
       <li>
         <strong>Version {{ event.revision }} · {{ event.get_status_display }}</strong>
+        <p>{% if forloop.first %}Effective record{% else %}Superseded record{% endif %}{% if event.correction_reason %} · Correction{% endif %}</p>
         <p>Event time {{ event.occurred_at|date:"Y-m-d H:i:s T" }} · Recorded by {{ event.actor }} at {{ event.audit.occurred_at|date:"Y-m-d H:i:s T" }}</p>
         {% if event.quantity %}<p>{{ event.quantity }} simulated unit{{ event.quantity|pluralize }}</p>{% endif %}
+        {% if event.reason %}<p class="history-value">Exception reason: {{ event.reason }}</p>{% endif %}
+        {% if event.correction_reason %}<p class="history-value">Correction reason: {{ event.correction_reason }}</p>{% endif %}
         {% if event.notes %}<p class="history-value">{{ event.notes }}</p>{% endif %}
       </li>
     {% empty %}<li>No administration events recorded.</li>{% endfor %}

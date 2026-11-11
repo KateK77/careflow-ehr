@@ -23,6 +23,7 @@
     {% endfor %}
     <button type="submit">{{ button }}</button>
   </form>
+  {% if mar_task %}<p><a href="{% url 'mar_detail' mar_task.pk %}">Return to MAR task</a></p>{% endif %}
   {% if pharmacy_action %}
     {% if order %}<p><a href="{% url 'pharmacy_detail' order.public_id %}">Return to verification</a></p>{% endif %}
     <p><a href="{% url 'pharmacy_worklist' %}">Return to Pharmacy Workspace</a></p>

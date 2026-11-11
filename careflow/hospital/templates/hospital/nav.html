@@ -1,0 +1,7 @@
+<nav aria-label="Hospital operations">
+<a href="{% url 'hospital_dashboard' %}">Inpatient dashboard</a>
+{% if hospital_operator %} · <a href="{% url 'hospital_capacity' %}">Bed capacity</a>
+ · <a href="{% url 'hospital_facilities' %}">Ward and room management</a>
+ · <a href="{% url 'hospital_admissions' %}">Admission worklist</a>{% endif %}
+</nav>
+<p>Synthetic hospital operations only.</p>

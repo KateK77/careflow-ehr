@@ -1,0 +1,10 @@
+{% extends "core/base.html" %}
+{% block content %}
+<h1>Bed Capacity Board</h1>{% include "hospital/nav.html" %}
+<p>{{ open_count }} available of {{ beds|length }} configured beds.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Bed capacity"><table>
+<thead><tr><th>Bed</th><th>Availability</th></tr></thead><tbody>
+{% for bed, available in beds %}<tr><th scope="row">{{ bed }}</th><td>{% if available %}Available{% else %}Occupied{% endif %}</td></tr>
+{% empty %}<tr><td colspan="2">No inpatient beds configured.</td></tr>{% endfor %}</tbody>
+</table></div>
+{% endblock %}

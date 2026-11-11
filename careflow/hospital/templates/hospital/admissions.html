@@ -1,0 +1,10 @@
+{% extends "core/base.html" %}
+{% block content %}
+<h1>Admission Worklist</h1>{% include "hospital/nav.html" %}
+<section class="panel"><h2>Request admission</h2>
+<form method="post">{% csrf_token %}{{ form.as_p }}<button type="submit">Create admission request</button></form></section>
+<section class="panel"><h2>Admission history</h2><ul>
+{% for item in items %}<li><a href="{% url 'hospital_admission' item.patient_id item.pk %}">Request #{{ item.pk }} · {{ item.patient }}</a>
+ · {{ item.get_status_display }} · {{ item.created_at|date:"Y-m-d H:i T" }}</li>
+{% empty %}<li>No requests yet.</li>{% endfor %}</ul></section>
+{% endblock %}

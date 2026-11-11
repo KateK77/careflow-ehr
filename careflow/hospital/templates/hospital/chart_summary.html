@@ -1,0 +1,5 @@
+<section class="panel"><h2>Inpatient stay history</h2>
+<ul>{% for stay in inpatient_summary %}
+<li><a href="{% url 'hospital_stay' patient.pk stay.pk %}">Stay #{{ stay.pk }}</a> · {{ stay.get_status_display }} · {{ stay.admitted_at|date:"Y-m-d H:i T" }}</li>
+{% empty %}<li>No inpatient stays within your access.</li>{% endfor %}</ul>
+</section>

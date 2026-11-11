@@ -1,0 +1,13 @@
+{% extends "core/base.html" %}
+{% block content %}
+<h1>Ward and Room Management</h1>{% include "hospital/nav.html" %}
+<p><a href="{% url 'hospital_facility' 'department' %}">Departments</a>
+ · <a href="{% url 'hospital_facility' 'ward' %}">Wards</a>
+ · <a href="{% url 'hospital_facility' 'room' %}">Rooms</a>
+ · <a href="{% url 'hospital_facility' 'bed' %}">Beds</a></p>
+<section class="panel"><h2>Add a {{ kind }}</h2>
+<form method="post">{% csrf_token %}{{ form.as_p }}<button type="submit">Add {{ kind }}</button></form></section>
+<section class="panel"><h2>Configured {{ kind }} records</h2><ul>
+{% for item in items %}<li>{{ item }}{% if item.kind %} · {{ item.get_kind_display }}{% endif %}</li>
+{% empty %}<li>No records configured.</li>{% endfor %}</ul></section>
+{% endblock %}

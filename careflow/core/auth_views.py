@@ -13,6 +13,9 @@ class DemoLoginView(LoginView):
         from careflow.medications.pharmacy_access import is_pharmacist
         from careflow.billing.access import is_billing
         from careflow.imaging.access import is_radiology
+        from careflow.hospital.access import is_operator
+        if is_operator(self.request.user) and not roles_for(self.request.user):
+            return reverse("hospital_dashboard")
         if is_billing(self.request.user) and not roles_for(self.request.user):
             return reverse("billing_worklist")
         if is_radiology(self.request.user) and not roles_for(self.request.user):

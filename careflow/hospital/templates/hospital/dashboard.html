@@ -1,0 +1,16 @@
+{% extends "core/base.html" %}
+{% block content %}
+<h1>Inpatient Dashboard</h1>{% include "hospital/nav.html" %}
+<form method="get"><label for="status">Stay status</label><select name="status" id="status">
+<option value="">All stays</option><option value="active">Admitted</option><option value="discharged">Discharged</option></select>
+<button type="submit">Filter stays</button></form>
+<section class="panel"><h2>Inpatient stays</h2>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Inpatient stays"><table>
+<thead><tr><th>Stay</th><th>Patient</th><th>Attending</th><th>Bed</th><th>Status</th><th>Length of stay</th></tr></thead>
+<tbody>{% for item, duration in items %}<tr>
+<th scope="row"><a href="{% url 'hospital_stay' item.request.patient_id item.pk %}">Stay #{{ item.pk }}</a></th>
+<td>{{ item.request.patient }} · {{ item.request.patient.mrn }}</td><td>{{ item.attending }}</td><td>{{ item.bed|default:"Released" }}</td>
+<td>{{ item.get_status_display }}</td><td>{{ duration.days }} d</td>
+</tr>{% empty %}<tr><td colspan="6">No inpatient stays within your access.</td></tr>{% endfor %}</tbody>
+</table></div></section>
+{% endblock %}

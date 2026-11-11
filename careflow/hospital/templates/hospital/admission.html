@@ -1,0 +1,11 @@
+{% extends "core/base.html" %}
+{% block content %}
+<h1>Admission Request #{{ item.pk }}</h1>{% include "hospital/nav.html" %}
+<p>{{ item.patient }} · {{ item.patient.mrn }} · {{ item.get_status_display }}</p><p>{{ item.reason }}</p>
+{% if item.stay %}<p><a href="{% url 'hospital_stay' item.patient_id item.stay.pk %}">Stay #{{ item.stay.pk }}</a></p>{% endif %}
+{% if item.status == "pending" or form.errors %}
+<section class="panel"><h2>Admit Patient</h2>
+<form method="post">{% csrf_token %}{{ form.as_p }}<button type="submit">Apply admission decision</button></form>
+</section>{% endif %}
+{% include "hospital/history.html" %}
+{% endblock %}

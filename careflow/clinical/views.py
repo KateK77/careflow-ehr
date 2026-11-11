@@ -13,6 +13,7 @@ from django.views.decorators.http import require_http_methods, require_POST, req
 from careflow.patients.models import AuditEvent
 from careflow.medications.access import orders_for as medication_orders_for
 from careflow.imaging.access import orders_for as imaging_orders_for
+from careflow.hospital.views import chart_context as hospital_chart_context
 from careflow.mar.access import receipts_for as mar_receipts_for
 from careflow.scheduling.models import AppointmentEvent
 from .access import (can_write, charts_for, clinical_access, clinical_appointments_for, encounters_for)
@@ -93,6 +94,7 @@ def chart(request, patient_id):
         timeline.append({"at":event.audit.occurred_at,"label":event.audit.action,"actor":event.audit.actor,"history_url":reverse("lab_report_detail",args=[event.order.public_id])})
     timeline.sort(key=lambda item: item["at"], reverse=True)
     return render(request, "clinical/chart.html", {
+        **hospital_chart_context(request.user, patient),
         **nursing_chart_context(request.user, patient),
         **laboratory_chart_context(request.user, patient),
         "medication_summary": medication_orders_for(request.user).filter(encounter__patient=patient)[:5],

@@ -11,6 +11,7 @@ from django.urls import reverse
 from django.views.decorators.http import require_http_methods, require_POST, require_safe
 
 from careflow.patients.models import AuditEvent
+from careflow.medications.access import orders_for as medication_orders_for
 from careflow.scheduling.models import AppointmentEvent
 from .access import (can_write, charts_for, clinical_access, clinical_appointments_for, encounters_for)
 from .forms import NoteForm, SignForm, VersionForm
@@ -91,6 +92,7 @@ def chart(request, patient_id):
     return render(request, "clinical/chart.html", {
         **nursing_chart_context(request.user, patient),
         **laboratory_chart_context(request.user, patient),
+        "medication_summary": medication_orders_for(request.user).filter(encounter__patient=patient)[:5],
         "patient": patient, "encounters": encounters[:50], "appointments": appointments.order_by("-start_at")[:10],
         "notes": Note.objects.filter(encounter__in=encounters).select_related("encounter", "author").order_by("-created_at")[:50],
         "timeline": timeline[:100],
@@ -135,6 +137,7 @@ def encounter_detail(request, patient_id, encounter_id):
     return render(request, "clinical/encounter.html", {
         **nursing_chart_context(request.user, encounter.patient, encounter.appointment_id),
         **laboratory_chart_context(request.user, encounter.patient, encounter),
+        "medication_summary": medication_orders_for(request.user).filter(encounter=encounter)[:5],
         "patient": encounter.patient, "encounter": encounter,
         "note": Note.objects.filter(encounter=encounter).first(),
         "editable": can_write(request.user, encounter.physician_id) and encounter.status == "in_progress",

@@ -2,6 +2,13 @@ from django import template
 
 register = template.Library()
 EVENTS = {
+    "med_catalog_create": "Medication catalog revision created",
+    "med_catalog_activate": "Medication catalog revision activated",
+    "med_catalog_retire": "Medication catalog revision retired",
+    "med_order_create": "Medication draft created",
+    "med_order_edit": "Medication draft edited",
+    "med_order_sign": "Medication order signed",
+    "med_order_cancel": "Medication order cancelled",
     "lab_catalog_create": "Catalog revision created", "lab_catalog_activate": "Catalog revision activated",
     "lab_catalog_deactivate": "Catalog revision deactivated", "lab_order_create": "Laboratory draft created",
     "lab_order_edit": "Laboratory draft edited", "lab_order_submit": "Laboratory order submitted",

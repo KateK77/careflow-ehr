@@ -1,0 +1,13 @@
+<section class="panel">
+  <h2>Medication orders</h2>
+  <ul class="activity">
+  {% for order in medication_summary %}
+    <li><a href="{% url 'med_detail' order.public_id %}">{{ order.catalog_snapshot.name }}</a> · {{ order.get_status_display }}</li>
+  {% empty %}<li>No orders within your access.</li>{% endfor %}
+  </ul>
+  {% if encounter %}
+    <a href="{% url 'med_encounter_history' patient.pk encounter.pk %}">Encounter medication orders</a>
+  {% else %}
+    <a href="{% url 'med_history' patient.pk %}">Patient medication orders</a>
+  {% endif %}
+</section>

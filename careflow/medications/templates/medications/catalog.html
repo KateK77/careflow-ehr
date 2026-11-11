@@ -1,0 +1,19 @@
+{% extends "core/base.html" %}
+{% block content %}
+<section class="panel">
+  <h1>Medication Catalog</h1>
+  <p>Fictional medications for synthetic ordering.</p>
+  {% if manage %}<p><a class="button" href="{% url 'med_catalog_create' %}">Create catalog revision</a></p>{% endif %}
+  <div class="table-scroll"><table>
+    <caption>Fictional medication revisions</caption>
+    <thead><tr><th scope="col">Medication</th><th scope="col">Form and strength</th><th scope="col">Route and frequency</th><th scope="col">Status</th>{% if manage %}<th scope="col">Manage revision</th>{% endif %}</tr></thead>
+    <tbody>{% for revision in rows %}
+      <tr><th scope="row">{{ revision }}</th><td>{{ revision.get_dosage_form_display }} · {{ revision.strength }}</td>
+      <td>{{ revision.get_route_display }} · {{ revision.get_frequency_display }}</td>
+      <td>{{ revision.active|yesno:"Active,Inactive" }}</td>
+      {% if manage %}<td>{% if revision.active %}<a href="{% url 'med_retire' revision.pk %}">Retire revision</a>{% else %}<a href="{% url 'med_activate' revision.pk %}">Activate revision</a>{% endif %}</td>{% endif %}</tr>
+    {% empty %}<tr><td colspan="{% if manage %}5{% else %}4{% endif %}">No visible revisions.</td></tr>{% endfor %}</tbody>
+  </table></div>
+  {% include "medications/pages.html" %}
+</section>
+{% endblock %}

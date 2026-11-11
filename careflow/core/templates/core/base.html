@@ -52,6 +52,7 @@
           {% if show_nursing_workspace %}<a href="{% url 'nursing_workspace' %}">Nursing workspace</a>{% endif %}
           <a href="{% url 'checkin_worklist' %}">Patient check-in</a>
           {% endif %}
+          {% if can_browse_medications %}<a href="{% url 'med_catalog' %}">Medication Catalog</a>{% endif %}
           {% if show_lab_review %}<a href="{% url 'lab_results_worklist' %}">Laboratory review</a>{% endif %}
           {% if show_lab_workspace %}<a href="{% url 'lab_worklist' %}">Laboratory workspace</a>{% endif %}
           {% if can_manage_patients %}

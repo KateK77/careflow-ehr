@@ -1,0 +1,20 @@
+{% extends "core/base.html" %}
+{% load clinical_ui %}
+{% block content %}
+{% include "clinical/header.html" %}
+<section class="panel">
+  <h1>Medication Order</h1>
+  <p>{{ order.get_status_display }} · Version {{ order.version }} · Author {{ order.author }}</p>
+  {% include "medications/fields.html" %}
+  {% if order.signed_at %}<p>Signed by {{ order.signed_by }} on {{ order.signed_at|date:"Y-m-d H:i:s T" }}</p>{% endif %}
+  {% if order.cancelled_at %}<p>Cancelled {{ order.cancelled_at|date:"Y-m-d H:i:s T" }}. {{ order.cancellation_reason }}</p>{% endif %}
+  <div class="form-actions">
+    {% if editable %}
+      <a href="{% url 'med_edit' patient.pk encounter.pk order.public_id %}">Edit draft</a>
+      <a href="{% url 'med_sign' order.public_id %}">Review and Sign</a>
+    {% endif %}
+    {% if cancellable %}<a href="{% url 'med_cancel' order.public_id %}">Cancel order</a>{% endif %}
+  </div>
+</section>
+{% include "medications/events.html" %}
+{% endblock %}

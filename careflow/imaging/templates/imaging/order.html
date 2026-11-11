@@ -1,0 +1,22 @@
+{% extends "core/base.html" %}
+{% block content %}
+<h1>{% if order %}Imaging order #{{ order.pk }}{% else %}New imaging order{% endif %}</h1>
+<p>{{ visit.patient }} · <a href="{% url 'encounter_detail' visit.patient_id visit.pk %}">Encounter #{{ visit.pk }}</a></p>
+{% if order %}<section class="panel">
+<h2>{{ order.catalog.name }}</h2>
+<p>{{ order.catalog.code }} · {{ order.catalog.get_modality_display }} · {{ order.get_priority_display }}</p>
+<p>{{ order.get_status_display }} · v{{ order.version }}</p>
+<p>{{ order.indication }}</p>
+{% if order.signed_at %}<p>Signed by {{ order.signed_by }} · {{ order.signed_at|date:"Y-m-d H:i T" }}</p>{% endif %}
+{% if order.exam %}<p>Examination scheduled {{ order.exam.scheduled_at|date:"Y-m-d H:i T" }}</p>{% endif %}
+{% if order.cancellation_reason %}<p>Cancellation reason: {{ order.cancellation_reason }}</p>{% endif %}
+</section>{% endif %}
+{% if form and form.fields.action.choices or form.errors %}
+<section class="panel"><h2>Order action</h2>
+<form method="post">{% csrf_token %}{{ form.as_p }}<button type="submit">Apply action</button></form></section>
+{% endif %}
+{% if order %}<section class="panel"><h2>Order history</h2>
+<ul>{% for label, actor, date, reason, scheduled in history %}
+<li>{{ label }} · {{ actor }} · {{ date|date:"Y-m-d H:i T" }}{% if reason %} · {{ reason }}{% endif %}</li>
+{% empty %}<li>No events recorded.</li>{% endfor %}</ul></section>{% endif %}
+{% endblock %}

@@ -7,7 +7,8 @@
 <section class="panel"><h2>Encounter #{{ encounter.pk }}</h2><p>{{ encounter.physician.get_full_name|default:encounter.physician.username }} · Started {{ encounter.started_at|date:"Y-m-d H:i:s T" }} · v{{ encounter.version }}</p>
 {% if encounter.completed_at %}<p>Completed {{ encounter.completed_at|date:"Y-m-d H:i:s T" }}</p>{% endif %}
 <p><a href="{% url 'appointment_detail' encounter.appointment_id %}">Appointment #{{ encounter.appointment_id }}</a> · {{ encounter.appointment.get_status_display }} · Check-in {{ encounter.appointment.checked_in_at|date:"Y-m-d H:i:s T"|default:"Not recorded" }}{% if encounter.appointment.checked_in_by %} by {{ encounter.appointment.checked_in_by.get_full_name|default:encounter.appointment.checked_in_by.username }}{% else %} · Recorder not recorded{% endif %}</p>
-{% if editable %}<div class="form-actions">
+{% if editable %}<div class="form-actions encounter-actions">
+<a href="{% url 'imaging_order_new' patient.pk encounter.pk %}">Create imaging order</a>
 <a href="{% url 'med_create' patient.pk encounter.pk %}">Create medication order</a>
 <a href="{% url 'lab_order_create' patient.pk encounter.pk %}">Create lab order</a><a href="{% url 'lab_encounter_orders' patient.pk encounter.pk %}">Encounter laboratory orders</a>
 {% if not note.signed_at %}<a class="button" href="{% url 'note_edit' patient.pk encounter.pk %}">{% if note %}Edit SOAP draft{% else %}Create SOAP draft{% endif %}</a>{% endif %}
@@ -20,4 +21,5 @@
 {% include 'labs/chart_summary.html' %}
 {% include 'medications/summary.html' %}
 {% include 'mar/summary.html' %}
+{% include 'imaging/summary.html' %}
 {% endblock %}

@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     "careflow.labs",
     "careflow.medications",
     "careflow.mar",
+    "careflow.imaging",
 ]
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

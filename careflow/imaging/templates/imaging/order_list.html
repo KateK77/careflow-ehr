@@ -1,0 +1,4 @@
+<ul>{% for order in orders %}
+<li><a href="{% url 'imaging_order' order.pk %}">{{ order.catalog.name }}</a>
+ · {{ order.get_status_display }}{% if order.exam %} · {{ order.exam.scheduled_at|date:"Y-m-d H:i T" }}{% endif %}</li>
+{% empty %}<li>No imaging orders within your access.</li>{% endfor %}</ul>

@@ -1,0 +1,4 @@
+<section class="panel"><h2>Imaging orders</h2>
+{% include "imaging/order_list.html" with orders=imaging_summary %}
+<p><a href="{% url 'imaging_patient' patient.pk %}">Patient imaging history</a></p>
+</section>

@@ -93,6 +93,9 @@ class MARExceptionTests(MARFixture, TestCase):
         response = self.client.get(reverse("mar_detail", args=[self.receipt.pk]))
         self.assertContains(response, "Version 1")
         self.assertNotContains(response, "Correct MAR documentation")
+        url = reverse("mar_correct", args=[self.patient.pk, self.encounter.pk, self.receipt.pk])
+        self.assertEqual(self.client.get(url).status_code, 403)
+        self.assertEqual(self.receipt.administration_events.count(), 1)
 
     def test_audit_rolls_back_when_correction_event_write_fails(self):
         self.record_event(self.receipt)

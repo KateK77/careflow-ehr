@@ -6,4 +6,4 @@ A pending task may be administered, held, refused or omitted. Held is an interme
 
 Exception outcomes require a fictional reason and carry no administration quantity. Administration uses the full receipt quantity. All events record an actual simulated event time and a separate audit recording time. Corrections may amend an inaccurate event time within the original time bounds. Completed Encounters allow history only. Phase 4A late pharmacy processing continues independently.
 
-Manual UAT is consolidated after both increments. See [acceptance.md](acceptance.md).
+The consolidated user-reported manual UAT passes and their scope are recorded in [acceptance.md](acceptance.md).

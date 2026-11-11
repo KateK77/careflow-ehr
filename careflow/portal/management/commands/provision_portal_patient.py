@@ -25,8 +25,9 @@ class Command(BaseCommand):
         target = Path(settings.DATABASES["default"]["NAME"]).resolve()
         if (not os.environ.get("CAREFLOW_DB_PATH") or not target.is_file()
                 or target.parent != (settings.BASE_DIR / ".venv").resolve()
-                or target.name not in {"phase5-a-preview.sqlite3", "phase5-b-preview.sqlite3"}):
-            raise CommandError("Select an explicit Phase 5 preview database.")
+                or target.name not in {"phase5-a-preview.sqlite3", "phase5-b-preview.sqlite3",
+                                    "phase6-a-preview.sqlite3", "phase6-b-preview.sqlite3"}):
+            raise CommandError("Select an explicit Phase 5 or Phase 6 preview database.")
         if PatientPortalAccount._meta.db_table not in connection.introspection.table_names():
             raise CommandError("The selected preview does not have the portal schema.")
         patient = Patient.objects.filter(pk=options["patient_id"]).first()

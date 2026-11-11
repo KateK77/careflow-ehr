@@ -16,6 +16,7 @@ urlpatterns = [
     path("app/", include("careflow.medications.urls")),
     path("app/", include("careflow.mar.urls")),
     path("", include("careflow.portal.urls")),
+    path("", include("careflow.billing.urls")),
     path("", views.home, name="home"),
     path("health/", views.health, name="health"),
 ]

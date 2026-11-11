@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     "careflow.medications",
     "careflow.mar",
     "careflow.portal",
+    "careflow.billing",
 ]
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -45,6 +46,7 @@ TEMPLATES = [
             "context_processors": [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
+                "careflow.billing.access.billing_context",
                 "django.contrib.messages.context_processors.messages",
                 "careflow.patients.access.staff_context",
                 "careflow.clinical.access.clinical_context",

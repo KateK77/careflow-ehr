@@ -47,6 +47,6 @@ class PortalBoundary:
 
     def process_exception(self, request, exception):
         from django.http import Http404
-        if request.path_info.startswith(("/portal/", "/app/portal/")) and not isinstance(exception, (PermissionDenied, Http404)):
+        if request.path_info.startswith(("/portal/", "/app/portal/", "/app/billing/")) and not isinstance(exception, (PermissionDenied, Http404)):
             return render(request, "portal/error.html", {"message": "The portal could not complete this request."}, status=500)
         return None

@@ -15,7 +15,7 @@
   <body>
     <a class="skip" href="#main">Skip to content</a>
     <header class="topbar">
-      <a class="brand" href="{% if show_pharmacy_workspace and not staff_roles %}{% url 'pharmacy_worklist' %}{% else %}{% url 'dashboard' %}{% endif %}">
+      <a class="brand" href="{% if show_billing_workspace and not staff_roles %}{% url 'billing_worklist' %}{% elif show_pharmacy_workspace and not staff_roles %}{% url 'pharmacy_worklist' %}{% else %}{% url 'dashboard' %}{% endif %}">
         <span class="brandmark">CF</span>
         CareFlow
         <strong>EHR</strong>
@@ -52,6 +52,7 @@
           {% if show_nursing_workspace %}<a href="{% url 'nursing_workspace' %}">Nursing workspace</a>{% endif %}
           <a href="{% url 'checkin_worklist' %}">Patient check-in</a>
           {% endif %}
+          {% if show_billing_workspace %}<a href="{% url 'billing_worklist' %}">Billing Workspace</a>{% endif %}
           {% if can_browse_medications %}<a href="{% url 'med_catalog' %}">Medication Catalog</a>{% endif %}
           {% if show_lab_review %}<a href="{% url 'lab_results_worklist' %}">Laboratory review</a>{% endif %}
           {% if show_lab_workspace %}<a href="{% url 'lab_worklist' %}">Laboratory workspace</a>{% endif %}

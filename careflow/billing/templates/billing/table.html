@@ -1,0 +1,6 @@
+{% if rows %}
+<div class="scroll" tabindex="0" role="region" aria-label="Details">
+<table><thead><tr>{% for header in headers %}<th scope="col">{{ header }}</th>{% endfor %}</tr></thead>
+<tbody>{% for row in rows %}<tr>{% for value in row %}<td>{{ value }}</td>{% endfor %}</tr>{% endfor %}</tbody></table>
+</div>
+{% else %}<p>No records to display.</p>{% endif %}

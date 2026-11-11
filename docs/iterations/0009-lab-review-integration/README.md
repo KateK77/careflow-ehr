@@ -4,7 +4,7 @@
 - [Issue #21](https://github.com/KateK77/careflow-ehr/issues/21); branch `phase/0009-lab-review-integration`.
 - Verified parent: [556d2d45](https://github.com/KateK77/careflow-ehr/commit/556d2d4554ae85b1559cd042283182e668a93295), [3B-2 PR #20](https://github.com/KateK77/careflow-ehr/pull/20), [Push CI](https://github.com/KateK77/careflow-ehr/actions/runs/42801550549) and [PR CI](https://github.com/KateK77/careflow-ehr/actions/runs/42801560416) passed before this increment began.
 - [Implementation history](https://github.com/KateK77/careflow-ehr/commits/phase/0009-lab-review-integration). Implementation PR targets `phase/0008-lab-processing`; its description links its exact SHA and actual CI runs.
-- Manual UAT: intentionally deferred for consolidated Phase 3B acceptance, not passed. All design/implementation PRs remain unmerged.
+- Manual UAT covered the main workflows in [the user-reported observations](acceptance.md). The targeted UI retest remains pending.
 
 ## Development report
 

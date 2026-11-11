@@ -35,6 +35,11 @@ class ProcessingBrowserTests(ProcessingFixture,StaticLiveServerTestCase):
             self.assertTrue(page.locator('main').count(),page.locator('body').inner_text()[:12000])
             action('Preview and finalize'); page.get_by_role('button',name='Preview report',exact=True).click()
             expect(page.get_by_role('heading',name='Confirm immutable publication')).to_be_visible()
+            components = page.get_by_role('table', name='Report components')
+            expect(components.get_by_role('rowheader', name='SYN-A')).to_be_visible()
+            expect(components.get_by_role('cell', name='3.5', exact=True)).to_be_visible()
+            expect(components.get_by_role('cell', name='demo-U', exact=True)).to_be_visible()
+            expect(page.locator('main')).not_to_contain_text('schema_version')
             page.get_by_role('button',name='Confirm publication',exact=True).click(); expect(page.locator('main')).to_contain_text('Fulfilled')
             for width in [1280,700,390]:
                 page.set_viewport_size({'width':width,'height':1000}); expect(page.get_by_role('heading',name='Laboratory processing',exact=True)).to_be_visible()

@@ -1,6 +1,29 @@
 # Consolidated Phase 3B manual UAT and safe startup
 
-All cases below are **pending human execution**. Automated evidence is in verification.md; it does not constitute user acceptance.
+The user reported successful execution of the main end-to-end workflows below. The observations in this section record the scope of that manual run. The full checklist remains a reference for follow-up testing.
+
+| Area | User-reported manual observation |
+| --- | --- |
+| Catalog | Created and activated a laboratory catalog item. |
+| Orders | Created, edited and submitted an order as a Physician. Confirmed an intentional repeat. |
+| Collection | Collected a specimen as a Nurse and observed rejection of an incorrect MRN. |
+| Processing | Claimed an order as Lab Staff, received the specimen and finalized a report. |
+| Review and correction | Acknowledged a specific report revision. Published an append-only correction and reviewed the corrected revision. |
+| Withdrawal | Withdrew a report and acknowledged the withdrawal notice. |
+| Coverage | Reassigned responsibility to a covering Physician and observed restricted chart access. |
+| Quarantine | Observed context-error quarantine in the tested Physician, Administrator and Nurse report views. |
+| Encounter completion | Processed and acknowledged laboratory results after Encounter completion. |
+| Signed SOAP | Observed preservation of signed content, version and signing time. |
+
+The manual run covered the roles, views and workflows listed above. Comprehensive security, concurrency, accessibility and the remaining negative cases were outside the reported manual scope. Automated evidence is recorded separately in [verification.md](verification.md).
+
+### Targeted manual UI retest
+
+1. Open Dashboard and the laboratory catalog. Check that guidance and links match the role and current workspace.
+2. Open a submitted order and its processing page. Check separators, action headings and audit labels.
+3. Open an unpublished correction draft. Verify that the draft and current publication have distinct labels.
+4. Preview a result before publication. Check the report revision, accession, performed time and component table with keyboard navigation.
+5. Open the acknowledgement form and check its action label. Compare the existing acknowledgement history without editing the recorded comment.
 
 ## Prepared integrated preview on this Windows computer
 
@@ -54,4 +77,4 @@ There is no new general account-administration UI in this scope. Automated tests
 - Longitudinal history: `/app/patients/<patient_id>/lab-orders/`; encounter history adds `/encounters/<encounter_id>/lab-orders/`.
 - Existing patient charts and encounter pages include safe laboratory summaries and metadata timeline navigation. Covering assignment does not create general chart access.
 
-Record actual observations and defects before requesting merge. No manual case is currently marked passed. All four PRs (design and three increments) remain unmerged pending separate approval.
+Use the reported observations above as the manual UAT record. Record the targeted UI retest and any additional observations separately.

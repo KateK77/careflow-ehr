@@ -157,6 +157,40 @@ class ProcessingTests(ProcessingFixture,TestCase):
         with self.assertRaises(ValidationError): self.command('receive',specimen_id=s.pk,specimen_version=s.version,accession=str(uuid.uuid4()))
         s.refresh_from_db(); self.assertEqual(s.status,'collected')
 
+    def test_processing_labels_and_structured_publication_preview(self):
+        draft = self.result_draft()
+        self.order.refresh_from_db()
+        self.client.force_login(self.lab)
+        detail = self.client.get(reverse("lab_processing_detail", args=[self.order.public_id]))
+        self.assertContains(detail, "Result draft saved")
+        self.assertNotContains(detail, "lab_result_save")
+        self.assertNotContains(detail, "Â·")
+
+        edit_url = reverse("lab_command", args=[self.order.public_id, "result_save"])
+        editor = self.client.get(edit_url)
+        self.assertContains(editor, "<h1>Edit result draft</h1>", html=True)
+        self.assertNotContains(editor, "Laboratory action:")
+        preview_url = reverse("lab_command", args=[self.order.public_id, "publish"])
+        preview = self.client.post(preview_url, {
+            "step": "preview", "version": self.order.version,
+            "result_id": draft.pk, "result_version": draft.edit_version,
+            "command_key": str(uuid.uuid4()), "synthetic_confirmed": "on",
+        })
+        self.assertContains(preview, "<caption>Report components</caption>", html=True)
+        self.assertContains(preview, '<th scope="row">SYN-A</th>', html=True)
+        self.assertContains(preview, "2.25")
+        self.assertContains(preview, "demo-U")
+        self.assertContains(preview, str(draft.specimen.accession))
+        self.assertNotContains(preview, "schema_version")
+        draft.refresh_from_db()
+        self.assertEqual(draft.status, "draft")
+
+    def test_submitted_order_shows_processing_guidance(self):
+        self.client.force_login(self.physician)
+        detail = self.client.get(reverse("lab_order_detail", args=[self.order.public_id]))
+        self.assertContains(detail, "Open Laboratory processing for specimen and report status.")
+        self.assertNotContains(detail, "acknowledgement is not yet available")
+
     def test_result_edit_form_post(self):
         import json
         r=self.result_draft(); self.order.refresh_from_db(); self.client.force_login(self.lab)

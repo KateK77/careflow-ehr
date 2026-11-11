@@ -10,7 +10,7 @@ def presentation(actor,order):
     queryset=order.results.select_related('entered_by','finalized_by','supersedes')
     if not assigned: queryset=queryset.filter(status__in=['final','corrected','withdrawn'])
     for r in queryset:
-        reports.append({'id':r.pk,'revision':r.revision,'status':r.status,'current':r.pk==order.current_publication_id,'published_at':r.published_at,'entered_at':r.entered_at,'entered_by':r.entered_by.username,'finalizer':r.finalized_by.username if r.finalized_by_id else '',
+        reports.append({'id':r.pk,'revision':r.revision,'status':r.status,'status_label':r.get_status_display(),'current':r.pk==order.current_publication_id,'published_at':r.published_at,'entered_at':r.entered_at,'entered_by':r.entered_by.username,'finalizer':r.finalized_by.username if r.finalized_by_id else '',
             'payload':None if restricted else r.payload,'reason':'' if restricted else r.reason,'reason_code':r.reason_code,'performed_at':None if restricted else r.performed_at,'predecessor':r.supersedes.revision if r.supersedes_id else None})
     reviews=[]
     from .models import LabResultReview

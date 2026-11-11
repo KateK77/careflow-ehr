@@ -66,6 +66,14 @@ def report_detail(request,order_id):
         'can_withdraw':assigned and order.status=='fulfilled' and not order.results.filter(status='draft').exists()})
 
 
+REVIEW_ACTION_LABELS = {
+    "acknowledge": ("Acknowledge laboratory publication", "", "Confirm acknowledgement"),
+    "correct": ("Create correction draft", "", "Create correction draft"),
+    "reassign": ("Reassign review responsibility", "Preview reassignment", "Confirm reassignment"),
+    "withdraw": ("Withdraw laboratory report", "Preview withdrawal", "Confirm withdrawal"),
+}
+
+
 @require_http_methods(['GET','POST'])
 @lab_access
 def command(request,order_id,action):
@@ -88,4 +96,5 @@ def command(request,order_id,action):
                     return redirect('lab_report_detail' if outcome.record.current_publication_id else 'lab_processing_detail',order_id=order.public_id)
             except ValidationError as error:
                 errors(form,error); status=409 if isinstance(error,LabConflict) else 400
-    return render(request,'labs/review_form.html',{'order':order,'form':form,'action':action,'preview':preview,'token':token,'needs_preview':action in {'withdraw','reassign'},**presentation(request.user,order)},status=status)
+    title, preview_label, confirm_label = REVIEW_ACTION_LABELS[action]
+    return render(request,'labs/review_form.html',{'order':order,'form':form,'action':action,'preview':preview,'token':token,'title':title,'preview_label':preview_label,'confirm_label':confirm_label,'needs_preview':action in {'withdraw','reassign'},**presentation(request.user,order)},status=status)

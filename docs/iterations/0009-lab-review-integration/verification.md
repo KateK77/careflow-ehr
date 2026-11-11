@@ -22,4 +22,13 @@ Original inventory retained: 31 patients, 5 appointments, 2 encounters, 1 SOAP n
 
 ## Unperformed verification / limits
 
-Manual user acceptance is deferred, not completed. No independent-production laboratory verification, comprehensive security audit, database-operator tamper resistance, clinical interpretation, external interface, production load or real-data testing is claimed. Supported application publication/review/assignment history cannot be edited/deleted, but direct SQL/bulk ORM is outside that guarantee. See acceptance.md for remaining human checks.
+At initial publication, manual user acceptance was deferred. See the follow-up below for the user-reported run. No independent-production laboratory verification, comprehensive security audit, database-operator tamper resistance, clinical interpretation, external interface, production load or real-data testing is claimed. Supported application publication/review/assignment history cannot be edited/deleted, but direct SQL/bulk ORM is outside that guarantee. See acceptance.md for remaining human checks.
+
+
+## Cross-phase UAT follow-up
+
+The reported manual observations and targeted retest are recorded in [acceptance.md](acceptance.md). The follow-up addresses stale catalog, order and Dashboard guidance, encoding artifacts in processing, internal action and audit labels, draft versus publication labels and structured finalization preview.
+
+A read-only query of the existing integrated preview returned an initial acknowledgement comment length of 678 characters and four later lengths of 58, 71, 64 and 72. The first length is within the existing 1,000-character form and service limits. The original input and client interaction are unavailable. The cause of the longer entry remains undetermined. A separate synthetic regression exercises a 678-character submission through the acknowledgement form and verifies exact persistence. The original acknowledgement and audit records remain as recorded.
+
+Automated coverage checks the affected pages and preserves the existing quarantine, workflow and record-integrity tests. The final branch and CI evidence is tracked in [PR #22](https://github.com/KateK77/careflow-ehr/pull/22).

@@ -14,3 +14,8 @@ Manual acceptance: deferred, not performed by the agent.
 GitHub Actions runs execute system checks, migration consistency and the default regression suite. Chromium is local evidence, not part of the current hosted workflow. Application-level immutability/serialization tests do not certify database-level tamper resistance, external identity races, production concurrency or clinical correctness.
 
 Final contract review added exact accession confirmation for receipt, explicit Administrator lab reassignment, preserved original collector on correction and full result draft snapshots in protected audit events. The affected Chromium workflow passed again after these changes; all eight unchanged parent workflows passed in the preceding complete nine-workflow run. Two regression cases were added, with 213 total passing.
+
+
+## Cross-phase UAT follow-up
+
+The follow-up adds regression coverage for processing labels, UTF-8 separators, current order guidance and structured publication preview. Chromium checks the component row and unit before finalization. User observations are recorded in [acceptance.md](acceptance.md). Branch checks and CI are tracked in [PR #20](https://github.com/KateK77/careflow-ehr/pull/20).

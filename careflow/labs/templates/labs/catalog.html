@@ -2,7 +2,7 @@
 {% block title %}Laboratory catalog · CareFlow EHR{% endblock %}
 {% block content %}
 <div class="page-heading"><div><div class="eyebrow">SYNTHETIC LABORATORY</div><h1>Laboratory catalog</h1><p>Versioned fictional panels and mock units, not clinical decision rules or reference ranges.</p></div>{% if admin %}<a class="button" href="{% url 'lab_catalog_create' %}">Create catalog revision</a>{% endif %}</div>
-<p class="notice">Phase 3B-1: physician orders and pending specimens only. Collection and results are not available.</p>
+<p class="notice">Select an active synthetic test when creating a laboratory order.</p>
 <section class="panel"><div class="table-scroll"><table class="clinical-table"><thead><tr><th>Panel</th><th>Specimen / definitions</th><th>Status / provenance</th>{% if admin %}<th>Manage activation</th>{% endif %}</tr></thead><tbody>
 {% for row in rows %}<tr><td class="patient-cell"><strong>{{ row.panel.display_name }}</strong><br>{{ row.panel.code }} · revision {{ row.panel.revision }}</td>
 <td class="context-cell">{{ row.panel.get_specimen_type_display }}<details><summary>Component definitions</summary>{% for item in row.panel.components %}<p>{{ item.code }} · {{ item.label }} · {{ item.type }}{% if item.type == 'numeric' %}<br>{{ item.unit }} · demo input bounds {{ item.minimum }}–{{ item.maximum }} · precision {{ item.precision }}{% else %}<br>{{ item.allowed_codes|join:", " }}{% endif %}</p>{% endfor %}</details></td>

@@ -6,7 +6,7 @@ CareFlow EHR is an independently developed educational and research prototype fo
 
 ## Current development branch
 
-Phase 3B implementation is approved for automated development; manual UAT is intentionally deferred for consolidated testing. Specimen collection, lab processing, immutable reports/corrections/withdrawals and version-specific review are implemented for review. No production or independent laboratory verification is claimed. See [the current iteration](docs/iterations/0009-lab-review-integration/README.md) and [laboratory architecture decision](docs/decisions/0008-laboratory-processing-and-review.md).
+The user completed the main Phase 3B manual workflows. The targeted presentation fixes are ready for retest. Specimen collection, lab processing, immutable reports/corrections/withdrawals and version-specific review are implemented for review. No production or independent laboratory verification is claimed. See [the current iteration](docs/iterations/0009-lab-review-integration/README.md) and [laboratory architecture decision](docs/decisions/0008-laboratory-processing-and-review.md).
 
 ## Merged main baseline (prior closeout)
 
@@ -16,7 +16,7 @@ See [current status, evidence and limitations](docs/project-status.md). Earlier 
 
 ## Run locally
 
-**Integrated Phase 3B feature-branch testing:** 3B-1, 3B-2 and 3B-3 are implemented on stacked branches for review, not merged or manually accepted. Follow the [integrated preview startup and consolidated UAT checklist](docs/iterations/0009-lab-review-integration/acceptance.md). The original local database is deliberately **unmigrated**. Use the separately prepared `.venv/phase3b3-preview.sqlite3` through `CAREFLOW_DB_PATH`; do not run the generic migration/seed commands below against the original database. Clinical pages now integrate laboratory queries and require the migrated preview. Earlier phase instructions below describe their own baseline; they are not instructions to migrate the original database.
+**Integrated Phase 3B feature-branch testing:** 3B-1, 3B-2 and 3B-3 are implemented on stacked branches for review. The acceptance guide records the scope of the manual run. Follow the [integrated preview startup and consolidated UAT checklist](docs/iterations/0009-lab-review-integration/acceptance.md). The original local database is deliberately **unmigrated**. Use the separately prepared `.venv/phase3b3-preview.sqlite3` through `CAREFLOW_DB_PATH`; do not run the generic migration/seed commands below against the original database. Clinical pages now integrate laboratory queries and require the migrated preview. Earlier phase instructions below describe their own baseline; they are not instructions to migrate the original database.
 
 Install Python 3.12 or newer and create a virtual environment from the repository root.
 

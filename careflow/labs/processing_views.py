@@ -103,13 +103,28 @@ def processing_detail(request,order_id):
     return render(request,'labs/processing_detail.html',{'order':order,'patient':order.patient,'actions':actions,'specimens':order.specimens.select_related('collected_by','received_by','rejected_by'),'results':order.results.select_related('entered_by','finalized_by'),'events':order.events.select_related('audit__actor')[:100],**safe})
 
 
+PROCESSING_ACTION_TITLES = {
+    "assign": "Assign laboratory staff",
+    "claim": "Claim requisition",
+    "collect": "Collect specimen",
+    "correct_collection": "Correct specimen collection",
+    "reject": "Reject specimen",
+    "receive": "Receive specimen",
+    "recollect": "Prepare specimen recollection",
+    "result_create": "Start result draft",
+    "result_save": "Edit result draft",
+    "abandon": "Abandon result draft",
+    "publish": "Preview and finalize laboratory report",
+}
+
+
 @require_http_methods(['GET','POST'])
 @lab_access
 def command(request,order_id,action):
     if action=='claim': order=get_object_or_404(LabOrder,status='submitted',public_id=order_id)
     else: order=get_object_or_404(orders_for(request.user),public_id=order_id)
     authorized(request.user,order,action)
-    if action not in {'assign','claim','collect','correct_collection','reject','receive','recollect','result_create','result_save','abandon','publish'}: raise PermissionDenied
+    if action not in PROCESSING_ACTION_TITLES: raise PermissionDenied
     form=ProcessingForm(request.POST if request.method=='POST' else None,action=action,order=order)
     status=200; preview=False; token=''; draft=None
     if request.method=='POST':
@@ -129,4 +144,4 @@ def command(request,order_id,action):
                     return redirect('lab_processing_detail',order_id=order.public_id)
             except ValidationError as error:
                 errors(form,error); status=409 if isinstance(error,LabConflict) else 400
-    return render(request,'labs/processing_form.html',{'order':order,'form':form,'action':action,'preview':preview,'token':token,'draft':draft,'claim':action=='claim'},status=status)
+    return render(request,'labs/processing_form.html',{'order':order,'form':form,'action':action,'preview':preview,'token':token,'draft':draft,'claim':action=='claim','title':PROCESSING_ACTION_TITLES[action]},status=status)

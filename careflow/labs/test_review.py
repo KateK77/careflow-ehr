@@ -39,6 +39,35 @@ class ReviewFixture(ProcessingFixture):
 class ReviewTests(ReviewFixture,TestCase):
     def setUp(self): self.setup_review()
 
+    def test_unpublished_correction_is_distinct_from_current_publication(self):
+        self.action("correct", reason="Synthetic correction draft")
+        self.client.force_login(self.lab)
+        report = self.client.get(reverse("lab_report_detail", args=[self.order.public_id]))
+        self.assertContains(report, "<h3>Revision 1 · Final · Current publication</h3>", html=True)
+        self.assertContains(report, "<h3>Revision 2 · Current unpublished draft</h3>", html=True)
+        self.assertNotContains(report, "Historical revision")
+        self.assertNotContains(report, "Unpublished by")
+
+    def test_review_presentation_and_long_comment_round_trip(self):
+        self.client.force_login(self.physician)
+        url = reverse("lab_review_command", args=[self.order.public_id, "acknowledge"])
+        form = self.client.get(url)
+        self.assertContains(form, "<h1>Acknowledge laboratory publication</h1>", html=True)
+        self.assertContains(form, "Confirm acknowledgement")
+        comment = "A" * 677 + "."
+        self.order.refresh_from_db()
+        response = self.client.post(url, {
+            "command_key": str(uuid.uuid4()), "version": self.order.version,
+            "publication_id": self.original.pk,
+            "assignment_id": self.order.current_review_assignment_id,
+            "synthetic_confirmed": "on", "comment": comment,
+        })
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(LabResultReview.objects.get(publication=self.original).comment, comment)
+        detail = self.client.get(reverse("lab_processing_detail", args=[self.order.public_id]))
+        self.assertContains(detail, "Laboratory publication acknowledged")
+        self.assertNotContains(detail, "lab_acknowledge")
+
     def test_initial_assignment_and_version_specific_review(self):
         a=self.order.current_review_assignment; self.assertEqual(a.source,'initial_submission'); self.assertEqual(a.physician,self.physician)
         self.assertFalse(current_reviewed(self.order)); self.acknowledge(); self.order.refresh_from_db(); self.assertTrue(current_reviewed(self.order))

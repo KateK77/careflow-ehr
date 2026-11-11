@@ -75,6 +75,14 @@ def process(actor,order_id,version,command_key,action,data,confirmed):
     order=LabOrder.objects.get(public_id=order_id)
     authorized(actor,order,action)
     if confirmed is not True or not isinstance(data,dict): raise ValidationError('Confirm synthetic information only.')
+    allowed={
+        'claim':{'reason'},'assign':{'assignee_id','reason'},'recollect':{'reason'},
+        'collect':{'specimen_id','specimen_version','mrn','dob','identity_confirmed','collected_at'},
+        'correct_collection':{'specimen_id','specimen_version','mrn','dob','identity_confirmed','collected_at','reason'},
+        'receive':{'specimen_id','specimen_version','accession'},'reject':{'specimen_id','specimen_version','reason'},
+        'result_create':{'specimen_id','specimen_version'},'result_save':{'result_id','result_version','components','performed_at'},
+        'abandon':{'result_id','result_version','reason'},'publish':{'result_id','result_version','preview_token'}}
+    if action not in allowed or set(data)-allowed[action]: raise ValidationError('Unexpected command fields; patient, encounter and workflow context cannot be supplied or changed.')
     key=_key(command_key)
     # Preview token is ephemeral; durable replay fingerprints cover the semantic command.
     fingerprint=_fingerprint('processing_'+action,order=str(order_id),version=version,data={k:v for k,v in data.items() if k!='preview_token'})
@@ -84,7 +92,8 @@ def process(actor,order_id,version,command_key,action,data,confirmed):
         authorized(actor,order,action)
         if replay:=_replay(actor,key,fingerprint): return replay
         _current(version,order.version)
-        if order.status!='submitted': raise LabConflict('This operation requires a submitted, unpublished order.')
+        allowed={'submitted','fulfilled','withdrawn'} if action=='assign' else ({'submitted','fulfilled'} if action in {'result_save','abandon','publish'} else {'submitted'})
+        if order.status not in allowed: raise LabConflict('This operation is unavailable in the current order state.')
         before=_snapshot(order); specimen=None; result=None
         if action in {'claim','assign'}:
             target=actor if action=='claim' else get_user_model().objects.filter(pk=data.get('assignee_id'),is_active=True,groups__name='Lab Staff').first()
@@ -101,6 +110,7 @@ def process(actor,order_id,version,command_key,action,data,confirmed):
             specimen=LabSpecimen.objects.create(order=order,attempt=attempt,specimen_type=order.catalog_snapshot['specimen_type'],created_by=actor)
         elif action in {'collect','correct_collection','receive','reject'}:
             specimen=specimen_for(order,data)
+            before['specimen_snapshot']=_snapshot(specimen)
             if action in {'collect','correct_collection'}:
                 if specimen.status!=('pending' if action=='collect' else 'collected'): raise LabConflict('Collection correction is allowed only before receipt; rejected attempts are permanent.')
                 if data.get('identity_confirmed') is not True or data.get('mrn')!=order.patient.mrn or data.get('dob')!=order.patient.dob.isoformat(): raise ValidationError('Confirm the correct synthetic patient using MRN and date of birth.')
@@ -127,6 +137,7 @@ def process(actor,order_id,version,command_key,action,data,confirmed):
             result.full_clean(); result.save()
         elif action in {'result_save','abandon','publish'}:
             result=result_for(order,data); specimen=result.specimen
+            if result.supersedes_id!=order.current_publication_id: raise LabConflict('The correction predecessor changed.')
             before['result_snapshot']=_snapshot(result)
             if specimen.status!='received': raise LabConflict('A received specimen is required.')
             if action=='result_save':
@@ -146,9 +157,9 @@ def process(actor,order_id,version,command_key,action,data,confirmed):
                 performed=any(c['value_kind']!='absent' for c in result.payload['components'])
                 if performed and (not result.performed_at or not specimen.received_at<=result.performed_at<=timezone.now()): raise ValidationError('Valid performed time is required for performed measurements.')
                 if not performed and result.performed_at: raise ValidationError('Not-performed reports have no performed time.')
-                result.status='final'; result.finalized_by=actor; result.published_at=timezone.now()
+                result.status='corrected' if result.supersedes_id else 'final'; result.finalized_by=actor; result.published_at=timezone.now()
             result.edit_version+=1; result.full_clean(); result.save()
-            if action=='publish': order.status='fulfilled'; order.current_publication=result; order.fulfilled_at=result.published_at
+            if action=='publish': order.status='fulfilled'; order.current_publication=result; order.fulfilled_at=order.fulfilled_at or result.published_at
         else: raise ValidationError('Unknown laboratory command.')
         order.version+=1; order.full_clean(); order.save()
         extra={'operation_reason':data.get('reason','')}

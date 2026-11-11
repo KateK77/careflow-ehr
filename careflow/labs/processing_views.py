@@ -12,7 +12,7 @@ from django.views.decorators.http import require_http_methods, require_safe
 from django.utils import timezone
 from .access import lab_roles, orders_for, is_lab
 from .models import LabOrder, LabResult
-from .forms import CommandForm
+from .forms import CommandForm,StrictJSONField
 from .processing import authorized, process, publication_token
 from .services import LabConflict
 from .views import errors
@@ -55,7 +55,7 @@ class ProcessingForm(CommandForm):
             initial=draft.payload['components'] if draft else []
             if not initial:
                 initial=[{'code':d['code'],'value_kind':d['type'],'value':'','unit':d['unit']} if d['type']=='numeric' else {'code':d['code'],'value_kind':'coded','value':''} for d in order.catalog_snapshot['components']]
-            self.fields['components']=forms.JSONField(initial=initial,widget=forms.Textarea(attrs={'rows':12}),help_text='Strict typed JSON. Numeric values are decimal strings with exact demo units. Use value_kind absent, absence_reason not_performed and absence_explanation for an unperformed component. Required components must be accounted for before publication.')
+            self.fields['components']=StrictJSONField(initial=initial,widget=forms.Textarea(attrs={'rows':12}),help_text='Strict typed JSON. Numeric values are decimal strings with exact demo units. Use value_kind absent, absence_reason not_performed and absence_explanation for an unperformed component. Required components must be accounted for before publication.')
             self.fields['performed_at']=forms.CharField(required=False,max_length=50,initial=draft.performed_at.isoformat() if draft and draft.performed_at else '',help_text='ISO timestamp with timezone offset; receipt ≤ performed ≤ now. Leave blank for all-not-performed reports.')
         if action=='publish': self.fields['preview_token']=forms.CharField(required=False,widget=forms.HiddenInput)
 
@@ -95,7 +95,12 @@ def processing_detail(request,order_id):
             elif active and active.status=='received':
                 actions.extend([('result_save','Edit result draft'),('publish','Preview and finalize'),('abandon','Abandon result draft')] if draft else [('result_create','Start result draft'),('reject','Reject specimen')])
     AuditEvent.objects.create(actor=request.user,patient=order.patient,action='lab_processing_view')
-    return render(request,'labs/processing_detail.html',{'order':order,'patient':order.patient,'actions':actions,'specimens':order.specimens.select_related('collected_by','received_by','rejected_by'),'results':order.results.select_related('entered_by','finalized_by'),'events':order.events.select_related('audit__actor')[:100]})
+    from .presentation import presentation
+    safe=presentation(request.user,order)
+    if order.status in {'fulfilled','withdrawn'} and 'Administrator' in roles: actions.append(('assign','Assign laboratory staff'))
+    if order.status=='fulfilled' and is_lab(request.user) and order.assigned_lab_staff_id==request.user.pk and draft:
+        actions.extend([('result_save','Edit result draft'),('publish','Preview and finalize'),('abandon','Abandon result draft')])
+    return render(request,'labs/processing_detail.html',{'order':order,'patient':order.patient,'actions':actions,'specimens':order.specimens.select_related('collected_by','received_by','rejected_by'),'results':order.results.select_related('entered_by','finalized_by'),'events':order.events.select_related('audit__actor')[:100],**safe})
 
 
 PROCESSING_ACTION_TITLES = {

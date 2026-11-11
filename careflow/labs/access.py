@@ -16,7 +16,7 @@ def orders_for(user):
             scope |= Q(ordering_physician=user)
         return records.filter(scope)
     from django.db.models import Q
-    scope=Q(ordering_physician=user) if "Physician" in roles else Q(pk__in=[])
+    scope=(Q(ordering_physician=user)|Q(current_review_assignment__physician=user)) if "Physician" in roles else Q(pk__in=[])
     if is_lab(user): scope |= Q(assigned_lab_staff=user,submitted_at__isnull=False)
     return records.filter(scope)
 
@@ -37,4 +37,17 @@ def lab_roles(user):
 
 
 def lab_context(request):
-    return {"show_lab_workspace":bool(set(lab_roles(request.user)) & {"Administrator","Physician","Nurse","Lab Staff"}),"lab_staff_role":is_lab(request.user)}
+    return {"show_lab_workspace":bool(set(lab_roles(request.user)) & {"Administrator","Physician","Nurse","Lab Staff"}),"show_lab_review":bool(set(lab_roles(request.user)) & {"Administrator","Physician"}),"lab_staff_role":is_lab(request.user)}
+
+
+def publications_for(user):
+    from django.db.models import Q
+    from careflow.clinical.access import charts_for
+    records=LabOrder.objects.filter(current_publication__isnull=False).select_related('patient','encounter','current_publication','current_review_assignment__physician','assigned_lab_staff')
+    roles=lab_roles(user)
+    if 'Administrator' in roles or 'Nurse' in roles: return records
+    scope=Q(pk__in=[])
+    if 'Physician' in roles:
+        scope|=Q(patient__in=charts_for(user))|Q(current_review_assignment__physician=user)
+    if is_lab(user): scope|=Q(assigned_lab_staff=user)
+    return records.filter(scope)

@@ -1,7 +1,10 @@
 from django.urls import path
-from . import views, processing_views
+from . import views, processing_views, review_views
 
 urlpatterns = [
+    path("lab/results/", review_views.results_worklist, name="lab_results_worklist"),
+    path("lab/reports/<uuid:order_id>/", review_views.report_detail, name="lab_report_detail"),
+    path("lab/reports/<uuid:order_id>/<str:action>/", review_views.command, name="lab_review_command"),
     path("lab/workspace/", processing_views.worklist, name="lab_worklist"),
     path("lab/processing/<uuid:order_id>/", processing_views.processing_detail, name="lab_processing_detail"),
     path("lab/processing/<uuid:order_id>/<str:action>/", processing_views.command, name="lab_command"),

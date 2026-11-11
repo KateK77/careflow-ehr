@@ -61,9 +61,10 @@ class LabOrder(models.Model):
     identity_snapshot = models.JSONField(default=dict, blank=True)
     reason = models.CharField(max_length=1000, blank=True)
     priority = models.CharField(max_length=12, default="routine", choices=[("routine", "Routine (demo)")])
-    status = models.CharField(max_length=12, default="draft", choices=[("draft", "Draft"), ("submitted", "Submitted"), ("cancelled", "Cancelled"), ("fulfilled", "Fulfilled")])
+    status = models.CharField(max_length=12, default="draft", choices=[("draft", "Draft"), ("submitted", "Submitted"), ("cancelled", "Cancelled"), ("fulfilled", "Fulfilled"), ("withdrawn", "Withdrawn")])
     assigned_lab_staff = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.PROTECT, related_name="+")
     current_publication = models.ForeignKey("LabResult", null=True, blank=True, on_delete=models.PROTECT, related_name="+")
+    current_review_assignment = models.ForeignKey("LabReviewAssignment", null=True, blank=True, on_delete=models.PROTECT, related_name="+")
     fulfilled_at = models.DateTimeField(null=True, blank=True)
     version = models.PositiveIntegerField(default=1)
     repeat_reason = models.CharField(max_length=1000, blank=True)
@@ -78,18 +79,24 @@ class LabOrder(models.Model):
         ordering = ["-created_at", "-pk"]
         indexes = [models.Index(fields=["ordering_physician", "status"]), models.Index(fields=["patient", "created_at"])]
         constraints = [models.CheckConstraint(condition=(Q(status="draft", submitted_at__isnull=True, cancelled_at__isnull=True, cancelled_by__isnull=True)
-                    | Q(status__in=["submitted", "fulfilled"], submitted_at__isnull=False, cancelled_at__isnull=True, cancelled_by__isnull=True)
+                    | Q(status__in=["submitted", "fulfilled", "withdrawn"], submitted_at__isnull=False, cancelled_at__isnull=True, cancelled_by__isnull=True)
                     | Q(status="cancelled", cancelled_at__isnull=False, cancelled_by__isnull=False)), name="lab_order_state_times"),
-                    models.CheckConstraint(condition=Q(version__gte=1, priority="routine"), name="lab_order_version_priority")]
+                    models.CheckConstraint(condition=Q(version__gte=1, priority="routine"), name="lab_order_version_priority"),
+                    models.CheckConstraint(condition=(Q(status__in=["draft","submitted","cancelled"],current_publication__isnull=True,fulfilled_at__isnull=True)|Q(status__in=["fulfilled","withdrawn"],current_publication__isnull=False,fulfilled_at__isnull=False)),name="lab_order_publication_state"),
+                    models.CheckConstraint(condition=(Q(status__in=["draft","cancelled"])|Q(current_review_assignment__isnull=False)),name="lab_order_review_responsibility")]
 
     def clean(self):
         super().clean()
         if self.encounter_id and (self.encounter.patient_id != self.patient_id or self.encounter.physician_id != self.ordering_physician_id):
             raise ValidationError("Order patient and physician must match the encounter.")
-        if (self.status == "fulfilled") != bool(self.current_publication_id and self.fulfilled_at):
+        if (self.status in {"fulfilled","withdrawn"}) != bool(self.current_publication_id and self.fulfilled_at):
             raise ValidationError("Fulfilled orders require a current publication and fulfillment timestamp.")
-        if self.current_publication_id and (self.current_publication.order_id != self.pk or self.current_publication.status != "final"):
+        if self.current_publication_id and (self.current_publication.order_id != self.pk or self.current_publication.status not in ({"withdrawn"} if self.status=="withdrawn" else {"final","corrected"})):
             raise ValidationError("The publication must be the final report for this order.")
+        if self.current_review_assignment_id and self.current_review_assignment.order_id != self.pk:
+            raise ValidationError("Review assignment must belong to this order.")
+        if self.status in {"submitted","fulfilled","withdrawn"} and not self.current_review_assignment_id:
+            raise ValidationError("Submitted orders require explicit review responsibility.")
         if self.status == "cancelled" and not self.cancellation_reason.strip():
             raise ValidationError("A cancellation reason is required.")
 
@@ -98,7 +105,9 @@ class LabOrder(models.Model):
             old = type(self).objects.get(pk=self.pk)
             if any(getattr(old, n) != getattr(self, n) for n in ["public_id", "creation_key", "patient_id", "encounter_id", "ordering_physician_id"]):
                 raise ValidationError("Order identity and clinical context cannot be changed.")
-            if old.status == "cancelled" or (old.status == "submitted" and self.status not in {"submitted", "cancelled", "fulfilled"}):
+            if old.status == "fulfilled" and self.status not in {"fulfilled","withdrawn"}:
+                raise ValidationError("Published orders cannot return to draft/submitted/cancelled.")
+            if old.status == "cancelled" or (old.status == "withdrawn" and self.status != "withdrawn") or (old.status == "submitted" and self.status not in {"submitted", "cancelled", "fulfilled"}):
                 raise ValidationError("Cancelled orders are terminal; submitted orders cannot return to draft.")
             if old.status != "draft" and any(getattr(old, n) != getattr(self, n) for n in ["catalog_id", "catalog_snapshot", "identity_snapshot", "reason", "priority", "repeat_reason", "submitted_at"]):
                 raise ValidationError("Submitted order content cannot be changed.")
@@ -161,7 +170,7 @@ class LabResult(models.Model):
     edit_version = models.PositiveIntegerField(default=1)
     schema_version = models.PositiveIntegerField(default=1)
     publication_kind = models.CharField(max_length=12, default="report")
-    status = models.CharField(max_length=12, default="draft", choices=[("draft","Draft"),("final","Final"),("abandoned","Abandoned")])
+    status = models.CharField(max_length=12, default="draft", choices=[("draft","Draft"),("final","Final"),("abandoned","Abandoned"),("corrected","Corrected"),("withdrawn","Withdrawn")])
     payload = models.JSONField(default=dict)
     supersedes = models.ForeignKey("self", null=True, blank=True, on_delete=models.PROTECT, related_name="+")
     entered_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name="+")
@@ -175,19 +184,42 @@ class LabResult(models.Model):
 
     class Meta:
         ordering = ["revision"]
+        permissions = [("reassign_review_responsibility","Explicitly reassign an ineligible laboratory reviewer"),("view_quarantined_report","Inspect quarantined laboratory report payloads")]
         constraints = [models.UniqueConstraint(fields=["order","revision"], name="lab_result_revision_unique"),
             models.UniqueConstraint(fields=["order"],condition=Q(status="draft"),name="lab_result_one_draft"),
             models.UniqueConstraint(fields=["order"],condition=Q(status="final"),name="lab_result_one_original"),
             models.CheckConstraint(condition=Q(revision__gte=1,edit_version__gte=1,schema_version=1),name="lab_result_versions"),
-            models.CheckConstraint(condition=(Q(status__in=["draft","abandoned"],published_at__isnull=True,finalized_by__isnull=True)|Q(status="final",published_at__isnull=False,finalized_by__isnull=False)),name="lab_result_state_times")]
+            models.CheckConstraint(condition=(Q(status__in=["draft","abandoned"],published_at__isnull=True,finalized_by__isnull=True)|Q(status__in=["final","corrected","withdrawn"],published_at__isnull=False,finalized_by__isnull=False)),name="lab_result_state_times"),
+            models.UniqueConstraint(fields=["supersedes"],condition=Q(status__in=["final","corrected","withdrawn"],supersedes__isnull=False),name="lab_result_linear_successor"),
+            models.CheckConstraint(condition=(Q(publication_kind="report",status__in=["draft","final","corrected","abandoned"])|Q(publication_kind="withdrawal",status="withdrawn",supersedes__isnull=False,performed_at__isnull=True,reason_code__in=["report_error","context_error"])),name="lab_result_kind_status"),
+            models.CheckConstraint(condition=(Q(status="final",supersedes__isnull=True)|Q(status__in=["corrected","withdrawn"],supersedes__isnull=False)|Q(status__in=["draft","abandoned"])),name="lab_result_predecessor")]
+
+
+    def delete(self,*args,**kwargs):
+        raise ValidationError("Laboratory history cannot be deleted through supported application paths.")
 
     def clean(self):
         from .payloads import validate_payload
         if self.specimen_id and self.specimen.order_id != self.order_id:
             raise ValidationError("Result specimen and order do not match.")
-        validate_payload(self.order,self.specimen,self.payload,complete=self.status=="final")
-        if self.schema_version != 1 or self.publication_kind != "report":
-            raise ValidationError("Unsupported publication schema or kind.")
+        if self.publication_kind=="withdrawal":
+            from .payloads import validate_withdrawal
+            validate_withdrawal(self)
+        elif self.publication_kind=="report":
+            validate_payload(self.order,self.specimen,self.payload,complete=self.status in {"final","corrected"})
+            if self.schema_version != 1: raise ValidationError("Unsupported report schema.")
+        else: raise ValidationError("Unsupported publication kind.")
+        if self.publication_kind=="report":
+            from django.utils import timezone
+            performed=any(c["value_kind"]!="absent" for c in self.payload["components"])
+            if performed and (not self.performed_at or not self.specimen.received_at or self.performed_at<self.specimen.received_at or self.performed_at>timezone.now()):
+                raise ValidationError("Performed values require a non-future time at or after specimen receipt.")
+            if not performed and self.performed_at:
+                raise ValidationError("All-not-performed reports have no performed timestamp.")
+        if self.supersedes_id and (self.supersedes.order_id!=self.order_id or self.supersedes.specimen_id!=self.specimen_id or self.supersedes.revision>=self.revision or self.supersedes.status not in {"final","corrected"}):
+            raise ValidationError("Publication predecessor must be an earlier report from the same order and specimen.")
+        if self.status in {"corrected","withdrawn"} and not self.reason.strip():
+            raise ValidationError("Publication changes require a reason.")
 
     def save(self,*args,**kwargs):
         if self.pk:
@@ -200,14 +232,63 @@ class LabResult(models.Model):
         return super().save(*args,**kwargs)
 
 
+class LabReviewAssignment(models.Model):
+    order = models.ForeignKey(LabOrder,on_delete=models.PROTECT,related_name="review_assignments")
+    sequence = models.PositiveIntegerField()
+    physician = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.PROTECT,related_name="+")
+    assigned_by = models.ForeignKey(settings.AUTH_USER_MODEL,null=True,blank=True,on_delete=models.PROTECT,related_name="+")
+    assigned_at = models.DateTimeField(auto_now_add=True)
+    reason = models.CharField(max_length=1000)
+    source = models.CharField(max_length=24,choices=[("initial_submission","Initial submission"),("manual_reassignment","Manual reassignment"),("migration_backfill","Migration backfill")])
+    supersedes = models.OneToOneField("self",null=True,blank=True,on_delete=models.PROTECT,related_name="+")
+
+    class Meta:
+        constraints=[models.UniqueConstraint(fields=["order","sequence"],name="lab_assignment_sequence"),models.CheckConstraint(condition=Q(sequence__gte=1),name="lab_assignment_positive"),
+            models.CheckConstraint(condition=(Q(source="migration_backfill",sequence=1,assigned_by__isnull=True,supersedes__isnull=True)|Q(source="initial_submission",sequence=1,assigned_by__isnull=False,supersedes__isnull=True)|Q(source="manual_reassignment",sequence__gte=2,assigned_by__isnull=False,supersedes__isnull=False)),name="lab_assignment_provenance")]
+
+    def delete(self,*args,**kwargs):
+        raise ValidationError("Laboratory history cannot be deleted through supported application paths.")
+
+    def save(self,*args,**kwargs):
+        if self.pk: raise ValidationError("Review assignment history is immutable.")
+        if self.supersedes_id and (self.supersedes.order_id!=self.order_id or self.sequence!=self.supersedes.sequence+1): raise ValidationError("Review assignment predecessor mismatch.")
+        if not self.reason.strip() or (not self.assigned_by_id and self.source!="migration_backfill"): raise ValidationError("Assignment actor and reason required.")
+        return super().save(*args,**kwargs)
+
+
+class LabResultReview(models.Model):
+    publication = models.ForeignKey(LabResult,on_delete=models.PROTECT,related_name="reviews")
+    review_assignment = models.ForeignKey(LabReviewAssignment,on_delete=models.PROTECT)
+    reviewer = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.PROTECT,related_name="+")
+    reviewed_at = models.DateTimeField(auto_now_add=True)
+    review_kind = models.CharField(max_length=20,choices=[("result_review","Result review"),("withdrawal_notice","Withdrawal notice")])
+    comment = models.CharField(max_length=1000,blank=True)
+
+    class Meta:
+        constraints=[models.UniqueConstraint(fields=["publication","review_assignment"],name="lab_review_current_pair"),models.CheckConstraint(condition=Q(review_kind__in=["result_review","withdrawal_notice"]),name="lab_review_kind_valid")]
+
+    def delete(self,*args,**kwargs):
+        raise ValidationError("Laboratory history cannot be deleted through supported application paths.")
+
+    def save(self,*args,**kwargs):
+        if self.pk: raise ValidationError("Acknowledgements are immutable.")
+        if self.publication.order_id!=self.review_assignment.order_id or self.reviewer_id!=self.review_assignment.physician_id or self.publication.status not in {"final","corrected","withdrawn"}: raise ValidationError("Review publication and responsibility do not match.")
+        expected="withdrawal_notice" if self.publication.status=="withdrawn" else "result_review"
+        if self.review_kind!=expected: raise ValidationError("Incorrect acknowledgement kind.")
+        return super().save(*args,**kwargs)
+
+
 class LabEvent(models.Model):
     order = models.ForeignKey(LabOrder, null=True, blank=True, on_delete=models.PROTECT, related_name="events")
     catalog = models.ForeignKey(LabTestCatalog, null=True, blank=True, on_delete=models.PROTECT, related_name="events")
     specimen = models.ForeignKey(LabSpecimen, null=True, blank=True, on_delete=models.PROTECT)
+    review_assignment = models.ForeignKey(LabReviewAssignment, null=True, blank=True, on_delete=models.PROTECT)
+    review = models.ForeignKey(LabResultReview, null=True, blank=True, on_delete=models.PROTECT)
     result = models.ForeignKey(LabResult, null=True, blank=True, on_delete=models.PROTECT)
     audit = models.OneToOneField("patients.AuditEvent", on_delete=models.PROTECT)
-    command_actor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name="+")
-    command_key = models.UUIDField()
+    command_actor = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.PROTECT, related_name="+")
+    command_key = models.UUIDField(null=True, blank=True)
+    system_source = models.CharField(max_length=24, blank=True)
     request_fingerprint = models.CharField(max_length=64)
     before = models.JSONField(default=dict)
     after = models.JSONField(default=dict)
@@ -215,11 +296,20 @@ class LabEvent(models.Model):
     class Meta:
         ordering = ["-audit__occurred_at", "-pk"]
         constraints = [models.UniqueConstraint(fields=["command_actor", "command_key"], name="lab_command_actor_key_unique"),
-                       models.CheckConstraint(condition=(Q(order__isnull=False, catalog__isnull=True) | Q(order__isnull=True, catalog__isnull=False)), name="lab_event_one_scope")]
+                       models.CheckConstraint(condition=(Q(order__isnull=False, catalog__isnull=True) | Q(order__isnull=True, catalog__isnull=False)), name="lab_event_one_scope"),models.CheckConstraint(condition=(Q(system_source="",command_actor__isnull=False,command_key__isnull=False)|Q(system_source="migration_backfill",command_actor__isnull=True,command_key__isnull=True)),name="lab_event_receipt_provenance")]
+
+    def delete(self,*args,**kwargs):
+        raise ValidationError("Laboratory history cannot be deleted through supported application paths.")
 
     def save(self, *args, **kwargs):
         if self.pk:
             raise ValidationError("Laboratory command receipts are immutable.")
+        if (self.command_actor_id is None or self.command_key is None) and self.system_source!="migration_backfill":
+            raise ValidationError("Only explicit migration provenance may omit the command actor and UUID.")
+        if self.review_assignment_id and self.review_assignment.order_id!=self.order_id:
+            raise ValidationError("Event review assignment mismatch.")
+        if self.review_id and self.review.publication.order_id!=self.order_id:
+            raise ValidationError("Event acknowledgement mismatch.")
         if self.audit.actor_id != self.command_actor_id:
             raise ValidationError("Laboratory audit actor must match the command actor.")
         if self.order_id and self.audit.patient_id != self.order.patient_id:

@@ -1,9 +1,24 @@
+import json
 import uuid
 
 from django import forms
 from django.db.models import Q
 from .catalog import DEMO_COMPONENTS, SPECIMEN_TYPES, validate_components
 from .models import LabTestCatalog
+
+
+class StrictJSONField(forms.JSONField):
+    def to_python(self,value):
+        def pairs(items):
+            result={}
+            for key,item in items:
+                if key in result: raise ValueError("Duplicate JSON key")
+                result[key]=item
+            return result
+        if isinstance(value,str):
+            try: json.loads(value,object_pairs_hook=pairs,parse_constant=lambda _: (_ for _ in ()).throw(ValueError("Nonfinite JSON")))
+            except (ValueError,TypeError): raise forms.ValidationError("Use strict JSON without duplicate keys or nonfinite constants.") from None
+        return super().to_python(value)
 
 
 class CommandForm(forms.Form):
@@ -24,7 +39,7 @@ class CatalogForm(CommandForm):
     revision = forms.IntegerField(min_value=1, initial=1)
     display_name = forms.CharField(max_length=160, initial="Demo chemistry")
     specimen_type = forms.ChoiceField(choices=SPECIMEN_TYPES)
-    components = forms.JSONField(initial=lambda: DEMO_COMPONENTS, widget=forms.Textarea(attrs={"rows": 12}), validators=[validate_components],
+    components = StrictJSONField(initial=lambda: DEMO_COMPONENTS, widget=forms.Textarea(attrs={"rows": 12}), validators=[validate_components],
                                  help_text="Immutable synthetic definitions: numeric mock units start demo-; coded components use allowed_codes. No real test terminology or clinical reference ranges.")
 
 

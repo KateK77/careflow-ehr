@@ -9,7 +9,7 @@ from django.views.decorators.http import require_http_methods, require_POST, req
 from careflow.clinical.access import can_write, charts_for, clinical_access, encounters_for
 from careflow.patients.access import roles_for
 from careflow.patients.models import AuditEvent
-from .access import may_write, orders_for
+from .access import may_write, orders_for, publications_for
 from .forms import CancelForm, CatalogForm, CommandForm, DraftForm, SubmitForm
 from .models import LabTestCatalog
 from .services import (LabConflict, cancel_order, create_catalog, duplicate_orders, review_token,
@@ -112,6 +112,10 @@ def draft_edit(request, patient_id=None, encounter_id=None, order_id=None):
 @clinical_access
 def order_detail(request, order_id):
     order = get_object_or_404(orders_for(request.user), public_id=order_id)
+    if order.current_publication_id:
+        return redirect("lab_report_detail",order_id=order.public_id)
+    if order.ordering_physician_id!=request.user.pk and "Physician" in roles_for(request.user) and not set(roles_for(request.user)) & {"Administrator","Nurse"}:
+        return redirect("lab_processing_detail",order_id=order.public_id)
     AuditEvent.objects.create(actor=request.user, patient=order.patient, action="lab_order_view")
     return render(request, "labs/detail.html", {"order": order, "patient": order.patient, "encounter": order.encounter,
         "editable": may_write(request.user, order) and order.status == "draft" and order.encounter.status == "in_progress",
@@ -184,7 +188,9 @@ def order_cancel(request, order_id):
 def order_history(request, patient_id, encounter_id=None):
     patient = get_object_or_404(charts_for(request.user), pk=patient_id)
     encounter = get_object_or_404(encounters_for(request.user), pk=encounter_id, patient=patient) if encounter_id else None
-    orders = orders_for(request.user).filter(patient=patient)
+    from django.db.models import Q
+    from .models import LabOrder
+    orders = LabOrder.objects.filter(Q(pk__in=orders_for(request.user))|Q(pk__in=publications_for(request.user))).filter(patient=patient).select_related("patient","encounter","ordering_physician","current_publication")
     if encounter:
         orders = orders.filter(encounter=encounter)
     page = Paginator(orders, 25).get_page(request.GET.get("page"))

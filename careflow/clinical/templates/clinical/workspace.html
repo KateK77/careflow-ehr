@@ -4,6 +4,7 @@
 <div class="page-heading"><div><div class="eyebrow">CLINICAL WORKSPACE</div><h1>Physician worklist</h1><p>Appointments for the selected clinic-local date and recent encounters within your access.</p></div><a href="{% url 'schedule' %}">Calendar</a></div>
 <form method="get" class="filters panel"><div class="field"><label for="date">Appointment date</label><input type="date" id="date" name="date" min="1900-01-01" max="2100-12-31" value="{{ selected|date:'Y-m-d' }}"></div><button type="submit">Apply date</button></form>
 {% include 'mar/summary.html' %}
+{% if 'Physician' in staff_roles %}<p><a href="{% url 'imaging_review_worklist' %}">Imaging result review</a></p>{% endif %}
 <p><a href="{% url 'lab_catalog' %}">Laboratory catalog</a> · Open an owned in-progress encounter to create a laboratory order.</p>
 {% if filter_error %}<div role="alert" class="notice warning">{{ filter_error }}</div>{% endif %}
 <section class="panel"><h2>Appointments</h2><div class="table-scroll"><table class="clinical-table">

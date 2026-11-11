@@ -1,0 +1,20 @@
+{% extends "core/base.html" %}
+{% block content %}
+<h1>Imaging report · Order #{{ order.pk }}</h1>
+<p>{{ order.encounter.patient }} · {{ order.catalog.name }} · <a href="{% url 'imaging_order' order.pk %}">Imaging order</a></p>
+<section class="panel"><h2>Current publication</h2>
+{% if withdrawn %}<p>The current report was withdrawn. Report content is unavailable.</p>
+{% elif visible %}
+<p>Revision {{ visible.revision }} · {{ visible.get_status_display }} · {{ visible.author }} · {{ visible.published_at|date:"Y-m-d H:i T" }}</p>
+{% if order.workflow.study_id %}<p>Fictional study {{ order.workflow.study_id }} · {{ order.workflow.body_site }}</p>{% endif %}
+<h3>Findings</h3>{{ visible.findings|linebreaks }}
+<h3>Impression</h3>{{ visible.impression|linebreaks }}
+{% if visible.review %}<p>Acknowledged by {{ visible.review.physician }} · {{ visible.review.acknowledged_at|date:"Y-m-d H:i T" }}</p>{% endif %}
+{% else %}<p>No report is available within your access.</p>{% endif %}
+{% if can_review or form.errors %}
+<form method="post">{% csrf_token %}{{ form.as_p }}<button type="submit">Acknowledge report</button></form>
+{% endif %}</section>
+<section class="panel"><h2>Publication history</h2>
+<ul>{% for report in chronology %}<li>Revision {{ report.revision }} · {{ report.get_status_display }} · {{ report.published_at|date:"Y-m-d H:i T" }}
+{% if report.review %} · Acknowledged{% endif %}</li>{% empty %}<li>No published revisions within your access.</li>{% endfor %}</ul></section>
+{% endblock %}

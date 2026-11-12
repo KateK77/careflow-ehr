@@ -1,39 +1,49 @@
 # Changelog
 
-## Documentation closeout — 2026-11-10
+## v1.0 release candidate — Unreleased (2026-11-11)
 
-Phase 2A — Physician Workspace (PR #8), Phase 2B — Clinical History (PR #10), and Phase 3A — Nursing Workspace (PR #12) completed their approved local-prototype reviews and are merged into main. See [current status and evidence](docs/project-status.md). Earlier pending-review/acceptance headings below are preserved historical delivery entries and do not describe the current state. This documentation maintenance creates no release or new functional phase.
+**Status:** Integrated synthetic-data local-demo candidate in [Draft PR #47](https://github.com/KateK77/careflow-ehr/pull/47). Not yet merged to `main`, tagged, hosted or approved for clinical use.
 
-## Unreleased
+### Already merged to main (Phases 0–4B)
 
-- Added a versioned product requirements baseline and archived the supplied development-package documents.
-- Established the Issue, branch, commit, PR, review, and merge workflow with reusable iteration records.
-- Documented the decision to retain Django and SQLite for local development.
+- Foundation, staff access, synthetic patient registration, scheduling and check-in; physician charts, encounters, SOAP signing, medical history, problems, allergies and diagnoses.
+- Nursing worklists, rooming, vital observations and flowsheets.
+- **Phase 3B:** Lab catalog and orders, specimen processing, revisioned results and physician review ([#18](https://github.com/KateK77/careflow-ehr/pull/18), [#20](https://github.com/KateK77/careflow-ehr/pull/20), [#22](https://github.com/KateK77/careflow-ehr/pull/22)).
+- **Phase 4A:** Medication catalog, orders, pharmacist verification and simulated dispensing ([#24](https://github.com/KateK77/careflow-ehr/pull/24), [#26](https://github.com/KateK77/careflow-ehr/pull/26)).
+- **Phase 4B:** Nurse MAR, fictional administrations, exceptions, corrections and chart integration ([#28](https://github.com/KateK77/careflow-ehr/pull/28), [#30](https://github.com/KateK77/careflow-ehr/pull/30)).
 
-### Phase 1A — pending review
+### Implemented in release candidate, awaiting merge (Phases 5–8)
 
-- Added Django staff authentication, role-based demographic access, patient registration, search, details and editing.
-- Added MRN constraints, duplicate warnings, optimistic edit conflicts, transactional audits, synthetic seeding, responsive templates and automated regression coverage.
+- **Phase 5:** Linked patient portal, controlled lab-result releases, messaging and appointment requests ([#32](https://github.com/KateK77/careflow-ehr/pull/32), [#34](https://github.com/KateK77/careflow-ehr/pull/34)).
+- **Phase 6:** Simulated coverage/charges/statements, mock claims, appeals, payment and reversal ledger ([#36](https://github.com/KateK77/careflow-ehr/pull/36), [#38](https://github.com/KateK77/careflow-ehr/pull/38)).
+- **Phase 7:** Imaging orders and catalog, radiology exam, report revisions/withdrawal and physician acknowledgement ([#40](https://github.com/KateK77/careflow-ehr/pull/40), [#42](https://github.com/KateK77/careflow-ehr/pull/42)).
+- **Phase 8A:** Inpatient admission, beds, transfers and discharge ([#44](https://github.com/KateK77/careflow-ehr/pull/44)).
+- **Phase 8B:** ED registration, fictional triage and tracking, disposition and ED-to-inpatient admission ([#46](https://github.com/KateK77/careflow-ehr/pull/46)).
+- Integrated the separate Phase 5–6 and Phase 7 histories through a two-parent integration commit, preserving original commits.
+- Candidate UX improvements: clearer imaging stale-revision recovery, role-neutral staff sign-in guidance, payment-reference instructions, and early-imaging-start simulation documentation.
 
-### Phase 1B — pending review
+### Verification and known limitations
 
-- Added physician day/week schedules, reviewed appointment creation/editing, cancellation and Front Desk check-in.
-- Added appointment/provider serialization models, transactional audit events, reservation conflict validation, UTC/local-time handling and scheduling access scopes.
+- Reported local candidate audit: **345 Django tests, 23 Chromium workflows and two additional probes** passed; system checks, migrations and whitespace checks passed.
+- The original [release PR Django CI](https://github.com/KateK77/careflow-ehr/actions/runs/43150653448) passed against `main`; Chromium and audit probes were **local tests**, not CI jobs. A new documentation commit must be checked separately.
+- User-reported manual UAT covered core Phases 5–8, sampled patient/role isolation and signed SOAP/MAR retention. This is not exhaustive clinical/security verification.
+- Audit reported SHA-256 preservation of 47 pre-existing SQLite databases, including the original and Phase 3–8 previews.
+- Outstanding coverage: exhaustive POST/CSRF, mixed roles and revocation, concurrent ED dispositions, payment-reference collisions, populated Phase 7 upgrade, accessibility and load testing.
+- Local prototype uses `DEBUG=True`, a development secret and SQLite. Synthetic data only; no production deployment, medical validation or external clinical/payer integration.
 
-## Phase 2A — pending acceptance
+## Historical entries
 
-- Added physician workspace, authorized longitudinal charts and explicit encounters from arrived appointments.
-- Added persistent SOAP drafts, confirmed signing, signed-content protection and transactional clinical history.
-- Added role/ownership/isolation tests and migration consistency to CI. Preserved local patient and appointment records through additive migrations.
+### Documentation closeout — 2026-11-10
 
-## Phase 2B — pending acceptance (stacked on Phase 2A)
+Phases 2A (PR #8), 2B (PR #10) and 3A (PR #12) completed review and merged into main. Earlier pending-review headings were contemporaneous historical descriptions, not current states.
 
-- Added longitudinal medical/surgical/family/social history, problem list, allergy assessment/entries, medication statements and encounter diagnoses.
-- Added persisted reviews, before/after audit history, optimistic versions, role/context checks and consistent allergy summary transitions.
-- Added one additive migration, 27 regression/concurrency tests and an isolated browser workflow. Existing clinical records and signed notes are preserved.
+### Phase 0–3A original development notes
 
-## Phase 3A — pending manual acceptance (stacked on Phase 2B)
+- Requirements baseline, documented Issues/branches/PRs, Django/SQLite local architecture.
+- Phase 1A: staff login, role-based demographics, patient registration/search/editing, MRN uniqueness and auditing.
+- Phase 1B: schedules and appointments, rescheduling/cancellation, physician calendars, check-in, optimistic versions and audit history.
+- Phase 2A: physician worklist/charts, encounters and persistent signed SOAP with protected revisions.
+- Phase 2B: longitudinal medical and medication history, problems, allergies, encounter diagnoses and audit events.
+- Phase 3A: nursing worklists, assessments, vitals, correction history, flowsheets and chart integration.
 
-- Added persisted nursing worklists, rooming/readiness assessments, structured vital panels and chronological flowsheets.
-- Added Nurse-only authoring, scoped clinical reads, validated units/context/times, versioned corrections and transactional before/after history.
-- Integrated latest nursing information and events into charts/encounters without changing appointment states or signed SOAP content.
+Detailed earlier reports are preserved in [docs/iterations](docs/iterations/).

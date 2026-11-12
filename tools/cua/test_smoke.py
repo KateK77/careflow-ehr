@@ -12,6 +12,7 @@ from openai.types.responses import ResponseComputerToolCall
 from openai.types.responses.computer_action import Click, Keypress, Scroll, Type
 from playwright.sync_api import sync_playwright
 
+from diagnostics import Diagnostics
 from driver import BrowserDriver
 from smoke import ROOT, native_run, qa_site, verify_login
 
@@ -88,6 +89,55 @@ class ComputerSmokeTests(unittest.TestCase):
                         driver.screenshot()
                 finally:
                     browser.close()
+
+    def test_native_error_diagnostics_with_mock_transport(self):
+        from unittest.mock import Mock
+
+        cases = [
+            (400, {"error": {"code": "unsupported_value", "param": "tools[0].type",
+                             "message": "PRIVATE RESPONSE"}}, "responses_api", "unsupported_value",
+             "API rejected the model or tool configuration"),
+            (200, {"status": "incomplete", "incomplete_details": {"reason": "max_output_tokens"},
+                   "output": []}, "responses_validation", "none", "max_output_tokens"),
+            (200, {"status": "completed", "output": [{
+                "type": "computer_call", "id": "cu_mock", "call_id": "call_mock", "status": "completed",
+                "actions": [{"type": "screenshot"}], "pending_safety_checks": [
+                    {"id": "check_mock", "code": "untrusted_content", "message": "PRIVATE RESPONSE"},
+                ],
+            }]}, "computer_approval", "none", "safety_check_refused"),
+        ]
+        for status, body, stage, code, hint in cases:
+            with self.subTest(stage=stage):
+                diagnostic = Diagnostics()
+                payload = {"id": "resp_mock", "created_at": 1, "model": "fixture-model", "object": "response",
+                           "parallel_tool_calls": False, "tool_choice": "auto", "tools": [{"type": "computer"}],
+                           **body}
+                driver = Mock(cancelled=Mock(return_value=False))
+                toolset = ComputerToolset(driver)
+                transport = httpx.Client(
+                    transport=httpx.MockTransport(lambda _: httpx.Response(status, json=payload)),
+                    event_hooks={"request": [diagnostic.request_started], "response": [diagnostic.response_received]},
+                )
+                with OpenAI(api_key="PRIVATE KEY", base_url="https://api.openai.com/v1",
+                            http_client=transport, max_retries=0) as client:
+                    with self.assertRaises(Exception) as failure:
+                        native_run(client, toolset, driver, "fixture-model",
+                                   {"image_url": "data:image/png;base64,PRIVATE_SCREENSHOT"},
+                                   on_diagnostic=diagnostic.tool_event)
+                report = diagnostic.failure(failure.exception)
+                for expected in (stage, f"HTTP status: {status}", f"API code: {code}", hint,
+                                 "confirmed by HTTP response"):
+                    self.assertIn(expected, report)
+                self.assertNotIn("PRIVATE", report)
+                driver.screenshot.assert_not_called()
+
+    def test_unconfirmed_delivery_and_local_failure_are_distinguished(self):
+        diagnostic = Diagnostics()
+        self.assertIn("Request sent: no", diagnostic.failure(ValueError("PRIVATE")))
+        diagnostic.request_started(None)
+        report = diagnostic.failure(TimeoutError("PRIVATE"))
+        self.assertIn("attempted; delivery unconfirmed", report)
+        self.assertNotIn("PRIVATE", report)
 
     def test_native_mode_requires_explicit_approval(self):
         from argparse import Namespace

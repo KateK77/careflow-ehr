@@ -28,6 +28,17 @@ tools/cua/.venv/Scripts/python.exe tools/cua/smoke.py --mode native --model <com
 
 The model receives the landing screenshot and chooses the click. The harness verifies the resulting URL, staff sign-in heading and credential controls directly. Each run creates a freshly migrated, empty SQLite database in a temporary directory and serves Django on an ephemeral loopback port. The browser is private and ephemeral. The smoke permits GET/HEAD only to the three public entry pages and local static files. It blocks other origins, form submissions, WebSockets, pop-ups and downloads. Pending safety checks fail closed. The run has a 16-action callback budget, five Responses steps, a 15-second HTTP timeout without retries, browser timeouts and a cooperative session deadline. Ctrl+C triggers cleanup. An in-flight synchronous request can take until its HTTP timeout to return.
 
+## Diagnose a failed native smoke
+
+The failure line reports the stage, exception class, latest HTTP status, recognized API code, compatibility hint and request counts. An HTTP response confirms delivery of the latest request. An attempt without a response does not establish delivery. Unrecognized API codes are redacted. The harness never prints the raw exception, response or screenshot data.
+
+- `responses_validation` with `max_output_tokens` means the model response ended at the output budget. Review the task and explicitly approve any larger budget before retrying.
+- `computer_approval` with `safety_check_refused` means the SDK received a pending safety check. Inspect the scenario and keep the refusal in place unless a separate review authorizes a narrowly scoped policy change.
+- `responses_api` with a model or tool hint means the API rejected configuration. Check project access and native `computer` support for the selected model.
+- `step_limit` or `action_refused` means a local run boundary stopped execution. Review the scenario before changing a limit.
+
+The prior generic `ComputerUseError` line cannot identify the original stage. SDK 3.31.0 can emit it for incomplete responses, replay/schema errors, safety refusal, exhausted steps, invalid screenshot output or cancellation. HTTP model/tool rejection normally raises an SDK API exception instead. Offline tests reproduced incomplete output and safety refusal without live requests.
+
 ## Issue #50 follow-on
 
 After the live smoke passes, extend the policy and fixtures for scoped synthetic role sessions and writes. Follow the [Issue #50 scenario checklist](../../docs/iterations/0024-workflow-verification/computer-use.md) for the patient login, role denials and clinical handoffs. Review each writable workflow's allowed routes and evidence handling before enabling it. This smoke does not sign in or execute those scenarios.

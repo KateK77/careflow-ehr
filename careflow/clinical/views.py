@@ -12,6 +12,8 @@ from django.views.decorators.http import require_http_methods, require_POST, req
 
 from careflow.patients.models import AuditEvent
 from careflow.medications.access import orders_for as medication_orders_for
+from careflow.imaging.access import orders_for as imaging_orders_for
+from careflow.hospital.views import chart_context as hospital_chart_context
 from careflow.mar.access import receipts_for as mar_receipts_for
 from careflow.scheduling.models import AppointmentEvent
 from .access import (can_write, charts_for, clinical_access, clinical_appointments_for, encounters_for)
@@ -92,9 +94,11 @@ def chart(request, patient_id):
         timeline.append({"at":event.audit.occurred_at,"label":event.audit.action,"actor":event.audit.actor,"history_url":reverse("lab_report_detail",args=[event.order.public_id])})
     timeline.sort(key=lambda item: item["at"], reverse=True)
     return render(request, "clinical/chart.html", {
+        **hospital_chart_context(request.user, patient),
         **nursing_chart_context(request.user, patient),
         **laboratory_chart_context(request.user, patient),
         "medication_summary": medication_orders_for(request.user).filter(encounter__patient=patient)[:5],
+        "imaging_summary": imaging_orders_for(request.user).filter(encounter__patient=patient)[:5],
         "mar_summary": mar_receipts_for(request.user).filter(review__order__encounter__patient=patient).order_by("-pk")[:5],
         "patient": patient, "encounters": encounters[:50], "appointments": appointments.order_by("-start_at")[:10],
         "notes": Note.objects.filter(encounter__in=encounters).select_related("encounter", "author").order_by("-created_at")[:50],
@@ -141,6 +145,7 @@ def encounter_detail(request, patient_id, encounter_id):
         **nursing_chart_context(request.user, encounter.patient, encounter.appointment_id),
         **laboratory_chart_context(request.user, encounter.patient, encounter),
         "medication_summary": medication_orders_for(request.user).filter(encounter=encounter)[:5],
+        "imaging_summary": imaging_orders_for(request.user).filter(encounter=encounter)[:5],
         "mar_summary": mar_receipts_for(request.user).filter(review__order__encounter=encounter).order_by("-pk")[:5],
         "patient": encounter.patient, "encounter": encounter,
         "note": Note.objects.filter(encounter=encounter).first(),

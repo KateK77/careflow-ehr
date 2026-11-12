@@ -1,0 +1,16 @@
+{% extends "core/base.html" %}
+{% block content %}
+<h1>Billing Workspace</h1>
+{% include "billing/nav.html" %}
+<form method="get">{{ form.as_p }}<button>Filter</button></form>
+<section class="panel"><h2>Completed encounters and statements</h2>
+<p>Showing up to 100 matching encounters, most recent first.</p>
+<div class="scroll" tabindex="0" role="region" aria-label="Billing worklist"><table>
+<thead><tr><th>Encounter</th><th>Patient</th><th>Completed</th><th>Statement</th></tr></thead>
+<tbody>{% for item in items %}
+<tr><th scope="row"><a href="{% url 'billing_encounter' item.pk %}">Encounter #{{ item.pk }}</a></th>
+<td>{{ item.patient }} · {{ item.patient.mrn }}</td><td>{{ item.completed_at|date:"Y-m-d H:i T" }}</td>
+<td>{{ item.patientstatement.get_status_display|default:"Unbilled" }}</td></tr>
+{% empty %}<tr><td colspan="4">No matching completed encounters.</td></tr>{% endfor %}</tbody>
+</table></div></section>
+{% endblock %}

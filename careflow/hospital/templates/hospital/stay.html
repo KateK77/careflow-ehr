@@ -1,0 +1,17 @@
+{% extends "core/base.html" %}
+{% block content %}
+<h1>Inpatient Stay #{{ item.pk }}</h1>{% include "hospital/nav.html" %}
+<p>{{ patient }} · {{ patient.mrn }}{% if can_open_chart %} · <a href="{% url 'patient_chart' patient.pk %}">Patient Chart</a>{% endif %}</p>
+<p>Clinical records on the chart retain their original encounter context.</p>
+<section class="panel"><h2>Stay details</h2>
+<p>{{ item.get_status_display }} · Attending {{ item.attending }} · v{{ item.version }}</p>
+<p>Admitted {{ item.admitted_at|date:"Y-m-d H:i T" }} · Length of stay {{ duration.days }} d · Bed {{ item.bed|default:"Released" }}</p>
+{% if item.discharge_plan %}<h3>Discharge plan</h3>{{ item.discharge_plan|linebreaks }}{% endif %}
+{% if item.discharged_at %}<h3>Discharge documentation</h3><p>{{ item.discharged_by }} · {{ item.discharged_at|date:"Y-m-d H:i T" }}</p>{{ item.discharge_summary|linebreaks }}{% endif %}
+</section>
+{% if actions or form.errors %}
+<section class="panel"><h2>Transfer or Discharge Patient</h2>
+<form method="post">{% csrf_token %}{{ form.as_p }}<button type="submit">Apply stay action</button></form></section>
+{% endif %}
+{% include "hospital/history.html" %}
+{% endblock %}

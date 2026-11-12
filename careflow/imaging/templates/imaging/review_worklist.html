@@ -1,0 +1,9 @@
+{% extends "core/base.html" %}
+{% block content %}
+<h1>Imaging result review</h1>
+<p>Current final reports and corrections awaiting your acknowledgement.</p>
+<section class="panel"><ul>{% for order in orders %}
+<li><a href="{% url 'imaging_report' order.pk %}">{{ order.catalog.name }} · Order #{{ order.pk }}</a>
+ · {{ order.encounter.patient }} · Encounter #{{ order.encounter_id }}</li>
+{% empty %}<li>No imaging results awaiting your review.</li>{% endfor %}</ul></section>
+{% endblock %}

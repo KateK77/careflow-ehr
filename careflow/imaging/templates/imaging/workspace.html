@@ -1,0 +1,17 @@
+{% extends "core/base.html" %}
+{% block content %}
+<h1>Radiology Workspace</h1>
+<p>All studies and reports use fictional metadata.</p>
+<section class="panel"><h2>Available for assignment</h2>
+<ul>{% for item in available %}
+<li><a href="{% url 'imaging_exam' item.pk %}">Order #{{ item.pk }} · {{ item.catalog.name }}</a>
+ · {{ item.get_priority_display }}{% if item.exam %} · Scheduled{% else %} · Unscheduled{% endif %}</li>
+{% empty %}<li>No signed orders waiting for assignment.</li>{% endfor %}</ul></section>
+<section class="panel"><h2>My examinations</h2>
+<ul>{% for item in assigned %}
+<li><a href="{% url 'imaging_exam' item.pk %}">Order #{{ item.pk }} · {{ item.catalog.name }}</a>
+ · {{ item.encounter.patient }} · {{ item.workflow.get_status_display }}
+{% if item.exam %} · {{ item.exam.scheduled_at|date:"Y-m-d H:i T" }}{% endif %}
+{% if item.status == "cancelled" %} · Order cancelled{% endif %}</li>
+{% empty %}<li>No examinations assigned to you.</li>{% endfor %}</ul></section>
+{% endblock %}

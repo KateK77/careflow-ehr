@@ -1,0 +1,19 @@
+{% extends layout %}
+{% block content %}
+<h1>Appointment requests</h1>
+<p>A request is separate from a confirmed appointment. Scheduling staff must review it.</p>
+{% if patient %}
+<ul><li><a href="{% url 'portal_request_new' 'new' %}">Request an appointment</a></li>
+<li><a href="{% url 'portal_request_new' 'reschedule' %}">Request rescheduling</a></li>
+<li><a href="{% url 'portal_request_new' 'cancel' %}">Request cancellation</a></li></ul>
+{% endif %}
+<section class="panel" aria-label="Request history">
+<ul>
+{% for item in items %}
+<li>{% if patient %}<a href="{% url 'portal_request' item.pk %}">{{ item.get_kind_display }}</a>
+{% else %}<a href="{% url 'staff_portal_request' item.pk %}">{{ item.get_kind_display }}</a> · {{ item.patient }}{% endif %}
+ · {{ item.physician }} · {{ item.get_status_display }} · {{ item.created_at|date:"Y-m-d H:i T" }}</li>
+{% empty %}<li>No appointment requests yet.</li>{% endfor %}
+</ul>
+</section>
+{% endblock %}

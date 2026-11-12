@@ -1,0 +1,17 @@
+{% extends layout %}
+{% block content %}
+<h1>Messages</h1>
+{% include "portal/message_notice.html" %}
+{% if patient %}<p><a href="{% url 'portal_message_new' %}">New message</a></p>{% endif %}
+<section class="panel" aria-label="Conversations">
+<ul>
+{% for thread in threads %}
+<li>
+{% if patient %}<a href="{% url 'portal_thread' thread.pk %}">{{ thread.subject }}</a> · {{ thread.physician }}
+{% else %}<a href="{% url 'staff_portal_thread' thread.pk %}">{{ thread.subject }}</a> · {{ thread.patient }}{% endif %}
+ · {{ thread.updated_at|date:"Y-m-d H:i T" }}{% if thread.unread %} · <strong>Unread</strong>{% endif %}
+</li>
+{% empty %}<li>No conversations yet.</li>{% endfor %}
+</ul>
+</section>
+{% endblock %}

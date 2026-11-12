@@ -1,0 +1,5 @@
+{% extends "core/base.html" %}
+{% block content %}
+<h1>Imaging orders</h1><p>{{ patient }} · <a href="{% url 'patient_chart' patient.pk %}">Patient chart</a></p>
+<section class="panel">{% include "imaging/order_list.html" %}</section>
+{% endblock %}

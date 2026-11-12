@@ -1,0 +1,40 @@
+{% extends "core/base.html" %}
+{% block content %}
+<h1>Radiology order #{{ order.pk }}</h1>
+<p><a href="{% url 'imaging_workspace' %}">Radiology Workspace</a></p>
+<p>{{ order.catalog.name }} · {{ order.get_priority_display }} · Order {{ order.get_status_display }}</p>
+{% if assigned %}
+<section class="panel"><h2>Examination details</h2>
+<p>{{ order.encounter.patient }} · {{ order.encounter.patient.mrn }} · Encounter #{{ order.encounter_id }}</p>
+<p>{{ order.indication }}</p>
+<p>{{ order.workflow.get_status_display }} · Assigned to {{ order.workflow.assigned_to }} at {{ order.workflow.assigned_at|date:"Y-m-d H:i T" }}</p>
+<p>{% if order.exam %}Scheduled {{ order.exam.scheduled_at|date:"Y-m-d H:i T" }}{% else %}Unscheduled{% endif %}</p>
+{% if order.workflow.started_at %}<p>Started {{ order.workflow.started_at|date:"Y-m-d H:i T" }}</p>{% endif %}
+{% if order.workflow.performed_at %}<p>Performed {{ order.workflow.performed_at|date:"Y-m-d H:i T" }}</p>{% endif %}
+{% if order.workflow.completed_at %}<p>Completed {{ order.workflow.completed_at|date:"Y-m-d H:i T" }}</p>{% endif %}
+{% if order.workflow.study_id and not quarantine %}<p>{{ order.workflow.study_id }} · {{ order.workflow.body_site }}</p>{% endif %}
+{% if order.cancellation_reason %}<p>Cancellation reason: {{ order.cancellation_reason }}</p>{% endif %}
+</section>
+{% else %}<p>Assign this order to yourself to view patient details and begin processing.</p>{% endif %}
+{% if form.fields.action.choices or form.errors %}
+<section class="panel"><h2>Apply a workflow action</h2>
+<p>Only fields relevant to the selected action are used.</p>
+<form method="post">{% csrf_token %}{{ form.as_p }}<button type="submit">Apply radiology action</button></form></section>
+{% endif %}
+{% if assigned %}
+<section class="panel"><h2>Report revisions</h2>
+{% if quarantine %}<p>Report content is restricted because the study context is in question.</p>{% endif %}
+{% for report in reports %}
+<article><h3>Revision {{ report.revision }} · {{ report.get_status_display }}</h3>
+<p>{{ report.author }} · {% if report.published_at %}Published {{ report.published_at|date:"Y-m-d H:i T" }}{% else %}Saved {{ report.created_at|date:"Y-m-d H:i T" }}{% endif %}{% if report.based_on %} · Based on revision {{ report.based_on.revision }}{% endif %}</p>
+{% if report.status == "withdrawn" %}<p>{{ report.get_withdrawal_kind_display }}: {{ report.reason }}</p>
+{% elif not quarantine %}<h4>Findings</h4>{{ report.findings|linebreaks }}<h4>Impression</h4>{{ report.impression|linebreaks }}
+{% if report.reason %}<p>Correction reason: {{ report.reason }}</p>{% endif %}{% endif %}
+{% if report.review %}<p>Acknowledged by {{ report.review.physician }} · {{ report.review.acknowledged_at|date:"Y-m-d H:i T" }}</p>{% endif %}
+</article>
+{% empty %}<p>No report revisions.</p>{% endfor %}</section>
+<section class="panel"><h2>Workflow history</h2><ul>
+{% for label, actor, date, reason, scheduled in history %}<li>{{ label }} · {{ actor }} · {{ date|date:"Y-m-d H:i T" }}</li>{% endfor %}
+</ul></section>
+{% endif %}
+{% endblock %}

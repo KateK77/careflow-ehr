@@ -1,0 +1,12 @@
+{% extends "core/base.html" %}
+{% block content %}
+<h1>Synthetic Imaging Catalog</h1>
+<p>Use revision zero for a new code. Add a new revision to change activation, name, or modality.</p>
+{% if form.non_field_errors %}<p><a href="{% url 'imaging_catalog' %}">Reload the imaging catalog</a></p>{% endif %}
+<form method="post">{% csrf_token %}{{ form.as_p }}<button type="submit">Save revision</button></form>
+<section class="panel"><h2>Catalog revision history</h2>
+<ul>{% for item in items %}
+<li>{{ item }} · {{ item.get_modality_display }} · {% if item.active %}Active in this revision{% else %}Inactive in this revision{% endif %}</li>
+{% empty %}<li>No catalog revisions.</li>{% endfor %}</ul>
+</section>
+{% endblock %}

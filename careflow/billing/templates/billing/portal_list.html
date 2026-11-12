@@ -1,0 +1,19 @@
+{% extends "portal/base.html" %}
+{% block content %}
+<h1>Billing statements</h1>
+<p>All amounts, policies and transactions are fictitious.</p>
+<section class="panel"><h2>Released statements</h2>
+<ul>{% for item, total in items %}<li><a href="{% url 'portal_statement' item.pk %}">Statement #{{ item.pk }}</a>
+ · {{ item.released_at|date:"Y-m-d" }} · {{ total }}</li>
+{% empty %}<li>No released statements.</li>{% endfor %}</ul>
+</section>
+<section class="panel"><h2>Synthetic coverage history</h2>
+<p>These records describe demo coverage only.</p>
+{% with rows=coverage %}
+{% if rows %}<div class="scroll" tabindex="0" role="region" aria-label="Coverage history"><table>
+<thead><tr><th>Payer</th><th>Revision</th><th>Type</th><th>Status</th><th>Effective from</th><th>Effective to</th></tr></thead>
+<tbody>{% for row in rows %}<tr>{% for value in row %}<td>{{ value }}</td>{% endfor %}</tr>{% endfor %}</tbody>
+</table></div>{% else %}<p>No synthetic coverage records.</p>{% endif %}
+{% endwith %}
+</section>
+{% endblock %}

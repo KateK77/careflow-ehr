@@ -1,0 +1,6 @@
+{% extends layout %}
+{% block content %}
+<h1>{{ kind }} request</h1>
+<p>Use synthetic information. Your request does not change the schedule until approved.</p>
+<form class="panel" method="post">{% csrf_token %}{{ form.as_p }}<button type="submit">Submit request</button></form>
+{% endblock %}

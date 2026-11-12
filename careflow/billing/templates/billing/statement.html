@@ -1,0 +1,32 @@
+{% extends layout %}
+{% block content %}
+<h1>{% if item %}Statement #{{ item.pk }}{% else %}Encounter charge capture{% endif %}</h1>
+{% if form %}{% include "billing/nav.html" %}{% else %}
+<p><a href="{% url 'portal_billing' %}">Billing statements</a></p>
+<p>All amounts, policies and transactions are fictitious.</p>
+{% endif %}
+<p>{{ visit.patient }} · Encounter #{{ visit.pk }} · Completed {{ visit.completed_at|date:"Y-m-d H:i T" }}</p>
+{% if item %}<p>{{ item.get_status_display }}{% if item.released_at %} · Released {{ item.released_at|date:"Y-m-d H:i T" }}{% endif %}</p>{% endif %}
+<section class="panel"><h2>Itemized charges</h2>
+{% if lines %}
+<div class="scroll" tabindex="0" role="region" aria-label="Itemized charges"><table>
+<thead><tr><th>Code</th><th>Description</th><th>Quantity</th><th>Unit price</th><th>Subtotal</th><th>Status</th></tr></thead>
+<tbody>{% for line in lines %}<tr>{% for cell in line %}<td>{{ cell }}</td>{% endfor %}</tr>{% endfor %}</tbody>
+</table></div>
+{% else %}<p>No charges to display.</p>{% endif %}
+<p>Statement total {{ total }} · Simulated balance {{ balance }} · {{ financial_status }}</p></section>
+{% if item.status == "released" %}
+<p>{% if form %}<a href="{% url 'billing_payments' item.pk %}">Simulated payments</a>
+{% else %}<a href="{% url 'portal_payments' item.pk %}">Simulated payment history</a>{% endif %}</p>
+{% endif %}
+{% if form %}
+{% if item.mock_claim %}<p><a href="{% url 'billing_claim' item.mock_claim.pk %}">View mock claim</a></p>{% endif %}
+{% if not item or item.status == "draft" or item.status == "finalized" or form.errors %}
+<section class="panel"><h2>Statement action</h2>
+<form method="post">{% csrf_token %}{{ form.as_p }}<button type="submit">Apply action</button></form></section>
+{% endif %}
+<section class="panel"><h2>Billing history</h2>
+<ul>{% for label, version, actor, date in history %}<li>{{ label }} · v{{ version }} · {{ actor }} · {{ date|date:"Y-m-d H:i T" }}</li>
+{% empty %}<li>No billing activity yet.</li>{% endfor %}</ul></section>
+{% endif %}
+{% endblock %}

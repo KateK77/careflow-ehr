@@ -24,6 +24,10 @@ INSTALLED_APPS = [
     "careflow.labs",
     "careflow.medications",
     "careflow.mar",
+    "careflow.portal",
+    "careflow.billing",
+    "careflow.imaging",
+    "careflow.hospital",
 ]
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -31,6 +35,7 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "careflow.portal.access.PortalBoundary",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
@@ -43,11 +48,14 @@ TEMPLATES = [
             "context_processors": [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
+                "careflow.billing.access.billing_context",
                 "django.contrib.messages.context_processors.messages",
                 "careflow.patients.access.staff_context",
                 "careflow.clinical.access.clinical_context",
                 "careflow.nursing.access.nursing_context",
                 "careflow.labs.access.lab_context",
+                "careflow.imaging.access.radiology_context",
+                "careflow.hospital.access.hospital_context",
                 "careflow.medications.access.medication_context",
             ],
         },

@@ -1,58 +1,58 @@
-# Current project status — closeout v1.0
+# CareFlow EHR — v1.0 release-candidate status
 
-Verified 2026-11-10 against main [65a7d3e2f01d9af0c99126c340e9f426c954401c](https://github.com/KateK77/careflow-ehr/commit/65a7d3e2f01d9af0c99126c340e9f426c954401c). This is the current disposition of the local synthetic-data prototype. The product's longer-term roadmap is not complete.
+**Snapshot: 2026-11-11 (America/Chicago).** This page describes the reviewed **local, synthetic-data release candidate**, not a merged, tagged or clinical-ready v1.0 release.
 
-## Completed phases and merge ledger
+- **Merged main:** [`00c624553cc265e6275a9d2750ab0041a7e6d97f`](https://github.com/KateK77/careflow-ehr/commit/00c624553cc265e6275a9d2750ab0041a7e6d97f), through Phase 4B.
+- **Verified code candidate:** [`d6881ff1b3b912ee891fd22beb2252814e56ef56`](https://github.com/KateK77/careflow-ehr/commit/d6881ff1b3b912ee891fd22beb2252814e56ef56), Phases 5–8 and candidate UX fixes. Documentation updates follow this SHA and require fresh CI.
+- **Release review:** [Draft PR #47](https://github.com/KateK77/careflow-ehr/pull/47), `release/v1.0` → `main`. No merge approval or release tag.
 
-| Existing phase name | Merge / closed Issue | Merge commit |
+## Merged delivery ledger
+
+| Increment | Delivered capability | Merged PRs |
 | --- | --- | --- |
-| Phase 2A — Physician Workspace | [PR #8](https://github.com/KateK77/careflow-ehr/pull/8) / [Issue #7](https://github.com/KateK77/careflow-ehr/issues/7) | [afc0ed16d7f90fd8abe87c9cb686712efddbce49](https://github.com/KateK77/careflow-ehr/commit/afc0ed16d7f90fd8abe87c9cb686712efddbce49) |
-| Phase 2B — Clinical History | [PR #10](https://github.com/KateK77/careflow-ehr/pull/10) / [Issue #9](https://github.com/KateK77/careflow-ehr/issues/9) | [2146713966e0e7407e33c554c4b7145fe5765bab](https://github.com/KateK77/careflow-ehr/commit/2146713966e0e7407e33c554c4b7145fe5765bab) |
-| Phase 3A — Nursing Workspace | [PR #12](https://github.com/KateK77/careflow-ehr/pull/12) / [Issue #11](https://github.com/KateK77/careflow-ehr/issues/11) | [65a7d3e2f01d9af0c99126c340e9f426c954401c](https://github.com/KateK77/careflow-ehr/commit/65a7d3e2f01d9af0c99126c340e9f426c954401c) |
+| Phase 0 | Foundation and development records | [#2](https://github.com/KateK77/careflow-ehr/pull/2) |
+| Phase 1A/1B | Staff access, patients, scheduling/check-in | [#4](https://github.com/KateK77/careflow-ehr/pull/4), [#6](https://github.com/KateK77/careflow-ehr/pull/6) |
+| Phase 2A/2B | Physician SOAP and longitudinal history | [#8](https://github.com/KateK77/careflow-ehr/pull/8), [#10](https://github.com/KateK77/careflow-ehr/pull/10) |
+| Phase 3A | Nursing, vitals and flowsheets | [#12](https://github.com/KateK77/careflow-ehr/pull/12) |
+| Phase 3B-1/2/3 | Lab ordering, processing, revisioned results and review | [#18](https://github.com/KateK77/careflow-ehr/pull/18), [#20](https://github.com/KateK77/careflow-ehr/pull/20), [#22](https://github.com/KateK77/careflow-ehr/pull/22) |
+| Phase 4A-1/2 | Medication orders, pharmacist review, simulated dispensing | [#24](https://github.com/KateK77/careflow-ehr/pull/24), [#26](https://github.com/KateK77/careflow-ehr/pull/26) |
+| Phase 4B-1/2 | Nurse MAR, exceptions, corrections | [#28](https://github.com/KateK77/careflow-ehr/pull/28), [#30](https://github.com/KateK77/careflow-ehr/pull/30) |
 
-All three completed their approved review for the local prototype and were merged using merge commits, retaining their development history and branches. They are not pending the acceptance or merge decision required for those merges. Earlier requirements, ADRs, iteration reports, prompts and changelog delivery entries remain historical evidence; their former pending/stacked language is superseded for current status by this ledger. It is not rewritten to fabricate contemporaneous approvals.
+## Implemented and UAT-reviewed; not yet merged
 
-## Available features
+| Increment | Candidate capability | Original open PRs |
+| --- | --- | --- |
+| Phase 5A/5B | Patient portal, released records, messages, appointment requests | [#32](https://github.com/KateK77/careflow-ehr/pull/32), [#34](https://github.com/KateK77/careflow-ehr/pull/34) |
+| Phase 6A/6B | Billing, insurance, claims, appeals, simulated payments | [#36](https://github.com/KateK77/careflow-ehr/pull/36), [#38](https://github.com/KateK77/careflow-ehr/pull/38) |
+| Phase 7A/7B | Imaging, radiology, report revisions, physician review | [#40](https://github.com/KateK77/careflow-ehr/pull/40), [#42](https://github.com/KateK77/careflow-ehr/pull/42) |
+| Phase 8A | Inpatient facilities, admission, transfer, discharge | [#44](https://github.com/KateK77/careflow-ehr/pull/44) |
+| Phase 8B | ED arrival, fictional triage, tracking, disposition, ED-to-inpatient admission | [#46](https://github.com/KateK77/careflow-ehr/pull/46) |
 
-- Existing patient/scheduling foundation: Django staff authentication, backend roles, synthetic patient registration/search/demographic editing, MRN uniqueness and duplicate warnings, audited writes, reviewed appointments, calendars and check-in.
-- Phase 2A — Physician Workspace: scoped physician worklists/charts; explicit encounter start from an arrived appointment; persistent SOAP drafts, confirmed signing, supported-path signed-note edit denial, completion and provenance.
-- Phase 2B — Clinical History: medical/surgical/family/social history; active/resolved/inactive problems; allergy records and explicit assessment; medication history statements; primary/secondary encounter diagnoses, review/version history and audit events. Medication history is not prescribing or administration.
-- Phase 3A — Nursing Workspace: saved worklist progress, rooming/readiness, corrected assessments and vital panels, explicit units/timestamps, chronological flowsheets, physician read access and scoped chart/timeline integration. Nursing saves do not create encounters or rewrite signed notes.
+Both Phase 5–6 and Phase 7 lines were preserved through a two-parent integration commit before Phase 8. All eight original PR heads are ancestors of code candidate `d6881ff`. Original PRs remain open until **after** a separately approved integrated release merge and historical reconciliation.
 
-Role and state rules remain those in [architecture](architecture.md) and [ADRs](decisions/). The application remains the existing Django modular monolith with server-rendered templates and a local SQLite database.
+## Verification evidence
 
-## Manual and automated evidence
+**Manual UAT (user-reported):** core portal and billing flows, messaging and requests, imaging publications/corrections/withdrawal, hospital admission/transfer/discharge, ED triage/provider review/discharge/admission, selected cross-patient/role direct URL denials, and preservation of completed Encounter #4's signed read-only SOAP and MAR history. Not an exhaustive role, state, browser or security matrix.
 
-The user reported 12 Phase 2A, 20 Phase 2B and nine Phase 3A passing workflow observations. The five targeted retests passed with their original qualifications: duplicate-primary feedback; contradictory allergy rejection with retained input; resolved linked-problem display; user-reported acceptable date entry without extra evidenced malformed-date cases; and responsive Physician Workspace behavior at the tested, unspecified width. See [the consolidated retest record](iterations/0006-nursing-workspace/uat-retest.md).
+**Automated audit (Codex-reported):** **345 Django tests**, **23 local Chromium workflows** and **two audit probes** passed; Django checks, migration consistency and Git whitespace checks passed. [PR #47 initial CI](https://github.com/KateK77/careflow-ehr/actions/runs/43150653448) separately passed Django system checks, default tests and migrations **against main**. It does **not** execute Chromium or the audit probes. The new documentation commit must receive fresh CI.
 
-These observations and the subsequent explicit merge approvals complete the approved review scope. They do not establish comprehensive testing of every role, browser, security behavior or viewport. No new nursing manual retest or fresh user-run end-to-end workflow is inferred from the five targeted retests.
+**Database preservation (Codex-reported):** SHA-256 hashes unchanged across 47 existing SQLite files, including original `db.sqlite3` and accepted preview. Separate temporary clones passed reported integrity and upgrade checks. This is not a new production backup or independent clinical audit.
 
-Actual merged-main verification at the baseline above:
+**Integration diff:** `main` → code candidate: 10 commits ahead, none behind; eight added migrations (two each for portal, billing, imaging, hospital), no existing migration replacements. Fresh-install and upgrade rehearsals used isolated databases; do not infer that all legacy-populated database shapes were tested.
 
-- Django system check passed; migration consistency reported no changes.
-- **164 default regression tests passed.**
-- **Seven local Chromium workflows passed:** shared UI; outpatient registration-to-completion integration; nursing assessment/vitals/corrections/flowsheet/physician review; history/diagnoses; physician SOAP; scheduling; patient management.
-- [Merged-main Actions CI passed](https://github.com/KateK77/careflow-ehr/actions/runs/42756802365), running system checks, the default suite and migration consistency. Chromium was local evidence, not part of that CI workflow.
-- The merge-verification SQLite hash and every table count were unchanged; read-only integrity and foreign-key checks passed. Patient, appointment, encounter, signed SOAP, history, nursing and audit records were retained. No reset, reseed or migration was performed during merge verification.
+## Unverified and out of scope
 
-This documentation closeout has its own [verification record](maintenance/0001-project-closeout/verification.md). Prior test results are not presented as a new manual or browser run.
+- Mixed-role and role-revocation sessions, exhaustive direct POST/CSRF checks, concurrent ED disposition/payment-reference collisions, fully populated independent Phase 7 upgrade, comprehensive accessibility, multiple-browser and load testing.
+- Simulated radiology workflow permits an assigned authorized exam to start earlier than scheduled. Payment/reversal references must be unique.
+- Application audit restrictions do not protect against privileged SQL or bulk ORM modifications; no tamper-evident storage, formal security assurance or production performance guarantees.
+- `DEBUG=True`, a local development secret, SQLite and synthetic data only. **Not for real patient records, clinical treatment, hosted deployment, payer/lab connectivity or regulatory certification.**
+- Future FHIR interoperability, AI assistance and hosted usage are proposals only; there is no implementation authorization.
 
-## Deferred enhancements — non-blocking, not implementation approval
+## Remaining release gates
 
-- Latest cross-phase feedback: consolidate duplicate allergy summary/inline errors; show authorized readable labels where audit numeric IDs appear; continue monitoring narrower tables. These were not merge blockers.
-- [Phase 1A's five feedback groups](iterations/0002-patient-registration/feedback.md): patient-directory density, demographic layout/hierarchy, consistent action labels, form guidance/synthetic-confirmation usability and audit-history presentation. Later targeted clinical UI improvements do not imply this entire earlier backlog is closed.
-- [Phase 1B's four feedback groups](iterations/0003-scheduling-checkin/feedback.md): configurable appointment types while retaining visit reason, compact schedule filters, responsive appointment history/long cancellation reasons, and configurable working hours/leave/early check-in policy.
+1. Confirm the documentation-only update, new exact PR head, current main baseline and passing new target-`main` CI.
+2. Review permissions, integrated diff, migration graph, fresh isolated install and upgrade evidence; preserve all original and UAT databases.
+3. Obtain explicit approval for merging; use a **merge commit**, never squash/rebase or force-push history.
+4. Check merged-main tree, ancestry, CI and original PR reconciliation; release tagging and hosting are separate decisions.
 
-Each future implementation needs scoped approval. This closeout does not implement these items or recategorize them as blocking defects.
-
-## Prototype limitations
-
-Synthetic data only; all screens retain DEMO — NOT FOR CLINICAL USE. This is a DEBUG-only, single-clinic educational/research prototype, not a deployed, certified or clinically ready EHR and not affiliated with Epic. Use original assets and preserve privacy boundaries.
-
-Supported services enforce authorization, context, validation, optimistic versions and auditing, but direct SQL/bulk ORM/database operators can bypass application controls. Database-level audit immutability, production concurrency, infrastructure security and comprehensive penetration testing are not established. SQLite remains a local-development choice; any shared deployment requires separate architecture/security review.
-
-Additional malformed-date manual cases, other browsers/devices, narrower history/nursing layouts, assistive-technology accessibility, deliberate re-review and broader manual role/security coverage remain unverified. SOAP has no addenda, reopening or cosigning workflow. Medication statements do not prescribe, dispense or administer. Orders/lab results, MAR, portals, billing, interoperability and AI remain outside the delivered scope.
-
-## Proposed next increment
-
-**Orders & Laboratory Results** is proposed, pending separate approval. No phase name/number, detailed functional specification, implementation branch or new clinical feature is authorized here. Refine workflows, ownership/permissions, provenance, statuses, synthetic-data handling and acceptance criteria before seeking approval. No external laboratory service or deployment is approved.
+Earlier dated reports, prompts and acceptance results remain intact under [docs/iterations](iterations/) and [docs/decisions](decisions/).

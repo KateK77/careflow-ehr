@@ -1,0 +1,10 @@
+{% extends "core/base.html" %}
+{% block content %}
+<h1>{{ title }}</h1>
+{% include "billing/nav.html" %}
+<section class="panel"><h2>Add a revision</h2>
+<p>Enter the latest revision number for an existing code or policy. Use zero for a new record.</p>
+<form method="post">{% csrf_token %}{{ form.as_p }}<button type="submit">Save revision</button></form></section>
+<section class="panel"><h2>Revision history</h2>
+{% include "billing/table.html" %}</section>
+{% endblock %}

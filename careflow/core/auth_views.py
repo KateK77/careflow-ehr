@@ -11,6 +11,15 @@ class DemoLoginView(LoginView):
         from careflow.patients.access import roles_for
         from django.urls import reverse
         from careflow.medications.pharmacy_access import is_pharmacist
+        from careflow.billing.access import is_billing
+        from careflow.imaging.access import is_radiology
+        from careflow.hospital.access import is_operator
+        if is_operator(self.request.user) and not roles_for(self.request.user):
+            return reverse("hospital_dashboard")
+        if is_billing(self.request.user) and not roles_for(self.request.user):
+            return reverse("billing_worklist")
+        if is_radiology(self.request.user) and not roles_for(self.request.user):
+            return reverse("imaging_workspace")
         if is_pharmacist(self.request.user) and not roles_for(self.request.user):
             return reverse("pharmacy_worklist")
         if is_lab(self.request.user) and not roles_for(self.request.user):
@@ -18,6 +27,10 @@ class DemoLoginView(LoginView):
         return super().get_success_url()
 
     def form_valid(self, form):
+        from careflow.portal.models import PatientPortalAccount
+        if PatientPortalAccount.objects.filter(user=form.get_user()).exists():
+            form.add_error(None, "Use the patient portal sign-in for this account.")
+            return self.form_invalid(form)
         response = super().form_valid(form)
         AuditEvent.objects.create(actor=self.request.user, action="login")
         return response

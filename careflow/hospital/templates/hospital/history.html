@@ -1,0 +1,6 @@
+<section class="panel"><h2>Admission and transfer history</h2>
+<ol>{% for label, actor, date, old_bed, new_bed, note in history %}
+<li>{{ label }} · {{ actor }} · {{ date|date:"Y-m-d H:i T" }}
+{% if old_bed %}<br>Previous bed {{ old_bed }}{% endif %}{% if new_bed %}<br>Allocated bed {{ new_bed }}{% endif %}
+{% if note %}<br>{{ note }}{% endif %}</li>
+{% empty %}<li>No events recorded.</li>{% endfor %}</ol></section>

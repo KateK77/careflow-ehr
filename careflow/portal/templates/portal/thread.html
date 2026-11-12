@@ -1,0 +1,20 @@
+{% extends layout %}
+{% block content %}
+<p>{% if patient %}<a href="{% url 'portal_messages' %}">Messages</a>{% else %}<a href="{% url 'staff_portal_messages' %}">Message worklist</a>{% endif %}</p>
+<h1>{{ thread.subject }}</h1>
+{% include "portal/message_notice.html" %}
+<p>Patient {{ thread.patient }} · Clinician {{ thread.physician }}</p>
+<section class="panel" aria-labelledby="history"><h2 id="history">Conversation history</h2>
+{% for item in items %}
+<article><h3>{{ item.sender }} · {{ item.sent_at|date:"Y-m-d H:i T" }}</h3>
+<div style="overflow-wrap:anywhere">{{ item.body|linebreaks }}</div></article>
+{% endfor %}
+</section>
+{% if thread.unread or read_form.errors %}
+<form method="post">{% csrf_token %}<input type="hidden" name="action" value="read">
+{{ read_form.as_p }}<button type="submit">Mark as read</button></form>
+{% endif %}
+<section class="panel"><h2>Reply</h2>
+<form method="post">{% csrf_token %}<input type="hidden" name="action" value="reply">{{ form.as_p }}<button type="submit">Send reply</button></form>
+</section>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "core/base.html" %}
+{% block content %}
+<h1>Mock Claims Worklist</h1>
+{% include "billing/nav.html" %}
+<p>Claims stay inside the internal simulator.</p>
+<section class="panel"><h2>Existing claims</h2>
+<ul>{% for item in claims %}
+<li><a href="{% url 'billing_claim' item.pk %}">Mock claim #{{ item.pk }}</a>
+ · {{ item.statement.encounter.patient }} · Statement #{{ item.statement_id }} · {{ item.get_status_display }}</li>
+{% empty %}<li>No mock claims.</li>{% endfor %}</ul>
+</section>
+<section class="panel"><h2>Statements available for claim setup</h2>
+<ul>{% for item in eligible %}
+<li><a href="{% url 'billing_claim_new' item.pk %}">Create claim for statement #{{ item.pk }}</a>
+ · {{ item.encounter.patient }} · Encounter #{{ item.encounter_id }}</li>
+{% empty %}<li>No statements available.</li>{% endfor %}</ul>
+</section>
+{% endblock %}

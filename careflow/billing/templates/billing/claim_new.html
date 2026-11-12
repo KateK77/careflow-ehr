@@ -1,0 +1,9 @@
+{% extends "core/base.html" %}
+{% block content %}
+<h1>Create a mock claim</h1>
+{% include "billing/nav.html" %}
+<p>Statement #{{ item.pk }} · Encounter #{{ item.encounter_id }} · {{ item.encounter.patient }} · {{ total }}</p>
+{% if form.fields.coverage.queryset or form.errors %}
+<form method="post">{% csrf_token %}{{ form.as_p }}<button type="submit">Save draft</button></form>
+{% else %}<p>No active synthetic coverage revision was effective for this encounter.</p>{% endif %}
+{% endblock %}

@@ -80,7 +80,11 @@ class AppealForm(ConfirmedCommand):
 class PaymentForm(forms.Form):
     key = forms.UUIDField(widget=forms.HiddenInput)
     balance_version = forms.CharField(widget=forms.HiddenInput, max_length=40)
-    reference = forms.CharField(max_length=40, label="Fictional transaction reference", help_text="Use SYN- followed by letters, numbers or hyphens.")
+    reference = forms.CharField(
+        max_length=40, label="Fictional transaction reference",
+        help_text="Start with SYN- and use uppercase letters, digits and hyphens, as in SYN-PAYMENT-001. "
+                  "References must be unique across all simulated transactions. Use a new reference for every reversal.",
+    )
     source = forms.ChoiceField(choices=[("", "Select for a new payment"), *SimulatedPayment.SOURCE], required=False)
     cents = forms.IntegerField(min_value=1, required=False, label="Payment in cents")
     reversal = forms.ModelChoiceField(queryset=SimulatedPayment.objects.none(), required=False, label="Payment to reverse")

@@ -6,7 +6,7 @@ from django.utils import timezone
 
 from careflow.clinical.access import can_write
 from careflow.clinical.models import Encounter
-from careflow.medications.services import check_version, command_identity, command_transaction
+from careflow.medications.services import MedicationConflict, check_version, command_identity, command_transaction
 from careflow.patients.access import roles_for
 from careflow.patients.models import AuditEvent
 from careflow.scheduling.services import _lock_providers
@@ -52,7 +52,15 @@ def catalog_revision(actor, data, version, key):
     if not re.fullmatch(r"SYN-[A-Z0-9-]{1,28}", code):
         raise ValidationError("Use a fictional code beginning with SYN-.")
     current = ImagingCatalog.objects.filter(code=code).first()
-    check_version(version, current.revision if current else 0)
+    try:
+        check_version(version, current.revision if current else 0)
+    except MedicationConflict:
+        latest = (f"Latest revision is {current.revision}." if current else
+                  "No revision exists yet. Use revision 0 to create this code.")
+        raise MedicationConflict(
+            f"The submitted revision for {code} is stale. {latest} "
+            "Reload the catalog, review the latest entry, and reapply your changes before saving."
+        ) from None
     item = ImagingCatalog(**{**data, "code": code}, revision=version + 1)
     item.full_clean()
     item.save()

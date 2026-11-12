@@ -21,3 +21,7 @@ Create the RadiologyStaff account once in an interactive terminal. Use the hidde
 - Verify keyboard navigation and narrow-screen layouts. Record only observations actually made.
 
 Manual acceptance remains pending. Automated evidence is recorded in the verification document.
+
+## Examination timing in the local simulation
+
+An authorized, assigned RadiologyStaff user can start a scheduled examination before its scheduled time. This supports local synthetic workflow testing. Clinical production scheduling and early-start policy require a separate design and validation.

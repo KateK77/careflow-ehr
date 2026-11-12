@@ -9,7 +9,7 @@ from django.urls import reverse
 from django.utils import timezone
 
 from careflow.labs.tests import LabFixture
-from .models import ImagingOrder
+from .models import ImagingCatalog, ImagingEvent, ImagingOrder
 from .services import active_catalog, catalog_revision, order_command
 
 
@@ -36,6 +36,32 @@ class ImagingFixture(LabFixture):
 class ImagingOrderTests(ImagingFixture, TestCase):
     def setUp(self):
         self.setup_imaging()
+
+    def test_catalog_creation_and_identical_command_replay(self):
+        self.client.force_login(self.admin)
+        url = reverse("imaging_catalog")
+        payload = {**self.catalog_data, "code": "SYN-US-NEW", "modality": "US", "version": 0, "key": uuid.uuid4()}
+        for _ in range(2):
+            self.assertRedirects(self.client.post(url, payload), url, fetch_redirect_response=False)
+        revision = ImagingCatalog.objects.get(code=payload["code"])
+        self.assertEqual((revision.revision, revision.modality), (1, "US"))
+        self.assertEqual(ImagingEvent.objects.filter(catalog=revision).count(), 1)
+
+    def test_catalog_stale_edit_preserves_the_newer_revision(self):
+        self.client.force_login(self.admin)
+        url = reverse("imaging_catalog")
+        payload = {**self.catalog_data, "version": 1}
+        newer = {**payload, "name": "Synthetic updated name", "key": uuid.uuid4()}
+        self.assertRedirects(self.client.post(url, newer), url, fetch_redirect_response=False)
+        stale = {**payload, "name": "Synthetic stale name", "key": uuid.uuid4()}
+        response = self.client.post(url, stale)
+        self.assertContains(response, "The submitted revision for SYN-XR-DEMO is stale.", status_code=400)
+        self.assertContains(response, "Latest revision is 2.", status_code=400)
+        self.assertContains(response, f'<a href="{url}">Reload the imaging catalog</a>', status_code=400, html=True)
+        self.assertContains(response, "reapply your changes", status_code=400)
+        self.assertEqual(list(ImagingCatalog.objects.filter(code=payload["code"]).values_list("revision", "name")),
+                         [(2, newer["name"]), (1, payload["name"])])
+        self.assertFalse(ImagingEvent.objects.filter(key=stale["key"]).exists())
 
     def test_catalog_deactivation_preserves_revision_and_draft_requires_current(self):
         draft = self.draft_order()

@@ -13,6 +13,46 @@ from careflow.patients.models import Patient
 from careflow.scheduling.models import Appointment
 
 
+class LandingBrowserTests(StaticLiveServerTestCase):
+    def test_landing_styles_responsive_layout_and_sign_in_links(self):
+        from playwright.sync_api import expect, sync_playwright
+
+        with sync_playwright() as playwright:
+            browser = playwright.chromium.launch()
+            page = browser.new_page(viewport={"width": 1440, "height": 960})
+            loaded_styles = set()
+            page.on("response", lambda response: loaded_styles.add(response.url)
+                    if response.ok and response.request.resource_type == "stylesheet" else None)
+            page.goto(self.live_server_url)
+            for path in ("app.css", "landing.css"):
+                self.assertIn(f"{self.live_server_url}/static/core/{path}", loaded_styles)
+            expect(page.get_by_role("heading", name="CareFlow EHR")).to_be_visible()
+            cards = page.locator(".landing-card")
+            for width in (1440, 768, 390, 320):
+                page.set_viewport_size({"width": width, "height": 960})
+                self.assertEqual(page.evaluate("document.documentElement.scrollWidth"), width)
+                first, second = (cards.nth(index).bounding_box() for index in (0, 1))
+                if width > 672:
+                    self.assertEqual(first["y"], second["y"])
+                    self.assertGreater(second["x"], first["x"])
+                else:
+                    self.assertGreater(second["y"], first["y"] + first["height"])
+                output = os.environ.get("CAREFLOW_LANDING_SCREENSHOT_DIR")
+                if output and width in (1440, 390):
+                    page.screenshot(path=str(Path(output) / f"careflow-landing-{width}.png"), full_page=True)
+            for label, path in (("Staff Sign In", "/login/"), ("Patient Sign In", "/portal/login/")):
+                page.goto(self.live_server_url)
+                link = page.get_by_role("link", name=label)
+                page.keyboard.press("Tab")
+                if path == "/portal/login/":
+                    page.keyboard.press("Tab")
+                expect(link).to_be_focused()
+                page.keyboard.press("Enter")
+                expect(page).to_have_url(self.live_server_url + path)
+                expect(page.get_by_label("Username")).to_be_visible()
+            browser.close()
+
+
 class ClinicalUiBrowserTests(StaticLiveServerTestCase):
     def test_date_guidance_responsive_worklist_and_duplicate_submit_guard(self):
         from playwright.sync_api import expect, sync_playwright

@@ -1,0 +1,181 @@
+.landing {
+  min-height: 100vh;
+  background: radial-gradient(ellipse at 50% 10%, #e0f2f0, transparent 65%), #f5f8fa;
+  font-family: "Instrument Sans", "Segoe UI", system-ui, sans-serif;
+  font-size: 1rem;
+}
+
+.landing-width {
+  width: min(100% - 2.5rem, 62rem);
+  margin-inline: auto;
+}
+
+.landing-header {
+  background: #fff;
+  border-bottom: 1px solid var(--line);
+}
+
+.landing-header .landing-width {
+  min-height: 4.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: .65rem 1rem;
+  padding-block: .8rem;
+}
+
+.landing-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: .65rem;
+  font-weight: 700;
+}
+
+.landing-mark {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: .65rem;
+  background: var(--accent);
+  color: #fff;
+  font-size: .8rem;
+}
+
+.landing-demo {
+  border: 1px solid #ebd8ac;
+  border-radius: .45rem;
+  padding: .35rem .6rem;
+  background: #fff6e2;
+  color: #684409;
+  font-size: .72rem;
+  letter-spacing: .04em;
+}
+
+.landing-main {
+  padding-block: clamp(2.75rem, 8vw, 6.25rem) 2rem;
+}
+
+.landing-intro {
+  margin-bottom: clamp(1.6rem, 4vw, 3rem);
+  text-align: center;
+}
+
+.landing-intro h1 {
+  margin: 0;
+  font-size: clamp(2.6rem, 7vw, 4.6rem);
+  line-height: 1.06;
+  letter-spacing: -.055em;
+}
+
+.landing-intro p {
+  margin: .75rem 0 0;
+  color: #456477;
+  font-size: clamp(1rem, 2.6vw, 1.35rem);
+}
+
+.landing-portals {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.landing-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: clamp(1.25rem, 4vw, 2.15rem);
+  border: 1px solid #d6e4e8;
+  border-radius: 1.1rem;
+  background: #fff;
+  box-shadow: 0 .8rem 2.25rem #1933470c;
+}
+
+.landing-icon {
+  display: grid;
+  place-items: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: .9rem;
+  background: #e2f4f0;
+  color: #096e79;
+}
+
+.landing-patient .landing-icon {
+  background: #e8f0fa;
+  color: #315e88;
+}
+
+.landing-cross {
+  width: 1.35rem;
+  height: 1.35rem;
+  background: currentColor;
+  clip-path: polygon(36% 0, 64% 0, 64% 36%, 100% 36%, 100% 64%, 64% 64%, 64% 100%, 36% 100%, 36% 64%, 0 64%, 0 36%, 36% 36%);
+}
+
+.landing-record {
+  width: 1rem;
+  height: 1.35rem;
+  border: 2px solid currentColor;
+  border-radius: .2rem;
+}
+
+.landing-record::after {
+  display: block;
+  width: .46rem;
+  height: .3rem;
+  margin: .24rem auto 0;
+  border-block: 2px solid currentColor;
+  content: "";
+}
+
+.landing-card h2 {
+  margin: 1.05rem 0 .3rem;
+  font-size: 1.55rem;
+  letter-spacing: -.025em;
+}
+
+.landing-card p {
+  margin: 0 0 1.5rem;
+  color: #456477;
+}
+
+.landing-card .landing-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.2rem;
+  min-height: 2.8rem;
+  margin-top: auto;
+}
+
+.landing-patient .landing-action {
+  background: #315e88;
+}
+
+.landing-action:hover {
+  filter: brightness(.86);
+}
+
+.landing-action:focus-visible {
+  outline: 3px solid #193347;
+  outline-offset: 4px;
+}
+
+.landing-notice {
+  margin: 1.5rem 0 0;
+  text-align: center;
+  color: #456477;
+  font-size: .875rem;
+}
+
+@media (max-width: 42rem) {
+  .landing-portals {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .landing-card .landing-action {
+    width: 100%;
+  }
+}

@@ -46,7 +46,7 @@ $env:CAREFLOW_DB_PATH = Join-Path (Resolve-Path '.venv').Path 'careflow-v1-fresh
 .\.venv\Scripts\python.exe manage.py runserver 127.0.0.1:8000
 ```
 
-Open [staff login](http://127.0.0.1:8000/login/), [patient portal login](http://127.0.0.1:8000/portal/login/) or [health endpoint](http://127.0.0.1:8000/health/). A fresh database is empty; use the documented [opt-in synthetic seeding](docs/iterations/0002-patient-registration/README.md) and [integrated demo account/preview guide](docs/iterations/0022-emergency-tracking/preview-and-uat.md) only for your intended database. No demo password is published.
+Open the [CareFlow landing page](http://127.0.0.1:8000/) and choose **Staff Sign In** or **Patient Sign In**. Direct links are available for [staff sign-in](http://127.0.0.1:8000/login/), [patient sign-in](http://127.0.0.1:8000/portal/login/) and the [health endpoint](http://127.0.0.1:8000/health/). A fresh database is empty; use the documented [opt-in synthetic seeding](docs/iterations/0002-patient-registration/README.md) and [integrated demo account/preview guide](docs/iterations/0022-emergency-tracking/preview-and-uat.md) only for your intended database. No demo password is published.
 
 **Important:** Existing `db.sqlite3` and Phase 3–8 UAT preview databases must never be reset, reseeded, overwritten or migrated as a routine setup step. Always verify `CAREFLOW_DB_PATH` before running management commands: if unset, Django defaults to `db.sqlite3`. Existing accepted-preview setup is documented [here](docs/iterations/0022-emergency-tracking/preview-and-uat.md).
 

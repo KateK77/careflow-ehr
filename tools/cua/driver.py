@@ -153,8 +153,9 @@ class BrowserDriver(ComputerDriver):
         if action.button != "left":
             raise ValueError("Only the primary mouse button is enabled.")
         x, y = self._point(action)
+        previous_path = urlsplit(self.page.url).path
         destination = None
-        if self.page.url == self.origin + "/":
+        if self.policy is not None or previous_path == "/":
             destination = self.page.evaluate(
                 """([x, y]) => {
                     const link = document.elementFromPoint(x, y)?.closest('a[href]');
@@ -163,7 +164,10 @@ class BrowserDriver(ComputerDriver):
                 [x, y],
             )
         self.page.mouse.click(x, y)
-        if destination in {self.origin + "/login/", self.origin + "/portal/login/"}:
+        portal_entry = destination in {self.origin + "/login/", self.origin + "/portal/login/"}
+        scenario_link = (self.policy is not None and destination and self.allows(destination)
+                         and urlsplit(destination).path != previous_path)
+        if portal_entry or scenario_link:
             # A generic load-state wait can still observe the outgoing document.
             self.page.wait_for_url(destination, wait_until="domcontentloaded", timeout=5000)
 

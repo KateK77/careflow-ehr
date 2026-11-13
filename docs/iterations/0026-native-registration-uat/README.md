@@ -39,3 +39,9 @@ The retained paid-run evidence lacks the exception detail required to confirm th
 ## Post-sign-in capture follow-up
 
 The third paid attempt reached the sign-in checkpoint. Its diagnostic identified `capture_document_replaced` during Playwright capture after the form submission. The earlier portal-link wait did not cover form redirects. The driver now waits for the destination of an approved write redirect and retries only the recognized document-replacement error, with three total capture attempts. No browser action or write is replayed. Fourteen offline tests passed, including the synthetic registration workflow with capture immediately after submitting sign-in. No paid retry was performed.
+
+## Front Desk retry readiness
+
+The complete registration-branch CUA suite passed 14 tests. The offline Chromium rehearsal followed the visible Patients and Schedule links and used ComputerToolset coordinate clicks for navigation and form submission, capturing after each click. Field entry was scripted. Twelve screenshots and a JSON verification record were saved locally. All five checkpoints and all three database checks passed, including Arrived and the ordered audit history. Browser capture now waits for the destination of scoped links as well as approved form redirects. One paid retry is ready for separate approval under the existing limits. Live model field entry, especially date and time input, remains unverified.
+
+The subsequent independent batches will start with a checked-in synthetic appointment for the Physician encounter and signed SOAP workflow, a scoped nursing visit for vitals and flowsheets, a synthetic lab order through released results, a signed synthetic medication order for simulated pharmacy processing, and a linked Patient Portal account for authorized records and results. Each batch needs its own fixtures, write policy where applicable, offline regression and evidence before live approval.

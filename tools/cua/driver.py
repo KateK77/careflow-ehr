@@ -24,6 +24,8 @@ class BrowserDriver(ComputerDriver):
         self.cancelled = cancelled
         self.remaining = max_actions
         self.actions = []
+        self.capture_count = 0
+        self.on_screenshot = None
         context.set_default_timeout(3000)
         context.set_default_navigation_timeout(5000)
         context.route("**/*", self._route)
@@ -131,4 +133,9 @@ class BrowserDriver(ComputerDriver):
         self._check()
         png = self.page.screenshot(timeout=3000, animations="disabled", scale="css")
         self._check()
-        return {"type": "computer_screenshot", "image_url": "data:image/png;base64," + base64.b64encode(png).decode("ascii")}
+        screenshot = {"type": "computer_screenshot",
+                      "image_url": "data:image/png;base64," + base64.b64encode(png).decode("ascii")}
+        self.capture_count += 1
+        if self.on_screenshot:
+            self.on_screenshot(screenshot)
+        return screenshot

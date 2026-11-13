@@ -35,6 +35,34 @@ class Diagnostics:
         self.responses = 0
         self.status = None
         self.event = None
+        self.actions = []
+        self.usage = []
+        self.evidence_ready = False
+
+    def capture_usage(self, response):
+        if response.status_code != 200:
+            return
+        response.read()
+        try:
+            usage = response.json().get("usage") or {}
+            counts = tuple(usage.get(field) for field in ("input_tokens", "output_tokens"))
+        except (ValueError, AttributeError):
+            return
+        if all(type(count) is int and count >= 0 for count in counts):
+            self.usage.append(counts)
+
+    def usage_summary(self, priced):
+        input_tokens = sum(counts[0] for counts in self.usage)
+        output_tokens = sum(counts[1] for counts in self.usage)
+        return {
+            "input_tokens": input_tokens, "output_tokens": output_tokens,
+            "responses_with_usage": len(self.usage),
+            "complete": len(self.usage) == self.attempts,
+            "estimated_token_cost_usd": (
+                round((input_tokens * 2.50 + output_tokens * 15.00) / 1_000_000, 6)
+                if priced and self.usage else None
+            ),
+        }
 
     def request_started(self, request):
         self.stage = "responses_request"

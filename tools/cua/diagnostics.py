@@ -3,6 +3,9 @@ from openai import APIError
 from playwright.sync_api import Error as PlaywrightError
 
 
+CAPTURE_DOCUMENT_REPLACED = "Page.screenshot: Execution context was destroyed, most likely because of a navigation"
+
+
 def safe_exception_chain(error):
     """Keep exception types and recognized browser signatures, omitting raw messages."""
     chain, seen = [], set()
@@ -11,7 +14,7 @@ def safe_exception_chain(error):
         entry = {"class": type(error).__name__}
         if isinstance(error, PlaywrightError):
             headline = str(error).partition("\n")[0]
-            if headline == "Page.screenshot: Execution context was destroyed, most likely because of a navigation":
+            if headline == CAPTURE_DOCUMENT_REPLACED:
                 entry["signature"] = "capture_document_replaced"
             elif "Route.fetch: Request context disposed" in headline:
                 entry["signature"] = "route_request_context_disposed"

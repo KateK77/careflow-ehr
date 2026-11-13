@@ -1,10 +1,12 @@
 """Browser-only implementation of the OpenAI native computer driver contract."""
 import base64
 import time
-from urllib.parse import urlsplit
+from urllib.parse import urljoin, urlsplit
 
 from openai import ComputerDriver
 from playwright.sync_api import BrowserContext, Error, Page
+
+from diagnostics import CAPTURE_DOCUMENT_REPLACED
 
 
 class BrowserDriver(ComputerDriver):
@@ -27,6 +29,7 @@ class BrowserDriver(ComputerDriver):
         self.policy = policy
         self.policy_error = None
         self.route_error = None
+        self.write_destination = None
         self.cancelled = cancelled
         self.remaining = max_actions
         self.actions = []
@@ -106,6 +109,9 @@ class BrowserDriver(ComputerDriver):
             if observe_write:
                 try:
                     self.policy.observe_post(response.status)
+                    location = response.headers.get("location")
+                    if response.status == 302 and location:
+                        self.write_destination = urljoin(route.request.url, location)
                 except RuntimeError as error:
                     self.policy_error = error
             route.fulfill(response=response)
@@ -215,17 +221,35 @@ class BrowserDriver(ComputerDriver):
     def wait(self, action):
         self.page.wait_for_timeout(250)
 
+    def _capture_png(self):
+        for attempt in range(3):
+            self._check()
+            self.screenshot_stage = "route_drain"
+            self._drain_routes()
+            self._check()
+            if self.write_destination:
+                self.screenshot_stage = "write_navigation"
+                if not self.allows(self.write_destination):
+                    raise RuntimeError("An approved write redirected outside the scenario.")
+                self.page.wait_for_url(self.write_destination, wait_until="domcontentloaded", timeout=5000)
+                self.write_destination = None
+            self.screenshot_stage = "document_load"
+            self.page.wait_for_load_state("load", timeout=5000)
+            self._check()
+            self.screenshot_stage = "playwright_capture"
+            masked = [self.page.locator('input[type="password"]')] if self.policy is not None else []
+            try:
+                return self.page.screenshot(timeout=3000, animations="disabled", scale="css", mask=masked)
+            except Error as error:
+                if attempt == 2 or str(error).partition("\n")[0] != CAPTURE_DOCUMENT_REPLACED:
+                    raise
+                # Yield to Chromium so the incoming document can commit before the next capture.
+                self.page.wait_for_timeout(100)
+
     def screenshot(self):
         self.screenshot_stage = "driver_state"
         self._check()
-        self.screenshot_stage = "document_load"
-        self.page.wait_for_load_state("load", timeout=5000)
-        self.screenshot_stage = "route_drain"
-        self._drain_routes()
-        self._check()
-        self.screenshot_stage = "playwright_capture"
-        masked = [self.page.locator('input[type="password"]')] if self.policy is not None else []
-        png = self.page.screenshot(timeout=3000, animations="disabled", scale="css", mask=masked)
+        png = self._capture_png()
         self.screenshot_stage = "driver_state"
         self._check()
         self.screenshot_stage = "png_encoding"

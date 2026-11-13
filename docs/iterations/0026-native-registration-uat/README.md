@@ -35,3 +35,7 @@ An offline replay through `ComputerToolset.execute` reproduced the registration 
 The driver now waits for the known destination document after a coordinate click on a landing-page portal link. The allowlist and password mask remain in force. The synthetic registration test now goes through this click and capture before entering credentials, verifies the login route and visible fields, and takes another capture after navigation. It failed before the change and passed afterward. All 24 comparison replays and all 11 CUA tests passed after the change.
 
 The retained paid-run evidence lacks the exception detail required to confirm that the second paid attempt raised the same exception as the offline replay. Future evidence records the screenshot substage, exception classes and recognized browser signatures without raw exception text. No live API request was sent during this investigation.
+
+## Post-sign-in capture follow-up
+
+The third paid attempt reached the sign-in checkpoint. Its diagnostic identified `capture_document_replaced` during Playwright capture after the form submission. The earlier portal-link wait did not cover form redirects. The driver now waits for the destination of an approved write redirect and retries only the recognized document-replacement error, with three total capture attempts. No browser action or write is replayed. Fourteen offline tests passed, including the synthetic registration workflow with capture immediately after submitting sign-in. No paid retry was performed.

@@ -62,7 +62,8 @@ class RegistrationTests(unittest.TestCase):
                     page.locator("[name=password]").focus()
                     driver.type(Type(type="type", text="QA_PASSWORD"))
                     page.get_by_role("button", name="Sign in to workspace").click()
-                    page.wait_for_url(origin + "/app/dashboard/")
+                    driver.screenshot()
+                    self.assertEqual(page.url, origin + "/app/dashboard/")
                     page.goto(origin + "/app/patients/new/")
                     for field, value in {"mrn": "SYN-CUA-001", "first_name": "Synthetic",
                                          "last_name": "Journey", "dob": "1990-01-15"}.items():

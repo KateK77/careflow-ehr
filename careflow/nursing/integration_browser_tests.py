@@ -49,7 +49,7 @@ class IntegratedOutpatientBrowserTests(IntegrationFixture, StaticLiveServerTestC
             for label, value in {"MRN *": "INTEGRATED-BROWSER", "First name *": "Synthetic", "Last name *": "IntegratedBrowser",
                                  "Date of birth *": "1985-01-01"}.items():
                 page.get_by_label(label, exact=True).fill(value)
-            page.get_by_label("Sex *", exact=True).select_option("unknown")
+            page.get_by_role("group", name="Recorded sex (required)").get_by_role("radio", name="Unknown").check()
             page.get_by_label("I confirm this record contains synthetic data only.").check()
             page.get_by_role("button", name="Save patient").click()
             page.wait_for_url(re.compile(r"/app/patients/\d+/$"))

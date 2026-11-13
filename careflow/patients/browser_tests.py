@@ -43,7 +43,7 @@ class PatientBrowserTests(StaticLiveServerTestCase):
             page.get_by_label("First name *", exact=True).fill("Browser")
             page.get_by_label("Last name *", exact=True).fill("Synthetic")
             page.get_by_label("Date of birth *", exact=True).fill("1990-05-20")
-            page.get_by_label("Sex *", exact=True).select_option("unknown")
+            page.get_by_role("group", name="Recorded sex (required)").get_by_role("radio", name="Unknown").check()
             page.get_by_label("I confirm this record contains synthetic data only.").check()
             page.get_by_role("button", name="Save patient").click()
             page.wait_for_url(re.compile(r"/app/patients/\d+/$"))

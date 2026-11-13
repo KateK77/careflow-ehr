@@ -1,39 +1,85 @@
 {% extends "core/base.html" %}
-{% block title %}
-  Dashboard · CareFlow EHR
-{% endblock %}
+{% block title %}Dashboard · CareFlow EHR{% endblock %}
 {% block content %}
+<div class="workspace-intro">
   <div class="eyebrow">WORKSPACE / OVERVIEW</div>
-  <h1>Patient management</h1>
-  <p class="lead">Your starting point for the synthetic clinic.</p>
-  <div class="cards">
-    <section class="panel stat">
-      <span class="muted">Registered synthetic patients</span>
-      <strong>{{ patient_count }}</strong>
-      <a href="{% url 'patient_list' %}">View patient directory →</a>
-    </section>
-    <section class="panel">
-      <h2>Registration desk</h2>
-      <p>Find an existing patient before creating a new demographic record.</p>
-      {% if can_manage_patients %}
-        <a class="button" href="{% url 'patient_create' %}">Register patient</a>
-      {% else %}
-        <span class="tag">Read-only staff access</span>
-      {% endif %}
-    </section>
-  </div>
-  <div class="panel">
-    <h2>This workspace</h2>
-    <p><a href="{% url 'schedule' %}">Open physician schedules</a> · <a href="{% url 'checkin_worklist' %}">Open check-in worklist</a></p>
-    <p>Use the patient directory to find demographics and registration history.</p>
-    {% if can_read_clinical %}
-      <p><a href="{% url 'physician_workspace' %}">Open clinical workspace</a> · <a href="{% url 'lab_catalog' %}">Browse laboratory catalog</a></p>
-    {% endif %}
-    {% if show_lab_workspace %}
-      <p><a href="{% url 'lab_worklist' %}">Open laboratory workspace</a></p>
-    {% endif %}
-    {% if show_lab_review %}
-      <p><a href="{% url 'lab_results_worklist' %}">Open laboratory review worklist</a></p>
-    {% endif %}
-  </div>
+  <h1>Your workspace</h1>
+  <p class="lead">Find a patient, continue a visit, or open an authorized worklist. All records and workflows in this environment are synthetic.</p>
+</div>
+<div class="workspace-links">
+  <section class="panel">
+    <h2>Patient directory</h2>
+    <p>{{ patient_count }} registered synthetic patient{{ patient_count|pluralize }}. Search demographics and registration history.</p>
+    <a class="button" href="{% url 'patient_list' %}">View patient directory</a>
+  </section>
+  {% if can_manage_patients %}
+  <section class="panel">
+    <h2>Registration desk</h2>
+    <p>Find an existing record first, then register a new synthetic patient when needed.</p>
+    <a class="button" href="{% url 'patient_create' %}">Register patient</a>
+  </section>
+  {% endif %}
+  <section class="panel">
+    <h2>Appointments and arrivals</h2>
+    <p>Review permitted schedules, appointment details and arrival history.</p>
+    <a href="{% url 'schedule' %}">View appointment schedule</a>
+    <a href="{% url 'checkin_worklist' %}">View arrivals worklist</a>
+  </section>
+  {% if can_read_clinical %}
+  <section class="panel">
+    <h2>Clinical care</h2>
+    <p>Open authorized charts, encounters, clinical history and signed documentation.</p>
+    <a href="{% url 'physician_workspace' %}">Open clinical workspace</a>
+  </section>
+  {% endif %}
+  {% if show_nursing_workspace %}
+  <section class="panel">
+    <h2>Nursing care</h2>
+    <p>Review rooming, vital signs and available nursing tasks.</p>
+    <a href="{% url 'nursing_workspace' %}">Open nursing worklist</a>
+  </section>
+  {% endif %}
+  {% if show_lab_workspace %}
+  <section class="panel">
+    <h2>Laboratory</h2>
+    <p>Continue authorized specimen and result workflows.</p>
+    <a href="{% url 'lab_worklist' %}">Open laboratory workspace</a>
+    {% if can_read_clinical %}<a href="{% url 'lab_catalog' %}">Browse laboratory catalog</a>{% endif %}
+    {% if show_lab_review %}<a href="{% url 'lab_results_worklist' %}">Review laboratory publications</a>{% endif %}
+  </section>
+  {% endif %}
+  {% if show_pharmacy_workspace %}
+  <section class="panel">
+    <h2>Pharmacy</h2><p>Review medication orders and simulated dispensing.</p>
+    <a href="{% url 'pharmacy_worklist' %}">Open pharmacy worklist</a>
+  </section>
+  {% endif %}
+  {% if show_radiology_workspace %}
+  <section class="panel">
+    <h2>Imaging</h2><p>Review authorized examinations and report workflows.</p>
+    <a href="{% url 'imaging_workspace' %}">Open radiology worklist</a>
+  </section>
+  {% endif %}
+  {% if show_billing_workspace %}
+  <section class="panel">
+    <h2>Billing</h2><p>Review synthetic statements, claims and simulated payments.</p>
+    <a href="{% url 'billing_worklist' %}">Open billing worklist</a>
+  </section>
+  {% endif %}
+  {% if show_hospital %}
+  <section class="panel">
+    <h2>Hospital operations</h2><p>Review authorized inpatient and emergency patient flow.</p>
+    <a href="{% url 'hospital_dashboard' %}">View inpatient workspace</a>
+    <a href="{% url 'ed_board' %}">View ED tracking board</a>
+  </section>
+  {% endif %}
+  {% if 'Physician' in staff_roles %}
+  <section class="panel">
+    <h2>Patient communication</h2><p>Review messages and control eligible patient result releases.</p>
+    <a href="{% url 'staff_portal_messages' %}">Review patient conversations</a>
+    <a href="{% url 'portal_releases' %}">Manage result releases</a>
+  </section>
+  {% endif %}
+</div>
+<p class="small muted">Workspace links follow your assigned role. Patient and encounter permissions are checked again when you open a record.</p>
 {% endblock %}

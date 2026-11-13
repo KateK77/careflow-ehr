@@ -1,0 +1,47 @@
+# CareFlow EHR — delivery roadmap
+
+**Current stage:** v1.0 **local synthetic-data release candidate**, awaiting final PR review and explicit merge approval. See [project status](project-status.md) for evidence, merged/unmerged distinctions and constraints.
+
+## Delivered phases and current state
+
+| Increment | State | Scope |
+| --- | --- | --- |
+| Phase 0 | **Merged** | Foundation, requirements and engineering workflow |
+| Phase 1A/1B | **Merged** | Staff roles, patient administration, scheduling and check-in |
+| Phase 2A/2B | **Merged** | Physician workspace, SOAP, longitudinal history and diagnoses |
+| Phase 3A | **Merged** | Nursing, vitals and flowsheets |
+| Phase 3B-1/2/3 | **Merged** | Laboratory catalog/orders, processing, results and physician review |
+| Phase 4A-1/2 | **Merged** | Medication orders, pharmacy verification and simulated dispensing |
+| Phase 4B-1/2 | **Merged** | MAR, omissions/refusals, corrections and chart history |
+| Phase 5A/5B | **Implemented, release PR pending** | Portal, released records, messages and appointment requests |
+| Phase 6A/6B | **Implemented, release PR pending** | Billing, coverage, claims, appeals and simulated payment ledger |
+| Phase 7A/7B | **Implemented, release PR pending** | Imaging and radiology, report revision, physician review |
+| Phase 8A | **Implemented, release PR pending** | Inpatient beds, admission, transfer and discharge |
+| Phase 8B | **Implemented, release PR pending** | ED tracking, fictional triage, disposition and ED admission |
+
+The unmerged rows are in integrated [Draft release PR #47](https://github.com/KateK77/careflow-ehr/pull/47). Their eight original development PRs are retained, not yet separately merged to main.
+
+## v1.0 release-candidate closeout
+
+- **Completed:** synthetic core manual UAT, candidate UX fixes, reported Django/browser/audit testing, integrated history and initial migration review.
+- **Pending:** CI on final documentation commit, exact merge-candidate review and any isolated upgrade rehearsal needed for approval.
+- **Approval required:** merge commit into `main`, followed by merged-main verification and reconciliation of superseded original PRs.
+- **Future separate decisions:** release tag, public portfolio presentation, deployment, feature expansion.
+
+## Deferred engineering and research directions
+
+Potential improvements include more role-revocation/POST/CSRF and concurrency coverage, accessibility and load testing, additional design/usability improvements, optional interoperability standards and rigorously evaluated AI-assisted workflows. **None of these is an approved Phase 9**, production scope or clinical feature.
+
+## Original broad planning categories (historical)
+
+| Original category | Planning theme |
+| --- | --- |
+| 0 | Foundation |
+| 1 | Patient access and scheduling |
+| 2 | Clinical encounters |
+| 3 | Orders, medications and laboratory |
+| 4 | Hospital operations and patient engagement |
+| 5 | Revenue cycle |
+| 6 | Interoperability and decision support |
+
+Historical category numbers do **not** rename the delivered phase identifiers above. Individual prompts, engineering rationale and past acceptance notes are preserved in [iteration records](iterations/) and [architecture decisions](decisions/).

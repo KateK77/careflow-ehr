@@ -33,7 +33,7 @@
       <a class="button" href="{% url 'appointment_create' %}">New appointment</a>
     {% endif %}
   </div>
-  <section class="panel">
+  <section class="panel schedule-panel">
     <form method="get" class="filters">
       {{ filter_form.non_field_errors }}
       {% for field in filter_form %}
@@ -103,7 +103,7 @@
       </p>
     {% endif %}
   </section>
-  <section class="panel">
+  <section class="panel schedule-panel">
     <h2>
       {% if checkin %}
         Arrivals worklist

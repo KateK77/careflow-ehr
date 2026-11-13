@@ -185,7 +185,7 @@ def verify_registration_workflow(driver, directory, diagnostics):
     driver.page.wait_for_url(driver.origin + "/app/appointments/1/", timeout=5000)
     driver.page.locator(".state-arrived").wait_for(state="visible")
     driver.page.get_by_role("heading", name="Appointment history").wait_for(state="visible")
-    driver.page.get_by_text("appointment_arrive", exact=True).wait_for(state="visible")
+    driver.page.get_by_text("Patient checked in", exact=True).wait_for(state="visible")
     diagnostics.stage = "registration_database"
     diagnostics.checks = verify(directory, scenario)
     if not all(diagnostics.checks.values()):

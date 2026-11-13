@@ -1,6 +1,6 @@
 # CareFlow EHR — delivery roadmap
 
-**Current stage:** v1.0 **local synthetic-data release candidate**, awaiting final PR review and explicit merge approval. See [project status](project-status.md) for evidence, merged/unmerged distinctions and constraints.
+**Current stage:** integrated Phases 0–8 local synthetic-data prototype; workspace UX upgrade under review. See [project status](project-status.md) for evidence, merged/unmerged distinctions and constraints.
 
 ## Delivered phases and current state
 
@@ -13,20 +13,21 @@
 | Phase 3B-1/2/3 | **Merged** | Laboratory catalog/orders, processing, results and physician review |
 | Phase 4A-1/2 | **Merged** | Medication orders, pharmacy verification and simulated dispensing |
 | Phase 4B-1/2 | **Merged** | MAR, omissions/refusals, corrections and chart history |
-| Phase 5A/5B | **Implemented, release PR pending** | Portal, released records, messages and appointment requests |
-| Phase 6A/6B | **Implemented, release PR pending** | Billing, coverage, claims, appeals and simulated payment ledger |
-| Phase 7A/7B | **Implemented, release PR pending** | Imaging and radiology, report revision, physician review |
-| Phase 8A | **Implemented, release PR pending** | Inpatient beds, admission, transfer and discharge |
-| Phase 8B | **Implemented, release PR pending** | ED tracking, fictional triage, disposition and ED admission |
+| Phase 5A/5B | **Integrated via PR #47** | Portal, released records, messages and appointment requests |
+| Phase 6A/6B | **Integrated via PR #47** | Billing, coverage, claims, appeals and simulated payment ledger |
+| Phase 7A/7B | **Integrated via PR #47** | Imaging and radiology, report revision, physician review |
+| Phase 8A | **Integrated via PR #47** | Inpatient beds, admission, transfer and discharge |
+| Phase 8B | **Integrated via PR #47** | ED tracking, fictional triage, disposition and ED admission |
 
-The unmerged rows are in integrated [Draft release PR #47](https://github.com/KateK77/careflow-ehr/pull/47). Their eight original development PRs are retained, not yet separately merged to main.
+The Phase 5–8 code was integrated through [PR #47](https://github.com/KateK77/careflow-ehr/pull/47), merged at `a9e0913b626b88908ad2ca3041d2ec9497ba7d15`. Original phase names and iteration evidence remain unchanged.
 
-## v1.0 release-candidate closeout
+## Current upgrade
 
-- **Completed:** synthetic core manual UAT, candidate UX fixes, reported Django/browser/audit testing, integrated history and initial migration review.
-- **Pending:** CI on final documentation commit, exact merge-candidate review and any isolated upgrade rehearsal needed for approval.
-- **Approval required:** merge commit into `main`, followed by merged-main verification and reconciliation of superseded original PRs.
-- **Future separate decisions:** release tag, public portfolio presentation, deployment, feature expansion.
+- Open PRs #49–#55 provide portal entry, expanded verification, native CUA infrastructure and appointment guidance.
+- [Issue #56](https://github.com/KateK77/careflow-ehr/issues/56) delivers a cohesive workspace presentation, clearer patient/appointment actions, readable audits and nonduplicated allergy errors.
+- The upgrade stacks on PR #55. No existing PR is merged or retargeted by this work.
+- Manual upgrade UAT, paid native CUA, merging, tagging and deployment require separate approval.
+- [Feedback disposition and acceptance](iterations/0027-workspace-upgrade/feedback.md) distinguish existing fixes, this upgrade and deferred business-rule changes.
 
 ## Deferred engineering and research directions
 

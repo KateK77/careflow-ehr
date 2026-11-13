@@ -674,3 +674,40 @@ footer {
   flex-wrap: wrap;
   gap: 4px 12px;
 }
+
+/* Keep the appointment's required fields prominent at laptop viewport heights. */
+.appointment-search {
+  padding: 12px 18px;
+  margin: 12px 0;
+}
+
+.appointment-search summary {
+  cursor: pointer;
+  font-weight: 650;
+}
+
+.appointment-search[open] summary {
+  margin-bottom: 12px;
+}
+
+.appointment-search .filters {
+  margin-bottom: 10px;
+}
+
+.appointment-form {
+  padding: 18px 20px;
+  margin: 12px 0;
+}
+
+.appointment-form h2 {
+  margin-bottom: 8px;
+}
+
+.appointment-form .form-grid {
+  gap: 12px 20px;
+}
+
+.appointment-form .form-actions {
+  margin-top: 14px;
+  padding-top: 12px;
+}

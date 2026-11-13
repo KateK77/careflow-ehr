@@ -1,13 +1,13 @@
-# 医疗软件原型迭代实验
+# Medical Software Prototype Experiment
 
-打开 [index.html](index.html) 查看三个独立原型。无需安装依赖。建议从本目录运行 `python -m http.server 8080 --bind 127.0.0.1`，在浏览器访问 `http://127.0.0.1:8080/`。使用本地服务器可让预约、消息与收藏在同一个浏览器来源下持久保存。
+Open [index.html](index.html) to launch the three browser prototypes. No dependencies are required. To keep appointments, messages, and saved papers available after refreshing, run `python -m http.server 8080 --bind 127.0.0.1` from this directory and visit `http://127.0.0.1:8080/`.
 
-- [OpenEvidence 原型](openevidence.html) 根据主题词匹配固定文献，显示预写摘要和原文链接。试试 DAPA-CKD、SPRINT、semaglutide 以及没有覆盖的问题。
-- [MyChart 原型](mychart.html) 查看模拟检验结果、预约和取消、保存模拟消息。请使用虚构内容。预约与消息保存在当前浏览器。
-- [PubMed 原型](pubmed.html) 检索四篇样本文献，按年份和出版类型筛选，通过 PMID 打开原文，或在当前浏览器收藏。
+- [OpenEvidence prototype](openevidence.html) matches questions against a fixed set of studies and shows prepared summaries, PubMed citations, and question history. Try DAPA-CKD, SPRINT, semaglutide, and a topic outside the sample library.
+- [MyChart prototype](mychart.html) uses a fictional patient record. Review test results and the health summary, book or cancel a demo visit, save a demo message, request a mock refill, or simulate a payment.
+- [PubMed prototype](pubmed.html) searches four sample articles. Filter by year, publication type, title, or journal. Sort results, save papers, export PMIDs, or open the corresponding search on PubMed.
 
-[第 1 轮记录](rounds/01.md)
+[Round 1 notes](rounds/01.md)
 
-三个原型共用一个仓库，每轮保留代码、生成描述和版本标签（`round-01` 至 `round-05`）。每轮体验反馈进入下一轮的生成描述。可在任意一轮结束开发。
+Each app may be developed and reviewed in its own Codex chat. Keep the source code, generation prompt, version, and feedback for each round in the shared CareFlow EHR repository. Use the user's feedback to start the next round for that app. Each app can run for up to five rounds and may finish early.
 
-最终版本冻结后，AI 按简单、中等、困难编写测试并执行。简单用例覆盖单步主流程，中等用例覆盖组合筛选或刷新后的持久性，困难用例覆盖异常输入、重复操作和跨流程状态。报告按软件和难度列出通过数、实际执行数、通过率及失败用例。
+After an app's final version is frozen, have AI write and run easy, medium, and hard tests. Include single-step workflows, combined operations and persistence, and invalid inputs or repeated actions. Report passes, tests executed, pass rate, and failures for each app and difficulty level.

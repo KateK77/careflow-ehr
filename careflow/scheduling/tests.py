@@ -61,6 +61,15 @@ class SchedulingTests(SchedulingFixture, TestCase):
         self.make_fixture()
         self.client.force_login(self.actor)
 
+    def test_new_appointment_separates_optional_search_from_required_fields(self):
+        response = self.client.get(reverse("appointment_create"))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Optional: filter the patient list")
+        self.assertContains(response, "Appointment details — required to schedule")
+        self.assertContains(response, "This search does not create an appointment")
+        self.assertContains(response, "Select a patient and physician")
+        self.assertEqual(Appointment.objects.count(), 0)
+
     def payload(self, **changes):
         values = {
             "patient": str(self.patient.pk), "physician": str(self.doctor.pk),

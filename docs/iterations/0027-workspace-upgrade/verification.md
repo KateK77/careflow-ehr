@@ -58,7 +58,7 @@ No claim of comprehensive WCAG conformance, every browser/zoom combination, prod
 
 ## CI and acceptance boundary
 
-GitHub CI runs Django checks, default tests and migration consistency; it does not run Chromium or the offline CUA suite. Published PR run links are the authoritative remote evidence and must be distinguished from local results.
+GitHub CI runs Django checks, default tests and migration consistency; it does not run Chromium or the offline CUA suite. The [implementation PR CI run](https://github.com/KateK77/careflow-ehr/actions/runs/43528162249) passed for commit `81cbc2b2e9b97513c5adf539912fdcd29ad735a2`: environment setup, Django checks, tests and migration consistency all succeeded. The subsequent traceability-only commit receives a separate run; its final status is recorded on [PR #57](https://github.com/KateK77/careflow-ehr/pull/57).
 
 Manual acceptance of this upgrade is pending. Previously completed manual UAT remains historical evidence; no duplicate retesting is requested for already accepted unchanged scenarios. All paid native retries remain subject to separate approval.
 

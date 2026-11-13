@@ -2,6 +2,8 @@
 
 - Issue: [#56](https://github.com/KateK77/careflow-ehr/issues/56).
 - Branch: `ui/unified-workspace-upgrade`.
+- PR: [#57](https://github.com/KateK77/careflow-ehr/pull/57), targeting PR #55.
+- Implementation: [81cbc2b2e9b97513c5adf539912fdcd29ad735a2](https://github.com/KateK77/careflow-ehr/commit/81cbc2b2e9b97513c5adf539912fdcd29ad735a2).
 - Base: `fix/appointment-form-guidance`, PR #55, commit `214a309f52af642b4c59be85f3bc7ec646766815`.
 - Main integration reference: `a9e0913b626b88908ad2ca3041d2ec9497ba7d15`, PR #47.
 - Original approval and translation: [prompt](prompt.md).

@@ -45,6 +45,28 @@ class CaptureRetryTests(unittest.TestCase):
         self.assertEqual(capture.call_count, 2)
         self.assertEqual(self.driver.actions, [])
 
+    def test_committed_write_redirect_does_not_block_next_navigation(self):
+        patient_url = self.driver.origin + "/login/"
+        def capture_with_late_redirect(**_):
+            self.driver.write_destination = patient_url
+            self.driver.page.url = patient_url
+            return b"png"
+
+        capture = self.driver.page.screenshot
+        def capture_once(**kwargs):
+            if capture.call_count == 1:
+                return capture_with_late_redirect(**kwargs)
+            return b"png"
+
+        capture.side_effect = capture_once
+        self.driver.screenshot()
+        self.assertIsNone(self.driver.write_destination)
+        self.driver.page.url = self.driver.origin + "/"
+        self.driver.page.screenshot.side_effect = None
+        self.driver.page.screenshot.return_value = b"png"
+        self.driver.screenshot()
+        self.driver.page.wait_for_url.assert_called_once_with(patient_url, wait_until="domcontentloaded", timeout=5000)
+
     def test_unrelated_capture_error_is_not_retried(self):
         capture = self.driver.page.screenshot
         capture.side_effect = Error("Browser target closed")

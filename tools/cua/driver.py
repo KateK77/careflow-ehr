@@ -244,18 +244,23 @@ class BrowserDriver(ComputerDriver):
             return path
         return None
 
+    def _wait_for_write_destination(self):
+        destination = self.write_destination
+        if destination:
+            self.screenshot_stage = "write_navigation"
+            if not self.allows(destination):
+                raise RuntimeError("An approved write redirected outside the scenario.")
+            self.page.wait_for_url(destination, wait_until="domcontentloaded", timeout=5000)
+            if self.write_destination == destination:
+                self.write_destination = None
+
     def _capture_png(self):
         for attempt in range(3):
             self._check()
             self.screenshot_stage = "route_drain"
             self._drain_routes()
             self._check()
-            if self.write_destination:
-                self.screenshot_stage = "write_navigation"
-                if not self.allows(self.write_destination):
-                    raise RuntimeError("An approved write redirected outside the scenario.")
-                self.page.wait_for_url(self.write_destination, wait_until="domcontentloaded", timeout=5000)
-                self.write_destination = None
+            self._wait_for_write_destination()
             self.screenshot_stage = "document_load"
             self.page.wait_for_load_state("load", timeout=5000)
             self._check()
@@ -269,7 +274,7 @@ class BrowserDriver(ComputerDriver):
             }
             masked = [self.page.locator('input[type="password"]')] if self.policy is not None else []
             try:
-                return self.page.screenshot(timeout=3000, animations="disabled", scale="css", mask=masked)
+                png = self.page.screenshot(timeout=3000, animations="disabled", scale="css", mask=masked)
             except Error as error:
                 if attempt == 2 or str(error).partition("\n")[0] not in {
                     CAPTURE_DOCUMENT_REPLACED, CAPTURE_NAVIGATION_PENDING,
@@ -277,6 +282,12 @@ class BrowserDriver(ComputerDriver):
                     raise
                 # Yield to Chromium so the incoming document can commit before the next capture.
                 self.page.wait_for_timeout(100)
+                continue
+            if not self.write_destination:
+                return png
+            # A write response arrived during capture. Discard the possibly stale image.
+            self._wait_for_write_destination()
+        raise RuntimeError("Navigation did not settle within the screenshot attempt limit.")
 
     def screenshot(self):
         self.capture_state = None

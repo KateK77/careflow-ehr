@@ -1,5 +1,44 @@
 """Content-free diagnostics for the native ComputerToolset smoke."""
 from openai import APIError
+from playwright.sync_api import Error as PlaywrightError
+
+
+CAPTURE_DOCUMENT_REPLACED = "Page.screenshot: Execution context was destroyed, most likely because of a navigation"
+
+CAPTURE_NAVIGATION_PENDING = "Page.screenshot: Frame is currently attempting a navigation"
+
+
+class KeypressRejected(ValueError):
+    def __init__(self, signature):
+        super().__init__("Keyboard shortcut is outside the smoke-test policy.")
+        self.signature = signature
+
+
+def safe_exception_chain(error):
+    """Keep exception types and recognized browser signatures, omitting raw messages."""
+    chain, seen = [], set()
+    while error is not None and id(error) not in seen and len(chain) < 6:
+        seen.add(id(error))
+        entry = {"class": type(error).__name__}
+        if isinstance(error, KeypressRejected):
+            entry["signature"] = error.signature
+        if isinstance(error, PlaywrightError):
+            headline = str(error).partition("\n")[0]
+            if headline == CAPTURE_DOCUMENT_REPLACED:
+                entry["signature"] = "capture_document_replaced"
+            elif headline == CAPTURE_NAVIGATION_PENDING:
+                entry["signature"] = "capture_navigation_pending"
+            elif "Route.fetch: Request context disposed" in headline:
+                entry["signature"] = "route_request_context_disposed"
+            elif headline.startswith("Page.screenshot: Timeout "):
+                entry["signature"] = "capture_timeout"
+            elif headline.startswith("Page.screenshot: Target page, context or browser has been closed"):
+                entry["signature"] = "capture_target_closed"
+            elif headline.startswith("Page.screenshot: Protocol error"):
+                entry["signature"] = "capture_protocol_error"
+        chain.append(entry)
+        error = error.__cause__ or (None if error.__suppress_context__ else error.__context__)
+    return chain
 
 
 API_CODES = {
@@ -36,8 +75,14 @@ class Diagnostics:
         self.status = None
         self.event = None
         self.actions = []
+        self.completed_actions = []
+        self.checkpoints = []
+        self.checks = {}
         self.usage = []
         self.evidence_ready = False
+        self.screenshot_stage = None
+        self.capture_state = None
+        self.exception_chain = []
 
     def capture_usage(self, response):
         if response.status_code != 200:
@@ -77,6 +122,8 @@ class Diagnostics:
 
     def tool_event(self, event):
         stage, reason, member = event["stage"], event["reason"], event["member"]
+        if stage == "action" and reason == "completed" and member in ACTION_MEMBERS:
+            self.completed_actions.append(member)
         if stage in {"approval", "action"} and reason in FAILURE_REASONS:
             if stage == "approval":
                 self.stage = "computer_approval"
@@ -85,6 +132,7 @@ class Diagnostics:
             self.event = (reason, member if member in ACTION_MEMBERS else "none")
 
     def failure(self, error):
+        self.exception_chain = safe_exception_chain(error)
         status = getattr(error, "status_code", self.status)
         response = getattr(error, "response", None)
         detail = getattr(getattr(response, "incomplete_details", None), "reason", None)
@@ -105,7 +153,7 @@ class Diagnostics:
             param = error.param
             if isinstance(param, str) and (param == "model" or param == "tools" or param.startswith("tools[")):
                 compatibility = "API rejected the model or tool configuration"
-        if isinstance(error, APIError):
+        if isinstance(error, APIError) and self.stage != "request_budget":
             self.stage = "responses_request" if not self.status else "responses_api"
         if self.status is not None:
             sent = "confirmed by HTTP response"

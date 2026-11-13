@@ -12,12 +12,27 @@ from openai.types.responses import ResponseComputerToolCall
 from openai.types.responses.computer_action import Click, Keypress, Scroll, Type
 from playwright.sync_api import sync_playwright
 
-from diagnostics import Diagnostics
+from diagnostics import Diagnostics, safe_exception_chain
 from driver import BrowserDriver
 from smoke import ROOT, native_run, qa_site, verify_login
 
 
 class ComputerSmokeTests(unittest.TestCase):
+    def test_exception_chain_keeps_only_safe_browser_signature(self):
+        from playwright.sync_api import Error
+
+        try:
+            try:
+                raise Error("Page.screenshot: Execution context was destroyed, most likely because of a navigation"
+                            "\nCookie: synthetic-secret")
+            except Error as cause:
+                raise RuntimeError("Authorization: synthetic-secret") from cause
+        except RuntimeError as error:
+            self.assertEqual(safe_exception_chain(error), [
+                {"class": "RuntimeError"},
+                {"class": "Error", "signature": "capture_document_replaced"},
+            ])
+
     def test_patient_sdk_continues_with_screenshot_and_same_browser(self):
         diagnostic = Diagnostics()
         with tempfile.TemporaryDirectory(prefix="careflow-cua-test-") as temp:

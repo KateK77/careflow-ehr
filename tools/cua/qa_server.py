@@ -59,7 +59,7 @@ def main():
         fixture.release()
         users = {"owner": fixture.portal_a, "patient": fixture.portal_b, "physician": fixture.physician}
         cookie = None
-        if actor != "anonymous":
+        if actor in users:
             client = Client()
             client.force_login(users[actor])
             cookie = {"name": settings.SESSION_COOKIE_NAME,

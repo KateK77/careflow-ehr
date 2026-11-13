@@ -18,7 +18,8 @@ from smoke import ROOT, native_run, qa_site, verify_login
 
 
 class ComputerSmokeTests(unittest.TestCase):
-    def test_sdk_continues_with_screenshot_and_same_browser(self):
+    def test_patient_sdk_continues_with_screenshot_and_same_browser(self):
+        diagnostic = Diagnostics()
         with tempfile.TemporaryDirectory(prefix="careflow-cua-test-") as temp:
             with qa_site(ROOT / ".venv/Scripts/python.exe", Path(temp)) as origin, sync_playwright() as playwright:
                 browser = playwright.chromium.launch(timeout=10000)
@@ -30,7 +31,7 @@ class ComputerSmokeTests(unittest.TestCase):
                     driver = BrowserDriver(context, origin, lambda: False)
                     toolset = ComputerToolset(driver)
                     initial = driver.screenshot()
-                    bounds = driver.page.get_by_role("link", name="Staff Sign In", exact=True).bounding_box()
+                    bounds = driver.page.get_by_role("link", name="Patient Sign In", exact=True).bounding_box()
                     self.assertIsNotNone(bounds)
                     call = ResponseComputerToolCall(
                         type="computer_call", id="cu_fixture", call_id="call_fixture",
@@ -47,6 +48,7 @@ class ComputerSmokeTests(unittest.TestCase):
                         self.assertEqual(data["tools"], [{"type": "computer"}])
                         self.assertFalse(data["store"])
                         if len(requests) == 1:
+                            self.assertIn("Patient Sign In", data["input"][0]["content"][0]["text"])
                             self.assertEqual(data["input"][0]["content"][1]["image_url"], initial["image_url"])
                             output = [call.model_dump(exclude_none=True)]
                         else:
@@ -59,17 +61,24 @@ class ComputerSmokeTests(unittest.TestCase):
                             self.assertNotEqual(output_item["output"]["image_url"], initial["image_url"])
                             output = [{"type": "message", "id": "msg_fixture", "role": "assistant",
                                        "status": "completed", "content": [{"type": "output_text",
-                                       "text": "Staff sign-in verified.", "annotations": []}]}]
+                                       "text": "Patient sign-in verified.", "annotations": []}]}]
                         return httpx.Response(200, json={
                             "id": f"resp_fixture_{len(requests)}", "created_at": 1, "model": "fixture-model",
                             "object": "response", "status": "completed", "output": output, "parallel_tool_calls": False,
                             "tool_choice": "auto", "tools": [{"type": "computer"}],
+                            "usage": {"input_tokens": 1200, "output_tokens": 100, "total_tokens": 1300},
                         })
 
                     with OpenAI(api_key="offline-fixture", base_url="https://api.openai.com/v1", max_retries=0,
-                                http_client=httpx.Client(transport=httpx.MockTransport(respond))) as client:
-                        self.assertEqual(native_run(client, toolset, driver, "fixture-model", initial).status, "completed")
-                    verify_login(driver)
+                                http_client=httpx.Client(transport=httpx.MockTransport(respond),
+                                    event_hooks={"request": [diagnostic.request_started],
+                                                 "response": [diagnostic.response_received, diagnostic.capture_usage]})) as client:
+                        self.assertEqual(native_run(client, toolset, driver, "fixture-model", initial, scenario="patient").status, "completed")
+                    verify_login(driver, "patient")
+                    self.assertEqual(diagnostic.usage_summary(True), {
+                        "input_tokens": 2400, "output_tokens": 200, "responses_with_usage": 2,
+                        "complete": True, "estimated_token_cost_usd": 0.009,
+                    })
                     self.assertFalse(driver.allows("https://example.com/login/"))
                     self.assertFalse(driver.allows(origin + "/app/patients/"))
                     self.assertFalse(driver.allows(origin + "/login/?next=/app/"))
@@ -94,6 +103,8 @@ class ComputerSmokeTests(unittest.TestCase):
         from unittest.mock import Mock
 
         cases = [
+            (429, {"error": {"code": "insufficient_quota", "message": "PRIVATE RESPONSE"}},
+             "responses_api", "insufficient_quota", "confirmed by HTTP response"),
             (400, {"error": {"code": "unsupported_value", "param": "tools[0].type",
                              "message": "PRIVATE RESPONSE"}}, "responses_api", "unsupported_value",
              "API rejected the model or tool configuration"),
@@ -129,6 +140,7 @@ class ComputerSmokeTests(unittest.TestCase):
                                  "confirmed by HTTP response"):
                     self.assertIn(expected, report)
                 self.assertNotIn("PRIVATE", report)
+                self.assertEqual(diagnostic.attempts, 1)
                 driver.screenshot.assert_not_called()
 
     def test_unconfirmed_delivery_and_local_failure_are_distinguished(self):

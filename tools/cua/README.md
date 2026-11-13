@@ -42,3 +42,19 @@ The prior generic `ComputerUseError` line cannot identify the original stage. SD
 ## Issue #50 follow-on
 
 After the live smoke passes, extend the policy and fixtures for scoped synthetic role sessions and writes. Follow the [Issue #50 scenario checklist](../../docs/iterations/0024-workflow-verification/computer-use.md) for the patient login, role denials and clinical handoffs. Review each writable workflow's allowed routes and evidence handling before enabling it. This smoke does not sign in or execute those scenarios.
+
+## Patient Portal sign-in smoke
+
+```powershell
+tools/cua/.venv/Scripts/python.exe tools/cua/smoke.py --scenario patient --mode offline
+```
+
+The first paid patient scenario stops at the visible sign-in form. It sends no credentials and allows no form submission. After explicit approval for this scenario, run from the repository root with the API key already set securely in the process environment:
+
+```powershell
+tools/cua/.venv/Scripts/python.exe tools/cua/smoke.py --scenario patient --mode native --model gpt-5.4 --approve-api-call --evidence-dir .venv/uat-followup/cua-patient-native-01
+```
+
+The evidence directory must be new. The run allows at most three Responses requests, 1,024 output tokens per request and six requested computer actions. Retries are disabled. An HTTP quota error stops the run and is recorded as blocked. PNG evidence is saved for the initial screen, completed SDK action batches and final verification. The JSON report includes requested action types, status and per-run usage totals. Cost uses uncached input pricing for the GPT-5.4 estimate. At 10,000 input tokens and the full 3,072-output-token budget, token charges would be about $0.071. This is an illustrative estimate, not a dollar cap. Screenshots and replayed history affect input usage. Missing usage is flagged, and the estimate excludes any separate fees or account pricing adjustments. [GPT-5.4 rates](https://developers.openai.com/api/docs/models/gpt-5.4)
+
+Further Issue #50 scenarios should be separately approved in this order: linked patient sign-in and isolation, Administrator scheduling and check-in, Nurse assessment, Physician encounter and SOAP, Lab Staff publication and Physician release, Pharmacist handoff, and patient result visibility. Preserve shared synthetic fixture state only for the connected journey. Each scenario needs a scoped browser policy, observable checkpoints and independent budgets before live execution.

@@ -6,7 +6,7 @@ from urllib.parse import urljoin, urlsplit
 from openai import ComputerDriver
 from playwright.sync_api import BrowserContext, Error, Page
 
-from diagnostics import CAPTURE_DOCUMENT_REPLACED, CAPTURE_NAVIGATION_PENDING
+from diagnostics import CAPTURE_DOCUMENT_REPLACED, CAPTURE_NAVIGATION_PENDING, KeypressRejected
 
 
 class BrowserDriver(ComputerDriver):
@@ -209,7 +209,13 @@ class BrowserDriver(ComputerDriver):
         elif self.policy is not None and len(action.keys) == 1 and len(action.keys[0]) == 1 and action.keys[0] in "0123456789":
             self.page.keyboard.press(action.keys[0])
         else:
-            raise ValueError("Keyboard shortcut is outside the smoke-test policy.")
+            if len(action.keys) == 1:
+                signature = "keypress_unrecognized_single_key"
+            elif action.keys:
+                signature = "keypress_disallowed_combination"
+            else:
+                signature = "keypress_empty"
+            raise KeypressRejected(signature)
 
     def type(self, action):
         if len(action.text) > 256 or not action.text.isprintable():

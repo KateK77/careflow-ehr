@@ -2,9 +2,10 @@
 import unittest
 from unittest.mock import Mock
 
+from openai.types.responses.computer_action import Keypress
 from playwright.sync_api import Error
 
-from diagnostics import CAPTURE_DOCUMENT_REPLACED
+from diagnostics import CAPTURE_DOCUMENT_REPLACED, safe_exception_chain
 from driver import BrowserDriver
 
 
@@ -66,6 +67,21 @@ class CaptureRetryTests(unittest.TestCase):
         self.driver.page.screenshot.return_value = b"png"
         self.driver.screenshot()
         self.driver.page.wait_for_url.assert_called_once_with(patient_url, wait_until="domcontentloaded", timeout=5000)
+
+    def test_rejected_keys_record_only_policy_category(self):
+        cases = [
+            (["synthetic-secret"], "keypress_unrecognized_single_key"),
+            (["CTRL", "L"], "keypress_disallowed_combination"),
+            ([], "keypress_empty"),
+        ]
+        for keys, signature in cases:
+            with self.subTest(signature=signature):
+                with self.assertRaises(ValueError) as caught:
+                    self.driver.keypress(Keypress(type="keypress", keys=keys))
+                self.assertEqual(safe_exception_chain(caught.exception), [
+                    {"class": "KeypressRejected", "signature": signature},
+                ])
+        self.driver.page.keyboard.press.assert_not_called()
 
     def test_unrelated_capture_error_is_not_retried(self):
         capture = self.driver.page.screenshot

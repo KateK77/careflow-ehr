@@ -8,12 +8,20 @@ CAPTURE_DOCUMENT_REPLACED = "Page.screenshot: Execution context was destroyed, m
 CAPTURE_NAVIGATION_PENDING = "Page.screenshot: Frame is currently attempting a navigation"
 
 
+class KeypressRejected(ValueError):
+    def __init__(self, signature):
+        super().__init__("Keyboard shortcut is outside the smoke-test policy.")
+        self.signature = signature
+
+
 def safe_exception_chain(error):
     """Keep exception types and recognized browser signatures, omitting raw messages."""
     chain, seen = [], set()
     while error is not None and id(error) not in seen and len(chain) < 6:
         seen.add(id(error))
         entry = {"class": type(error).__name__}
+        if isinstance(error, KeypressRejected):
+            entry["signature"] = error.signature
         if isinstance(error, PlaywrightError):
             headline = str(error).partition("\n")[0]
             if headline == CAPTURE_DOCUMENT_REPLACED:

@@ -136,10 +136,19 @@ class RegistrationTests(unittest.TestCase):
                             "checkbox", name="I confirm this record contains synthetic data only. (required)",
                         )
                         self.assertFalse(confirmation.is_checked())
+                        self.assertTrue(confirmation.is_enabled())
+                        if scenario == "registration-only":
+                            click_and_capture(confirmation)
+                            self.assertTrue(confirmation.is_checked())
+                            click_and_capture(page.locator("label.registration-confirmation"))
+                            self.assertFalse(confirmation.is_checked())
+                            click_and_capture(page.get_by_role("button", name="Save patient"))
+                            self.assertEqual(policy.completed, ["sign_in"])
+                            self.assertEqual(confirmation.evaluate("(input) => input.validity.valueMissing"), True)
                         confirmation.focus()
                         driver.keypress(Keypress(type="keypress", keys=["SPACE"]))
                         self.assertTrue(confirmation.is_checked())
-                        self.assertFalse(page.locator("[name=confirm_duplicate]").is_checked())
+                        self.assertEqual(page.locator("[name=confirm_duplicate]").count(), 0)
                         click_and_capture(page.get_by_role("button", name="Save patient"))
                         self.assertEqual(page.url, origin + "/app/patients/1/")
                     if scenario in {"registration", "appointment-only"}:

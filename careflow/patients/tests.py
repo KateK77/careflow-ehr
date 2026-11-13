@@ -176,6 +176,7 @@ class PatientManagementTests(TestCase):
         data = self.payload(first_name="avery", last_name="Synthetic", dob="1988-04-12")
         response = self.client.post(reverse("patient_create"), data)
         self.assertContains(response, "Potential duplicate")
+        self.assertContains(response, 'name="confirm_duplicate"')
         self.assertEqual(Patient.objects.count(), 1)
         data["confirm_duplicate"] = "on"
         self.assertEqual(self.client.post(reverse("patient_create"), data).status_code, 302)

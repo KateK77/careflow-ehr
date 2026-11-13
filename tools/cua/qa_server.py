@@ -59,13 +59,31 @@ def main():
         fixture.release()
         users = {"owner": fixture.portal_a, "patient": fixture.portal_b, "physician": fixture.physician}
         cookie = None
-        if actor in users:
-            client = Client()
-            client.force_login(users[actor])
+        role = actor.split("-", 1)[0]
+        if role in users:
+            user = users[role]
+            login_path, destination = "/portal/login/", "/portal/"
+            if role == "physician":
+                user.set_password(fixture.password)
+                user.save(update_fields=["password"])
+                login_path, destination = "/login/", "/app/dashboard/"
+            client = Client(enforce_csrf_checks=True, SERVER_NAME="127.0.0.1")
+            client.get(login_path)
+            response = client.post(login_path, {
+                "username": user.username,
+                "password": fixture.password,
+                "csrfmiddlewaretoken": client.cookies[settings.CSRF_COOKIE_NAME].value,
+            })
+            if response.status_code != 302 or response.headers.get("Location") != destination:
+                raise RuntimeError("Synthetic QA authentication did not reach the expected destination.")
             cookie = {"name": settings.SESSION_COOKIE_NAME,
                       "value": client.cookies[settings.SESSION_COOKIE_NAME].value}
         (directory / "fixture.json").write_text(json.dumps({
             "cookie": cookie, "result": fixture.original.pk,
+            "visible_identity": {
+                "patient-dashboard": str(fixture.foreign),
+                "owner-result": str(fixture.patient),
+            }.get(actor),
             "denied_markers": ["LAB-01", "LAB-02", "Synthetic Lab", "Synthetic Other", "SYN-A", "demo-U"],
         }), encoding="utf8")
         django_application = application

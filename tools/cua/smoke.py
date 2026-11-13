@@ -29,9 +29,9 @@ SCENARIOS = {
     "patient": ("Patient Sign In", "/portal/login/", "Sign in to the Patient Portal", 3, 6),
     "registration": ("Staff Sign In", "/login/", "Staff sign in", MAX_REQUESTS, MAX_ACTIONS),
 }
-SCENARIOS.update({f"rbac-{actor}": (None, None, "RBAC probes", rbac.ANONYMOUS_REQUESTS if actor.startswith("anonymous-")
-                                   else rbac.MAX_REQUESTS, rbac.MAX_ACTIONS)
-                  for actor in ("anonymous-staff", "anonymous-patient", "patient", "owner", "physician")})
+SCENARIOS.update({f"rbac-{actor}": (None, None, "RBAC probes", rbac.MAX_REQUESTS, rbac.MAX_ACTIONS)
+                  for actor in ("anonymous-staff", "anonymous-patient", "patient-dashboard", "patient-other-result",
+                                "owner-result", "physician-directory", "physician-demographic-denial")})
 OUTPUT_LIMIT = 1024
 GPT54_MODELS = {"gpt-5.4", "gpt-5.4-2026-03-05"}
 
@@ -257,7 +257,8 @@ def run(args, diagnostics=None):
                         diagnostics.checks = {
                             label: {"verified": label in policy.completed,
                                     "http_status": policy.observations.get(label),
-                                    "redirect": policy.redirects.get(label)}
+                                    "redirect": policy.redirects.get(label),
+                                    "destination": policy.destinations.get(label)}
                             for label, *_ in policy.probes
                         }
                 try:

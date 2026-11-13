@@ -7,6 +7,7 @@ from openai import ComputerDriver
 from playwright.sync_api import BrowserContext, Error, Page
 
 from diagnostics import CAPTURE_DOCUMENT_REPLACED
+from rbac import LAUNCHER, RBACPolicy
 
 
 class BrowserDriver(ComputerDriver):
@@ -43,7 +44,8 @@ class BrowserDriver(ComputerDriver):
         self.page: Page = context.new_page()
         self.popup_opened = False
         self.page.on("popup", self._close_popup)
-        self.page.goto(origin + "/", wait_until="domcontentloaded")
+        self.rbac = isinstance(policy, RBACPolicy)
+        self.page.goto(origin + (LAUNCHER if self.rbac else "/"), wait_until="domcontentloaded")
 
     def _close_popup(self, popup):
         self.popup_opened = True
@@ -51,6 +53,8 @@ class BrowserDriver(ComputerDriver):
 
     def allows(self, url):
         parts = urlsplit(url)
+        if self.rbac:
+            return f"{parts.scheme}://{parts.netloc}" == self.origin and self.policy.allows(parts)
         return (f"{parts.scheme}://{parts.netloc}" == self.origin
                 and not parts.query
                 and (parts.path in {"/", "/login/", "/portal/login/"} or parts.path.startswith("/static/")
@@ -106,6 +110,13 @@ class BrowserDriver(ComputerDriver):
             route.abort("failed")
             return
         try:
+            if self.rbac:
+                try:
+                    self.policy.observe_read(route.request, response)
+                except RuntimeError as error:
+                    self.policy_error = error
+                    route.abort("blockedbyclient")
+                    return
             if observe_write:
                 try:
                     self.policy.observe_post(response.status)
@@ -132,6 +143,9 @@ class BrowserDriver(ComputerDriver):
 
     def before_action(self, action):
         self._check()
+        if self.rbac and (action.type not in {"click", "screenshot", "keypress", "wait"}
+                          or action.type == "keypress" and action.keys != ["BACKSPACE"]):
+            return False
         if self.remaining <= 0:
             return False
         self.remaining -= 1
@@ -154,7 +168,7 @@ class BrowserDriver(ComputerDriver):
             raise ValueError("Only the primary mouse button is enabled.")
         x, y = self._point(action)
         destination = None
-        if self.page.url == self.origin + "/":
+        if self.rbac or self.page.url == self.origin + "/":
             destination = self.page.evaluate(
                 """([x, y]) => {
                     const link = document.elementFromPoint(x, y)?.closest('a[href]');
@@ -162,6 +176,13 @@ class BrowserDriver(ComputerDriver):
                 }""",
                 [x, y],
             )
+        if self.rbac:
+            expected = self.policy.destination(destination)
+            if self.page.url != self.origin + LAUNCHER or not destination or not self.allows(destination) or not expected:
+                raise RuntimeError("Only the designated QA probe links may be clicked.")
+            self.page.mouse.click(x, y)
+            self.page.wait_for_url(self.origin + expected, wait_until="domcontentloaded", timeout=5000)
+            return
         self.page.mouse.click(x, y)
         if destination in {self.origin + "/login/", self.origin + "/portal/login/"}:
             # A generic load-state wait can still observe the outgoing document.
@@ -197,7 +218,12 @@ class BrowserDriver(ComputerDriver):
         self.page.mouse.wheel(action.scroll_x, action.scroll_y)
 
     def keypress(self, action):
-        if [key.upper() for key in action.keys] == ["SHIFT", "TAB"]:
+        if self.rbac:
+            if action.keys != ["BACKSPACE"] or self.page.url == self.origin + LAUNCHER:
+                raise RuntimeError("Only return to the QA launcher is permitted.")
+            self.page.go_back(wait_until="domcontentloaded", timeout=5000)
+            self.page.wait_for_url(self.origin + LAUNCHER, timeout=5000)
+        elif [key.upper() for key in action.keys] == ["SHIFT", "TAB"]:
             self.page.keyboard.press("Shift+Tab")
         elif len(action.keys) == 1 and (key := self.KEY_ALIASES.get(action.keys[0].upper())):
             self.page.keyboard.press(key)
@@ -219,7 +245,9 @@ class BrowserDriver(ComputerDriver):
         self.page.keyboard.insert_text(action.text)
 
     def wait(self, action):
+        self._check()
         self.page.wait_for_timeout(250)
+        self._check()
 
     def _capture_png(self):
         for attempt in range(3):
@@ -236,6 +264,9 @@ class BrowserDriver(ComputerDriver):
             self.screenshot_stage = "document_load"
             self.page.wait_for_load_state("load", timeout=5000)
             self._check()
+            if self.rbac:
+                self.screenshot_stage = "rbac_screen_verification"
+                self.policy.verify_screen(self.page, self.origin)
             self.screenshot_stage = "playwright_capture"
             masked = [self.page.locator('input[type="password"]')] if self.policy is not None else []
             try:

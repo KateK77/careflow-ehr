@@ -47,6 +47,36 @@ def main():
         (directory / "fixture.json").write_text(json.dumps({
             "password": password, "physician": user.pk, "start": start.strftime("%Y-%m-%dT%H:%M"),
         }), encoding="utf8")
+    if len(sys.argv) == 3 and sys.argv[2].startswith("rbac-"):
+        from django.conf import settings
+        from django.test import Client
+        from careflow.portal.tests import PortalFixture
+        from rbac import LAUNCHER, launcher_html
+
+        actor = sys.argv[2].removeprefix("rbac-")
+        fixture = PortalFixture()
+        fixture.setup_portal()
+        fixture.release()
+        users = {"owner": fixture.portal_a, "patient": fixture.portal_b, "physician": fixture.physician}
+        cookie = None
+        if actor != "anonymous":
+            client = Client()
+            client.force_login(users[actor])
+            cookie = {"name": settings.SESSION_COOKIE_NAME,
+                      "value": client.cookies[settings.SESSION_COOKIE_NAME].value}
+        (directory / "fixture.json").write_text(json.dumps({
+            "cookie": cookie, "result": fixture.original.pk,
+            "denied_markers": ["LAB-01", "LAB-02", "Synthetic Lab", "Synthetic Other", "SYN-A", "demo-U"],
+        }), encoding="utf8")
+        django_application = application
+
+        def application(environ, start_response):
+            if environ["PATH_INFO"] == LAUNCHER and environ["REQUEST_METHOD"] == "GET":
+                start_response("200 OK", [("Content-Type", "text/html; charset=utf-8"),
+                                          ("Cache-Control", "no-store")])
+                return [launcher_html(actor, fixture.original.pk).encode("utf8")]
+            return django_application(environ, start_response)
+
     with make_server("127.0.0.1", 0, application, handler_class=QuietHandler) as server:
         ready = directory / "server-port"
         staging = ready.with_suffix(".tmp")

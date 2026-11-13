@@ -13,13 +13,14 @@ from pathlib import Path
 
 from openai import ComputerToolset, DefaultHttpxClient, OpenAI
 from openai.types.responses import ResponseComputerToolCall
-from openai.types.responses.computer_action import Click
+from openai.types.responses.computer_action import Click, Keypress, Wait
 from playwright.sync_api import sync_playwright
 
 from diagnostics import Diagnostics
 from driver import BrowserDriver
 from registration import MAX_ACTIONS, MAX_OUTPUT, MAX_REQUESTS, MAX_SECONDS, RegistrationPolicy, check_request_budget
 from verify_registration import verify
+import rbac
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -28,6 +29,9 @@ SCENARIOS = {
     "patient": ("Patient Sign In", "/portal/login/", "Sign in to the Patient Portal", 3, 6),
     "registration": ("Staff Sign In", "/login/", "Staff sign in", MAX_REQUESTS, MAX_ACTIONS),
 }
+SCENARIOS.update({f"rbac-{actor}": (None, None, "RBAC probes", rbac.ANONYMOUS_REQUESTS if actor == "anonymous"
+                                   else rbac.MAX_REQUESTS, rbac.MAX_ACTIONS)
+                  for actor in ("anonymous", "patient", "owner", "physician")})
 OUTPUT_LIMIT = 1024
 GPT54_MODELS = {"gpt-5.4", "gpt-5.4-2026-03-05"}
 
@@ -96,9 +100,10 @@ def native_run(client, toolset, driver, model, initial, *, on_diagnostic=None, s
             "tool_choice": "auto",
             "parallel_tool_calls": False,
             "store": False,
-            "max_output_tokens": MAX_OUTPUT if scenario == "registration" else OUTPUT_LIMIT,
+            "max_output_tokens": (rbac.MAX_OUTPUT if scenario.startswith("rbac-") else
+                                  MAX_OUTPUT if scenario == "registration" else OUTPUT_LIMIT),
             "input": [{"role": "user", "content": [
-                {"type": "input_text", "text": driver.policy.prompt() if scenario == "registration" else task_for(scenario)},
+                {"type": "input_text", "text": driver.policy.prompt() if scenario == "registration" or scenario.startswith("rbac-") else task_for(scenario)},
                 {"type": "input_image", "image_url": initial["image_url"], "detail": "original"},
             ]}],
         },
@@ -127,12 +132,32 @@ def offline_rehearsal(toolset, driver, scenario):
         raise RuntimeError("SDK did not return a screenshot.")
 
 
+def offline_rbac(toolset, driver, on_diagnostic):
+    for index, (label, *_) in enumerate(driver.policy.probes):
+        if index:
+            action = Keypress(type="keypress", keys=["BACKSPACE"])
+            toolset.execute(ResponseComputerToolCall(
+                type="computer_call", id=f"back_{index}", call_id=f"back_{index}",
+                status="completed", pending_safety_checks=[], actions=[action],
+            ), before_action=driver.before_action, cancelled=driver.cancelled, on_diagnostic=on_diagnostic)
+        bounds = driver.page.get_by_role("link", name=label, exact=True).bounding_box()
+        action = Click(type="click", button="left", x=int(bounds["x"] + bounds["width"] / 2),
+                       y=int(bounds["y"] + bounds["height"] / 2))
+        toolset.execute(ResponseComputerToolCall(
+            type="computer_call", id=f"probe_{index}", call_id=f"probe_{index}",
+            status="completed", pending_safety_checks=[], actions=[action, Wait(type="wait")] if index == 0 else [action],
+        ), before_action=driver.before_action, cancelled=driver.cancelled, on_diagnostic=on_diagnostic)
+
+
 def run(args, diagnostics=None):
     diagnostics = diagnostics if diagnostics is not None else Diagnostics()
     if args.mode == "native" and (not args.approve_api_call or not args.model or not os.environ.get("OPENAI_API_KEY")):
         raise ValueError("Native mode requires explicit API approval, a model and OPENAI_API_KEY in the environment.")
     scenario = args.scenario
     registration = scenario == "registration"
+    security = scenario.startswith("rbac-")
+    if security and args.mode == "native" and (args.model not in GPT54_MODELS or not args.evidence_dir):
+        raise ValueError("Native RBAC requires GPT-5.4 and a new evidence directory.")
     if registration and (args.mode != "native" or args.model not in GPT54_MODELS or not args.evidence_dir):
         raise ValueError("Registration requires native mode, GPT-5.4 and a new evidence directory.")
     if args.evidence_dir:
@@ -143,7 +168,7 @@ def run(args, diagnostics=None):
     with tempfile.TemporaryDirectory(prefix="careflow-cua-") as temporary:
         directory = Path(temporary)
         with qa_site(args.django_python.resolve(strict=True), directory,
-                     "registration" if registration else None) as origin, sync_playwright() as playwright:
+                     scenario if registration or security else None) as origin, sync_playwright() as playwright:
             diagnostics.stage = "browser_launch"
             browser = playwright.chromium.launch(timeout=10000, env=local_environment())
             context = None
@@ -155,6 +180,13 @@ def run(args, diagnostics=None):
                 )
                 deadline = time.monotonic() + (MAX_SECONDS if registration else 90)
                 policy = RegistrationPolicy(json.loads((directory / "fixture.json").read_text(encoding="utf8"))) if registration else None
+                if security:
+                    fixture = json.loads((directory / "fixture.json").read_text(encoding="utf8"))
+                    policy = rbac.RBACPolicy(scenario.removeprefix("rbac-"), fixture)
+                    if fixture["cookie"]:
+                        context.add_cookies([{**fixture["cookie"], "url": origin,
+                                              "httpOnly": True, "sameSite": "Lax"}])
+                    deadline = time.monotonic() + rbac.MAX_SECONDS
                 if policy:
                     diagnostics.checkpoints = policy.completed
                 diagnostics.stage = "landing_navigation"
@@ -170,6 +202,13 @@ def run(args, diagnostics=None):
                 if args.mode == "native":
                     diagnostics.stage = "native_sdk_setup"
                     def check_budget(request):
+                        if security:
+                            usage = diagnostics.usage_summary(True)
+                            if (time.monotonic() >= deadline or diagnostics.attempts >= SCENARIOS[scenario][3]
+                                    or diagnostics.attempts and (not usage['complete'] or
+                                    usage['estimated_token_cost_usd'] >= rbac.ESTIMATE_STOP_USD)):
+                                diagnostics.stage = 'request_budget'
+                                raise RuntimeError('RBAC request budget exhausted.')
                         if registration:
                             try:
                                 check_request_budget(diagnostics)
@@ -189,7 +228,10 @@ def run(args, diagnostics=None):
                         raise RuntimeError("The native run did not complete a click.")
                 else:
                     diagnostics.stage = "offline_dispatch"
-                    offline_rehearsal(toolset, driver, scenario)
+                    if security:
+                        offline_rbac(toolset, driver, diagnostics.tool_event)
+                    else:
+                        offline_rehearsal(toolset, driver, scenario)
                 diagnostics.stage = "login_verification"
                 if registration:
                     driver._check()
@@ -201,6 +243,9 @@ def run(args, diagnostics=None):
                     if not all(diagnostics.checks.values()) or len(policy.completed) != 5:
                         raise RuntimeError("The final QA records do not match the approved scenario.")
                     heading = "Registration, appointment and check-in"
+                elif security:
+                    if len(policy.completed) != len(policy.probes):
+                        raise RuntimeError('The run did not capture all required RBAC probes.')
                 else:
                     verify_login(driver, scenario)
                 diagnostics.stage = "final_screenshot"
@@ -208,6 +253,12 @@ def run(args, diagnostics=None):
             finally:
                 if driver is not None:
                     diagnostics.screenshot_stage = driver.screenshot_stage
+                    if security:
+                        diagnostics.checks = {
+                            label: {"verified": label in policy.completed,
+                                    "http_status": policy.observations.get(label)}
+                            for label, *_ in policy.probes
+                        }
                 try:
                     if driver is not None:
                         driver.close()

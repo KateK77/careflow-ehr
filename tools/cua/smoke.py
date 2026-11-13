@@ -224,6 +224,7 @@ def run(args, diagnostics=None):
             finally:
                 if driver is not None:
                     diagnostics.screenshot_stage = driver.screenshot_stage
+                    diagnostics.capture_state = driver.capture_state
                 try:
                     if driver is not None:
                         driver.close()
@@ -266,6 +267,9 @@ def main():
                    "completed_checkpoints": diagnostics.checkpoints,
                    "checks": diagnostics.checks,
                    "screenshot_stage": diagnostics.screenshot_stage if diagnostics.stage in {
+                       "computer_screenshot", "initial_screenshot", "final_screenshot"
+                   } else None,
+                   "capture_state": diagnostics.capture_state if diagnostics.stage in {
                        "computer_screenshot", "initial_screenshot", "final_screenshot"
                    } else None,
                    "exception_chain": diagnostics.exception_chain,

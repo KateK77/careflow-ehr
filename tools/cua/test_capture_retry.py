@@ -27,6 +27,24 @@ class CaptureRetryTests(unittest.TestCase):
             self.driver.screenshot()
         self.assertEqual(capture.call_count, 3)
 
+    def test_failed_capture_preserves_only_allowlisted_page_state(self):
+        self.driver.page.screenshot.side_effect = Error("Page.screenshot: Protocol error (private detail)")
+        with self.assertRaises(Error):
+            self.driver.screenshot()
+        self.assertEqual(self.driver.capture_state, {
+            "path": "/", "attempt": 1, "load_wait_completed": True,
+            "routes_in_flight": 0, "page_closed": False,
+        })
+        self.assertIsNone(self.driver._capture_path(self.driver.origin + "/login/?private=secret"))
+        self.assertIsNone(self.driver._capture_path("https://example.com/"))
+
+    def test_pending_navigation_retries_without_replaying_actions(self):
+        capture = self.driver.page.screenshot
+        capture.side_effect = [Error("Page.screenshot: Frame is currently attempting a navigation"), b"png"]
+        self.assertEqual(self.driver.screenshot()["image_url"], "data:image/png;base64,cG5n")
+        self.assertEqual(capture.call_count, 2)
+        self.assertEqual(self.driver.actions, [])
+
     def test_unrelated_capture_error_is_not_retried(self):
         capture = self.driver.page.screenshot
         capture.side_effect = Error("Browser target closed")

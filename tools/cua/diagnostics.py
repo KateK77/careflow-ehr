@@ -5,6 +5,8 @@ from playwright.sync_api import Error as PlaywrightError
 
 CAPTURE_DOCUMENT_REPLACED = "Page.screenshot: Execution context was destroyed, most likely because of a navigation"
 
+CAPTURE_NAVIGATION_PENDING = "Page.screenshot: Frame is currently attempting a navigation"
+
 
 def safe_exception_chain(error):
     """Keep exception types and recognized browser signatures, omitting raw messages."""
@@ -16,8 +18,16 @@ def safe_exception_chain(error):
             headline = str(error).partition("\n")[0]
             if headline == CAPTURE_DOCUMENT_REPLACED:
                 entry["signature"] = "capture_document_replaced"
+            elif headline == CAPTURE_NAVIGATION_PENDING:
+                entry["signature"] = "capture_navigation_pending"
             elif "Route.fetch: Request context disposed" in headline:
                 entry["signature"] = "route_request_context_disposed"
+            elif headline.startswith("Page.screenshot: Timeout "):
+                entry["signature"] = "capture_timeout"
+            elif headline.startswith("Page.screenshot: Target page, context or browser has been closed"):
+                entry["signature"] = "capture_target_closed"
+            elif headline.startswith("Page.screenshot: Protocol error"):
+                entry["signature"] = "capture_protocol_error"
         chain.append(entry)
         error = error.__cause__ or (None if error.__suppress_context__ else error.__context__)
     return chain
@@ -63,6 +73,7 @@ class Diagnostics:
         self.usage = []
         self.evidence_ready = False
         self.screenshot_stage = None
+        self.capture_state = None
         self.exception_chain = []
 
     def capture_usage(self, response):

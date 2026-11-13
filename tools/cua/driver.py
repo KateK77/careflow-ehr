@@ -6,7 +6,7 @@ from urllib.parse import urljoin, urlsplit
 from openai import ComputerDriver
 from playwright.sync_api import BrowserContext, Error, Page
 
-from diagnostics import CAPTURE_DOCUMENT_REPLACED
+from diagnostics import CAPTURE_DOCUMENT_REPLACED, CAPTURE_NAVIGATION_PENDING
 
 
 class BrowserDriver(ComputerDriver):
@@ -35,6 +35,7 @@ class BrowserDriver(ComputerDriver):
         self.actions = []
         self.capture_count = 0
         self.screenshot_stage = None
+        self.capture_state = None
         self.on_screenshot = None
         context.set_default_timeout(3000)
         context.set_default_navigation_timeout(5000)
@@ -237,6 +238,12 @@ class BrowserDriver(ComputerDriver):
     def wait(self, action):
         self.page.wait_for_timeout(250)
 
+    def _capture_path(self, url):
+        path = urlsplit(url).path
+        if self.allows(url) and not path.startswith("/static/"):
+            return path
+        return None
+
     def _capture_png(self):
         for attempt in range(3):
             self._check()
@@ -253,16 +260,26 @@ class BrowserDriver(ComputerDriver):
             self.page.wait_for_load_state("load", timeout=5000)
             self._check()
             self.screenshot_stage = "playwright_capture"
+            self.capture_state = {
+                "path": self._capture_path(self.page.url),
+                "attempt": attempt + 1,
+                "load_wait_completed": True,
+                "routes_in_flight": self.routes_in_flight,
+                "page_closed": self.page.is_closed(),
+            }
             masked = [self.page.locator('input[type="password"]')] if self.policy is not None else []
             try:
                 return self.page.screenshot(timeout=3000, animations="disabled", scale="css", mask=masked)
             except Error as error:
-                if attempt == 2 or str(error).partition("\n")[0] != CAPTURE_DOCUMENT_REPLACED:
+                if attempt == 2 or str(error).partition("\n")[0] not in {
+                    CAPTURE_DOCUMENT_REPLACED, CAPTURE_NAVIGATION_PENDING,
+                }:
                     raise
                 # Yield to Chromium so the incoming document can commit before the next capture.
                 self.page.wait_for_timeout(100)
 
     def screenshot(self):
+        self.capture_state = None
         self.screenshot_stage = "driver_state"
         self._check()
         png = self._capture_png()

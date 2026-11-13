@@ -44,12 +44,24 @@ class RegistrationTests(unittest.TestCase):
         with self.assertRaisesRegex(RuntimeError, "request limit"):
             check_request_budget(diagnostic)
 
+    def test_registration_only_offline(self):
+        self.rehearse("registration-only")
+
+    def test_appointment_only_offline(self):
+        self.rehearse("appointment-only")
+
+    def test_checkin_only_offline(self):
+        self.rehearse("checkin-only")
+
     def test_real_forms_and_audit_checkpoints_offline(self):
+        self.rehearse("registration")
+
+    def rehearse(self, scenario):
         with tempfile.TemporaryDirectory(prefix="careflow-registration-test-") as temporary:
             directory = Path(temporary)
-            with qa_site(ROOT / ".venv/Scripts/python.exe", directory, "registration") as origin, sync_playwright() as pw:
+            with qa_site(ROOT / ".venv/Scripts/python.exe", directory, scenario) as origin, sync_playwright() as pw:
                 fixture = json.loads((directory / "fixture.json").read_text(encoding="utf8"))
-                policy = RegistrationPolicy(fixture)
+                policy = RegistrationPolicy(fixture, scenario)
                 browser = pw.chromium.launch(timeout=10000, env=local_environment())
                 driver = None
                 try:
@@ -77,56 +89,65 @@ class RegistrationTests(unittest.TestCase):
                         self.assertEqual(output["output"]["type"], "computer_screenshot")
 
                     driver.screenshot()
-                    offline_rehearsal(toolset, driver, "registration")
-                    verify_login(driver, "registration")
+                    offline_rehearsal(toolset, driver, scenario)
+                    verify_login(driver, scenario)
                     driver.screenshot()
                     page.locator("[name=username]").fill(USERNAME)
                     page.locator("[name=password]").focus()
                     driver.type(Type(type="type", text="QA_PASSWORD"))
                     click_and_capture(page.get_by_role("button", name="Sign in to workspace"))
                     self.assertEqual(page.url, origin + "/app/dashboard/")
-                    click_and_capture(page.get_by_role("link", name="Patients", exact=True))
-                    click_and_capture(page.get_by_role("link", name="Register patient", exact=True))
-                    page.locator("[name=email]").focus()
-                    with self.assertRaisesRegex(ValueError, "Focus the designated"):
+                    if scenario in {"registration", "registration-only"}:
+                        click_and_capture(page.get_by_role("link", name="Patients", exact=True))
+                        click_and_capture(page.get_by_role("link", name="Register patient", exact=True))
+                        page.locator("[name=email]").focus()
+                        with self.assertRaisesRegex(ValueError, "Focus the designated"):
+                            driver.type(Type(type="type", text="1990-01-15"))
+                        self.assertEqual(page.locator("[name=email]").input_value(), "")
+                        page.locator("[name=email]").fill("1990-01-15")
+                        click_and_capture(page.get_by_role("button", name="Save patient"))
+                        incomplete = Diagnostics()
+                        with self.assertRaisesRegex(RuntimeError, "stopped before all expected"):
+                            verify_registration_workflow(driver, directory, incomplete)
+                        self.assertEqual(incomplete.stage, "registration_checkpoints")
+                        self.assertEqual(incomplete.checks["final_path"], "/app/patients/new/")
+                        self.assertTrue(incomplete.checks["registration_form_invalid"])
+                        self.assertIn({"field": "synthetic_only", "flags": ["valueMissing"]},
+                                      incomplete.checks["invalid_fields"])
+                        self.assertNotIn("1990-01-15", str(incomplete.checks))
+                        self.assertEqual(policy.completed, ["sign_in"])
+                        page.locator("[name=email]").clear()
+                        for field, value in {"mrn": "SYN-CUA-001", "first_name": "Synthetic",
+                                             "last_name": "Journey"}.items():
+                            page.locator(f"[name={field}]").fill(value)
+                        page.locator("[name=dob]").focus()
                         driver.type(Type(type="type", text="1990-01-15"))
-                    self.assertEqual(page.locator("[name=email]").input_value(), "")
-                    page.locator("[name=email]").fill("1990-01-15")
-                    click_and_capture(page.get_by_role("button", name="Save patient"))
-                    incomplete = Diagnostics()
-                    with self.assertRaisesRegex(RuntimeError, "stopped before all five"):
-                        verify_registration_workflow(driver, directory, incomplete)
-                    self.assertEqual(incomplete.stage, "registration_checkpoints")
-                    self.assertEqual(incomplete.checks, {"final_path": "/app/patients/new/",
-                                                         "registration_form_invalid": True})
-                    self.assertEqual(policy.completed, ["sign_in"])
-                    page.locator("[name=email]").clear()
-                    for field, value in {"mrn": "SYN-CUA-001", "first_name": "Synthetic",
-                                         "last_name": "Journey"}.items():
-                        page.locator(f"[name={field}]").fill(value)
-                    page.locator("[name=dob]").focus()
-                    driver.type(Type(type="type", text="1990-01-15"))
-                    page.locator("[name=sex]").focus()
-                    driver.keypress(Keypress(type="keypress", keys=["END"]))
-                    driver.keypress(Keypress(type="keypress", keys=["ENTER"]))
-                    self.assertEqual(page.locator("[name=sex]").input_value(), "unknown")
-                    page.locator("[name=synthetic_only]").check()
-                    click_and_capture(page.get_by_role("button", name="Save patient"))
-                    self.assertEqual(page.url, origin + "/app/patients/1/")
-                    click_and_capture(page.get_by_role("link", name="Schedule", exact=True))
-                    click_and_capture(page.get_by_role("link", name="New appointment", exact=True))
-                    page.locator("[name=patient]").select_option("1")
-                    page.locator("[name=physician]").select_option(str(fixture["physician"]))
-                    page.locator("[name=start_at]").focus()
-                    driver.type(Type(type="type", text=fixture["start"]))
-                    click_and_capture(page.locator("button[value=review]"))
-                    click_and_capture(page.locator("button[value=confirm]"))
-                    self.assertEqual(page.url, origin + "/app/appointments/1/")
-                    click_and_capture(page.get_by_role("button", name="Mark Arrived"))
-                    self.assertTrue(page.locator(".state-arrived").is_visible())
-                    self.assertTrue(page.get_by_role("heading", name="Appointment history").is_visible())
-                    self.assertTrue(page.get_by_text("appointment_arrive", exact=True).is_visible())
-                    self.assertEqual(policy.completed, ["sign_in", "register", "review", "confirm", "check_in"])
+                        page.locator("[name=sex]").focus()
+                        driver.keypress(Keypress(type="keypress", keys=["END"]))
+                        driver.keypress(Keypress(type="keypress", keys=["ENTER"]))
+                        self.assertEqual(page.locator("[name=sex]").input_value(), "unknown")
+                        page.locator("[name=synthetic_only]").check()
+                        click_and_capture(page.get_by_role("button", name="Save patient"))
+                        self.assertEqual(page.url, origin + "/app/patients/1/")
+                    if scenario in {"registration", "appointment-only"}:
+                        click_and_capture(page.get_by_role("link", name="Schedule", exact=True))
+                        click_and_capture(page.get_by_role("link", name="New appointment", exact=True))
+                        page.locator("[name=patient]").select_option("1")
+                        page.locator("[name=physician]").select_option(str(fixture["physician"]))
+                        page.locator("[name=start_at]").focus()
+                        driver.type(Type(type="type", text=fixture["start"]))
+                        click_and_capture(page.locator("button[value=review]"))
+                        click_and_capture(page.locator("button[value=confirm]"))
+                        self.assertEqual(page.url, origin + "/app/appointments/1/")
+                    if scenario in {"registration", "checkin-only"}:
+                        if scenario == "checkin-only":
+                            click_and_capture(page.get_by_role("link", name="Patient check-in", exact=True))
+                            click_and_capture(page.locator('main a[href="/app/appointments/1/"]').first)
+                        click_and_capture(page.get_by_role("button", name="Mark Arrived"))
+                        self.assertTrue(page.locator(".state-arrived").is_visible())
+                        self.assertTrue(page.get_by_role("heading", name="Appointment history").is_visible())
+                        self.assertTrue(page.get_by_text("appointment_arrive", exact=True).is_visible())
+                    self.assertEqual(tuple(policy.completed), policy.phases)
                     completed = Diagnostics()
                     verify_registration_workflow(driver, directory, completed)
                     checks = completed.checks

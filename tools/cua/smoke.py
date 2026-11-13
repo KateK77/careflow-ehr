@@ -18,7 +18,7 @@ from playwright.sync_api import sync_playwright
 
 from diagnostics import Diagnostics
 from driver import BrowserDriver
-from registration import MAX_ACTIONS, MAX_OUTPUT, MAX_REQUESTS, MAX_SECONDS, RegistrationPolicy, check_request_budget
+from registration import MAX_ACTIONS, MAX_OUTPUT, MAX_REQUESTS, MAX_SECONDS, PHASES, SPLIT_LIMITS, RegistrationPolicy, check_request_budget
 from verify_registration import verify
 
 
@@ -28,6 +28,8 @@ SCENARIOS = {
     "patient": ("Patient Sign In", "/portal/login/", "Sign in to the Patient Portal", 3, 6),
     "registration": ("Staff Sign In", "/login/", "Staff sign in", MAX_REQUESTS, MAX_ACTIONS),
 }
+SCENARIOS.update({name: ("Staff Sign In", "/login/", "Staff sign in", limits[0], limits[1])
+                  for name, limits in SPLIT_LIMITS.items()})
 OUTPUT_LIMIT = 1024
 GPT54_MODELS = {"gpt-5.4", "gpt-5.4-2026-03-05"}
 
@@ -96,9 +98,9 @@ def native_run(client, toolset, driver, model, initial, *, on_diagnostic=None, s
             "tool_choice": "auto",
             "parallel_tool_calls": False,
             "store": False,
-            "max_output_tokens": MAX_OUTPUT if scenario == "registration" else OUTPUT_LIMIT,
+            "max_output_tokens": MAX_OUTPUT if scenario in PHASES else OUTPUT_LIMIT,
             "input": [{"role": "user", "content": [
-                {"type": "input_text", "text": driver.policy.prompt() if scenario == "registration" else task_for(scenario)},
+                {"type": "input_text", "text": driver.policy.prompt() if scenario in PHASES else task_for(scenario)},
                 {"type": "input_image", "image_url": initial["image_url"], "detail": "original"},
             ]}],
         },
@@ -130,7 +132,8 @@ def offline_rehearsal(toolset, driver, scenario):
 def verify_registration_workflow(driver, directory, diagnostics):
     diagnostics.stage = "registration_checkpoints"
     driver._check()
-    if len(driver.policy.completed) != 5:
+    scenario = driver.policy.scenario
+    if tuple(driver.policy.completed) != driver.policy.phases:
         path = driver.page.url.removeprefix(driver.origin)
         diagnostics.checks = {
             "final_path": path if driver.allows(driver.page.url) else None,
@@ -138,14 +141,34 @@ def verify_registration_workflow(driver, directory, diagnostics):
                 path == "/app/patients/new/" and driver.page.locator("form input:invalid, form select:invalid").count() > 0
             ),
         }
-        raise RuntimeError("The registration workflow stopped before all five write checkpoints.")
+        if path == "/app/patients/new/":
+            diagnostics.checks["invalid_fields"] = driver.page.locator(
+                'form input:invalid:not([type=password]), form select:invalid, form textarea:invalid'
+            ).evaluate_all("""fields => fields.filter(field =>
+                ['mrn', 'first_name', 'last_name', 'dob', 'sex', 'email', 'synthetic_only'].includes(field.name)
+            ).map(field => ({field: field.name, flags: [
+                'valueMissing', 'typeMismatch', 'badInput', 'patternMismatch',
+                'rangeUnderflow', 'rangeOverflow', 'customError'
+            ].filter(flag => field.validity[flag])}))""")
+        raise RuntimeError("The registration workflow stopped before all expected write checkpoints.")
+    if scenario in {"registration-only", "appointment-only"}:
+        diagnostics.stage = "frontdesk_visible_result"
+        path, marker = (("/app/patients/1/", "SYN-CUA-001") if scenario == "registration-only"
+                        else ("/app/appointments/1/", "Scheduled"))
+        driver.page.wait_for_url(driver.origin + path, timeout=5000)
+        driver.page.get_by_text(marker, exact=True).first.wait_for(state="visible")
+        diagnostics.stage = "registration_database"
+        diagnostics.checks = verify(directory, scenario)
+        if not all(diagnostics.checks.values()):
+            raise RuntimeError("The final QA records do not match the approved scenario.")
+        return
     diagnostics.stage = "registration_arrived_ui"
     driver.page.wait_for_url(driver.origin + "/app/appointments/1/", timeout=5000)
     driver.page.locator(".state-arrived").wait_for(state="visible")
     driver.page.get_by_role("heading", name="Appointment history").wait_for(state="visible")
     driver.page.get_by_text("appointment_arrive", exact=True).wait_for(state="visible")
     diagnostics.stage = "registration_database"
-    diagnostics.checks = verify(directory)
+    diagnostics.checks = verify(directory, scenario)
     if not all(diagnostics.checks.values()):
         raise RuntimeError("The final QA records do not match the approved scenario.")
 
@@ -155,7 +178,7 @@ def run(args, diagnostics=None):
     if args.mode == "native" and (not args.approve_api_call or not args.model or not os.environ.get("OPENAI_API_KEY")):
         raise ValueError("Native mode requires explicit API approval, a model and OPENAI_API_KEY in the environment.")
     scenario = args.scenario
-    registration = scenario == "registration"
+    registration = scenario in PHASES
     if registration and (args.mode != "native" or args.model not in GPT54_MODELS or not args.evidence_dir):
         raise ValueError("Registration requires native mode, GPT-5.4 and a new evidence directory.")
     if args.evidence_dir:
@@ -166,7 +189,7 @@ def run(args, diagnostics=None):
     with tempfile.TemporaryDirectory(prefix="careflow-cua-") as temporary:
         directory = Path(temporary)
         with qa_site(args.django_python.resolve(strict=True), directory,
-                     "registration" if registration else None) as origin, sync_playwright() as playwright:
+                     scenario if registration else None) as origin, sync_playwright() as playwright:
             diagnostics.stage = "browser_launch"
             browser = playwright.chromium.launch(timeout=10000, env=local_environment())
             context = None
@@ -176,8 +199,8 @@ def run(args, diagnostics=None):
                     viewport={"width": BrowserDriver.WIDTH, "height": BrowserDriver.HEIGHT},
                     device_scale_factor=1, accept_downloads=False, service_workers="block",
                 )
-                deadline = time.monotonic() + (MAX_SECONDS if registration else 90)
-                policy = RegistrationPolicy(json.loads((directory / "fixture.json").read_text(encoding="utf8"))) if registration else None
+                deadline = time.monotonic() + (SPLIT_LIMITS[scenario][2] if scenario in SPLIT_LIMITS else MAX_SECONDS if registration else 90)
+                policy = RegistrationPolicy(json.loads((directory / "fixture.json").read_text(encoding="utf8")), scenario) if registration else None
                 if policy:
                     diagnostics.checkpoints = policy.completed
                 diagnostics.stage = "landing_navigation"
@@ -195,7 +218,7 @@ def run(args, diagnostics=None):
                     def check_budget(request):
                         if registration:
                             try:
-                                check_request_budget(diagnostics)
+                                check_request_budget(diagnostics, scenario)
                             except RuntimeError:
                                 diagnostics.stage = "request_budget"
                                 raise

@@ -25,7 +25,10 @@ def main():
     os.environ["DJANGO_SETTINGS_MODULE"] = "careflow.settings"
     application = StaticFilesHandler(get_wsgi_application())
     call_command("migrate", verbosity=0, interactive=False)
-    if sys.argv[2:] == ["registration"]:
+    from registration import PHASES
+
+    scenario = sys.argv[2] if len(sys.argv) == 3 else None
+    if scenario in PHASES:
         from django.contrib.auth import get_user_model
         from django.contrib.auth.models import Group
         from django.utils import timezone
@@ -35,7 +38,7 @@ def main():
         # Keep the demo slot on the current clinic date throughout the bounded run.
         now = timezone.localtime()
         start = (now + timedelta(minutes=12)).replace(second=0, microsecond=0)
-        if start.date() != now.date():
+        if scenario == "registration" and start.date() != now.date():
             raise RuntimeError("Run the same-day check-in scenario outside the last twelve clinic minutes.")
         password = secrets.token_urlsafe(24)
         for name, role, first, last, credential in [
@@ -44,6 +47,19 @@ def main():
         ]:
             user = get_user_model().objects.create_user(name, password=credential, first_name=first, last_name=last)
             user.groups.add(Group.objects.get_or_create(name=role)[0])
+        if scenario in {"appointment-only", "checkin-only"}:
+            from datetime import date
+            from careflow.patients.models import Patient
+
+            patient = Patient.objects.create(mrn="SYN-CUA-001", first_name="Synthetic", last_name="Journey",
+                                             dob=date(1990, 1, 15), sex="unknown")
+            if scenario == "checkin-only":
+                from careflow.scheduling.models import Appointment
+
+                visit_start = now.replace(second=0, microsecond=0)
+                Appointment.objects.create(patient=patient, physician=user, start_at=visit_start,
+                                           end_at=visit_start + timedelta(minutes=30),
+                                           appointment_type="Outpatient visit")
         (directory / "fixture.json").write_text(json.dumps({
             "password": password, "physician": user.pk, "start": start.strftime("%Y-%m-%dT%H:%M"),
         }), encoding="utf8")

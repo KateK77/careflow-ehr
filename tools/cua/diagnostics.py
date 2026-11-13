@@ -1,5 +1,23 @@
 """Content-free diagnostics for the native ComputerToolset smoke."""
 from openai import APIError
+from playwright.sync_api import Error as PlaywrightError
+
+
+def safe_exception_chain(error):
+    """Keep exception types and recognized browser signatures, omitting raw messages."""
+    chain, seen = [], set()
+    while error is not None and id(error) not in seen and len(chain) < 6:
+        seen.add(id(error))
+        entry = {"class": type(error).__name__}
+        if isinstance(error, PlaywrightError):
+            headline = str(error).partition("\n")[0]
+            if headline == "Page.screenshot: Execution context was destroyed, most likely because of a navigation":
+                entry["signature"] = "capture_document_replaced"
+            elif "Route.fetch: Request context disposed" in headline:
+                entry["signature"] = "route_request_context_disposed"
+        chain.append(entry)
+        error = error.__cause__ or (None if error.__suppress_context__ else error.__context__)
+    return chain
 
 
 API_CODES = {
@@ -41,6 +59,8 @@ class Diagnostics:
         self.checks = {}
         self.usage = []
         self.evidence_ready = False
+        self.screenshot_stage = None
+        self.exception_chain = []
 
     def capture_usage(self, response):
         if response.status_code != 200:
@@ -90,6 +110,7 @@ class Diagnostics:
             self.event = (reason, member if member in ACTION_MEMBERS else "none")
 
     def failure(self, error):
+        self.exception_chain = safe_exception_chain(error)
         status = getattr(error, "status_code", self.status)
         response = getattr(error, "response", None)
         detail = getattr(getattr(response, "incomplete_details", None), "reason", None)

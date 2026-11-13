@@ -31,6 +31,7 @@ class BrowserDriver(ComputerDriver):
         self.remaining = max_actions
         self.actions = []
         self.capture_count = 0
+        self.screenshot_stage = None
         self.on_screenshot = None
         context.set_default_timeout(3000)
         context.set_default_navigation_timeout(5000)
@@ -145,7 +146,20 @@ class BrowserDriver(ComputerDriver):
         self._reject_modifiers(action)
         if action.button != "left":
             raise ValueError("Only the primary mouse button is enabled.")
-        self.page.mouse.click(*self._point(action))
+        x, y = self._point(action)
+        destination = None
+        if self.page.url == self.origin + "/":
+            destination = self.page.evaluate(
+                """([x, y]) => {
+                    const link = document.elementFromPoint(x, y)?.closest('a[href]');
+                    return link && (!link.target || link.target === '_self') ? link.href : null;
+                }""",
+                [x, y],
+            )
+        self.page.mouse.click(x, y)
+        if destination in {self.origin + "/login/", self.origin + "/portal/login/"}:
+            # A generic load-state wait can still observe the outgoing document.
+            self.page.wait_for_url(destination, wait_until="domcontentloaded", timeout=5000)
 
     def double_click(self, action):
         self._reject_modifiers(action)
@@ -202,16 +216,24 @@ class BrowserDriver(ComputerDriver):
         self.page.wait_for_timeout(250)
 
     def screenshot(self):
+        self.screenshot_stage = "driver_state"
         self._check()
+        self.screenshot_stage = "document_load"
         self.page.wait_for_load_state("load", timeout=5000)
+        self.screenshot_stage = "route_drain"
         self._drain_routes()
         self._check()
+        self.screenshot_stage = "playwright_capture"
         masked = [self.page.locator('input[type="password"]')] if self.policy is not None else []
         png = self.page.screenshot(timeout=3000, animations="disabled", scale="css", mask=masked)
+        self.screenshot_stage = "driver_state"
         self._check()
+        self.screenshot_stage = "png_encoding"
         screenshot = {"type": "computer_screenshot",
                       "image_url": "data:image/png;base64," + base64.b64encode(png).decode("ascii")}
         self.capture_count += 1
         if self.on_screenshot:
+            self.screenshot_stage = "evidence_write"
             self.on_screenshot(screenshot)
+        self.screenshot_stage = "sdk_output_validation"
         return screenshot

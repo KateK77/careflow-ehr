@@ -5,13 +5,14 @@ import unittest
 from pathlib import Path
 from urllib.parse import urlencode
 
+from openai import ComputerToolset
 from openai.types.responses.computer_action import Type
 from playwright.sync_api import sync_playwright
 
 from diagnostics import Diagnostics
 from driver import BrowserDriver
 from registration import MAX_REQUESTS, RegistrationPolicy, USERNAME, check_request_budget
-from smoke import ROOT, local_environment, qa_site
+from smoke import ROOT, local_environment, offline_rehearsal, qa_site, verify_login
 from verify_registration import verify
 
 
@@ -53,7 +54,10 @@ class RegistrationTests(unittest.TestCase):
                     context = browser.new_context(viewport={"width": 1280, "height": 800}, service_workers="block")
                     driver = BrowserDriver(context, origin, lambda: False, policy=policy)
                     page = driver.page
-                    page.goto(origin + "/login/")
+                    driver.screenshot()
+                    offline_rehearsal(ComputerToolset(driver), driver, "registration")
+                    verify_login(driver, "registration")
+                    driver.screenshot()
                     page.locator("[name=username]").fill(USERNAME)
                     page.locator("[name=password]").focus()
                     driver.type(Type(type="type", text="QA_PASSWORD"))
@@ -79,7 +83,10 @@ class RegistrationTests(unittest.TestCase):
                     self.assertEqual(policy.completed, ["sign_in", "register", "review", "confirm", "check_in"])
                     self.assertTrue(all(verify(directory).values()))
                 finally:
-                    browser.close()
+                    try:
+                        driver.close()
+                    finally:
+                        browser.close()
 
 
 if __name__ == "__main__":

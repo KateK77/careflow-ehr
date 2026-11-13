@@ -206,6 +206,8 @@ def run(args, diagnostics=None):
                 diagnostics.stage = "final_screenshot"
                 driver.screenshot()
             finally:
+                if driver is not None:
+                    diagnostics.screenshot_stage = driver.screenshot_stage
                 try:
                     if driver is not None:
                         driver.close()
@@ -246,7 +248,12 @@ def main():
         summary = {"scenario": args.scenario, "mode": args.mode, "status": status,
                    "actions_requested": diagnostics.actions, "actions_completed": diagnostics.completed_actions,
                    "completed_checkpoints": diagnostics.checkpoints,
-                   "checks": diagnostics.checks, "requests_attempted": diagnostics.attempts,
+                   "checks": diagnostics.checks,
+                   "screenshot_stage": diagnostics.screenshot_stage if diagnostics.stage in {
+                       "computer_screenshot", "initial_screenshot", "final_screenshot"
+                   } else None,
+                   "exception_chain": diagnostics.exception_chain,
+                   "requests_attempted": diagnostics.attempts,
                    "responses_received": diagnostics.responses, "failure": failure,
                    "usage": diagnostics.usage_summary(args.model in GPT54_MODELS)}
         if args.mode == "native":

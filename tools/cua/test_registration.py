@@ -112,6 +112,8 @@ class RegistrationTests(unittest.TestCase):
                         self.assertEqual(incomplete.stage, "registration_checkpoints")
                         self.assertEqual(incomplete.checks["final_path"], "/app/patients/new/")
                         self.assertTrue(incomplete.checks["registration_form_invalid"])
+                        self.assertIn({"field": "sex", "flags": ["valueMissing"]},
+                                      incomplete.checks["invalid_fields"])
                         self.assertIn({"field": "synthetic_only", "flags": ["valueMissing"]},
                                       incomplete.checks["invalid_fields"])
                         self.assertNotIn("1990-01-15", str(incomplete.checks))
@@ -122,11 +124,22 @@ class RegistrationTests(unittest.TestCase):
                             page.locator(f"[name={field}]").fill(value)
                         page.locator("[name=dob]").focus()
                         driver.type(Type(type="type", text="1990-01-15"))
-                        page.locator("[name=sex]").focus()
-                        driver.keypress(Keypress(type="keypress", keys=["END"]))
-                        driver.keypress(Keypress(type="keypress", keys=["ENTER"]))
-                        self.assertEqual(page.locator("[name=sex]").input_value(), "unknown")
-                        page.locator("[name=synthetic_only]").check()
+                        sex = page.get_by_role("group", name="Recorded sex (required)")
+                        unknown = sex.get_by_role("radio", name="Unknown")
+                        self.assertEqual(sex.locator("input:checked").count(), 0)
+                        self.assertTrue(unknown.is_visible())
+                        self.assertIn("id_sex_helptext", sex.get_attribute("aria-describedby"))
+                        sex.get_by_role("radio").first.focus()
+                        driver.keypress(Keypress(type="keypress", keys=["ARROWLEFT"]))
+                        self.assertTrue(unknown.is_checked())
+                        confirmation = page.get_by_role("group", name="Required before saving").get_by_role(
+                            "checkbox", name="I confirm this record contains synthetic data only. (required)",
+                        )
+                        self.assertFalse(confirmation.is_checked())
+                        confirmation.focus()
+                        driver.keypress(Keypress(type="keypress", keys=["SPACE"]))
+                        self.assertTrue(confirmation.is_checked())
+                        self.assertFalse(page.locator("[name=confirm_duplicate]").is_checked())
                         click_and_capture(page.get_by_role("button", name="Save patient"))
                         self.assertEqual(page.url, origin + "/app/patients/1/")
                     if scenario in {"registration", "appointment-only"}:

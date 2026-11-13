@@ -26,6 +26,12 @@ class PatientForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         configure_date_field(self.fields["dob"], maximum=timezone.localdate().isoformat())
+        if not self.instance.pk:
+            sex = self.fields["sex"]
+            sex.label = "Recorded sex"
+            sex.help_text = "Choose Unknown if the information is unavailable."
+            sex.choices = [(value, label) for value, label in sex.choices if value]
+            sex.widget = forms.RadioSelect(choices=sex.choices)
         self.duplicates = Patient.objects.none()
         if self.instance.pk:
             self.fields["version"].initial = self.instance.version

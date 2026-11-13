@@ -45,6 +45,21 @@
     {% csrf_token %}{{ form.non_field_errors }}{{ form.version }}{{ form.version.errors }}
     <div class="form-grid">
       {% for field in form.visible_fields %}
+        {% if not patient.pk and field.name == "sex" %}
+          <fieldset class="field registration-choice" aria-describedby="{{ field.auto_id }}_helptext{% if field.errors %} {{ field.auto_id }}_error{% endif %}">
+            <legend>{{ field.label }} (required)</legend>
+            <small id="{{ field.auto_id }}_helptext">{{ field.help_text }}</small>
+            {{ field }}{{ field.errors }}
+          </fieldset>
+        {% elif not patient.pk and field.name == "synthetic_only" %}
+          <fieldset class="field full registration-choice">
+            <legend>Required before saving</legend>
+            <label class="registration-confirmation" for="{{ field.id_for_label }}">
+              {{ field }} {{ field.label }} (required)
+            </label>
+            {{ field.errors }}
+          </fieldset>
+        {% else %}
         <div class="field {% if field.field.widget.input_type == 'checkbox' %}full checkbox{% endif %}">
           <label for="{{ field.id_for_label }}">
             {{ field.label }}
@@ -57,6 +72,7 @@
             <small>{{ field.help_text }}</small>
           {% endif %}
         </div>
+        {% endif %}
       {% endfor %}
     </div>
     <div class="form-actions">

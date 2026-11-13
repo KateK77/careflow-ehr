@@ -16,4 +16,10 @@ All 20 CUA tests passed, including the combined regression and three separate Ch
 
 Every run uses a new temporary database and actual Staff Portal authentication. The fixture does not pre-create audit events for the action under test. Writes are restricted to the scenario's expected requests. The native runner keeps the existing 768 output-token cap per request, 15-second HTTP timeout, zero retries and explicit approval requirement. The estimated-cost threshold blocks the next request and can be exceeded by the final in-flight request. Local evidence contains screenshots, checkpoint records and actual usage when available. Existing SQLite databases were outside the rehearsals.
 
-No paid requests were sent. Each split scenario has passed offline and awaits separate approval for any native run.
+## Registration-only accessibility follow-up
+
+The first paid registration-only run on `f71853c` completed sign-in and stopped at the registration form after five responses (estimated $0.063473). Its last screenshot showed the blank Sex dropdown focused with Chromium's “Please select an item in the list” message. The synthetic-data checkbox was unchecked. Sanitized diagnostics confirmed `valueMissing` for both fields. The recording does not identify which individual keypresses caused the selection to remain blank. No registration write checkpoint completed.
+
+The registration form now renders visible Recorded sex radio options, including Unknown, in a labeled group with guidance. The required synthetic-data checkbox is grouped separately above Save, with a larger label target. Both start unset. The edit form retains its existing layout. Existing Django validation and the CUA payload policy remain in force.
+
+All 20 offline CUA tests passed. Chromium verified the empty controls, accessible group names and help association, keyboard radio selection and checkbox activation, rejection of the invalid form, and successful registration. The read-only temporary database check verified the patient and creation audit. All 32 Django patient tests passed, including missing Sex and missing synthetic confirmation. No paid call was sent during this follow-up. One bounded registration-only run is justified with separate approval. Live model interaction with the revised controls remains unverified.

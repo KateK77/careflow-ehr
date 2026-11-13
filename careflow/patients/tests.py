@@ -191,7 +191,7 @@ class PatientManagementTests(TestCase):
         cases = [
             {"dob": (timezone.localdate() + timedelta(days=1)).isoformat()},
             {"dob": "not-a-date"}, {"email": "invalid"}, {"first_name": " "},
-            {"mrn": "BAD MRN"}, {"sex": "invalid"}, {"phone": "letters"},
+            {"mrn": "BAD MRN"}, {"sex": "invalid"}, {"sex": ""}, {"phone": "letters"},
             {"synthetic_only": ""},
         ]
         for changes in cases:

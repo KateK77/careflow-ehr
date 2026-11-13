@@ -65,6 +65,8 @@ class SchedulingTests(SchedulingFixture, TestCase):
         response = self.client.get(reverse("appointment_create"))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Optional: filter the patient list")
+        self.assertContains(response, '<details class="panel appointment-search">')
+        self.assertContains(response, '<form method="post" class="panel appointment-form"')
         self.assertContains(response, "Appointment details — required to schedule")
         self.assertContains(response, "This search does not create an appointment")
         self.assertContains(response, "Select a patient and physician")

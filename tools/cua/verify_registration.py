@@ -5,6 +5,17 @@ from contextlib import closing
 from registration import MRN, USERNAME
 
 
+def appointment_write_counts(directory):
+    database = directory / "computer-use-qa.sqlite3"
+    with closing(sqlite3.connect(database.as_uri() + "?mode=ro", uri=True)) as db:
+        return {
+            "appointment_count": db.execute("SELECT COUNT(*) FROM scheduling_appointment").fetchone()[0],
+            "appointment_creation_audit_count": db.execute(
+                "SELECT COUNT(*) FROM patients_auditevent WHERE action='appointment_create'"
+            ).fetchone()[0],
+        }
+
+
 def verify(directory, scenario="registration"):
     database = directory / "computer-use-qa.sqlite3"
     with closing(sqlite3.connect(database.as_uri() + "?mode=ro", uri=True)) as db:

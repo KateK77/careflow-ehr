@@ -154,6 +154,25 @@ class RegistrationTests(unittest.TestCase):
                     if scenario in {"registration", "appointment-only"}:
                         click_and_capture(page.get_by_role("link", name="Schedule", exact=True))
                         click_and_capture(page.get_by_role("link", name="New appointment", exact=True))
+                        if scenario == "appointment-only":
+                            click_and_capture(page.locator("button[value=review]"))
+                            incomplete = Diagnostics()
+                            with self.assertRaisesRegex(RuntimeError, "stopped before all expected"):
+                                verify_registration_workflow(driver, directory, incomplete)
+                            self.assertEqual(incomplete.stage, "appointment_checkpoints")
+                            self.assertEqual(incomplete.checks, {
+                                "final_path": "/app/appointments/new/",
+                                "appointment_form": {
+                                    "invalid_fields": [
+                                        {"field": field, "flags": ["valueMissing"]}
+                                        for field in ("patient", "physician", "start_at")
+                                    ],
+                                    "server_errors_visible": False,
+                                },
+                                "appointment_count": 0,
+                                "appointment_creation_audit_count": 0,
+                            })
+                            self.assertEqual(policy.completed, ["sign_in"])
                         page.locator("[name=patient]").select_option("1")
                         page.locator("[name=physician]").select_option(str(fixture["physician"]))
                         page.locator("[name=start_at]").focus()

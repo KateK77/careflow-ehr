@@ -19,7 +19,7 @@ from playwright.sync_api import sync_playwright
 from diagnostics import Diagnostics
 from driver import BrowserDriver
 from registration import MAX_ACTIONS, MAX_OUTPUT, MAX_REQUESTS, MAX_SECONDS, PHASES, SPLIT_LIMITS, RegistrationPolicy, check_request_budget
-from verify_registration import verify
+from verify_registration import appointment_write_counts, verify
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -129,10 +129,26 @@ def offline_rehearsal(toolset, driver, scenario):
         raise RuntimeError("SDK did not return a screenshot.")
 
 
+def appointment_form_state(driver):
+    return driver.page.locator('form[method="post"] input, form[method="post"] select').evaluate_all(
+        """fields => ({
+            invalid_fields: fields.filter(field => !field.validity.valid &&
+                ['patient', 'physician', 'start_at', 'duration', 'appointment_type'].includes(field.name)
+            ).map(field => ({field: field.name, flags: [
+                'valueMissing', 'badInput', 'rangeUnderflow', 'rangeOverflow',
+                'stepMismatch', 'patternMismatch', 'customError'
+            ].filter(flag => field.validity[flag])})),
+            server_errors_visible: [...document.querySelectorAll('form[method="post"] .errorlist')]
+                .some(error => error.getClientRects().length > 0)
+        })""",
+    )
+
+
 def verify_registration_workflow(driver, directory, diagnostics):
-    diagnostics.stage = "registration_checkpoints"
-    driver._check()
     scenario = driver.policy.scenario
+    diagnostics.stage = {"appointment-only": "appointment_checkpoints",
+                         "checkin-only": "checkin_checkpoints"}.get(scenario, "registration_checkpoints")
+    driver._check()
     if tuple(driver.policy.completed) != driver.policy.phases:
         path = driver.page.url.removeprefix(driver.origin)
         diagnostics.checks = {
@@ -141,6 +157,9 @@ def verify_registration_workflow(driver, directory, diagnostics):
                 path == "/app/patients/new/" and driver.page.locator("form input:invalid, form select:invalid").count() > 0
             ),
         }
+        if path == "/app/appointments/new/":
+            diagnostics.checks = {"final_path": path, "appointment_form": appointment_form_state(driver),
+                                  **appointment_write_counts(directory)}
         if path == "/app/patients/new/":
             diagnostics.checks["invalid_fields"] = driver.page.locator(
                 'form input:invalid:not([type=password]), form select:invalid, form textarea:invalid'
@@ -150,7 +169,7 @@ def verify_registration_workflow(driver, directory, diagnostics):
                 'valueMissing', 'typeMismatch', 'badInput', 'patternMismatch',
                 'rangeUnderflow', 'rangeOverflow', 'customError'
             ].filter(flag => field.validity[flag])}))""")
-        raise RuntimeError("The registration workflow stopped before all expected write checkpoints.")
+        raise RuntimeError("The Front Desk workflow stopped before all expected write checkpoints.")
     if scenario in {"registration-only", "appointment-only"}:
         diagnostics.stage = "frontdesk_visible_result"
         path, marker = (("/app/patients/1/", "SYN-CUA-001") if scenario == "registration-only"

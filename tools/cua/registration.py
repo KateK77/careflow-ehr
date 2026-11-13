@@ -116,9 +116,12 @@ class RegistrationPolicy:
                     "fields empty. Click Save patient. Finish only after seeing the saved demographic summary."
                 ),
                 "appointment-only": (
-                    "Open Schedule, then New appointment. Select Synthetic Journey and Synthetic Physician. "
-                    f"Focus the start field and type {self.fixture.get('start')} exactly. Use 30 minutes, "
-                    "Outpatient visit and empty reason. Review and confirm. Stop at the Scheduled appointment."
+                    "Open Schedule, then New appointment. In the appointment form below patient search, open the "
+                    "Patient dropdown, select Synthetic Journey, and verify its name replaces the blank option. "
+                    "Open the Physician dropdown, select Synthetic Physician, and verify its name is displayed. "
+                    f"Focus Appointment start and type {self.fixture.get('start')} exactly. Verify it is filled. "
+                    "Keep 30 minutes, Outpatient visit and an empty reason. Click Review appointment, "
+                    "then confirm on the review screen. Stop at the Scheduled appointment."
                 ),
                 "checkin-only": (
                     "Open Patient check-in. Open the single synthetic appointment. Click Mark Arrived. "

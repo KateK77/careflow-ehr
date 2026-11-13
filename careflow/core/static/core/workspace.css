@@ -1,0 +1,83 @@
+/* Shared workspace presentation; authorization remains server-enforced. */
+:root {
+  --ink: #183547;
+  --muted: #536b7c;
+  --accent: #086e78;
+  --line: #dbe5eb;
+}
+body { background: #f3f6f9; font-family: "Segoe UI", system-ui, sans-serif; }
+.topbar { min-height: 68px; padding: 12px 24px; gap: 20px; }
+.shell { grid-template-columns: 220px minmax(0, 1fr); min-height: calc(100vh - 68px); }
+.sidebar { padding: 22px 12px; background: #173747; }
+.sidebar nav { gap: 3px; }
+.sidebar nav a { padding: 9px 12px; border: 1px solid transparent; line-height: 1.4; }
+.sidebar nav a[aria-current="page"] { background: #285564; border-color: #5d929d; color: white; }
+.sidebar-foot { margin-top: 28px; }
+.navigation-hint { display: none; }
+main { padding: 24px 28px; }
+.panel { padding: 20px; margin: 18px 0; box-shadow: 0 2px 6px #153b5008; }
+.page-heading > * { min-width: 0; }
+.page-heading h1 { overflow-wrap: anywhere; }
+.context-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.context-actions .button { white-space: normal; }
+.workspace-intro { margin-bottom: 20px; }
+.workspace-intro .lead { max-width: 48rem; font-size: 15px; }
+.workspace-links { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 16px; }
+.workspace-links .panel { margin: 0; display: flex; flex-direction: column; align-items: start; }
+.workspace-links .panel p { color: var(--muted); margin: 0 0 18px; }
+.workspace-links .panel a { margin-top: auto; }
+.workspace-links h2 { margin-bottom: 10px; }
+.directory-panel .filters, .schedule-panel .filters { margin-bottom: 16px; gap: 10px; }
+.directory-table { min-width: 800px; }
+.directory-table .tag { white-space: nowrap; }
+.directory-table th, .directory-table td { padding: 9px 10px; }
+.directory-table td { vertical-align: middle; }
+.directory-table td:not(:first-child) { overflow-wrap: anywhere; }
+.directory-table td:last-child { min-width: 7rem; }
+.demographic-cards { gap: 16px; }
+.demographic-cards .panel { margin-top: 12px; }
+.demographic-cards dl { gap: 10px 18px; margin-bottom: 0; }
+.activity li { padding: 10px 0; }
+.appointment-history th, .appointment-history td { min-width: 8rem; overflow-wrap: anywhere; }
+.appointment-history td:last-child { min-width: 12rem; max-width: 24rem; white-space: normal; }
+.appointment-search { padding: 10px 16px; margin: 10px 0; background: #f8fbfc; border-style: dashed; }
+.appointment-form { padding: 16px 20px; margin: 12px 0; }
+.appointment-form h2 { margin-bottom: 6px; }
+.appointment-form .form-grid { gap: 10px 20px; }
+.appointment-form .form-actions { margin-top: 12px; padding-top: 12px; }
+.appointment-form input, .appointment-form select, .appointment-form textarea { padding: 8px 10px; }
+.appointment-form textarea { min-height: 60px; resize: vertical; }
+.form-actions { flex-wrap: wrap; }
+.chart-nav { gap: 6px; padding: 10px 0; }
+.chart-nav a { text-decoration: none; border: 1px solid #d4e3e9; padding: 6px 9px; }
+.chart-nav a[aria-current="page"] { background: #d1e9eb; border-color: #58909a; font-weight: 650; }
+.form-error-summary { overflow-wrap: anywhere; }
+.login-layout { max-width: 1040px; gap: 36px; }
+.login-layout .panel { padding: 26px; }
+input[type="checkbox"], input[type="radio"] { accent-color: var(--accent); flex-shrink: 0; }
+@media (max-width: 1000px) {
+  .shell { grid-template-columns: 188px minmax(0, 1fr); }
+  main { padding: 20px; }
+  .topbar { gap: 10px; }
+}
+@media (max-width: 700px) {
+  .shell { display: block; }
+  .topbar { padding: 12px 16px; }
+  .sidebar { padding: 8px 12px; }
+  .sidebar nav { flex-wrap: nowrap; overflow-x: auto; gap: 6px; padding: 3px; }
+  .sidebar nav a { flex: 0 0 auto; padding: 8px 10px; }
+  .sidebar-foot { display: none; }
+  .navigation-hint { display: block; color: #c6d8e0; font-size: 11px; margin: 5px 8px 0; }
+  main { padding: 18px 14px; }
+  .panel { padding: 16px; }
+  .login-layout { gap: 16px; margin: 0; }
+  .demographic-cards dl { grid-template-columns: minmax(0, 1fr); gap: 3px; }
+  .demographic-cards dd { margin-bottom: 10px; }
+  .filters .grow { min-width: 0; flex-basis: 100%; }
+  .page-heading { gap: 10px; }
+  .context-actions { width: 100%; }
+  .chart-nav { gap: 5px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}

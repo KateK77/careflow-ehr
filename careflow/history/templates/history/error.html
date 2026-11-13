@@ -1,2 +1,11 @@
 {% extends "core/base.html" %}
-{% block content %}{% include "clinical/header.html" %}<section class="panel"><h2>Action not completed</h2>{% include "core/form_errors.html" %}<form method="post" action="{{ retry_url }}">{% csrf_token %}{{ form.as_p }}<button type="submit">Retry action</button></form><p>Your saved records were not changed.</p><a href="{{ return_url }}">Return and reload the record</a></section>{% endblock %}
+{% block content %}{% include "clinical/header.html" %}<section class="panel"><h2>Action not completed</h2>{% include "core/form_errors.html" %}<form method="post" action="{{ retry_url }}">{% csrf_token %}{% for hidden in form.hidden_fields %}{{ hidden }}{% endfor %}
+<div class="form-grid">
+{% for field in form.visible_fields %}
+<div class="field{% if field.field.widget.input_type == 'checkbox' %} full checkbox{% endif %}">
+{{ field.label_tag }}{{ field }}
+{% if field.help_text %}<small id="{{ field.auto_id }}_helptext">{{ field.help_text }}</small>{% endif %}
+{% if field.errors %}<span id="{{ field.auto_id }}_error" class="small muted">See the validation summary above.</span>{% endif %}
+</div>
+{% endfor %}
+</div><div class="form-actions"><button type="submit">Retry action</button></div></form><p>Your saved records were not changed.</p><a href="{{ return_url }}">Return and reload the record</a></section>{% endblock %}

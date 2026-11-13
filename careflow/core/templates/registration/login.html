@@ -12,7 +12,7 @@
         A clearer workspace.
       </h1>
       <p class="lead">
-        Explore patient registration and demographic records in a local educational environment.
+        Access your assigned clinical and administrative workflows in a local synthetic-data environment.
       </p>
       <div class="notice">
         Use fictional information only. This application is for demonstrations and research.
@@ -20,6 +20,7 @@
     </section>
     <section class="panel">
       <h2>Staff sign in</h2>
+      <p class="small"><a href="{% url 'home' %}">Back to portal selection</a></p>
       <p class="muted">Use a demo account initialized on this computer.</p>
       <form method="post">
         {% csrf_token %}{{ form.non_field_errors }}

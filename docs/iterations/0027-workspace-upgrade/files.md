@@ -1,0 +1,41 @@
+# Changed files
+
+Generated from the reviewed worktree before the implementation commit. Existing debug.log is excluded.
+
+- `README.md`
+- `careflow/core/static/core/navigation.js`
+- `careflow/core/static/core/workspace.css`
+- `careflow/core/templates/core/base.html`
+- `careflow/core/templates/registration/login.html`
+- `careflow/core/test_workspace_upgrade.py`
+- `careflow/core/workspace_browser_tests.py`
+- `careflow/history/templates/history/error.html`
+- `careflow/nursing/integration_browser_tests.py`
+- `careflow/patients/browser_tests.py`
+- `careflow/patients/templates/patients/dashboard.html`
+- `careflow/patients/templates/patients/detail.html`
+- `careflow/patients/templates/patients/list.html`
+- `careflow/portal/static/portal/portal.css`
+- `careflow/portal/templates/portal/base.html`
+- `careflow/portal/templates/portal/login.html`
+- `careflow/scheduling/browser_tests.py`
+- `careflow/scheduling/templates/scheduling/detail.html`
+- `careflow/scheduling/templates/scheduling/form.html`
+- `careflow/scheduling/templates/scheduling/schedule.html`
+- `docs/iterations/0027-workspace-upgrade/README.md`
+- `docs/iterations/0027-workspace-upgrade/baseline-current-documents/README.md`
+- `docs/iterations/0027-workspace-upgrade/baseline-current-documents/project-status.md`
+- `docs/iterations/0027-workspace-upgrade/baseline-current-documents/roadmap.md`
+- `docs/iterations/0027-workspace-upgrade/feedback.md`
+- `docs/iterations/0027-workspace-upgrade/prompt.en.v1.0.md`
+- `docs/iterations/0027-workspace-upgrade/prompt.md`
+- `docs/iterations/0027-workspace-upgrade/screenshots/appointment-1280-initial.png`
+- `docs/iterations/0027-workspace-upgrade/screenshots/directory-390.png`
+- `docs/iterations/0027-workspace-upgrade/screenshots/patient-portal-390.png`
+- `docs/iterations/0027-workspace-upgrade/screenshots/staff-workspace-1280.png`
+- `docs/iterations/0027-workspace-upgrade/verification.md`
+- `docs/project-status.md`
+- `docs/roadmap.md`
+- `tools/cua/smoke.py`
+- `tools/cua/test_registration.py`
+- `docs/iterations/0027-workspace-upgrade/files.md`

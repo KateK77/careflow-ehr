@@ -25,7 +25,7 @@
   </h1>
   <p class="muted">Enter times in {{ clinic_zone }}. All patient and visit information must be synthetic.</p>
   {% if not appointment %}
-    <details class="panel appointment-search">
+    <details class="panel appointment-search"{% if patient_query %} open{% endif %}>
       <summary id="patient-search-heading">Optional: filter the patient list</summary>
       <p class="small muted">This search does not create an appointment. If your patient is already listed below, skip this section and complete the appointment form.</p>
       <form method="get" class="filters">

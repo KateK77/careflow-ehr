@@ -4,9 +4,11 @@
 
 > **SYNTHETIC DATA ONLY — NOT FOR CLINICAL USE.** No real patient data, medical treatment, payer transactions, or production deployment. The development settings use `DEBUG=True` and a development secret. Hosted or clinical use requires a separate security, privacy, architecture, and regulatory review.
 
-## v1.0 release-candidate status
+## Integrated prototype and current upgrade
 
-Phases **0–4B are merged into `main`**. Phases **5–8 are implemented, tested on the integrated release branch, and pending final review** in [Draft PR #47](https://github.com/KateK77/careflow-ehr/pull/47) (`release/v1.0` → `main`). **This is not yet a merged or tagged release.** See [current project status](docs/project-status.md).
+Phases **0–8 are integrated into main** through [PR #47](https://github.com/KateK77/careflow-ehr/pull/47), merge commit [a9e0913](https://github.com/KateK77/careflow-ehr/commit/a9e0913b626b88908ad2ca3041d2ec9497ba7d15). This is a local synthetic-data prototype; integration does not imply clinical or production certification.
+
+The portal, verification and CUA follow-ups in PRs #49–#55 remain separate open work. [Issue #56](https://github.com/KateK77/careflow-ehr/issues/56) upgrades workspace usability on top of that stack without merging it. See [current project status](docs/project-status.md) and the [upgrade record](docs/iterations/0027-workspace-upgrade/README.md). Live paid CUA retries and manual acceptance of this upgrade remain pending separate approval.
 
 ## Features
 

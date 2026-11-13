@@ -13,7 +13,7 @@
       <a class="button" href="{% url 'patient_create' %}">＋ Register patient</a>
     {% endif %}
   </div>
-  <section class="panel">
+  <section class="panel directory-panel" aria-label="Patient directory">
     <form method="get" class="filters">
       <div class="field grow">
         <label for="search">Search patients</label>
@@ -36,7 +36,7 @@
       <a href="{% url 'patient_list' %}">Clear</a>
     </form>
     <div class="table-scroll">
-      <table>
+      <table class="clinical-table directory-table">
         <caption class="sr-only">
           Synthetic patient directory
         </caption>
@@ -54,7 +54,7 @@
         <tbody>
           {% for patient in page %}
             <tr>
-              <td>
+              <td class="patient-cell">
                 <a class="patient-name" href="{% url 'patient_detail' patient.pk %}">{{ patient }}</a>
                 <span class="muted small block">Synthetic patient</span>
               </td>
@@ -66,7 +66,7 @@
               <td>{{ patient.get_sex_display }}</td>
               <td>{{ patient.phone|default:"Not recorded" }}</td>
               <td>
-                <a href="{% url 'patient_detail' patient.pk %}">Open →</a>
+                <a href="{% url 'patient_detail' patient.pk %}">View Patient</a>
               </td>
             </tr>
           {% empty %}

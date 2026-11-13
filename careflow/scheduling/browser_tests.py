@@ -49,6 +49,7 @@ class SchedulingBrowserTests(StaticLiveServerTestCase):
             page.wait_for_url("**/app/dashboard/")
             page.get_by_role("link", name="Schedule", exact=True).click()
             page.get_by_role("link", name="New appointment", exact=True).click()
+            page.locator(".appointment-search summary").click()
             page.get_by_label("Find a patient by name or MRN").fill(patient.mrn)
             page.get_by_role("button", name="Find patient", exact=True).click()
             page.locator("#id_patient").select_option(str(patient.pk))

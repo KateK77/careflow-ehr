@@ -187,7 +187,7 @@ class RegistrationTests(unittest.TestCase):
                         click_and_capture(page.get_by_role("button", name="Mark Arrived"))
                         self.assertTrue(page.locator(".state-arrived").is_visible())
                         self.assertTrue(page.get_by_role("heading", name="Appointment history").is_visible())
-                        self.assertTrue(page.get_by_text("appointment_arrive", exact=True).is_visible())
+                        self.assertTrue(page.get_by_text("Patient checked in", exact=True).is_visible())
                     self.assertEqual(tuple(policy.completed), policy.phases)
                     completed = Diagnostics()
                     verify_registration_workflow(driver, directory, completed)

@@ -1,4 +1,5 @@
 {% extends "core/base.html" %}
+{% load clinical_ui %}
 {% block title %}
   Appointment #{{ appointment.pk }} · CareFlow EHR
 {% endblock %}
@@ -126,7 +127,7 @@
   <section class="panel">
     <h2>Appointment history</h2>
     <div class="table-scroll">
-      <table>
+      <table class="clinical-table appointment-history">
         <thead>
           <tr>
             <th>Event</th>
@@ -140,13 +141,13 @@
         <tbody>
           {% for event in events %}
             <tr>
-              <td>{{ event.audit.action }}</td>
+              <td>{{ event.audit.action|event_label }}</td>
               <td>
                 {{ event.audit.actor.get_full_name|default:event.audit.actor.username|default:"System" }}
               </td>
               <td>{{ event.audit.occurred_at|date:"d M Y H:i:s T" }}</td>
-              <td>{{ event.previous_status|default:"—" }}</td>
-              <td>{{ event.next_status }}</td>
+              <td>{{ event.previous_status|field_label|default:"—" }}</td>
+              <td>{{ event.next_status|field_label }}</td>
               <td>{{ event.reason|default:"—" }}</td>
             </tr>
           {% empty %}

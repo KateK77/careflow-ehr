@@ -1,4 +1,5 @@
 {% extends "core/base.html" %}
+{% load clinical_ui %}
 {% block title %}
   {{ patient }} · CareFlow EHR
 {% endblock %}
@@ -8,7 +9,6 @@
     / DEMOGRAPHIC SUMMARY
   </div>
   <div class="page-heading">
-    {% if can_read_clinical %}<a class="button" href="{% url 'patient_chart' patient.pk %}">Open patient chart</a>{% endif %}
     <div>
       <h1>{{ patient }}</h1>
       <p>
@@ -18,11 +18,12 @@
         </span>
       </p>
     </div>
-    {% if can_manage_patients %}
-      <a class="button" href="{% url 'patient_edit' patient.pk %}">Edit demographics</a>
-    {% endif %}
+    <div class="context-actions">
+      {% if can_read_clinical %}<a class="button" href="{% url 'patient_chart' patient.pk %}">Open patient chart</a>{% endif %}
+      {% if can_manage_patients %}<a class="button quiet" href="{% url 'patient_edit' patient.pk %}">Edit demographics</a>{% endif %}
+    </div>
   </div>
-  <div class="cards">
+  <div class="cards demographic-cards">
     <section class="panel">
       <h2>Identity</h2>
       <dl>
@@ -74,11 +75,11 @@
     <ul class="activity">
       {% for event in events %}
         <li>
-          <strong>{{ event.action }}</strong>
-          · {{ event.actor.get_full_name|default:"System" }}
+          <strong>{{ event.action|event_label }}</strong>
+          · {{ event.actor.get_full_name|default:event.actor.username|default:"System" }}
           <span class="muted block">{{ event.occurred_at|date:"Y-m-d H:i:s T" }}</span>
           {% if event.changed_fields %}
-            <span class="small">Fields: {{ event.changed_fields|join:", " }}</span>
+            <span class="small">Fields: {{ event.changed_fields|field_labels|join:", " }}</span>
           {% endif %}
         </li>
       {% empty %}

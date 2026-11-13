@@ -4,7 +4,7 @@ import time
 from urllib.parse import urlsplit
 
 from openai import ComputerDriver
-from playwright.sync_api import BrowserContext, Page
+from playwright.sync_api import BrowserContext, Error, Page
 
 
 class BrowserDriver(ComputerDriver):
@@ -20,9 +20,13 @@ class BrowserDriver(ComputerDriver):
     }
 
     def __init__(self, context: BrowserContext, origin: str, cancelled, *, max_actions=16, policy=None):
+        self.context = context
+        self.routes_in_flight = 0
+        self.closing = False
         self.origin = origin
         self.policy = policy
         self.policy_error = None
+        self.route_error = None
         self.cancelled = cancelled
         self.remaining = max_actions
         self.actions = []
@@ -49,29 +53,71 @@ class BrowserDriver(ComputerDriver):
                      or (self.policy is not None and self.policy.allows_page(parts.path))))
 
     def _route(self, route):
+        self.routes_in_flight += 1
+        try:
+            if self.closing:
+                route.abort("blockedbyclient")
+            else:
+                self._handle_request(route)
+        finally:
+            self.routes_in_flight -= 1
+
+    def _drain_routes(self):
+        deadline = time.monotonic() + 3.5
+        while self.routes_in_flight:
+            if time.monotonic() >= deadline:
+                raise RuntimeError("Browser route handlers did not finish before the deadline.")
+            self.page.wait_for_timeout(20)
+
+    def close(self):
+        self.closing = True
+        try:
+            self._drain_routes()
+        finally:
+            self.context.close()
+
+    def _handle_request(self, route):
         request = route.request
         if request.method in {"GET", "HEAD"} and self.allows(request.url):
             # Fetch without following redirects and give Chromium the response.
             # A redirected request then goes through this policy independently.
-            route.fulfill(response=route.fetch(max_redirects=0, max_retries=0, timeout=3000))
+            self._fetch_and_fulfill(route)
         elif (self.policy is not None and request.method == "POST"
               and urlsplit(request.url).netloc == urlsplit(self.origin).netloc
               and urlsplit(request.url).scheme == "http" and not urlsplit(request.url).query
               and self.policy.allow_post(request.url, request.post_data)):
-            response = route.fetch(max_redirects=0, max_retries=0, timeout=3000)
-            try:
-                self.policy.observe_post(response.status)
-            except RuntimeError as error:
-                self.policy_error = error
-            route.fulfill(response=response)
+            self._fetch_and_fulfill(route, observe_write=True)
         else:
             if self.policy is not None and request.method == "POST":
                 self.policy_error = RuntimeError("A write outside the approved scenario was blocked.")
             route.abort("blockedbyclient")
 
+    def _fetch_and_fulfill(self, route, *, observe_write=False):
+        try:
+            response = route.fetch(max_redirects=0, max_retries=0, timeout=3000)
+        except Error as error:
+            # Report the original failure on the next driver boundary.
+            if self.route_error is None:
+                self.route_error = error
+            route.abort("failed")
+            return
+        try:
+            if observe_write:
+                try:
+                    self.policy.observe_post(response.status)
+                except RuntimeError as error:
+                    self.policy_error = error
+            route.fulfill(response=response)
+        finally:
+            response.dispose()
+
     def _check(self):
         if self.policy_error:
             raise self.policy_error
+        if self.route_error:
+            raise self.route_error
+        if self.page.is_closed():
+            raise RuntimeError("The browser page closed unexpectedly.")
         if self.cancelled():
             raise RuntimeError("Browser operation cancelled.")
         if self.popup_opened or not self.allows(self.page.url):
@@ -156,6 +202,9 @@ class BrowserDriver(ComputerDriver):
         self.page.wait_for_timeout(250)
 
     def screenshot(self):
+        self._check()
+        self.page.wait_for_load_state("load", timeout=5000)
+        self._drain_routes()
         self._check()
         masked = [self.page.locator('input[type="password"]')] if self.policy is not None else []
         png = self.page.screenshot(timeout=3000, animations="disabled", scale="css", mask=masked)

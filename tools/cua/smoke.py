@@ -146,6 +146,8 @@ def run(args, diagnostics=None):
                      "registration" if registration else None) as origin, sync_playwright() as playwright:
             diagnostics.stage = "browser_launch"
             browser = playwright.chromium.launch(timeout=10000, env=local_environment())
+            context = None
+            driver = None
             try:
                 context = browser.new_context(
                     viewport={"width": BrowserDriver.WIDTH, "height": BrowserDriver.HEIGHT},
@@ -204,7 +206,13 @@ def run(args, diagnostics=None):
                 diagnostics.stage = "final_screenshot"
                 driver.screenshot()
             finally:
-                browser.close()
+                try:
+                    if driver is not None:
+                        driver.close()
+                    elif context is not None:
+                        context.close()
+                finally:
+                    browser.close()
     print(f"{args.mode} smoke passed. {heading} verified. Actions: {', '.join(driver.actions)}.")
 
 

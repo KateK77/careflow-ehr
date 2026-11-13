@@ -20,4 +20,10 @@ Ran `tools/cua/.venv/Scripts/python.exe -m unittest discover -s tools/cua -v`. A
 
 ## Live evidence and approval
 
-Use the command and limits in the [CUA operator guide](../../../tools/cua/README.md). The expected visible outcome is an Arrived appointment and its appointment history. Read-only verification in the temporary database checks the linked patient, appointment, check-in actor and event history. The evidence directory holds screenshots, requested and completed action types, checkpoints, actual token usage, an estimated token cost, and a sanitized failure stage for reproduction. No live screenshots, actions, token usage, or defects have been recorded for batch 1. Keep evidence local and exclude it from Git.
+Use the command and limits in the [CUA operator guide](../../../tools/cua/README.md). The expected visible outcome is an Arrived appointment and its appointment history. Read-only verification in the temporary database checks the linked patient, appointment, check-in actor and event history. The evidence directory holds screenshots, requested and completed action types, checkpoints, actual token usage, an estimated token cost, and a sanitized failure stage for reproduction. Keep evidence local and exclude it from Git.
+
+## First live attempt and offline follow-up
+
+The first live attempt failed during the screenshot after the portal click, before any write checkpoint. Two API requests returned HTTP 200. The recorded usage was 5,599 input tokens and 46 output tokens, estimated at $0.014687. The reported error was `Route.fetch: Request context disposed`. The failing request URL and the event that disposed the context were unavailable.
+
+Screenshots now wait for a bounded document load and in-flight route handlers. Teardown keeps interception active, rejects new traffic and drains pending fetches before closing the context. Active fetch errors still fail the driver. Offline tests exercised a delayed asset, teardown with a pending fetch, and an injected disposal failure during capture. All ten CUA tests passed. The paid retry remains pending approval.

@@ -25,8 +25,8 @@
   </h1>
   <p class="muted">Enter times in {{ clinic_zone }}. All patient and visit information must be synthetic.</p>
   {% if not appointment %}
-    <section class="panel" aria-labelledby="patient-search-heading">
-      <h2 id="patient-search-heading">Optional: filter the patient list</h2>
+    <details class="panel appointment-search">
+      <summary id="patient-search-heading">Optional: filter the patient list</summary>
       <p class="small muted">This search does not create an appointment. If your patient is already listed below, skip this section and complete the appointment form.</p>
       <form method="get" class="filters">
         <div class="field grow">
@@ -42,9 +42,9 @@
       <p class="small muted">
         The patient selector below uses these search results. You may also start from a patient's demographic summary.
       </p>
-    </section>
+    </details>
   {% endif %}
-  <form method="post" class="panel" aria-labelledby="appointment-details-heading">
+  <form method="post" class="panel appointment-form" aria-labelledby="appointment-details-heading">
     <h2 id="appointment-details-heading">Appointment details — required to schedule</h2>
     <p class="small muted">Select a patient and physician, enter the appointment start date and time, then choose Review appointment. On the review page, confirm the appointment to save it.</p>
     {% csrf_token %}

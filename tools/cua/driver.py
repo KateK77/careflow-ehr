@@ -220,6 +220,18 @@ class BrowserDriver(ComputerDriver):
                 return
             if password_field.count() or action.text == "QA_PASSWORD":
                 raise ValueError("Password input is restricted to the designated local credential field.")
+        if self.policy is not None:
+            date_inputs = {
+                "/app/patients/new/": ("dob", "1990-01-15"),
+                "/app/appointments/new/": ("start_at", self.policy.fixture.get("start")),
+            }
+            expected = date_inputs.get(urlsplit(self.page.url).path)
+            if expected and action.text == expected[1]:
+                field = self.page.locator(f'input[name="{expected[0]}"]:focus')
+                if not field.count():
+                    raise ValueError("Focus the designated date or time field before entering the fixture value.")
+                field.fill(action.text)
+                return
         self.page.keyboard.insert_text(action.text)
 
     def wait(self, action):

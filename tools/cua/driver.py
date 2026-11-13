@@ -19,8 +19,10 @@ class BrowserDriver(ComputerDriver):
         "SPACE": "Space", "HOME": "Home", "END": "End", "PAGEDOWN": "PageDown", "PAGEUP": "PageUp",
     }
 
-    def __init__(self, context: BrowserContext, origin: str, cancelled, *, max_actions=16):
+    def __init__(self, context: BrowserContext, origin: str, cancelled, *, max_actions=16, policy=None):
         self.origin = origin
+        self.policy = policy
+        self.policy_error = None
         self.cancelled = cancelled
         self.remaining = max_actions
         self.actions = []
@@ -43,7 +45,8 @@ class BrowserDriver(ComputerDriver):
         parts = urlsplit(url)
         return (f"{parts.scheme}://{parts.netloc}" == self.origin
                 and not parts.query
-                and (parts.path in {"/", "/login/", "/portal/login/"} or parts.path.startswith("/static/")))
+                and (parts.path in {"/", "/login/", "/portal/login/"} or parts.path.startswith("/static/")
+                     or (self.policy is not None and self.policy.allows_page(parts.path))))
 
     def _route(self, route):
         request = route.request
@@ -51,10 +54,24 @@ class BrowserDriver(ComputerDriver):
             # Fetch without following redirects and give Chromium the response.
             # A redirected request then goes through this policy independently.
             route.fulfill(response=route.fetch(max_redirects=0, max_retries=0, timeout=3000))
+        elif (self.policy is not None and request.method == "POST"
+              and urlsplit(request.url).netloc == urlsplit(self.origin).netloc
+              and urlsplit(request.url).scheme == "http" and not urlsplit(request.url).query
+              and self.policy.allow_post(request.url, request.post_data)):
+            response = route.fetch(max_redirects=0, max_retries=0, timeout=3000)
+            try:
+                self.policy.observe_post(response.status)
+            except RuntimeError as error:
+                self.policy_error = error
+            route.fulfill(response=response)
         else:
+            if self.policy is not None and request.method == "POST":
+                self.policy_error = RuntimeError("A write outside the approved scenario was blocked.")
             route.abort("blockedbyclient")
 
     def _check(self):
+        if self.policy_error:
+            raise self.policy_error
         if self.cancelled():
             raise RuntimeError("Browser operation cancelled.")
         if self.popup_opened or not self.allows(self.page.url):
@@ -118,12 +135,21 @@ class BrowserDriver(ComputerDriver):
             self.page.keyboard.press("Shift+Tab")
         elif len(action.keys) == 1 and (key := self.KEY_ALIASES.get(action.keys[0].upper())):
             self.page.keyboard.press(key)
+        elif self.policy is not None and len(action.keys) == 1 and len(action.keys[0]) == 1 and action.keys[0] in "0123456789":
+            self.page.keyboard.press(action.keys[0])
         else:
             raise ValueError("Keyboard shortcut is outside the smoke-test policy.")
 
     def type(self, action):
         if len(action.text) > 256 or not action.text.isprintable():
             raise ValueError("Typing requires printable text up to 256 characters.")
+        if self.policy is not None:
+            password_field = self.page.locator('input[type="password"]:focus')
+            if action.text == "QA_PASSWORD" and self.page.url == self.origin + "/login/" and password_field.count():
+                password_field.fill(self.policy.fixture["password"])
+                return
+            if password_field.count() or action.text == "QA_PASSWORD":
+                raise ValueError("Password input is restricted to the designated local credential field.")
         self.page.keyboard.insert_text(action.text)
 
     def wait(self, action):
@@ -131,7 +157,8 @@ class BrowserDriver(ComputerDriver):
 
     def screenshot(self):
         self._check()
-        png = self.page.screenshot(timeout=3000, animations="disabled", scale="css")
+        masked = [self.page.locator('input[type="password"]')] if self.policy is not None else []
+        png = self.page.screenshot(timeout=3000, animations="disabled", scale="css", mask=masked)
         self._check()
         screenshot = {"type": "computer_screenshot",
                       "image_url": "data:image/png;base64," + base64.b64encode(png).decode("ascii")}

@@ -18,12 +18,15 @@ from playwright.sync_api import sync_playwright
 
 from diagnostics import Diagnostics
 from driver import BrowserDriver
+from registration import MAX_ACTIONS, MAX_OUTPUT, MAX_REQUESTS, MAX_SECONDS, RegistrationPolicy, check_request_budget
+from verify_registration import verify
 
 
 ROOT = Path(__file__).resolve().parents[2]
 SCENARIOS = {
     "staff": ("Staff Sign In", "/login/", "Staff sign in", 5, 16),
     "patient": ("Patient Sign In", "/portal/login/", "Sign in to the Patient Portal", 3, 6),
+    "registration": ("Staff Sign In", "/login/", "Staff sign in", MAX_REQUESTS, MAX_ACTIONS),
 }
 OUTPUT_LIMIT = 1024
 GPT54_MODELS = {"gpt-5.4", "gpt-5.4-2026-03-05"}
@@ -43,12 +46,12 @@ def local_environment():
 
 
 @contextmanager
-def qa_site(python, directory):
+def qa_site(python, directory, scenario=None):
     environment = local_environment()
     environment["PYTHONPATH"] = str(ROOT)
     environment["PYTHONDONTWRITEBYTECODE"] = "1"
     process = subprocess.Popen(
-        [str(python), str(Path(__file__).with_name("qa_server.py")), str(directory)],
+        [str(python), str(Path(__file__).with_name("qa_server.py")), str(directory), *([scenario] if scenario else [])],
         cwd=ROOT, env=environment,
     )
     try:
@@ -93,9 +96,9 @@ def native_run(client, toolset, driver, model, initial, *, on_diagnostic=None, s
             "tool_choice": "auto",
             "parallel_tool_calls": False,
             "store": False,
-            "max_output_tokens": OUTPUT_LIMIT,
+            "max_output_tokens": MAX_OUTPUT if scenario == "registration" else OUTPUT_LIMIT,
             "input": [{"role": "user", "content": [
-                {"type": "input_text", "text": task_for(scenario)},
+                {"type": "input_text", "text": driver.policy.prompt() if scenario == "registration" else task_for(scenario)},
                 {"type": "input_image", "image_url": initial["image_url"], "detail": "original"},
             ]}],
         },
@@ -128,14 +131,19 @@ def run(args, diagnostics=None):
     diagnostics = diagnostics if diagnostics is not None else Diagnostics()
     if args.mode == "native" and (not args.approve_api_call or not args.model or not os.environ.get("OPENAI_API_KEY")):
         raise ValueError("Native mode requires explicit API approval, a model and OPENAI_API_KEY in the environment.")
+    scenario = args.scenario
+    registration = scenario == "registration"
+    if registration and (args.mode != "native" or args.model not in GPT54_MODELS or not args.evidence_dir):
+        raise ValueError("Registration requires native mode, GPT-5.4 and a new evidence directory.")
     if args.evidence_dir:
         args.evidence_dir.mkdir(parents=True, exist_ok=False)
         diagnostics.evidence_ready = True
     diagnostics.stage = "qa_startup"
-    scenario = args.scenario
     _, _, heading, _, action_limit = SCENARIOS[scenario]
     with tempfile.TemporaryDirectory(prefix="careflow-cua-") as temporary:
-        with qa_site(args.django_python.resolve(strict=True), Path(temporary)) as origin, sync_playwright() as playwright:
+        directory = Path(temporary)
+        with qa_site(args.django_python.resolve(strict=True), directory,
+                     "registration" if registration else None) as origin, sync_playwright() as playwright:
             diagnostics.stage = "browser_launch"
             browser = playwright.chromium.launch(timeout=10000, env=local_environment())
             try:
@@ -143,10 +151,13 @@ def run(args, diagnostics=None):
                     viewport={"width": BrowserDriver.WIDTH, "height": BrowserDriver.HEIGHT},
                     device_scale_factor=1, accept_downloads=False, service_workers="block",
                 )
-                deadline = time.monotonic() + 90
+                deadline = time.monotonic() + (MAX_SECONDS if registration else 90)
+                policy = RegistrationPolicy(json.loads((directory / "fixture.json").read_text(encoding="utf8"))) if registration else None
+                if policy:
+                    diagnostics.checkpoints = policy.completed
                 diagnostics.stage = "landing_navigation"
                 driver = BrowserDriver(context, origin, lambda: time.monotonic() >= deadline,
-                                       max_actions=action_limit)
+                                       max_actions=action_limit, policy=policy)
                 diagnostics.actions = driver.actions
                 driver.on_screenshot = lambda screenshot: write_capture(
                     args.evidence_dir, f"screen-{driver.capture_count:02d}.png", screenshot,
@@ -156,7 +167,16 @@ def run(args, diagnostics=None):
                 initial = driver.screenshot()
                 if args.mode == "native":
                     diagnostics.stage = "native_sdk_setup"
-                    hooks = {"request": [diagnostics.request_started], "response": [diagnostics.response_received, diagnostics.capture_usage]}
+                    def check_budget(request):
+                        if registration:
+                            try:
+                                check_request_budget(diagnostics)
+                            except RuntimeError:
+                                diagnostics.stage = "request_budget"
+                                raise
+                        diagnostics.request_started(request)
+
+                    hooks = {"request": [check_budget], "response": [diagnostics.response_received, diagnostics.capture_usage]}
                     with DefaultHttpxClient(event_hooks=hooks, timeout=15) as transport:
                         with OpenAI(base_url="https://api.openai.com/v1", timeout=15, max_retries=0,
                                     http_client=transport) as client:
@@ -169,7 +189,18 @@ def run(args, diagnostics=None):
                     diagnostics.stage = "offline_dispatch"
                     offline_rehearsal(toolset, driver, scenario)
                 diagnostics.stage = "login_verification"
-                verify_login(driver, scenario)
+                if registration:
+                    driver._check()
+                    driver.page.wait_for_url(origin + "/app/appointments/1/", timeout=5000)
+                    driver.page.locator(".state-arrived").wait_for(state="visible")
+                    driver.page.get_by_role("heading", name="Appointment history").wait_for(state="visible")
+                    driver.page.get_by_text("appointment_arrive", exact=True).wait_for(state="visible")
+                    diagnostics.checks = verify(directory)
+                    if not all(diagnostics.checks.values()) or len(policy.completed) != 5:
+                        raise RuntimeError("The final QA records do not match the approved scenario.")
+                    heading = "Registration, appointment and check-in"
+                else:
+                    verify_login(driver, scenario)
                 diagnostics.stage = "final_screenshot"
                 driver.screenshot()
             finally:
@@ -199,13 +230,15 @@ def main():
     except Exception as error:
         failure = diagnostics.failure(error)
         if diagnostics.stage not in {"configuration", "qa_startup", "browser_launch", "native_sdk_setup",
-                                     "responses_request", "responses_api", "computer_approval"}:
+                                     "responses_request", "responses_api", "computer_approval", "request_budget"}:
             status = "fail"
         print(failure, file=sys.stderr)
         return 1
     finally:
         summary = {"scenario": args.scenario, "mode": args.mode, "status": status,
-                   "actions_requested": diagnostics.actions, "requests_attempted": diagnostics.attempts,
+                   "actions_requested": diagnostics.actions, "actions_completed": diagnostics.completed_actions,
+                   "completed_checkpoints": diagnostics.checkpoints,
+                   "checks": diagnostics.checks, "requests_attempted": diagnostics.attempts,
                    "responses_received": diagnostics.responses, "failure": failure,
                    "usage": diagnostics.usage_summary(args.model in GPT54_MODELS)}
         if args.mode == "native":

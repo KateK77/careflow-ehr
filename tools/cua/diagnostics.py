@@ -36,6 +36,9 @@ class Diagnostics:
         self.status = None
         self.event = None
         self.actions = []
+        self.completed_actions = []
+        self.checkpoints = []
+        self.checks = {}
         self.usage = []
         self.evidence_ready = False
 
@@ -77,6 +80,8 @@ class Diagnostics:
 
     def tool_event(self, event):
         stage, reason, member = event["stage"], event["reason"], event["member"]
+        if stage == "action" and reason == "completed" and member in ACTION_MEMBERS:
+            self.completed_actions.append(member)
         if stage in {"approval", "action"} and reason in FAILURE_REASONS:
             if stage == "approval":
                 self.stage = "computer_approval"
@@ -105,7 +110,7 @@ class Diagnostics:
             param = error.param
             if isinstance(param, str) and (param == "model" or param == "tools" or param.startswith("tools[")):
                 compatibility = "API rejected the model or tool configuration"
-        if isinstance(error, APIError):
+        if isinstance(error, APIError) and self.stage != "request_budget":
             self.stage = "responses_request" if not self.status else "responses_api"
         if self.status is not None:
             sent = "confirmed by HTTP response"

@@ -1,0 +1,17 @@
+  {% if form.duplicates %}
+    <div class="notice warning" role="alert">
+      <strong>Potential duplicate patient</strong>
+      <ul>
+        {% for duplicate in form.duplicates %}
+          <li>
+            <a href="{% url 'patient_detail' duplicate.pk %}">
+              {{ duplicate }} · {{ duplicate.mrn }} · {{ duplicate.dob|date:"Y-m-d" }}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+      <p>
+        Review the existing records, then use the confirmation below if this is a separate synthetic patient.
+      </p>
+    </div>
+  {% endif %}

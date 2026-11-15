@@ -1,4 +1,5 @@
 import secrets
+import time
 
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.urls import reverse
@@ -13,6 +14,10 @@ class MARBrowserTests(MARFixture, StaticLiveServerTestCase):
 
         self.setup_pharmacy()
         receipt = self.dispense_order()
+        # These browser inputs have whole-second precision. Do not truncate an
+        # event into the fractional second before its just-created dispense.
+        # Keep the service's lower bound intact; only allow test time to advance.
+        time.sleep(1.05)
         nurse = self.staff["Nurse"]
         password = secrets.token_urlsafe(24)
         for actor in (nurse, self.physician):

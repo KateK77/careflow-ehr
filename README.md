@@ -4,6 +4,18 @@
 
 > **SYNTHETIC DATA ONLY — NOT FOR CLINICAL USE.** No real patient data, medical treatment, payer transactions, or production deployment. The development settings use `DEBUG=True` and a development secret. Hosted or clinical use requires a separate security, privacy, architecture, and regulatory review.
 
+## Version 2.0 website preview
+
+The new website presentation is on `feature/v2-website`, stacked on PR #57. It includes a new dual-portal landing, staff and patient layouts, real dashboard agenda, grouped registration and clearer appointment progression. Existing Django workflows and access controls remain.
+
+Start a fresh isolated preview without touching any existing database:
+
+```powershell
+.\.venv\Scripts\python.exe tools\v2_preview.py
+```
+
+Choose a synthetic password at the hidden prompt, then open http://127.0.0.1:8012/. See [demo accounts and setup](docs/iterations/0028-v2-website/README.md), [scope](docs/requirements/v2.0/README.md) and [verification](docs/iterations/0028-v2-website/verification.md). This is an unmerged preview, not a new release or manual acceptance.
+
 ## Integrated prototype and current upgrade
 
 Phases **0–8 are integrated into main** through [PR #47](https://github.com/KateK77/careflow-ehr/pull/47), merge commit [a9e0913](https://github.com/KateK77/careflow-ehr/commit/a9e0913b626b88908ad2ca3041d2ec9497ba7d15). This is a local synthetic-data prototype; integration does not imply clinical or production certification.

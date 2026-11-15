@@ -118,7 +118,7 @@ class WorkspaceUpgradeBrowserTests(StaticLiveServerTestCase):
                 self.login(page, "FrontDesk")
                 page.get_by_role("link", name="Patients", exact=True).click()
                 expect(page.locator('.sidebar a[aria-current="page"]')).to_contain_text("Patients")
-                self.assertIn(self.live_server_url + "/static/core/workspace.css", loaded)
+                self.assertIn(self.live_server_url + "/static/core/v2.css", loaded)
                 for width in (1280, 700, 390, 320):
                     page.set_viewport_size({"width": width, "height": 800})
                     self.no_overflow(page)
@@ -169,3 +169,45 @@ class WorkspaceUpgradeBrowserTests(StaticLiveServerTestCase):
                 expect(page.locator("body")).not_to_contain_text(self.patient.mrn)
             finally:
                 browser.close()
+
+    def test_v2_registration_keyboard_confirmation_and_audit(self):
+        from playwright.sync_api import expect, sync_playwright
+        from careflow.patients.models import AuditEvent
+        with sync_playwright() as pw:
+            browser = pw.chromium.launch()
+            try:
+                page = self.page(browser)
+                self.login(page, "FrontDesk")
+                page.goto(self.live_server_url + "/app/patients/new/")
+                expect(page.get_by_role("group", name="01 · Patient identity", exact=True)).to_be_visible()
+                expect(page.locator("#id_confirm_duplicate")).to_have_count(0)
+                confirmation = page.get_by_label("I confirm this record contains synthetic data only.")
+                expect(confirmation).not_to_be_checked()
+                page.get_by_label("MRN *", exact=True).fill("SYN-V2-KEYBOARD")
+                page.get_by_label("First name *", exact=True).fill("V2")
+                page.get_by_label("Last name *", exact=True).fill("Synthetic")
+                page.get_by_label("Date of birth *", exact=True).fill("1990-05-20")
+                unknown = page.get_by_role("radio", name="Unknown", exact=True)
+                unknown.focus()
+                page.keyboard.press("Space")
+                expect(unknown).to_be_checked()
+                page.get_by_role("button", name="Save patient").click()
+                expect(page).to_have_url(self.live_server_url + "/app/patients/new/")
+                self.assertTrue(confirmation.evaluate("el => el.validity.valueMissing"))
+                self.capture(page, "v2-registration-1280")
+                for width in (390, 320):
+                    page.set_viewport_size({"width": width, "height": 844})
+                    self.no_overflow(page)
+                    self.capture(page, f"v2-registration-{width}")
+                confirmation.focus()
+                page.keyboard.press("Space")
+                expect(confirmation).to_be_checked()
+                page.get_by_role("button", name="Save patient").click()
+                page.wait_for_url(re.compile(r"/app/patients/\d+/$"))
+                expect(page.get_by_role("heading", name="V2 Synthetic", exact=True)).to_be_visible()
+            finally:
+                browser.close()
+        patient = Patient.objects.get(mrn="SYN-V2-KEYBOARD")
+        self.assertEqual(patient.sex, "unknown")
+        event = AuditEvent.objects.get(patient=patient, action="patient_create")
+        self.assertEqual(event.actor_id, self.staff["FrontDesk"].pk)

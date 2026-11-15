@@ -1,7 +1,8 @@
 {% extends "portal/base.html" %}
 {% block title %}{{ title }}{% endblock %}
 {% block content %}
-<h1>{{ title }}</h1><p class="identity">{{ patient }}</p>
+<div class="portal-welcome"><div><p class="eyebrow">YOUR SYNTHETIC HEALTH RECORD</p><h1>{{ title }}</h1><p class="identity">{{ patient }}</p></div>
+{% if show_messages %}<a class="button" href="{% url 'portal_request_new' 'new' %}">Request an appointment</a>{% endif %}</div>
 {% if show_messages %}<p><a href="{% url 'portal_messages' %}">Unread conversations ({{ unread }})</a></p>{% endif %}
 {% if notice %}<p>{{ notice }}</p>{% endif %}
 <div class="records">

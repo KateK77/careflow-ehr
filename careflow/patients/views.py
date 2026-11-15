@@ -17,7 +17,15 @@ from careflow.scheduling.access import appointments_for
 @require_safe
 @patient_access()
 def dashboard(request):
-    return render(request, "patients/dashboard.html", {"patient_count": Patient.objects.count()})
+    today = timezone.localdate()
+    permitted = appointments_for(request.user).filter(start_at__date=today)
+    return render(request, "patients/dashboard.html", {
+        "patient_count": Patient.objects.count(),
+        "today": today,
+        "today_count": permitted.count(),
+        "arrived_count": permitted.filter(status="arrived").count(),
+        "today_appointments": permitted.order_by("start_at", "pk")[:8],
+    })
 
 
 @require_safe

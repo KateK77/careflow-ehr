@@ -1,0 +1,25 @@
+{% extends "core/base.html" %}
+{% block title %}Staff sign in · CareFlow EHR 2.0{% endblock %}
+{% block content %}
+<div class="login-layout">
+  <section class="login-story">
+    <p class="eyebrow">THE STAFF WORKSPACE</p>
+    <h1>Your team.<br>Your workflow.<br><em>Connected.</em></h1>
+    <p class="lead">One place for patient access, clinical documentation and hospital operations.</p>
+    <ul class="login-features"><li>Role-specific workspaces</li><li>Patient and encounter context</li><li>Versioned records and audit history</li></ul>
+    <p class="small muted">A local synthetic-data prototype for education and research.</p>
+  </section>
+  <section class="panel login-panel">
+    <span class="eyebrow">WELCOME BACK</span><h2>Staff sign in</h2>
+    <p class="muted">Use the staff account assigned by your local operator.</p>
+    <form method="post">
+      {% csrf_token %}{{ form.non_field_errors }}
+      {% for field in form %}<div class="field">{{ field.label_tag }}{{ field }}{{ field.errors }}</div>{% endfor %}
+      <input type="hidden" name="next" value="{{ next }}">
+      <button type="submit">Sign in to workspace</button>
+    </form>
+    <p class="small muted">Access follows your assigned roles. Use fictional information only.</p>
+    <div class="login-links"><a href="{% url 'home' %}">Back to portal selection</a><a href="{% url 'portal_login' %}">Patient Portal sign in</a></div>
+  </section>
+</div>
+{% endblock %}

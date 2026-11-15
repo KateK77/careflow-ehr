@@ -24,7 +24,7 @@ class LandingBrowserTests(StaticLiveServerTestCase):
             page.on("response", lambda response: loaded_styles.add(response.url)
                     if response.ok and response.request.resource_type == "stylesheet" else None)
             page.goto(self.live_server_url)
-            for path in ("app.css", "landing.css"):
+            for path in ("v2.css",):
                 self.assertIn(f"{self.live_server_url}/static/core/{path}", loaded_styles)
             expect(page.get_by_role("heading", name="CareFlow EHR")).to_be_visible()
             cards = page.locator(".landing-card")
@@ -43,6 +43,9 @@ class LandingBrowserTests(StaticLiveServerTestCase):
             for label, path in (("Staff Sign In", "/login/"), ("Patient Sign In", "/portal/login/")):
                 page.goto(self.live_server_url)
                 link = page.get_by_role("link", name=label)
+                # The v2 landing adds a skip link before the two real portal entries.
+                page.keyboard.press("Tab")
+                expect(page.get_by_role("link", name="Skip to content")).to_be_focused()
                 page.keyboard.press("Tab")
                 if path == "/portal/login/":
                     page.keyboard.press("Tab")

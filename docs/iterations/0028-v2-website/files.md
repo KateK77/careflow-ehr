@@ -1,0 +1,50 @@
+# Changed files — v2 website
+
+All paths are repository-relative. Existing debug.log is excluded and unchanged. No database or credential file is included.
+
+- `README.md`
+- `careflow/core/static/core/v2.css`
+- `careflow/core/templates/core/base.html`
+- `careflow/core/templates/core/home.html`
+- `careflow/core/templates/registration/login.html`
+- `careflow/core/templates/v2/appointment_steps.html`
+- `careflow/core/templates/v2/base.html`
+- `careflow/core/templates/v2/brand.html`
+- `careflow/core/templates/v2/dashboard.html`
+- `careflow/core/templates/v2/duplicate_notice.html`
+- `careflow/core/templates/v2/home.html`
+- `careflow/core/templates/v2/identity.html`
+- `careflow/core/templates/v2/patient_base.html`
+- `careflow/core/templates/v2/patient_field.html`
+- `careflow/core/templates/v2/patient_form.html`
+- `careflow/core/templates/v2/staff_login.html`
+- `careflow/core/templates/v2/workspace_cards.html`
+- `careflow/core/test_v2.py`
+- `careflow/core/tests.py`
+- `careflow/core/ui_browser_tests.py`
+- `careflow/core/workspace_browser_tests.py`
+- `careflow/mar/browser_tests.py`
+- `careflow/mar/exception_browser_tests.py`
+- `careflow/patients/templates/patients/dashboard.html`
+- `careflow/patients/templates/patients/form.html`
+- `careflow/patients/views.py`
+- `careflow/portal/templates/portal/base.html`
+- `careflow/portal/templates/portal/login.html`
+- `careflow/portal/templates/portal/records.html`
+- `careflow/scheduling/templates/scheduling/form.html`
+- `careflow/scheduling/templates/scheduling/review.html`
+- `docs/iterations/0028-v2-website/README.md`
+- `docs/iterations/0028-v2-website/feedback.md`
+- `docs/iterations/0028-v2-website/files.md`
+- `docs/iterations/0028-v2-website/history/README.before-v2.md`
+- `docs/iterations/0028-v2-website/prompt.en.v1.0.md`
+- `docs/iterations/0028-v2-website/prompt.original.zh.md`
+- `docs/iterations/0028-v2-website/screenshots/appointment-1280-initial.png`
+- `docs/iterations/0028-v2-website/screenshots/careflow-landing-1440.png`
+- `docs/iterations/0028-v2-website/screenshots/careflow-landing-390.png`
+- `docs/iterations/0028-v2-website/screenshots/patient-portal-390.png`
+- `docs/iterations/0028-v2-website/screenshots/staff-workspace-1280.png`
+- `docs/iterations/0028-v2-website/screenshots/v2-registration-1280.png`
+- `docs/iterations/0028-v2-website/verification.md`
+- `docs/requirements/v2.0/README.md`
+- `tools/v2_preview.py`

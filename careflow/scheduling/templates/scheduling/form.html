@@ -23,6 +23,7 @@
       New outpatient appointment
     {% endif %}
   </h1>
+  {% include "v2/appointment_steps.html" with step=1 %}
   <p class="muted">Enter times in {{ clinic_zone }}. All patient and visit information must be synthetic.</p>
   {% if not appointment %}
     <details class="panel appointment-search"{% if patient_query %} open{% endif %}>

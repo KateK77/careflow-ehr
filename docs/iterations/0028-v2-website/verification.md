@@ -16,7 +16,7 @@ Date: 2026-11-14, America/Chicago. All results here are automated or developer-o
 | Preview launcher `--prepare-only` | PASS with a deliberately inherited original database path overridden by a NEW unique preview path |
 | New preview fixture assertions | 30 synthetic patients, 11 accounts, two separate patient links, three appointments and three creation audits |
 | New preview SQLite checks | Integrity `ok`; no foreign-key violations |
-| Documentation links | PASS; 26 local links before adding screenshot navigation |
+| Documentation links | PASS; 32 local links, including screenshot navigation |
 | Git whitespace | PASS |
 | Paid API calls | None |
 
@@ -63,6 +63,8 @@ Main and all parent branch references are preserved; only the new feature branch
 
 ## CI and remaining limits
 
-CI executes Django checks, default regression tests and migration consistency. Chromium and CUA are local results and are not misrepresented as GitHub jobs. CI publication evidence is recorded after pushing.
+CI executes Django checks, default regression tests and migration consistency. Chromium and CUA are local results and are not misrepresented as GitHub jobs. [Implementation PR CI](https://github.com/KateK77/careflow-ehr/actions/runs/43677681983) passed for commit 6d42c82e594cd1551e09e040c4f992b15775529e: setup, Django checks, regression tests and migration consistency all succeeded. The subsequent traceability-only commit receives its own CI run; the final result is shown on [PR #59](https://github.com/KateK77/careflow-ehr/pull/59).
 
 Selected layout widths are 1440/1280, 700 where applicable, 390 and 320. This is not comprehensive accessibility, browser/device, security, concurrency or production certification. Existing deferred business-policy enhancements remain deferred. The new preview starts with basic fictional registration/scheduling fixtures; advanced clinical scenarios must be exercised through existing workflows.
+
+Git reference verification: GitHub main remains `a9e0913b626b88908ad2ca3041d2ec9497ba7d15`; local main remains `00c624553cc265e6275a9d2750ab0041a7e6d97f`. The parent branch remains `86d307540386fa587e962430b2dfbb0eb76a5f11`. They were deliberately not synchronized or merged during this feature task.

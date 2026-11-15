@@ -5,7 +5,8 @@ Status: development preview; awaiting user review. Not a release.
 - [Issue #58](https://github.com/KateK77/careflow-ehr/issues/58).
 - Branch: `feature/v2-website`.
 - Parent: [PR #57](https://github.com/KateK77/careflow-ehr/pull/57), `ui/unified-workspace-upgrade`, commit [86d307540386fa587e962430b2dfbb0eb76a5f11](https://github.com/KateK77/careflow-ehr/commit/86d307540386fa587e962430b2dfbb0eb76a5f11).
-- New PR and implementation commit will be recorded after publication.
+- [PR #59](https://github.com/KateK77/careflow-ehr/pull/59), open and unmerged.
+- Implementation: [6d42c82e594cd1551e09e040c4f992b15775529e](https://github.com/KateK77/careflow-ehr/commit/6d42c82e594cd1551e09e040c4f992b15775529e).
 - [Original prompt](prompt.original.zh.md); [English translation v1.0](prompt.en.v1.0.md).
 - [Requirements, architecture and feedback disposition](../../requirements/v2.0/README.md).
 - [Verification](verification.md); [feedback and acceptance](feedback.md); [files](files.md).

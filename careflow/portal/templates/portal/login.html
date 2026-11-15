@@ -1,3 +1,9 @@
 {% extends "portal/base.html" %}
-{% block content %}<section class="panel login"><h1>Sign in to the Patient Portal</h1><p>Use your linked synthetic patient account.</p><p><a href="{% url 'home' %}">Back to portal selection</a> · <a href="{% url 'login' %}">Staff sign in</a></p>
-<form method="post">{% csrf_token %}{{ form.as_p }}<button type="submit">Sign in</button></form></section>{% endblock %}
+{% block content %}
+<div class="login-layout">
+<section class="login-story"><p class="eyebrow">YOUR PATIENT PORTAL</p><h1>Your records.<br><em>Your space.</em></h1><p class="lead">Appointments, released results and conversations with your care team, in one place.</p><p class="small muted">Use a linked synthetic patient account. This portal is not an emergency service.</p></section>
+<section class="panel login-panel"><h2>Sign in to the Patient Portal</h2><p class="muted">Use your linked synthetic patient account.</p>
+<form method="post">{% csrf_token %}{{ form.non_field_errors }}{% for field in form %}<div class="field">{{ field.label_tag }}{{ field }}{{ field.errors }}</div>{% endfor %}<button type="submit">Sign in</button></form>
+<div class="login-links"><a href="{% url 'home' %}">Back to portal selection</a><a href="{% url 'login' %}">Staff sign in</a></div></section>
+</div>
+{% endblock %}

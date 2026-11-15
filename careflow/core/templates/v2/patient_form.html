@@ -1,0 +1,27 @@
+{% extends "core/base.html" %}
+{% block title %}{% if patient.pk %}Edit patient{% else %}Register patient{% endif %} · CareFlow EHR 2.0{% endblock %}
+{% block content %}
+<div class="eyebrow">PATIENT ACCESS / {% if patient.pk %}DEMOGRAPHICS{% else %}REGISTRATION{% endif %}</div>
+<div class="page-heading"><div><h1>{% if patient.pk %}Edit demographic record{% else %}Register synthetic patient{% endif %}</h1><p class="muted">Required fields are marked *. Only fictional data may be entered.</p></div><a href="{% url 'patient_list' %}">Back to patients</a></div>
+{% include "v2/duplicate_notice.html" %}
+<form method="post" class="panel">
+{% csrf_token %}{{ form.non_field_errors }}{{ form.version }}{{ form.version.errors }}
+<fieldset class="registration-section"><legend>01 · Patient identity</legend>
+<div class="form-grid">{% for field in form.visible_fields %}{% if field.name != 'synthetic_only' and field.name != 'confirm_duplicate' and field.name not in 'phone,email,address,emergency_contact' %}{% include "v2/patient_field.html" %}{% endif %}{% endfor %}</div>
+</fieldset>
+<fieldset class="registration-section"><legend>02 · Contact information <span class="muted">(optional)</span></legend>
+<div class="form-grid">{% for field in form.visible_fields %}{% if field.name in 'phone,email,address,emergency_contact' %}{% include "v2/patient_field.html" %}{% endif %}{% endfor %}</div>
+</fieldset>
+{% if form.duplicates %}<fieldset class="registration-section"><legend>Duplicate review</legend>
+<label class="registration-confirmation" for="{{ form.confirm_duplicate.id_for_label }}">{{ form.confirm_duplicate }} {{ form.confirm_duplicate.label }}</label>{{ form.confirm_duplicate.errors }}
+</fieldset>{% endif %}
+<fieldset class="registration-choice" style="margin-top:20px">
+<legend>Required before saving</legend>
+<label class="registration-confirmation" for="{{ form.synthetic_only.id_for_label }}">{{ form.synthetic_only }} {{ form.synthetic_only.label }} (required)</label>
+{{ form.synthetic_only.errors }}
+</fieldset>
+<div class="form-actions"><button type="submit">Save patient</button>
+{% if patient.pk %}<a href="{% url 'patient_detail' patient.pk %}">Cancel / reload current record</a>{% else %}<a href="{% url 'patient_list' %}">Cancel</a>{% endif %}
+</div>
+</form>
+{% endblock %}

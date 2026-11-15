@@ -17,7 +17,7 @@ class ScaffoldTests(SimpleTestCase):
             self.assertContains(response, f'href="{url}"')
             self.assertContains(response, label)
             self.assertEqual(self.client.get(url).status_code, 200)
-        for stylesheet in ("core/app.css", "core/landing.css"):
+        for stylesheet in ("core/v2.css",):
             self.assertContains(response, f'href="{static(stylesheet)}"')
         self.assertContains(response, "DEMO — NOT FOR CLINICAL USE")
 

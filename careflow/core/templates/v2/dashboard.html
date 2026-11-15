@@ -1,0 +1,27 @@
+{% extends "core/base.html" %}
+{% block title %}Dashboard · CareFlow EHR 2.0{% endblock %}
+{% block content %}
+<div class="workspace-intro">
+  <div><p class="eyebrow">TODAY AT YOUR WORKSPACE · {{ today|date:"l, F j" }}</p><h1>A clearer day of care.</h1><p class="lead">Your permitted worklists, patients and next steps, together.</p></div>
+  {% if can_manage_patients %}<a class="button" href="{% url 'appointment_create' %}">Schedule an appointment <span aria-hidden="true">＋</span></a>{% endif %}
+</div>
+<div class="metric-grid" aria-label="Current database overview">
+  <div class="metric"><span>Patient directory<br>Registered synthetic records</span><strong>{{ patient_count }}</strong></div>
+  <div class="metric"><span>Today's appointments<br>Within your scheduling access</span><strong>{{ today_count }}</strong></div>
+  <div class="metric"><span>Arrived today<br>Current appointment status</span><strong>{{ arrived_count }}</strong></div>
+</div>
+<section class="panel">
+  <div class="page-heading"><div><h2>Today's schedule</h2><p class="small muted">First eight appointments in clinic-local time, including cancellations.</p></div><a href="{% url 'schedule' %}">View full schedule →</a></div>
+  <div class="table-scroll"><table class="clinical-table dashboard-agenda">
+    <thead><tr><th>Time</th><th>Patient</th><th>Physician</th><th>Status</th><th>Action</th></tr></thead>
+    <tbody>{% for appointment in today_appointments %}
+      <tr><td>{{ appointment.start_at|date:"H:i T" }}</td><td class="patient-cell"><strong>{{ appointment.patient }}</strong><br><span class="small">{{ appointment.patient.mrn }}</span></td>
+      <td>{{ appointment.physician.get_full_name|default:appointment.physician.username }}</td><td><span class="tag state-{{ appointment.status }}">{{ appointment.get_status_display }}</span></td>
+      <td><a href="{% url 'appointment_detail' appointment.pk %}">View appointment</a></td></tr>
+    {% empty %}<tr><td colspan="5"><div class="empty">No appointments in your permitted schedule today. Open the schedule to choose another date.</div></td></tr>{% endfor %}</tbody>
+  </table></div>
+</section>
+<div class="section-heading"><h2>Continue your work</h2><span class="small muted">Available for your assigned roles</span></div>
+{% include "v2/workspace_cards.html" %}
+<p class="small muted" style="margin-top:18px">Patient and encounter access is checked when you open each record. All workflows use synthetic data.</p>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% if not patient.pk and field.name == "sex" %}
+<fieldset class="field registration-choice" aria-describedby="{{ field.auto_id }}_helptext{% if field.errors %} {{ field.auto_id }}_error{% endif %}">
+  <legend>{{ field.label }} (required)</legend><small id="{{ field.auto_id }}_helptext">{{ field.help_text }}</small>{{ field }}{{ field.errors }}
+</fieldset>
+{% else %}
+<div class="field">
+<label for="{{ field.id_for_label }}">{{ field.label }}{% if field.field.required %} *{% endif %}</label>
+{{ field }}{{ field.errors }}{% if field.help_text %}<small id="{{ field.auto_id }}_helptext">{{ field.help_text }}</small>{% endif %}
+</div>
+{% endif %}

@@ -1,0 +1,2862 @@
+[
+  {
+    "id": "CF-001",
+    "title": "Unified landing",
+    "role": "Anonymous",
+    "target": "/",
+    "text": "Choose your portal",
+    "difficulty": 1,
+    "status": 200,
+    "final": "/",
+    "steps": [],
+    "goal": "Open the requested route, observe its content and report whether access is allowed.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-002",
+    "title": "Staff sign-in entry",
+    "role": "Anonymous",
+    "target": "/login/",
+    "text": "Staff sign in",
+    "difficulty": 1,
+    "status": 200,
+    "final": "/login/",
+    "steps": [],
+    "goal": "Open the requested route, observe its content and report whether access is allowed.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-003",
+    "title": "Patient sign-in entry",
+    "role": "Anonymous",
+    "target": "/portal/login/",
+    "text": "Sign in to the Patient Portal",
+    "difficulty": 1,
+    "status": 200,
+    "final": "/portal/login/",
+    "steps": [],
+    "goal": "Open the requested route, observe its content and report whether access is allowed.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-004",
+    "title": "Patient signup fields",
+    "role": "Anonymous",
+    "target": "/accounts/register/patient/",
+    "text": "Confirm password",
+    "difficulty": 1,
+    "status": 200,
+    "final": "/accounts/register/patient/",
+    "steps": [],
+    "goal": "Open the requested route, observe its content and report whether access is allowed.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-005",
+    "title": "Staff application fields",
+    "role": "Anonymous",
+    "target": "/accounts/register/staff/",
+    "text": "Requested staff role",
+    "difficulty": 1,
+    "status": 200,
+    "final": "/accounts/register/staff/",
+    "steps": [],
+    "goal": "Open the requested route, observe its content and report whether access is allowed.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-006",
+    "title": "Administrator dashboard",
+    "role": "Administrator",
+    "target": "/app/dashboard/",
+    "text": "Dashboard",
+    "difficulty": 1,
+    "status": 200,
+    "final": "/app/dashboard/",
+    "steps": [],
+    "goal": "Open the requested route, observe its content and report whether access is allowed.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-007",
+    "title": "Physician worklist",
+    "role": "Physician",
+    "target": "/app/physician/",
+    "text": "Physician worklist",
+    "difficulty": 1,
+    "status": 200,
+    "final": "/app/physician/",
+    "steps": [],
+    "goal": "Open the requested route, observe its content and report whether access is allowed.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-008",
+    "title": "Nursing workspace",
+    "role": "Nurse",
+    "target": "/app/nursing/",
+    "text": "Nursing workspace",
+    "difficulty": 1,
+    "status": 200,
+    "final": "/app/nursing/",
+    "steps": [],
+    "goal": "Open the requested route, observe its content and report whether access is allowed.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-009",
+    "title": "Laboratory worklist",
+    "role": "Lab Staff",
+    "target": "/app/lab/workspace/",
+    "text": "Laboratory",
+    "difficulty": 1,
+    "status": 200,
+    "final": "/app/lab/workspace/",
+    "steps": [],
+    "goal": "Open the requested route, observe its content and report whether access is allowed.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-010",
+    "title": "Pharmacy worklist",
+    "role": "Pharmacist",
+    "target": "/app/pharmacy/",
+    "text": "Pharmacy Workspace",
+    "difficulty": 1,
+    "status": 200,
+    "final": "/app/pharmacy/",
+    "steps": [],
+    "goal": "Open the requested route, observe its content and report whether access is allowed.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-011",
+    "title": "Patient directory",
+    "role": "FrontDesk",
+    "target": "/app/patients/",
+    "text": "LAB-01",
+    "difficulty": 2,
+    "status": 200,
+    "final": "/app/patients/",
+    "steps": [],
+    "goal": "Open the requested route, observe its content and report whether access is allowed.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-012",
+    "title": "Patient demographics",
+    "role": "FrontDesk",
+    "target": "/app/patients/1/",
+    "text": "LAB-01",
+    "difficulty": 2,
+    "status": 200,
+    "final": "/app/patients/1/",
+    "steps": [],
+    "goal": "Open the requested route, observe its content and report whether access is allowed.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-013",
+    "title": "Appointment calendar",
+    "role": "FrontDesk",
+    "target": "/app/schedule/",
+    "text": "Synthetic benchmark",
+    "difficulty": 2,
+    "status": 200,
+    "final": "/app/schedule/",
+    "steps": [],
+    "goal": "Open the requested route, observe its content and report whether access is allowed.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-014",
+    "title": "Check-in worklist",
+    "role": "FrontDesk",
+    "target": "/app/check-in/",
+    "text": "Synthetic benchmark",
+    "difficulty": 2,
+    "status": 200,
+    "final": "/app/check-in/",
+    "steps": [],
+    "goal": "Open the requested route, observe its content and report whether access is allowed.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-015",
+    "title": "Appointment creation history",
+    "role": "FrontDesk",
+    "target": "/app/appointments/2/",
+    "text": "Appointment booked",
+    "difficulty": 2,
+    "status": 200,
+    "final": "/app/appointments/2/",
+    "steps": [],
+    "goal": "Open the requested route, observe its content and report whether access is allowed.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-016",
+    "title": "Longitudinal patient chart",
+    "role": "Physician",
+    "target": "/app/patients/1/chart/",
+    "text": "LAB-01",
+    "difficulty": 2,
+    "status": 200,
+    "final": "/app/patients/1/chart/",
+    "steps": [],
+    "goal": "Open the requested route, observe its content and report whether access is allowed.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-017",
+    "title": "In-progress encounter",
+    "role": "Physician",
+    "target": "/app/patients/1/encounters/1/",
+    "text": "In progress",
+    "difficulty": 2,
+    "status": 200,
+    "final": "/app/patients/1/encounters/1/",
+    "steps": [],
+    "goal": "Open the requested route, observe its content and report whether access is allowed.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-018",
+    "title": "Medical-history empty state",
+    "role": "Physician",
+    "target": "/app/patients/1/history/medical/",
+    "text": "Medical history",
+    "difficulty": 2,
+    "status": 200,
+    "final": "/app/patients/1/history/medical/",
+    "steps": [],
+    "goal": "Open the requested route, observe its content and report whether access is allowed.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-019",
+    "title": "Longitudinal problems",
+    "role": "Physician",
+    "target": "/app/patients/1/history/problems/",
+    "text": "Problems",
+    "difficulty": 2,
+    "status": 200,
+    "final": "/app/patients/1/history/problems/",
+    "steps": [],
+    "goal": "Open the requested route, observe its content and report whether access is allowed.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-020",
+    "title": "Allergy review status",
+    "role": "Physician",
+    "target": "/app/patients/1/history/allergies/",
+    "text": "Not reviewed",
+    "difficulty": 2,
+    "status": 200,
+    "final": "/app/patients/1/history/allergies/",
+    "steps": [],
+    "goal": "Open the requested route, observe its content and report whether access is allowed.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-021",
+    "title": "Medication history",
+    "role": "Physician",
+    "target": "/app/patients/1/history/medications/",
+    "text": "Medication history",
+    "difficulty": 2,
+    "status": 200,
+    "final": "/app/patients/1/history/medications/",
+    "steps": [],
+    "goal": "Open the requested route, observe its content and report whether access is allowed.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-022",
+    "title": "Encounter diagnoses",
+    "role": "Physician",
+    "target": "/app/patients/1/encounters/1/diagnoses/",
+    "text": "Encounter diagnoses",
+    "difficulty": 2,
+    "status": 200,
+    "final": "/app/patients/1/encounters/1/diagnoses/",
+    "steps": [],
+    "goal": "Open the requested route, observe its content and report whether access is allowed.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-023",
+    "title": "Appointment nursing context",
+    "role": "Nurse",
+    "target": "/app/patients/1/nursing/appointments/1/",
+    "text": "LAB-01",
+    "difficulty": 2,
+    "status": 200,
+    "final": "/app/patients/1/nursing/appointments/1/",
+    "steps": [],
+    "goal": "Open the requested route, observe its content and report whether access is allowed.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-024",
+    "title": "Longitudinal flowsheet",
+    "role": "Nurse",
+    "target": "/app/patients/1/nursing/flowsheet/",
+    "text": "LAB-01",
+    "difficulty": 2,
+    "status": 200,
+    "final": "/app/patients/1/nursing/flowsheet/",
+    "steps": [],
+    "goal": "Open the requested route, observe its content and report whether access is allowed.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-025",
+    "title": "Lab catalog",
+    "role": "Physician",
+    "target": "/app/lab/catalog/",
+    "text": "Demo chemistry",
+    "difficulty": 2,
+    "status": 200,
+    "final": "/app/lab/catalog/",
+    "steps": [],
+    "goal": "Open the requested route, observe its content and report whether access is allowed.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-026",
+    "title": "Lab order history",
+    "role": "Physician",
+    "target": "/app/patients/1/lab-orders/",
+    "text": "Demo chemistry",
+    "difficulty": 2,
+    "status": 200,
+    "final": "/app/patients/1/lab-orders/",
+    "steps": [],
+    "goal": "Open the requested route, observe its content and report whether access is allowed.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-027",
+    "title": "Medication catalog",
+    "role": "Physician",
+    "target": "/app/medications/catalog/",
+    "text": "Synthetic Amber",
+    "difficulty": 2,
+    "status": 200,
+    "final": "/app/medications/catalog/",
+    "steps": [],
+    "goal": "Open the requested route, observe its content and report whether access is allowed.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-028",
+    "title": "Signed medication history",
+    "role": "Physician",
+    "target": "/app/patients/1/medication-orders/",
+    "text": "Synthetic Amber",
+    "difficulty": 2,
+    "status": 200,
+    "final": "/app/patients/1/medication-orders/",
+    "steps": [],
+    "goal": "Open the requested route, observe its content and report whether access is allowed.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-029",
+    "title": "Billing worklist",
+    "role": "BillingStaff",
+    "target": "/app/billing/",
+    "text": "Billing",
+    "difficulty": 2,
+    "status": 200,
+    "final": "/app/billing/",
+    "steps": [],
+    "goal": "Open the requested route, observe its content and report whether access is allowed.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-030",
+    "title": "Claims queue",
+    "role": "BillingStaff",
+    "target": "/app/billing/claims/",
+    "text": "Claims",
+    "difficulty": 2,
+    "status": 200,
+    "final": "/app/billing/claims/",
+    "steps": [],
+    "goal": "Open the requested route, observe its content and report whether access is allowed.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-031",
+    "title": "Radiology worklist",
+    "role": "RadiologyStaff",
+    "target": "/app/radiology/",
+    "text": "Radiology",
+    "difficulty": 2,
+    "status": 200,
+    "final": "/app/radiology/",
+    "steps": [],
+    "goal": "Open the requested route, observe its content and report whether access is allowed.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-032",
+    "title": "Imaging catalog",
+    "role": "Administrator",
+    "target": "/app/imaging/catalog/",
+    "text": "Imaging",
+    "difficulty": 2,
+    "status": 200,
+    "final": "/app/imaging/catalog/",
+    "steps": [],
+    "goal": "Open the requested route, observe its content and report whether access is allowed.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-033",
+    "title": "Inpatient dashboard",
+    "role": "HospitalOperations",
+    "target": "/app/inpatient/",
+    "text": "Inpatient",
+    "difficulty": 2,
+    "status": 200,
+    "final": "/app/inpatient/",
+    "steps": [],
+    "goal": "Open the requested route, observe its content and report whether access is allowed.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-034",
+    "title": "Capacity dashboard",
+    "role": "HospitalOperations",
+    "target": "/app/inpatient/capacity/",
+    "text": "Capacity",
+    "difficulty": 2,
+    "status": 200,
+    "final": "/app/inpatient/capacity/",
+    "steps": [],
+    "goal": "Open the requested route, observe its content and report whether access is allowed.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-035",
+    "title": "Emergency tracking board",
+    "role": "Nurse",
+    "target": "/app/ed/",
+    "text": "Emergency",
+    "difficulty": 2,
+    "status": 200,
+    "final": "/app/ed/",
+    "steps": [],
+    "goal": "Open the requested route, observe its content and report whether access is allowed.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-036",
+    "title": "Anonymous staff redirect",
+    "role": "Anonymous",
+    "target": "/app/patients/",
+    "text": "",
+    "difficulty": 3,
+    "status": 302,
+    "final": "/login/?next=/app/patients/",
+    "steps": [],
+    "goal": "Click Open requested application route, observe the login or denial page and stop. Do not bypass access controls.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [
+      "LAB-01",
+      "LAB-02",
+      "Synthetic protected"
+    ],
+    "invalid": null
+  },
+  {
+    "id": "CF-037",
+    "title": "Anonymous patient redirect",
+    "role": "Anonymous",
+    "target": "/portal/",
+    "text": "",
+    "difficulty": 3,
+    "status": 302,
+    "final": "/portal/login/?next=/portal/",
+    "steps": [],
+    "goal": "Click Open requested application route, observe the login or denial page and stop. Do not bypass access controls.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [
+      "LAB-01",
+      "LAB-02",
+      "Synthetic protected"
+    ],
+    "invalid": null
+  },
+  {
+    "id": "CF-038",
+    "title": "Patient denied directory",
+    "role": "Patient",
+    "target": "/app/patients/",
+    "text": "",
+    "difficulty": 3,
+    "status": 403,
+    "final": "/app/patients/",
+    "steps": [],
+    "goal": "Click Open requested application route, observe the login or denial page and stop. Do not bypass access controls.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [
+      "LAB-01",
+      "LAB-02",
+      "Synthetic protected"
+    ],
+    "invalid": null
+  },
+  {
+    "id": "CF-039",
+    "title": "Patient denied staff approval",
+    "role": "Patient",
+    "target": "/app/accounts/applications/",
+    "text": "",
+    "difficulty": 3,
+    "status": 403,
+    "final": "/app/accounts/applications/",
+    "steps": [],
+    "goal": "Click Open requested application route, observe the login or denial page and stop. Do not bypass access controls.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [
+      "LAB-01",
+      "LAB-02",
+      "Synthetic protected"
+    ],
+    "invalid": null
+  },
+  {
+    "id": "CF-040",
+    "title": "Patient denied nursing",
+    "role": "Patient",
+    "target": "/app/nursing/",
+    "text": "",
+    "difficulty": 3,
+    "status": 403,
+    "final": "/app/nursing/",
+    "steps": [],
+    "goal": "Click Open requested application route, observe the login or denial page and stop. Do not bypass access controls.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [
+      "LAB-01",
+      "LAB-02",
+      "Synthetic protected"
+    ],
+    "invalid": null
+  },
+  {
+    "id": "CF-041",
+    "title": "Patient denied pharmacy",
+    "role": "Patient",
+    "target": "/app/pharmacy/",
+    "text": "",
+    "difficulty": 3,
+    "status": 403,
+    "final": "/app/pharmacy/",
+    "steps": [],
+    "goal": "Click Open requested application route, observe the login or denial page and stop. Do not bypass access controls.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [
+      "LAB-01",
+      "LAB-02",
+      "Synthetic protected"
+    ],
+    "invalid": null
+  },
+  {
+    "id": "CF-042",
+    "title": "Physician denied registration",
+    "role": "Physician",
+    "target": "/app/patients/new/",
+    "text": "",
+    "difficulty": 3,
+    "status": 403,
+    "final": "/app/patients/new/",
+    "steps": [],
+    "goal": "Click Open requested application route, observe the login or denial page and stop. Do not bypass access controls.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [
+      "LAB-01",
+      "LAB-02",
+      "Synthetic protected"
+    ],
+    "invalid": null
+  },
+  {
+    "id": "CF-043",
+    "title": "Physician denied demographics edit",
+    "role": "Physician",
+    "target": "/app/patients/1/edit/",
+    "text": "",
+    "difficulty": 3,
+    "status": 403,
+    "final": "/app/patients/1/edit/",
+    "steps": [],
+    "goal": "Click Open requested application route, observe the login or denial page and stop. Do not bypass access controls.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [
+      "LAB-01",
+      "LAB-02",
+      "Synthetic protected"
+    ],
+    "invalid": null
+  },
+  {
+    "id": "CF-044",
+    "title": "Physician denied account approval",
+    "role": "Physician",
+    "target": "/app/accounts/applications/",
+    "text": "",
+    "difficulty": 3,
+    "status": 403,
+    "final": "/app/accounts/applications/",
+    "steps": [],
+    "goal": "Click Open requested application route, observe the login or denial page and stop. Do not bypass access controls.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [
+      "LAB-01",
+      "LAB-02",
+      "Synthetic protected"
+    ],
+    "invalid": null
+  },
+  {
+    "id": "CF-045",
+    "title": "FrontDesk denied chart",
+    "role": "FrontDesk",
+    "target": "/app/patients/1/chart/",
+    "text": "",
+    "difficulty": 3,
+    "status": 403,
+    "final": "/app/patients/1/chart/",
+    "steps": [],
+    "goal": "Click Open requested application route, observe the login or denial page and stop. Do not bypass access controls.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [
+      "LAB-01",
+      "LAB-02",
+      "Synthetic protected"
+    ],
+    "invalid": null
+  },
+  {
+    "id": "CF-046",
+    "title": "FrontDesk denied SOAP",
+    "role": "FrontDesk",
+    "target": "/app/patients/1/encounters/1/",
+    "text": "",
+    "difficulty": 3,
+    "status": 403,
+    "final": "/app/patients/1/encounters/1/",
+    "steps": [],
+    "goal": "Click Open requested application route, observe the login or denial page and stop. Do not bypass access controls.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [
+      "LAB-01",
+      "LAB-02",
+      "Synthetic protected"
+    ],
+    "invalid": null
+  },
+  {
+    "id": "CF-047",
+    "title": "FrontDesk denied history",
+    "role": "FrontDesk",
+    "target": "/app/patients/1/history/medical/",
+    "text": "",
+    "difficulty": 3,
+    "status": 403,
+    "final": "/app/patients/1/history/medical/",
+    "steps": [],
+    "goal": "Click Open requested application route, observe the login or denial page and stop. Do not bypass access controls.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [
+      "LAB-01",
+      "LAB-02",
+      "Synthetic protected"
+    ],
+    "invalid": null
+  },
+  {
+    "id": "CF-048",
+    "title": "Nurse denied SOAP authoring",
+    "role": "Nurse",
+    "target": "/app/patients/1/encounters/1/note/",
+    "text": "",
+    "difficulty": 3,
+    "status": 403,
+    "final": "/app/patients/1/encounters/1/note/",
+    "steps": [],
+    "goal": "Click Open requested application route, observe the login or denial page and stop. Do not bypass access controls.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [
+      "LAB-01",
+      "LAB-02",
+      "Synthetic protected"
+    ],
+    "invalid": null
+  },
+  {
+    "id": "CF-049",
+    "title": "Nurse denied patient creation",
+    "role": "Nurse",
+    "target": "/app/patients/new/",
+    "text": "",
+    "difficulty": 3,
+    "status": 403,
+    "final": "/app/patients/new/",
+    "steps": [],
+    "goal": "Click Open requested application route, observe the login or denial page and stop. Do not bypass access controls.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [
+      "LAB-01",
+      "LAB-02",
+      "Synthetic protected"
+    ],
+    "invalid": null
+  },
+  {
+    "id": "CF-050",
+    "title": "Lab denied demographics",
+    "role": "Lab Staff",
+    "target": "/app/patients/",
+    "text": "",
+    "difficulty": 3,
+    "status": 403,
+    "final": "/app/patients/",
+    "steps": [],
+    "goal": "Click Open requested application route, observe the login or denial page and stop. Do not bypass access controls.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [
+      "LAB-01",
+      "LAB-02",
+      "Synthetic protected"
+    ],
+    "invalid": null
+  },
+  {
+    "id": "CF-051",
+    "title": "Lab denied physician worklist",
+    "role": "Lab Staff",
+    "target": "/app/physician/",
+    "text": "",
+    "difficulty": 3,
+    "status": 403,
+    "final": "/app/physician/",
+    "steps": [],
+    "goal": "Click Open requested application route, observe the login or denial page and stop. Do not bypass access controls.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [
+      "LAB-01",
+      "LAB-02",
+      "Synthetic protected"
+    ],
+    "invalid": null
+  },
+  {
+    "id": "CF-052",
+    "title": "Pharmacist denied chart",
+    "role": "Pharmacist",
+    "target": "/app/patients/1/chart/",
+    "text": "",
+    "difficulty": 3,
+    "status": 403,
+    "final": "/app/patients/1/chart/",
+    "steps": [],
+    "goal": "Click Open requested application route, observe the login or denial page and stop. Do not bypass access controls.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [
+      "LAB-01",
+      "LAB-02",
+      "Synthetic protected"
+    ],
+    "invalid": null
+  },
+  {
+    "id": "CF-053",
+    "title": "Pharmacist denied demographics edit",
+    "role": "Pharmacist",
+    "target": "/app/patients/1/edit/",
+    "text": "",
+    "difficulty": 3,
+    "status": 403,
+    "final": "/app/patients/1/edit/",
+    "steps": [],
+    "goal": "Click Open requested application route, observe the login or denial page and stop. Do not bypass access controls.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [
+      "LAB-01",
+      "LAB-02",
+      "Synthetic protected"
+    ],
+    "invalid": null
+  },
+  {
+    "id": "CF-054",
+    "title": "Billing denied ED",
+    "role": "BillingStaff",
+    "target": "/app/ed/",
+    "text": "",
+    "difficulty": 3,
+    "status": 403,
+    "final": "/app/ed/",
+    "steps": [],
+    "goal": "Click Open requested application route, observe the login or denial page and stop. Do not bypass access controls.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [
+      "LAB-01",
+      "LAB-02",
+      "Synthetic protected"
+    ],
+    "invalid": null
+  },
+  {
+    "id": "CF-055",
+    "title": "Billing denied inpatient",
+    "role": "BillingStaff",
+    "target": "/app/inpatient/",
+    "text": "",
+    "difficulty": 3,
+    "status": 403,
+    "final": "/app/inpatient/",
+    "steps": [],
+    "goal": "Click Open requested application route, observe the login or denial page and stop. Do not bypass access controls.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [
+      "LAB-01",
+      "LAB-02",
+      "Synthetic protected"
+    ],
+    "invalid": null
+  },
+  {
+    "id": "CF-056",
+    "title": "Radiology denied SOAP",
+    "role": "RadiologyStaff",
+    "target": "/app/patients/1/encounters/1/",
+    "text": "",
+    "difficulty": 3,
+    "status": 403,
+    "final": "/app/patients/1/encounters/1/",
+    "steps": [],
+    "goal": "Click Open requested application route, observe the login or denial page and stop. Do not bypass access controls.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [
+      "LAB-01",
+      "LAB-02",
+      "Synthetic protected"
+    ],
+    "invalid": null
+  },
+  {
+    "id": "CF-057",
+    "title": "HospitalOperations denied approval",
+    "role": "HospitalOperations",
+    "target": "/app/accounts/applications/",
+    "text": "",
+    "difficulty": 3,
+    "status": 403,
+    "final": "/app/accounts/applications/",
+    "steps": [],
+    "goal": "Click Open requested application route, observe the login or denial page and stop. Do not bypass access controls.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [
+      "LAB-01",
+      "LAB-02",
+      "Synthetic protected"
+    ],
+    "invalid": null
+  },
+  {
+    "id": "CF-058",
+    "title": "Physician denied unrelated chart",
+    "role": "Physician",
+    "target": "/app/patients/2/chart/",
+    "text": "",
+    "difficulty": 3,
+    "status": 404,
+    "final": "/app/patients/2/chart/",
+    "steps": [],
+    "goal": "Click Open requested application route, observe the login or denial page and stop. Do not bypass access controls.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [
+      "LAB-01",
+      "LAB-02",
+      "Synthetic protected"
+    ],
+    "invalid": null
+  },
+  {
+    "id": "CF-059",
+    "title": "Mismatched patient encounter denied",
+    "role": "Physician",
+    "target": "/app/patients/2/encounters/1/",
+    "text": "",
+    "difficulty": 3,
+    "status": 404,
+    "final": "/app/patients/2/encounters/1/",
+    "steps": [],
+    "goal": "Click Open requested application route, observe the login or denial page and stop. Do not bypass access controls.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [
+      "LAB-01",
+      "LAB-02",
+      "Synthetic protected"
+    ],
+    "invalid": null
+  },
+  {
+    "id": "CF-060",
+    "title": "Unclaimed pharmacy details denied",
+    "role": "Pharmacist",
+    "target": "/app/pharmacy/orders/{meduuid}/",
+    "text": "",
+    "difficulty": 3,
+    "status": 404,
+    "final": "/app/pharmacy/orders/{meduuid}/",
+    "steps": [],
+    "goal": "Click Open requested application route, observe the login or denial page and stop. Do not bypass access controls.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [
+      "LAB-01",
+      "LAB-02",
+      "Synthetic protected"
+    ],
+    "invalid": null
+  },
+  {
+    "id": "CF-061",
+    "title": "Own patient dashboard",
+    "role": "Patient",
+    "target": "/portal/",
+    "text": "Patient dashboard",
+    "difficulty": 2,
+    "status": 200,
+    "final": "/portal/",
+    "steps": [],
+    "goal": "Open the requested route, observe its content and report whether access is allowed.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-062",
+    "title": "Own appointments",
+    "role": "Patient",
+    "target": "/portal/appointments/",
+    "text": "Appointments",
+    "difficulty": 2,
+    "status": 200,
+    "final": "/portal/appointments/",
+    "steps": [],
+    "goal": "Open the requested route, observe its content and report whether access is allowed.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-063",
+    "title": "Own visits",
+    "role": "Patient",
+    "target": "/portal/visits/",
+    "text": "Visits",
+    "difficulty": 2,
+    "status": 200,
+    "final": "/portal/visits/",
+    "steps": [],
+    "goal": "Open the requested route, observe its content and report whether access is allowed.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-064",
+    "title": "Own medications",
+    "role": "Patient",
+    "target": "/portal/medications/",
+    "text": "Medications",
+    "difficulty": 2,
+    "status": 200,
+    "final": "/portal/medications/",
+    "steps": [],
+    "goal": "Open the requested route, observe its content and report whether access is allowed.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-065",
+    "title": "Released-results empty state",
+    "role": "Patient",
+    "target": "/portal/results/",
+    "text": "Results",
+    "difficulty": 2,
+    "status": 200,
+    "final": "/portal/results/",
+    "steps": [],
+    "goal": "Open the requested route, observe its content and report whether access is allowed.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-066",
+    "title": "Own messages",
+    "role": "Patient",
+    "target": "/portal/messages/",
+    "text": "Messages",
+    "difficulty": 2,
+    "status": 200,
+    "final": "/portal/messages/",
+    "steps": [],
+    "goal": "Open the requested route, observe its content and report whether access is allowed.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-067",
+    "title": "Own appointment requests",
+    "role": "Patient",
+    "target": "/portal/requests/",
+    "text": "requests",
+    "difficulty": 2,
+    "status": 200,
+    "final": "/portal/requests/",
+    "steps": [],
+    "goal": "Open the requested route, observe its content and report whether access is allowed.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-068",
+    "title": "Own billing statements",
+    "role": "Patient",
+    "target": "/portal/billing/",
+    "text": "Billing",
+    "difficulty": 2,
+    "status": 200,
+    "final": "/portal/billing/",
+    "steps": [],
+    "goal": "Open the requested route, observe its content and report whether access is allowed.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-069",
+    "title": "Owner cannot see unreleased lab result",
+    "role": "Patient",
+    "target": "/portal/results/1/",
+    "text": "",
+    "difficulty": 3,
+    "status": 404,
+    "final": "/portal/results/1/",
+    "steps": [],
+    "goal": "Open the requested route, observe its content and report whether access is allowed.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [
+      "demo-U",
+      "LAB-02"
+    ],
+    "invalid": null
+  },
+  {
+    "id": "CF-070",
+    "title": "Other patient cannot see lab result",
+    "role": "OtherPatient",
+    "target": "/portal/results/1/",
+    "text": "",
+    "difficulty": 3,
+    "status": 404,
+    "final": "/portal/results/1/",
+    "steps": [],
+    "goal": "Open the requested route, observe its content and report whether access is allowed.",
+    "sql": [],
+    "post": [],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [
+      "demo-U",
+      "LAB-01"
+    ],
+    "invalid": null
+  },
+  {
+    "id": "CF-071",
+    "title": "Register synthetic patient",
+    "role": "FrontDesk",
+    "target": "/app/patients/new/",
+    "text": "SYN-BENCH-NEW",
+    "difficulty": 4,
+    "status": 200,
+    "final": "/app/patients/3/",
+    "steps": [
+      [
+        "fill",
+        "#id_mrn",
+        "SYN-BENCH-NEW"
+      ],
+      [
+        "fill",
+        "#id_first_name",
+        "Synthetic"
+      ],
+      [
+        "fill",
+        "#id_last_name",
+        "Benchmark"
+      ],
+      [
+        "fill",
+        "#id_dob",
+        "1990-01-15"
+      ],
+      [
+        "check",
+        "input[name=sex][value=unknown]"
+      ],
+      [
+        "check",
+        "#id_synthetic_only"
+      ],
+      [
+        "button",
+        "Save patient"
+      ]
+    ],
+    "goal": "Register MRN SYN-BENCH-NEW, first name Synthetic, last name Benchmark, DOB 1990-01-15, sex Unknown. Explicitly confirm synthetic data and save.",
+    "sql": [
+      [
+        "SELECT COUNT(*) FROM patients_patient WHERE mrn='SYN-BENCH-NEW'",
+        1
+      ],
+      [
+        "SELECT COUNT(*) FROM patients_auditevent WHERE action='patient_create'",
+        1
+      ]
+    ],
+    "post": [
+      "/app/patients/new/"
+    ],
+    "extra": [
+      "/app/patients/3/"
+    ],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-072",
+    "title": "Required synthetic confirmation",
+    "role": "FrontDesk",
+    "target": "/app/patients/new/",
+    "text": "",
+    "difficulty": 4,
+    "status": 200,
+    "final": "/app/patients/new/",
+    "steps": [
+      [
+        "fill",
+        "#id_mrn",
+        "SYN-BENCH-NEW"
+      ],
+      [
+        "fill",
+        "#id_first_name",
+        "Synthetic"
+      ],
+      [
+        "fill",
+        "#id_last_name",
+        "Benchmark"
+      ],
+      [
+        "fill",
+        "#id_dob",
+        "1990-01-15"
+      ],
+      [
+        "check",
+        "input[name=sex][value=unknown]"
+      ],
+      [
+        "button",
+        "Save patient"
+      ]
+    ],
+    "goal": "Fill MRN SYN-BENCH-NEW, Synthetic Benchmark, DOB 1990-01-15, sex Unknown. Leave synthetic confirmation UNCHECKED, attempt Save patient and observe required-field blocking.",
+    "sql": [
+      [
+        "SELECT COUNT(*) FROM patients_patient",
+        2
+      ]
+    ],
+    "post": [
+      "/app/patients/new/"
+    ],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": "synthetic_only"
+  },
+  {
+    "id": "CF-073",
+    "title": "Duplicate MRN rejection",
+    "role": "FrontDesk",
+    "target": "/app/patients/new/",
+    "text": "already",
+    "difficulty": 4,
+    "status": 200,
+    "final": "/app/patients/new/",
+    "steps": [
+      [
+        "fill",
+        "#id_mrn",
+        "LAB-01"
+      ],
+      [
+        "fill",
+        "#id_first_name",
+        "Synthetic"
+      ],
+      [
+        "fill",
+        "#id_last_name",
+        "Benchmark"
+      ],
+      [
+        "fill",
+        "#id_dob",
+        "1990-01-15"
+      ],
+      [
+        "check",
+        "input[name=sex][value=unknown]"
+      ],
+      [
+        "check",
+        "#id_synthetic_only"
+      ],
+      [
+        "button",
+        "Save patient"
+      ]
+    ],
+    "goal": "Attempt MRN LAB-01, Synthetic Benchmark, DOB 1990-01-15, sex Unknown. Confirm synthetic data and submit once. Observe the duplicate MRN error.",
+    "sql": [
+      [
+        "SELECT COUNT(*) FROM patients_patient",
+        2
+      ]
+    ],
+    "post": [
+      "/app/patients/new/"
+    ],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-074",
+    "title": "Edit demographics and audit",
+    "role": "FrontDesk",
+    "target": "/app/patients/1/edit/",
+    "text": "Updated",
+    "difficulty": 4,
+    "status": 200,
+    "final": "/app/patients/1/",
+    "steps": [
+      [
+        "fill",
+        "#id_last_name",
+        "Updated"
+      ],
+      [
+        "check",
+        "#id_synthetic_only"
+      ],
+      [
+        "button",
+        "Save patient"
+      ]
+    ],
+    "goal": "Change the last name to Updated, confirm synthetic data and save.",
+    "sql": [
+      [
+        "SELECT last_name FROM patients_patient WHERE id=1",
+        "Updated"
+      ],
+      [
+        "SELECT COUNT(*) FROM patients_auditevent WHERE action='patient_update'",
+        1
+      ]
+    ],
+    "post": [
+      "/app/patients/1/edit/"
+    ],
+    "extra": [
+      "/app/patients/1/"
+    ],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-075",
+    "title": "Schedule and confirm appointment",
+    "role": "FrontDesk",
+    "target": "/app/appointments/new/",
+    "text": "Scheduled",
+    "difficulty": 4,
+    "status": 200,
+    "final": "/app/appointments/4/",
+    "steps": [
+      [
+        "select",
+        "#id_patient",
+        "1"
+      ],
+      [
+        "select",
+        "#id_physician",
+        "{physician}"
+      ],
+      [
+        "fill",
+        "#id_start_at",
+        "{start}"
+      ],
+      [
+        "button",
+        "Review appointment"
+      ],
+      [
+        "button",
+        "Confirm appointment"
+      ]
+    ],
+    "goal": "Schedule Synthetic Lab (LAB-01) with its treating physician at {start}, default duration 30 minutes. Review then confirm.",
+    "sql": [
+      [
+        "SELECT COUNT(*) FROM scheduling_appointment",
+        4
+      ],
+      [
+        "SELECT patient_id FROM scheduling_appointment WHERE id=4",
+        1
+      ],
+      [
+        "SELECT COUNT(*) FROM patients_auditevent WHERE action='appointment_create'",
+        2
+      ]
+    ],
+    "post": [
+      "/app/appointments/new/"
+    ],
+    "extra": [
+      "/app/appointments/4/"
+    ],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-076",
+    "title": "Check in and audit",
+    "role": "FrontDesk",
+    "target": "/app/appointments/2/",
+    "text": "Arrived",
+    "difficulty": 4,
+    "status": 200,
+    "final": "/app/appointments/2/",
+    "steps": [
+      [
+        "button",
+        "Mark Arrived"
+      ]
+    ],
+    "goal": "Mark this appointment Arrived. Verify check-in actor and Patient checked in history.",
+    "sql": [
+      [
+        "SELECT status FROM scheduling_appointment WHERE id=2",
+        "arrived"
+      ],
+      [
+        "SELECT COUNT(*) FROM patients_auditevent WHERE action='appointment_arrive'",
+        1
+      ]
+    ],
+    "post": [
+      "/app/appointments/2/transition/"
+    ],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-077",
+    "title": "Reschedule same patient",
+    "role": "FrontDesk",
+    "target": "/app/appointments/2/edit/",
+    "text": "Scheduled",
+    "difficulty": 4,
+    "status": 200,
+    "final": "/app/appointments/2/",
+    "steps": [
+      [
+        "fill",
+        "#id_start_at",
+        "{reschedule}"
+      ],
+      [
+        "button",
+        "Review appointment"
+      ],
+      [
+        "button",
+        "Confirm appointment"
+      ]
+    ],
+    "goal": "Change start time to {reschedule}, preserve patient and physician, review and confirm.",
+    "sql": [
+      [
+        "SELECT version FROM scheduling_appointment WHERE id=2",
+        2
+      ],
+      [
+        "SELECT patient_id FROM scheduling_appointment WHERE id=2",
+        1
+      ]
+    ],
+    "post": [
+      "/app/appointments/2/edit/"
+    ],
+    "extra": [
+      "/app/appointments/2/"
+    ],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-078",
+    "title": "Cancel with retained reason",
+    "role": "FrontDesk",
+    "target": "/app/appointments/2/",
+    "text": "Cancelled",
+    "difficulty": 4,
+    "status": 200,
+    "final": "/app/appointments/2/",
+    "steps": [
+      [
+        "fill",
+        "form:has(button:has-text(\"Cancel appointment\")) input[name=reason]",
+        "Synthetic cancellation"
+      ],
+      [
+        "button",
+        "Cancel appointment"
+      ]
+    ],
+    "goal": "Cancel this appointment with reason Synthetic cancellation and verify Cancelled status.",
+    "sql": [
+      [
+        "SELECT status FROM scheduling_appointment WHERE id=2",
+        "cancelled"
+      ],
+      [
+        "SELECT COUNT(*) FROM patients_auditevent WHERE action='appointment_cancel'",
+        1
+      ]
+    ],
+    "post": [
+      "/app/appointments/2/transition/"
+    ],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-079",
+    "title": "Create four-section SOAP",
+    "role": "Physician",
+    "target": "/app/patients/1/encounters/1/note/",
+    "text": "Synthetic benchmark",
+    "difficulty": 4,
+    "status": 200,
+    "final": "/app/patients/1/encounters/1/",
+    "steps": [
+      [
+        "fill",
+        "#id_subjective",
+        "Synthetic benchmark subjective"
+      ],
+      [
+        "fill",
+        "#id_objective",
+        "Synthetic benchmark objective"
+      ],
+      [
+        "fill",
+        "#id_assessment",
+        "Synthetic benchmark assessment"
+      ],
+      [
+        "fill",
+        "#id_plan",
+        "Synthetic benchmark plan"
+      ],
+      [
+        "check",
+        "#id_synthetic_confirmed"
+      ],
+      [
+        "button",
+        "Save draft"
+      ]
+    ],
+    "goal": "Enter Synthetic benchmark plus each section name in Subjective, Objective, Assessment and Plan. Confirm synthetic data and save draft.",
+    "sql": [
+      [
+        "SELECT COUNT(*) FROM clinical_note WHERE encounter_id=1 AND signed_at IS NULL",
+        1
+      ]
+    ],
+    "post": [
+      "/app/patients/1/encounters/1/note/"
+    ],
+    "extra": [
+      "/app/patients/1/encounters/1/"
+    ],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-080",
+    "title": "Sign existing SOAP",
+    "role": "Physician",
+    "target": "/app/patients/1/encounters/1/",
+    "text": "Signed",
+    "difficulty": 4,
+    "status": 200,
+    "final": "/app/patients/1/encounters/1/",
+    "steps": [
+      [
+        "link",
+        "Review and sign"
+      ],
+      [
+        "check",
+        "#id_confirmed"
+      ],
+      [
+        "button",
+        "Confirm and sign note"
+      ]
+    ],
+    "goal": "Review and sign this draft after explicitly confirming all four sections. Verify signed read-only state.",
+    "sql": [
+      [
+        "SELECT COUNT(*) FROM clinical_note WHERE encounter_id=1 AND signed_at IS NOT NULL",
+        1
+      ]
+    ],
+    "post": [
+      "/app/patients/1/encounters/1/notes/2/sign/"
+    ],
+    "extra": [
+      "/app/patients/1/encounters/1/notes/2/sign/"
+    ],
+    "variant": "note_draft",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-081",
+    "title": "Complete signed encounter",
+    "role": "Physician",
+    "target": "/app/patients/1/encounters/1/",
+    "text": "Completed",
+    "difficulty": 4,
+    "status": 200,
+    "final": "/app/patients/1/encounters/1/",
+    "steps": [
+      [
+        "button",
+        "Complete encounter"
+      ]
+    ],
+    "goal": "Complete this encounter; preserve its already signed SOAP.",
+    "sql": [
+      [
+        "SELECT status FROM clinical_encounter WHERE id=1",
+        "completed"
+      ]
+    ],
+    "post": [
+      "/app/patients/1/encounters/1/complete/"
+    ],
+    "extra": [],
+    "variant": "note_signed",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-082",
+    "title": "Past medical history",
+    "role": "Physician",
+    "target": "/app/patients/1/history/medical/new/",
+    "text": "Synthetic benchmark",
+    "difficulty": 4,
+    "status": 200,
+    "final": "/app/patients/1/history/medical/1/",
+    "steps": [
+      [
+        "select",
+        "#id_category",
+        "medical"
+      ],
+      [
+        "fill",
+        "#id_label",
+        "Synthetic benchmark"
+      ],
+      [
+        "select",
+        "#id_source",
+        "documented"
+      ],
+      [
+        "check",
+        "#id_synthetic_confirmed"
+      ],
+      [
+        "button",
+        "Save record"
+      ]
+    ],
+    "goal": "Create record labelled Synthetic benchmark, category Past medical history. Select Source Documented, confirm synthetic data and save.",
+    "sql": [
+      [
+        "SELECT COUNT(*) FROM history_medicalhistory WHERE patient_id=1",
+        1
+      ]
+    ],
+    "post": [
+      "/app/patients/1/history/medical/new/"
+    ],
+    "extra": [
+      "/app/patients/1/history/medical/",
+      "/app/patients/1/history/medical/1/"
+    ],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-083",
+    "title": "Active longitudinal problem",
+    "role": "Physician",
+    "target": "/app/patients/1/history/problems/new/",
+    "text": "Synthetic benchmark",
+    "difficulty": 4,
+    "status": 200,
+    "final": "/app/patients/1/history/problems/1/",
+    "steps": [
+      [
+        "fill",
+        "#id_label",
+        "Synthetic benchmark"
+      ],
+      [
+        "select",
+        "#id_source",
+        "documented"
+      ],
+      [
+        "check",
+        "#id_synthetic_confirmed"
+      ],
+      [
+        "button",
+        "Save record"
+      ]
+    ],
+    "goal": "Create record labelled Synthetic benchmark, default Active status. Select Source Documented, confirm synthetic data and save.",
+    "sql": [
+      [
+        "SELECT COUNT(*) FROM history_problem WHERE patient_id=1",
+        1
+      ]
+    ],
+    "post": [
+      "/app/patients/1/history/problems/new/"
+    ],
+    "extra": [
+      "/app/patients/1/history/problems/",
+      "/app/patients/1/history/problems/1/"
+    ],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-084",
+    "title": "Document fictional allergy",
+    "role": "Physician",
+    "target": "/app/patients/1/history/allergies/new/",
+    "text": "Synthetic benchmark",
+    "difficulty": 4,
+    "status": 200,
+    "final": "/app/patients/1/history/allergies/1/",
+    "steps": [
+      [
+        "fill",
+        "#id_reaction",
+        "Synthetic rash"
+      ],
+      [
+        "select",
+        "#id_severity",
+        "mild"
+      ],
+      [
+        "fill",
+        "#id_label",
+        "Synthetic benchmark"
+      ],
+      [
+        "select",
+        "#id_source",
+        "documented"
+      ],
+      [
+        "check",
+        "#id_synthetic_confirmed"
+      ],
+      [
+        "button",
+        "Save record"
+      ]
+    ],
+    "goal": "Create record labelled Synthetic benchmark, reaction Synthetic rash, severity Mild. Select Source Documented, confirm synthetic data and save.",
+    "sql": [
+      [
+        "SELECT COUNT(*) FROM history_allergy WHERE patient_id=1",
+        1
+      ]
+    ],
+    "post": [
+      "/app/patients/1/history/allergies/new/"
+    ],
+    "extra": [
+      "/app/patients/1/history/allergies/",
+      "/app/patients/1/history/allergies/1/"
+    ],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-085",
+    "title": "Medication statement",
+    "role": "Physician",
+    "target": "/app/patients/1/history/medications/new/",
+    "text": "Synthetic benchmark",
+    "difficulty": 4,
+    "status": 200,
+    "final": "/app/patients/1/history/medications/1/",
+    "steps": [
+      [
+        "fill",
+        "#id_dose",
+        "1 demo unit"
+      ],
+      [
+        "fill",
+        "#id_route",
+        "oral"
+      ],
+      [
+        "fill",
+        "#id_frequency",
+        "daily"
+      ],
+      [
+        "fill",
+        "#id_label",
+        "Synthetic benchmark"
+      ],
+      [
+        "select",
+        "#id_source",
+        "documented"
+      ],
+      [
+        "check",
+        "#id_synthetic_confirmed"
+      ],
+      [
+        "button",
+        "Save record"
+      ]
+    ],
+    "goal": "Create record labelled Synthetic benchmark, dose 1 demo unit, route oral, frequency daily. Select Source Documented, confirm synthetic data and save.",
+    "sql": [
+      [
+        "SELECT COUNT(*) FROM history_medicationstatement WHERE patient_id=1",
+        1
+      ]
+    ],
+    "post": [
+      "/app/patients/1/history/medications/new/"
+    ],
+    "extra": [
+      "/app/patients/1/history/medications/",
+      "/app/patients/1/history/medications/1/"
+    ],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-086",
+    "title": "Nursing assessment",
+    "role": "Nurse",
+    "target": "/app/patients/1/nursing/appointments/1/assessment/new/",
+    "text": "Synthetic benchmark",
+    "difficulty": 4,
+    "status": 200,
+    "final": "/app/patients/1/nursing/appointments/1/assessment/1/",
+    "steps": [
+      [
+        "fill",
+        "#id_chief_complaint",
+        "Synthetic benchmark"
+      ],
+      [
+        "fill",
+        "#id_pain_score",
+        "2"
+      ],
+      [
+        "check",
+        "#id_ready_for_provider"
+      ],
+      [
+        "check",
+        "#id_synthetic_confirmed"
+      ],
+      [
+        "button",
+        "Save nursing documentation"
+      ]
+    ],
+    "goal": "Record complaint Synthetic benchmark, pain score 2, and ready for provider. Explicitly confirm synthetic information and save.",
+    "sql": [
+      [
+        "SELECT COUNT(*) FROM nursing_roomingassessment WHERE ready_for_provider=1",
+        1
+      ]
+    ],
+    "post": [
+      "/app/patients/1/nursing/appointments/1/assessment/new/"
+    ],
+    "extra": [
+      "/app/patients/1/nursing/appointments/1/assessment/1/"
+    ],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-087",
+    "title": "Vital-sign panel",
+    "role": "Nurse",
+    "target": "/app/patients/1/nursing/appointments/1/vitals/new/",
+    "text": "120",
+    "difficulty": 4,
+    "status": 200,
+    "final": "/app/patients/1/nursing/appointments/1/vitals/1/",
+    "steps": [
+      [
+        "fill",
+        "#id_systolic",
+        "120"
+      ],
+      [
+        "fill",
+        "#id_diastolic",
+        "80"
+      ],
+      [
+        "fill",
+        "#id_heart_rate",
+        "70"
+      ],
+      [
+        "fill",
+        "#id_temperature",
+        "37.2"
+      ],
+      [
+        "select",
+        "#id_temperature_unit",
+        "C"
+      ],
+      [
+        "select",
+        "#id_source",
+        "measured"
+      ],
+      [
+        "check",
+        "#id_synthetic_confirmed"
+      ],
+      [
+        "button",
+        "Save nursing documentation"
+      ]
+    ],
+    "goal": "Record fictional systolic 120, diastolic 80, heart rate 70, temperature 37.2 C, source Measured. Explicitly confirm synthetic information and save.",
+    "sql": [
+      [
+        "SELECT COUNT(*) FROM nursing_vitalobservation WHERE systolic=120 AND diastolic=80",
+        1
+      ]
+    ],
+    "post": [
+      "/app/patients/1/nursing/appointments/1/vitals/new/"
+    ],
+    "extra": [
+      "/app/patients/1/nursing/appointments/1/vitals/1/"
+    ],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-088",
+    "title": "Approve pending staff application",
+    "role": "Administrator",
+    "target": "/app/accounts/applications/{pending}/",
+    "text": "approved",
+    "difficulty": 4,
+    "status": 200,
+    "final": "/app/accounts/applications/",
+    "steps": [
+      [
+        "select",
+        "#id_decision",
+        "approve"
+      ],
+      [
+        "select",
+        "#id_role",
+        "Nurse"
+      ],
+      [
+        "fill",
+        "#id_reason",
+        "Synthetic benchmark review"
+      ],
+      [
+        "button",
+        "Save review decision"
+      ]
+    ],
+    "goal": "Approve benchmark-pending as Nurse with reason Synthetic benchmark review. Verify recorded decision.",
+    "sql": [
+      [
+        "SELECT status FROM accounts_enrollment WHERE user_id=(SELECT id FROM auth_user WHERE username='benchmark-pending')",
+        "approved"
+      ]
+    ],
+    "post": [
+      "/app/accounts/applications/{pending}/"
+    ],
+    "extra": [
+      "/app/accounts/applications/"
+    ],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-089",
+    "title": "Reject pending staff application",
+    "role": "Administrator",
+    "target": "/app/accounts/applications/{pending}/",
+    "text": "rejected",
+    "difficulty": 4,
+    "status": 200,
+    "final": "/app/accounts/applications/",
+    "steps": [
+      [
+        "select",
+        "#id_decision",
+        "reject"
+      ],
+      [
+        "fill",
+        "#id_reason",
+        "Synthetic benchmark review"
+      ],
+      [
+        "button",
+        "Save review decision"
+      ]
+    ],
+    "goal": "Reject benchmark-pending with reason Synthetic benchmark review. Verify recorded decision.",
+    "sql": [
+      [
+        "SELECT status FROM accounts_enrollment WHERE user_id=(SELECT id FROM auth_user WHERE username='benchmark-pending')",
+        "rejected"
+      ]
+    ],
+    "post": [
+      "/app/accounts/applications/{pending}/"
+    ],
+    "extra": [
+      "/app/accounts/applications/"
+    ],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-090",
+    "title": "Mismatched password confirmation",
+    "role": "Anonymous",
+    "target": "/accounts/register/patient/",
+    "text": "passwords do not match",
+    "difficulty": 4,
+    "status": 200,
+    "final": "/accounts/register/patient/",
+    "steps": [
+      [
+        "fill",
+        "#id_username",
+        "benchmark-new"
+      ],
+      [
+        "fill",
+        "#id_password1",
+        "QA_PASSWORD"
+      ],
+      [
+        "fill",
+        "#id_password2",
+        "QA_WRONG_PASSWORD"
+      ],
+      [
+        "check",
+        "#id_synthetic_only"
+      ],
+      [
+        "button",
+        "Create patient account"
+      ]
+    ],
+    "goal": "Attempt username benchmark-new, Password QA_PASSWORD and Confirm password QA_WRONG_PASSWORD. Confirm synthetic data, submit once and observe mismatch rejection.",
+    "sql": [
+      [
+        "SELECT COUNT(*) FROM auth_user WHERE username='benchmark-new'",
+        0
+      ]
+    ],
+    "post": [
+      "/accounts/register/patient/"
+    ],
+    "extra": [],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-091",
+    "title": "Claim signed requisition",
+    "role": "Pharmacist",
+    "target": "/app/pharmacy/",
+    "text": "Pharmacy Verification",
+    "difficulty": 5,
+    "status": 200,
+    "final": "/app/pharmacy/orders/{meduuid}/",
+    "steps": [
+      [
+        "link",
+        "Claim order"
+      ],
+      [
+        "check",
+        "#id_confirmed"
+      ],
+      [
+        "button",
+        "Claim order"
+      ]
+    ],
+    "goal": "Claim order for the one synthetic order. Explicitly confirm and verify the resulting workflow state.",
+    "sql": [
+      [
+        "SELECT COUNT(*) FROM medications_pharmacyreview",
+        1
+      ]
+    ],
+    "post": [
+      "/app/pharmacy/orders/{meduuid}/claim/"
+    ],
+    "extra": [
+      "/app/pharmacy/orders/{meduuid}/",
+      "/app/pharmacy/orders/{meduuid}/claim/"
+    ],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-092",
+    "title": "Request clarification",
+    "role": "Pharmacist",
+    "target": "/app/pharmacy/orders/{meduuid}/",
+    "text": "Clarification requested",
+    "difficulty": 5,
+    "status": 200,
+    "final": "/app/pharmacy/orders/{meduuid}/",
+    "steps": [
+      [
+        "link",
+        "Request clarification"
+      ],
+      [
+        "fill",
+        "#id_reason",
+        "Synthetic benchmark clarification"
+      ],
+      [
+        "check",
+        "#id_confirmed"
+      ],
+      [
+        "button",
+        "Request clarification"
+      ]
+    ],
+    "goal": "Request clarification for the one synthetic order. Use reason Synthetic benchmark clarification. Explicitly confirm and verify the resulting workflow state.",
+    "sql": [
+      [
+        "SELECT status FROM medications_pharmacyreview",
+        "clarification"
+      ]
+    ],
+    "post": [
+      "/app/pharmacy/orders/{meduuid}/clarify/"
+    ],
+    "extra": [
+      "/app/pharmacy/orders/{meduuid}/",
+      "/app/pharmacy/orders/{meduuid}/clarify/"
+    ],
+    "variant": "pharmacy_claimed",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-093",
+    "title": "Approve pharmacy verification",
+    "role": "Pharmacist",
+    "target": "/app/pharmacy/orders/{meduuid}/",
+    "text": "Approved",
+    "difficulty": 5,
+    "status": 200,
+    "final": "/app/pharmacy/orders/{meduuid}/",
+    "steps": [
+      [
+        "link",
+        "Approve verification"
+      ],
+      [
+        "check",
+        "#id_confirmed"
+      ],
+      [
+        "button",
+        "Approve verification"
+      ]
+    ],
+    "goal": "Approve verification for the one synthetic order. Explicitly confirm and verify the resulting workflow state.",
+    "sql": [
+      [
+        "SELECT status FROM medications_pharmacyreview",
+        "approved"
+      ]
+    ],
+    "post": [
+      "/app/pharmacy/orders/{meduuid}/approve/"
+    ],
+    "extra": [
+      "/app/pharmacy/orders/{meduuid}/",
+      "/app/pharmacy/orders/{meduuid}/approve/"
+    ],
+    "variant": "pharmacy_claimed",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-094",
+    "title": "Record simulated dispensing",
+    "role": "Pharmacist",
+    "target": "/app/pharmacy/orders/{meduuid}/",
+    "text": "Simulated dispensing recorded",
+    "difficulty": 5,
+    "status": 200,
+    "final": "/app/pharmacy/orders/{meduuid}/",
+    "steps": [
+      [
+        "link",
+        "Record simulated dispensing"
+      ],
+      [
+        "fill",
+        "#id_quantity",
+        "2"
+      ],
+      [
+        "check",
+        "#id_confirmed"
+      ],
+      [
+        "button",
+        "Record simulated dispensing"
+      ]
+    ],
+    "goal": "Record simulated dispensing for the one synthetic order. Use quantity 2. Explicitly confirm and verify the resulting workflow state.",
+    "sql": [
+      [
+        "SELECT COUNT(*) FROM medications_pharmacydispenseevent",
+        1
+      ]
+    ],
+    "post": [
+      "/app/pharmacy/orders/{meduuid}/dispense/"
+    ],
+    "extra": [
+      "/app/pharmacy/orders/{meduuid}/",
+      "/app/pharmacy/orders/{meduuid}/dispense/"
+    ],
+    "variant": "pharmacy_approved",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-095",
+    "title": "Claim lab requisition",
+    "role": "Lab Staff",
+    "target": "/app/lab/workspace/",
+    "text": "Synthetic",
+    "difficulty": 5,
+    "status": 200,
+    "final": "/app/lab/processing/{labuuid}/",
+    "steps": [
+      [
+        "link",
+        "Claim requisition"
+      ],
+      [
+        "fill",
+        "#id_reason",
+        "Synthetic benchmark claim"
+      ],
+      [
+        "check",
+        "#id_synthetic_confirmed"
+      ],
+      [
+        "button",
+        "Confirm laboratory action"
+      ]
+    ],
+    "goal": "Claim requisition. Review the draft and explicitly confirm publication. Confirm synthetic data and verify final state.",
+    "sql": [
+      [
+        "SELECT COUNT(*) FROM labs_laborder WHERE assigned_lab_staff_id IS NOT NULL",
+        1
+      ]
+    ],
+    "post": [
+      "/app/lab/processing/{labuuid}/claim/"
+    ],
+    "extra": [
+      "/app/lab/processing/{labuuid}/",
+      "/app/lab/processing/{labuuid}/claim/"
+    ],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-096",
+    "title": "Collect specimen with identity",
+    "role": "Nurse",
+    "target": "/app/lab/processing/{labuuid}/",
+    "text": "Collected",
+    "difficulty": 5,
+    "status": 200,
+    "final": "/app/lab/processing/{labuuid}/",
+    "steps": [
+      [
+        "link",
+        "Collect specimen"
+      ],
+      [
+        "fill",
+        "#id_mrn",
+        "LAB-01"
+      ],
+      [
+        "fill",
+        "#id_dob",
+        "1980-01-01"
+      ],
+      [
+        "check",
+        "#id_identity_confirmed"
+      ],
+      [
+        "check",
+        "#id_synthetic_confirmed"
+      ],
+      [
+        "button",
+        "Confirm laboratory action"
+      ]
+    ],
+    "goal": "Collect specimen. Use MRN LAB-01 and DOB 1980-01-01; explicitly confirm identity. Confirm synthetic data and verify final state.",
+    "sql": [
+      [
+        "SELECT status FROM labs_labspecimen",
+        "collected"
+      ]
+    ],
+    "post": [
+      "/app/lab/processing/{labuuid}/collect/"
+    ],
+    "extra": [
+      "/app/lab/processing/{labuuid}/",
+      "/app/lab/processing/{labuuid}/collect/"
+    ],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-097",
+    "title": "Publish prepared lab report",
+    "role": "Lab Staff",
+    "target": "/app/lab/processing/{labuuid}/",
+    "text": "Fulfilled",
+    "difficulty": 5,
+    "status": 200,
+    "final": "/app/lab/processing/{labuuid}/",
+    "steps": [
+      [
+        "link",
+        "Preview and finalize"
+      ],
+      [
+        "check",
+        "#id_synthetic_confirmed"
+      ],
+      [
+        "button",
+        "Preview report"
+      ],
+      [
+        "button",
+        "Confirm publication"
+      ]
+    ],
+    "goal": "Preview and finalize. Review the draft and explicitly confirm publication. Confirm synthetic data and verify final state.",
+    "sql": [
+      [
+        "SELECT status FROM labs_labresult",
+        "final"
+      ],
+      [
+        "SELECT status FROM labs_laborder",
+        "fulfilled"
+      ]
+    ],
+    "post": [
+      "/app/lab/processing/{labuuid}/publish/"
+    ],
+    "extra": [
+      "/app/lab/processing/{labuuid}/",
+      "/app/lab/processing/{labuuid}/publish/"
+    ],
+    "variant": "lab_result",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-098",
+    "title": "Acknowledge exact lab revision",
+    "role": "Physician",
+    "target": "/app/lab/reports/{labuuid}/",
+    "text": "acknowledged",
+    "difficulty": 5,
+    "status": 200,
+    "final": "/app/lab/reports/{labuuid}/",
+    "steps": [
+      [
+        "link",
+        "Acknowledge current publication"
+      ],
+      [
+        "check",
+        "#id_synthetic_confirmed"
+      ],
+      [
+        "button",
+        "Confirm acknowledgement"
+      ]
+    ],
+    "goal": "Review the current synthetic laboratory publication, explicitly confirm synthetic information and acknowledge it. Verify it is acknowledged.",
+    "sql": [
+      [
+        "SELECT COUNT(*) FROM labs_labresultreview",
+        1
+      ]
+    ],
+    "post": [
+      "/app/lab/reports/{labuuid}/acknowledge/"
+    ],
+    "extra": [
+      "/app/lab/reports/{labuuid}/acknowledge/"
+    ],
+    "variant": "lab_published",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-099",
+    "title": "Compose and sign SOAP journey",
+    "role": "Physician",
+    "target": "/app/patients/1/encounters/1/note/",
+    "text": "Signed",
+    "difficulty": 5,
+    "status": 200,
+    "final": "/app/patients/1/encounters/1/",
+    "steps": [
+      [
+        "fill",
+        "#id_subjective",
+        "Synthetic benchmark subjective"
+      ],
+      [
+        "fill",
+        "#id_objective",
+        "Synthetic benchmark objective"
+      ],
+      [
+        "fill",
+        "#id_assessment",
+        "Synthetic benchmark assessment"
+      ],
+      [
+        "fill",
+        "#id_plan",
+        "Synthetic benchmark plan"
+      ],
+      [
+        "check",
+        "#id_synthetic_confirmed"
+      ],
+      [
+        "button",
+        "Save draft"
+      ],
+      [
+        "link",
+        "Review and sign"
+      ],
+      [
+        "check",
+        "#id_confirmed"
+      ],
+      [
+        "button",
+        "Confirm and sign note"
+      ]
+    ],
+    "goal": "Fill all four SOAP sections with Synthetic benchmark plus section name, confirm synthetic data, save draft, review and explicitly sign.",
+    "sql": [
+      [
+        "SELECT COUNT(*) FROM clinical_note WHERE encounter_id=1 AND signed_at IS NOT NULL",
+        1
+      ]
+    ],
+    "post": [
+      "/app/patients/1/encounters/1/note/",
+      "/app/patients/1/encounters/1/notes/2/sign/"
+    ],
+    "extra": [
+      "/app/patients/1/encounters/1/",
+      "/app/patients/1/encounters/1/notes/2/sign/"
+    ],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  },
+  {
+    "id": "CF-100",
+    "title": "Schedule and check-in journey",
+    "role": "FrontDesk",
+    "target": "/app/appointments/new/",
+    "text": "Arrived",
+    "difficulty": 5,
+    "status": 200,
+    "final": "/app/appointments/4/",
+    "steps": [
+      [
+        "select",
+        "#id_patient",
+        "1"
+      ],
+      [
+        "select",
+        "#id_physician",
+        "{physician}"
+      ],
+      [
+        "fill",
+        "#id_start_at",
+        "{start}"
+      ],
+      [
+        "button",
+        "Review appointment"
+      ],
+      [
+        "button",
+        "Confirm appointment"
+      ],
+      [
+        "button",
+        "Mark Arrived"
+      ]
+    ],
+    "goal": "Schedule Synthetic Lab (LAB-01) with its treating physician at {start}, review and confirm, then mark the new appointment Arrived. Verify matching patient and booking then check-in history.",
+    "sql": [
+      [
+        "SELECT status FROM scheduling_appointment WHERE id=4",
+        "arrived"
+      ],
+      [
+        "SELECT patient_id FROM scheduling_appointment WHERE id=4",
+        1
+      ],
+      [
+        "SELECT COUNT(*) FROM scheduling_appointmentevent WHERE appointment_id=4",
+        2
+      ]
+    ],
+    "post": [
+      "/app/appointments/new/",
+      "/app/appointments/4/transition/"
+    ],
+    "extra": [
+      "/app/appointments/4/"
+    ],
+    "variant": "base",
+    "forbidden": [],
+    "invalid": null
+  }
+]

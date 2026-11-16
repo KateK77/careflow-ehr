@@ -1,0 +1,179 @@
+{
+  "tested_commit": "6187ce833528fc4290d1473a2b4ae646ecb30bf2",
+  "id": "CF-072",
+  "title": "Required synthetic confirmation",
+  "mode": "native",
+  "difficulty": 4,
+  "role": "FrontDesk",
+  "limits": {
+    "requests": 10,
+    "actions": 60,
+    "seconds": 240,
+    "estimated_usd_stop": 0.8
+  },
+  "model_observation": "Filled MRN, name, DOB, and recorded sex Unknown. Left the synthetic confirmation checkbox unchecked and clicked Save patient. The save did not proceed; the form remained on the registration page, indicating blocking due to the required unchecked confirmation.",
+  "requested_action_log": [
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 403,
+      "y": 347
+    },
+    {
+      "type": "type",
+      "approved": true,
+      "text_length": 13
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 921,
+      "y": 348
+    },
+    {
+      "type": "type",
+      "approved": true,
+      "text_length": 9
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 409,
+      "y": 430
+    },
+    {
+      "type": "type",
+      "approved": true,
+      "text_length": 9
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 894,
+      "y": 430
+    },
+    {
+      "type": "type",
+      "approved": true,
+      "text_length": 10
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 606,
+      "y": 569
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "scroll",
+      "approved": true,
+      "x": 1244,
+      "y": 780,
+      "scroll_x": 0,
+      "scroll_y": 613
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "scroll",
+      "approved": true,
+      "x": 1238,
+      "y": 776,
+      "scroll_x": 0,
+      "scroll_y": 649
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 385,
+      "y": 672
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    }
+  ],
+  "http": [
+    {
+      "path": "/app/patients/new/",
+      "query": "",
+      "status": 200,
+      "location": null
+    }
+  ],
+  "final_path": "/app/patients/new/",
+  "status": "PASS",
+  "checks": {
+    "final_url": true,
+    "visible_expected": true,
+    "signed_soap_preserved": true,
+    "required_field_invalid": true,
+    "explicit_submit_attempt": true,
+    "database_1": true,
+    "integrity": true,
+    "foreign_keys": true
+  },
+  "failure": null,
+  "stage": "independent_verification",
+  "actions": [
+    "screenshot",
+    "click",
+    "type",
+    "click",
+    "type",
+    "click",
+    "type",
+    "click",
+    "type",
+    "click",
+    "screenshot",
+    "scroll",
+    "screenshot",
+    "scroll",
+    "screenshot",
+    "click",
+    "screenshot"
+  ],
+  "completed_actions": [
+    "screenshot",
+    "click",
+    "type",
+    "click",
+    "type",
+    "click",
+    "type",
+    "click",
+    "type",
+    "click",
+    "screenshot",
+    "scroll",
+    "screenshot",
+    "scroll",
+    "screenshot",
+    "click",
+    "screenshot"
+  ],
+  "requests": 6,
+  "responses": 6,
+  "usage": {
+    "input_tokens": 32500,
+    "output_tokens": 317,
+    "responses_with_usage": 6,
+    "complete": true,
+    "estimated_token_cost_usd": 0.086005
+  },
+  "exception_chain": []
+}

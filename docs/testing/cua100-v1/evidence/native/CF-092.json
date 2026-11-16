@@ -1,0 +1,126 @@
+{
+  "tested_commit": "6187ce833528fc4290d1473a2b4ae646ecb30bf2",
+  "id": "CF-092",
+  "title": "Request clarification",
+  "mode": "native",
+  "difficulty": 5,
+  "role": "Pharmacist",
+  "limits": {
+    "requests": 14,
+    "actions": 85,
+    "seconds": 360,
+    "estimated_usd_stop": 0.8
+  },
+  "model_observation": "Requested clarification for the synthetic order using reason \u201cSynthetic benchmark clarification.\u201d Verified the workflow state changed to \u201cClarification requested\u201d and shows \u201cReview version 2.\u201d",
+  "requested_action_log": [
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 484,
+      "y": 741
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 297,
+      "y": 571
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 730,
+      "y": 654
+    },
+    {
+      "type": "type",
+      "approved": true,
+      "text_length": 33
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 417,
+      "y": 715
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    }
+  ],
+  "http": [
+    {
+      "path": "/app/pharmacy/orders/59b3ed80-8d57-4fa5-b176-735c8ad1532e/",
+      "query": "",
+      "status": 200,
+      "location": null
+    },
+    {
+      "path": "/app/pharmacy/orders/59b3ed80-8d57-4fa5-b176-735c8ad1532e/clarify/",
+      "query": "",
+      "status": 200,
+      "location": null
+    },
+    {
+      "path": "/app/pharmacy/orders/59b3ed80-8d57-4fa5-b176-735c8ad1532e/clarify/",
+      "query": "",
+      "status": 302,
+      "location": "/app/pharmacy/orders/59b3ed80-8d57-4fa5-b176-735c8ad1532e/"
+    },
+    {
+      "path": "/app/pharmacy/orders/59b3ed80-8d57-4fa5-b176-735c8ad1532e/",
+      "query": "",
+      "status": 200,
+      "location": null
+    }
+  ],
+  "final_path": "/app/pharmacy/orders/59b3ed80-8d57-4fa5-b176-735c8ad1532e/",
+  "status": "PASS",
+  "checks": {
+    "final_url": true,
+    "visible_expected": true,
+    "signed_soap_preserved": true,
+    "database_1": true,
+    "integrity": true,
+    "foreign_keys": true
+  },
+  "failure": null,
+  "stage": "independent_verification",
+  "actions": [
+    "screenshot",
+    "click",
+    "screenshot",
+    "click",
+    "click",
+    "type",
+    "click",
+    "screenshot"
+  ],
+  "completed_actions": [
+    "screenshot",
+    "click",
+    "screenshot",
+    "click",
+    "click",
+    "type",
+    "click",
+    "screenshot"
+  ],
+  "requests": 4,
+  "responses": 4,
+  "usage": {
+    "input_tokens": 16213,
+    "output_tokens": 155,
+    "responses_with_usage": 4,
+    "complete": true,
+    "estimated_token_cost_usd": 0.042857
+  },
+  "exception_chain": []
+}

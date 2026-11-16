@@ -1,0 +1,84 @@
+{
+  "tested_commit": "6187ce833528fc4290d1473a2b4ae646ecb30bf2",
+  "id": "CF-024",
+  "title": "Longitudinal flowsheet",
+  "mode": "native",
+  "difficulty": 2,
+  "role": "Nurse",
+  "limits": {
+    "requests": 4,
+    "actions": 18,
+    "seconds": 120,
+    "estimated_usd_stop": 0.8
+  },
+  "model_observation": "Access allowed. The route opened to the patient chart\u2019s Nursing flowsheet page for \u201cSynthetic Lab / LAB-01,\u201d showing the message: \u201cNo vital observations within your access.\u201d",
+  "requested_action_log": [
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 225,
+      "y": 286
+    },
+    {
+      "type": "wait",
+      "approved": true
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    }
+  ],
+  "http": [
+    {
+      "path": "/__benchmark__/",
+      "query": "",
+      "status": 200,
+      "location": null
+    },
+    {
+      "path": "/app/patients/1/nursing/flowsheet/",
+      "query": "",
+      "status": 200,
+      "location": null
+    }
+  ],
+  "final_path": "/app/patients/1/nursing/flowsheet/",
+  "status": "PASS",
+  "checks": {
+    "final_url": true,
+    "visible_expected": true,
+    "signed_soap_preserved": true,
+    "exact_http_status": true,
+    "business_rows_unchanged": true,
+    "integrity": true,
+    "foreign_keys": true
+  },
+  "failure": null,
+  "stage": "independent_verification",
+  "actions": [
+    "screenshot",
+    "click",
+    "wait",
+    "screenshot"
+  ],
+  "completed_actions": [
+    "screenshot",
+    "click",
+    "wait",
+    "screenshot"
+  ],
+  "requests": 3,
+  "responses": 3,
+  "usage": {
+    "input_tokens": 10253,
+    "output_tokens": 90,
+    "responses_with_usage": 3,
+    "complete": true,
+    "estimated_token_cost_usd": 0.026982
+  },
+  "exception_chain": []
+}

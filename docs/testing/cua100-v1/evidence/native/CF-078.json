@@ -1,0 +1,99 @@
+{
+  "tested_commit": "6187ce833528fc4290d1473a2b4ae646ecb30bf2",
+  "id": "CF-078",
+  "title": "Cancel with retained reason",
+  "mode": "native",
+  "difficulty": 4,
+  "role": "FrontDesk",
+  "limits": {
+    "requests": 10,
+    "actions": 60,
+    "seconds": 240,
+    "estimated_usd_stop": 0.8
+  },
+  "model_observation": "Appointment cancelled successfully. The page shows status \u201cCancelled\u201d and the history records reason \u201cSynthetic cancellation.\u201d",
+  "requested_action_log": [
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 526,
+      "y": 735
+    },
+    {
+      "type": "type",
+      "approved": true,
+      "text_length": 22
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 1138,
+      "y": 732
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    }
+  ],
+  "http": [
+    {
+      "path": "/app/appointments/2/",
+      "query": "",
+      "status": 200,
+      "location": null
+    },
+    {
+      "path": "/app/appointments/2/transition/",
+      "query": "",
+      "status": 302,
+      "location": "/app/appointments/2/"
+    },
+    {
+      "path": "/app/appointments/2/",
+      "query": "",
+      "status": 200,
+      "location": null
+    }
+  ],
+  "final_path": "/app/appointments/2/",
+  "status": "PASS",
+  "checks": {
+    "final_url": true,
+    "visible_expected": true,
+    "signed_soap_preserved": true,
+    "database_1": true,
+    "database_2": true,
+    "integrity": true,
+    "foreign_keys": true
+  },
+  "failure": null,
+  "stage": "independent_verification",
+  "actions": [
+    "screenshot",
+    "click",
+    "type",
+    "click",
+    "screenshot"
+  ],
+  "completed_actions": [
+    "screenshot",
+    "click",
+    "type",
+    "click",
+    "screenshot"
+  ],
+  "requests": 3,
+  "responses": 3,
+  "usage": {
+    "input_tokens": 10244,
+    "output_tokens": 96,
+    "responses_with_usage": 3,
+    "complete": true,
+    "estimated_token_cost_usd": 0.02705
+  },
+  "exception_chain": []
+}

@@ -1,0 +1,111 @@
+{
+  "tested_commit": "6187ce833528fc4290d1473a2b4ae646ecb30bf2",
+  "id": "CF-093",
+  "title": "Approve pharmacy verification",
+  "mode": "native",
+  "difficulty": 5,
+  "role": "Pharmacist",
+  "limits": {
+    "requests": 14,
+    "actions": 85,
+    "seconds": 360,
+    "estimated_usd_stop": 0.8
+  },
+  "model_observation": "Approved the verification for the synthetic order. The resulting workflow state now shows Pharmacy verification: Approved and Review version 2.",
+  "requested_action_log": [
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 348,
+      "y": 742
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 299,
+      "y": 567
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 354,
+      "y": 608
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    }
+  ],
+  "http": [
+    {
+      "path": "/app/pharmacy/orders/8b251605-6db2-41c2-bf9b-77a17d7f5da7/",
+      "query": "",
+      "status": 200,
+      "location": null
+    },
+    {
+      "path": "/app/pharmacy/orders/8b251605-6db2-41c2-bf9b-77a17d7f5da7/approve/",
+      "query": "",
+      "status": 200,
+      "location": null
+    },
+    {
+      "path": "/app/pharmacy/orders/8b251605-6db2-41c2-bf9b-77a17d7f5da7/approve/",
+      "query": "",
+      "status": 302,
+      "location": "/app/pharmacy/orders/8b251605-6db2-41c2-bf9b-77a17d7f5da7/"
+    },
+    {
+      "path": "/app/pharmacy/orders/8b251605-6db2-41c2-bf9b-77a17d7f5da7/",
+      "query": "",
+      "status": 200,
+      "location": null
+    }
+  ],
+  "final_path": "/app/pharmacy/orders/8b251605-6db2-41c2-bf9b-77a17d7f5da7/",
+  "status": "PASS",
+  "checks": {
+    "final_url": true,
+    "visible_expected": true,
+    "signed_soap_preserved": true,
+    "database_1": true,
+    "integrity": true,
+    "foreign_keys": true
+  },
+  "failure": null,
+  "stage": "independent_verification",
+  "actions": [
+    "screenshot",
+    "click",
+    "screenshot",
+    "click",
+    "click",
+    "screenshot"
+  ],
+  "completed_actions": [
+    "screenshot",
+    "click",
+    "screenshot",
+    "click",
+    "click",
+    "screenshot"
+  ],
+  "requests": 4,
+  "responses": 4,
+  "usage": {
+    "input_tokens": 16155,
+    "output_tokens": 121,
+    "responses_with_usage": 4,
+    "complete": true,
+    "estimated_token_cost_usd": 0.042202
+  },
+  "exception_chain": []
+}

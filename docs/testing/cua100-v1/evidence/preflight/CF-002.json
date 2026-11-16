@@ -1,0 +1,92 @@
+{
+  "tested_commit": "672809a5ccb082dde3512c0634c52fc33ace96b1",
+  "id": "CF-002",
+  "title": "Staff sign-in entry",
+  "mode": "native",
+  "difficulty": 1,
+  "role": "Anonymous",
+  "limits": {
+    "requests": 4,
+    "actions": 16,
+    "seconds": 120,
+    "estimated_usd_stop": 0.8
+  },
+  "safe_error_frames": [
+    {
+      "class": "Error",
+      "errno": null,
+      "winerror": null,
+      "file": "",
+      "frames": [
+        {
+          "file": "_generated.py",
+          "line": 9770,
+          "function": "goto"
+        },
+        {
+          "file": "_sync_base.py",
+          "line": 115,
+          "function": "_sync"
+        },
+        {
+          "file": "_page.py",
+          "line": 560,
+          "function": "goto"
+        },
+        {
+          "file": "_frame.py",
+          "line": 156,
+          "function": "goto"
+        },
+        {
+          "file": "_connection.py",
+          "line": 69,
+          "function": "send"
+        },
+        {
+          "file": "_connection.py",
+          "line": 563,
+          "function": "wrap_api_call"
+        }
+      ]
+    },
+    {
+      "class": "Error",
+      "errno": null,
+      "winerror": null,
+      "file": "",
+      "frames": [
+        {
+          "file": "_connection.py",
+          "line": 561,
+          "function": "wrap_api_call"
+        },
+        {
+          "file": "_connection.py",
+          "line": 132,
+          "function": "_inner_send"
+        }
+      ]
+    }
+  ],
+  "status": "FAIL",
+  "checks": {},
+  "failure": "Smoke failed (Error). Stage: browser_context. HTTP status: none. API code: none. Reason: unclassified. Tool event: none/none. Compatibility: no signal. Request sent: no (0 attempted, 0 HTTP responses).",
+  "stage": "browser_context",
+  "actions": [],
+  "completed_actions": [],
+  "requests": 0,
+  "responses": 0,
+  "usage": {
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "responses_with_usage": 0,
+    "complete": true,
+    "estimated_token_cost_usd": null
+  },
+  "exception_chain": [
+    {
+      "class": "Error"
+    }
+  ]
+}

@@ -24,13 +24,13 @@ The hosted Django website is online; its homepage and both sign-in routes return
 
 | Role | Demo Username | Demo Password | What to Explore |
 | --- | --- | --- | --- |
-| Physician | Unavailable | Not published | Charts, encounters, SOAP |
-| Nurse | Unavailable | Not published | Worklist, vitals, flowsheets |
-| Front Desk | Unavailable | Not published | Registration, scheduling, check-in |
-| Patient | Unavailable | Not published | Appointments, released records, messages |
-| Pharmacist | Unavailable | Not published | Verification, simulated dispensing |
-| Laboratory Staff | Unavailable | Not published | Specimens, report publication |
-| Administrator | Screenshot only | Never published | Role-aware dashboard and staff review |
+| Physician | physician.demo | 9OhOo0dN1c-B0C7YMwteHBktuwh2bWTG | Charts, encounters, SOAP |
+| nurse | nurse.demo | XIVnhQ687X5EKCDKSbQhFzsvz6FVXOMl | Worklist, vitals, flowsheets |
+| Front Desk | frontdesk.demo | UbPLJQ6Z9ZQyvKwWgWpYYRw62WOXIOpW | Registration, scheduling, check-in |
+| Patient | patient1.demo | Not published | Appointments, released records, messages |
+| Pharmacist | Unavailable | F0vUvFJVRPJKQIfaj4H6Set215rUIpaG | Verification, simulated dispensing |
+| Laboratory Staff | lab.demo | b4pFPlxhiWVWiDK3nyca6kvON3FHLhWp | Specimens, report publication |
+| Administrator | administrator.demo | _6_VekGD7QalzQ5nDC_PC-6B3qPV0wui | Role-aware dashboard and staff review |
 
 No shared-account login or representative-data verification is claimed. A safe public account needs its own credentials, backend restrictions and an isolated data lifecycle. [Account availability and proposed safeguards](docs/showcase/portfolio/demo-access-plan.md).
 

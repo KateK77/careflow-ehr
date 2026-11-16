@@ -35,7 +35,7 @@ Alternatively, create your own patient account using the home-page registration 
 
 This worktree belongs to the same Git repository. The original root remains on v2, preserving prior servers and files. The v3 PR stacks on #59; neither PR is automatically merged. A GitHub PR is source for review, not a public running site.
 
-The local preview uses HTTP on loopback only. Hosted configuration is separate, HTTPS-only and requires new persistent storage and a securely provisioned owner account. No free host account has been authorized yet; no public URL or external availability is claimed.
+The local preview uses HTTP on loopback only. Hosted configuration is separate, HTTPS-only and requires new persistent storage and a securely provisioned owner account. The owner subsequently authorized free PythonAnywhere hosting. [Public deployment verification](public-deployment.md) records the live HTTPS site and independent synthetic database.
 
 ## Staff login clarification
 
@@ -43,4 +43,4 @@ New staff registrations require Administrator approval. Pending applicants who e
 
 ## Final local handover
 
-[Visitor/operator guide](../../user-guide/v3/README.md) and [final publication request](final-handover.md) record usernames, separate private password delivery, staff approval and the remaining hosting dependency.
+[Visitor/operator guide](../../user-guide/v3/README.md) and [final publication request](final-handover.md) record usernames, separate private password delivery, staff approval and the initial hosting dependency. The later [public deployment](public-deployment.md) completes that dependency without merging the source branch.

@@ -6,11 +6,11 @@
 
 ## Start here: accounts and access rules
 
-Read the [v3 visitor and operator guide](docs/user-guide/v3/README.md) for patient registration, staff approval, demo usernames and login troubleshooting. Patient signup activates immediately; staff signup requires an Administrator review. Passwords remain in the owner's private handover. **Public website: not yet provisioned.** The current localhost preview cannot be opened from another person's computer.
+Read the [v3 visitor and operator guide](docs/user-guide/v3/README.md) for patient registration, staff approval, demo usernames and login troubleshooting. Patient signup activates immediately; staff signup requires an Administrator review. Passwords remain in the owner's private handover. **Public synthetic demo: [jiawen.pythonanywhere.com](https://jiawen.pythonanywhere.com/).** This free-hosted site runs independently of the owner's computer; local preview databases were not uploaded.
 
 ## Version 3.0 preview — blue interface and simple registration
 
-The current v3 proposal adds patient signup and reviewed staff applications using **username, password and confirmation**, with no email requirement. Existing Django workflows remain. This is a preview branch, not a released or publicly deployed site.
+The current v3 proposal adds patient signup and reviewed staff applications using **username, password and confirmation**, with no email requirement. Existing Django workflows remain. The owner-authorized synthetic demo is publicly hosted; the source branch remains open for review and is not a release tag.
 
 See [v3 setup and accounts](docs/iterations/0029-v3-email-access/README.md), [latest requirements](docs/requirements/v3.0/prompt.en.v3.1.md), [verification](docs/iterations/0029-v3-email-access/verification.md) and [zero-budget deployment preparation](docs/deployment/v3/README.md). Source is tracked in [Issue #60](https://github.com/KateK77/careflow-ehr/issues/60), on feature/v3-account-registration stacked above PR #59. No email service or paid hosting is configured.
 
@@ -88,4 +88,4 @@ For code candidate `d6881ff`, Codex reported **345 passing Django tests, 23 loca
 
 Phases 0–4B are merged, through [PR #30](https://github.com/KateK77/careflow-ehr/pull/30). Original Phase 5–8 work remains tracked in open PRs [#32](https://github.com/KateK77/careflow-ehr/pull/32), [#34](https://github.com/KateK77/careflow-ehr/pull/34), [#36](https://github.com/KateK77/careflow-ehr/pull/36), [#38](https://github.com/KateK77/careflow-ehr/pull/38), [#40](https://github.com/KateK77/careflow-ehr/pull/40), [#42](https://github.com/KateK77/careflow-ehr/pull/42), [#44](https://github.com/KateK77/careflow-ehr/pull/44), and [#46](https://github.com/KateK77/careflow-ehr/pull/46). The complete integration is in [Draft PR #47](https://github.com/KateK77/careflow-ehr/pull/47); existing iteration documents are preserved as historical evidence.
 
-**No merger, release tag, external hosting or clinical deployment is implied by this README.**
+**No merge, release tag or clinical deployment is implied.** The separately authorized v3 public synthetic-demo deployment is recorded [here](docs/iterations/0029-v3-email-access/public-deployment.md).

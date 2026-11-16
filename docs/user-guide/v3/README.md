@@ -2,14 +2,14 @@
 
 **DEMO — NOT FOR CLINICAL USE. Use fictional patient information only.**
 
-This is the blue-interface v3 preview selected by the owner for this development round. The current implementation is reviewed through [PR #61](https://github.com/KateK77/careflow-ehr/pull/61), stacked on PR #59. This guide does not claim that the PRs are merged or that a public website is already online.
+This is the blue-interface v3 preview selected by the owner for this development round. The current implementation is reviewed through [PR #61](https://github.com/KateK77/careflow-ehr/pull/61), stacked on PR #59. The public synthetic demo is now online. The PRs remain open and unmerged.
 
 ## Open the application
 
 - Current owner's local site: http://127.0.0.1:8015/.
-- **Public website: not yet provisioned.** A localhost link refers to the visitor's own computer; sending it to someone else does not share this application.
+- **Public website: [https://jiawen.pythonanywhere.com/](https://jiawen.pythonanywhere.com/).** Share this link with visitors. It does not require the owner's computer to remain on.
 - The source and this guide are in a private GitHub repository. Only authorized collaborators can view them.
-- A real public runtime URL will be added after hosting is provisioned and verified. GitHub Pages alone cannot run the Django application.
+- GitHub Pages alone cannot run Django. The public runtime is PythonAnywhere; a private GitHub source link does not give visitors repository access.
 
 ## Register a patient account
 
@@ -36,7 +36,7 @@ A pending applicant entering the correct password receives an approval-pending m
 
 ## Administrator approval
 
-The local pre-created administrator is administrator.demo. Approval belongs to the **Administrator role**, not exclusively to this username.
+The pre-created administrator on each environment is administrator.demo. Approval belongs to the **Administrator role**, not exclusively to this username.
 
 1. Sign in through Staff Sign In.
 2. Open **Staff applications** in the navigation.
@@ -49,9 +49,9 @@ A pending account cannot approve itself. The server checks the Administrator rol
 
 Creating additional Administrators is not part of public signup or this application-review form. It requires a separate trusted operator action.
 
-## Existing local demonstration accounts
+## Demonstration accounts
 
-These are the pre-created accounts in the owner's CURRENT LOCAL preview. They are already enabled and do not need a new application. They are not promises that identical accounts exist on a future public host.
+The following usernames exist in both the owner's local preview and the public demo. They are separate accounts in separate databases. The public host uses a unique password for every account, supplied privately to the owner; local passwords will not work there. The pre-created accounts are already enabled.
 
 | Username | Role | Portal |
 |---|---|---|
@@ -67,7 +67,7 @@ These are the pre-created accounts in the owner's CURRENT LOCAL preview. They ar
 | patient1.demo | Patient — first linked synthetic chart | Patient |
 | patient2.demo | Patient — different linked synthetic chart | Patient |
 
-**Passwords:** supplied to the owner in a private local handover, not committed to Git or displayed on a public page. The current local seed uses a shared password, including the Administrator; publishing even a patient demo password would disclose that Administrator password. Do not publish these credentials. Visitors should create their own patient account or apply for staff access. Any later publicly shared sandbox accounts must use separate non-administrator credentials and a dedicated synthetic environment.
+**Passwords:** supplied to the owner in a private local handover, not committed to Git or displayed on a public page. The current local seed uses a shared password, including the Administrator; publishing even a patient demo password would disclose that Administrator password. Do not publish these credentials. Visitors should create their own patient account or apply for staff access. The public deployment already uses separate credentials and its own synthetic database. Its owner credentials are also private. Do not publish Administrator credentials; visitors should register individually.
 
 ## Access rules and data
 
@@ -90,11 +90,11 @@ These are the pre-created accounts in the owner's CURRENT LOCAL preview. They ar
 | Username unavailable | Choose another username; duplicate signup does not reset an existing account. |
 | Too many attempts | The rate limit returns HTTP 429; wait for the stated retry interval. |
 | Nothing in a new chart | New signup creates a new fictional record; existing patients are not automatically linked. |
-| Friend cannot open 127.0.0.1:8015 | That is local-only; public hosting has not yet been configured. |
-| Friend cannot read the GitHub repository | The source repository is private; grant collaborator access or share the eventual website URL. |
+| Friend cannot open 127.0.0.1:8015 | That is local-only; share https://jiawen.pythonanywhere.com/ instead. |
+| Friend cannot read the GitHub repository | The source repository is private; grant collaborator access or share the public website URL. |
 
 ## Verification and publication limits
 
 Latest application verification before this documentation handover: **536 Django tests and 32 local Chromium workflows passed**, plus [GitHub CI](https://github.com/KateK77/careflow-ehr/actions/runs/43797706595). The user confirmed patient registration/login and reported the staff pending-approval confusion, which was corrected. These observations are not comprehensive manual acceptance of every security or clinical boundary.
 
-See [iteration evidence](../../iterations/0029-v3-email-access/verification.md), [staff-login follow-up](../../iterations/0029-v3-email-access/login-followup.md), and [zero-budget hosting preparation](../../deployment/v3/README.md). Public deployment, domain availability and future shared demonstration credentials require verification on the actual host.
+See [iteration evidence](../../iterations/0029-v3-email-access/verification.md), [staff-login follow-up](../../iterations/0029-v3-email-access/login-followup.md), and [zero-budget hosting preparation](../../deployment/v3/README.md). [Public deployment evidence](../../iterations/0029-v3-email-access/public-deployment.md) records nine successful browser checks on the actual HTTPS host. This is a synthetic demonstration, not production validation. Free hosting has capacity limits and requires periodic renewal; no availability guarantee is implied.

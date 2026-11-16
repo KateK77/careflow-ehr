@@ -3,6 +3,8 @@
 Current scope: [v3.1 prompt](../../requirements/v3.0/prompt.en.v3.1.md), superseding email signup per [latest user feedback](feedback.md). The directory retains its original draft name for traceability.
 
 - [Issue #60](https://github.com/KateK77/careflow-ehr/issues/60).
+- [PR #61](https://github.com/KateK77/careflow-ehr/pull/61), open and unmerged.
+- Implementation: [bf8cf41cde748ccb15be1c7f236bd1686cf0add9](https://github.com/KateK77/careflow-ehr/commit/bf8cf41cde748ccb15be1c7f236bd1686cf0add9).
 - Branch: `feature/v3-account-registration`.
 - Parent: [PR #59](https://github.com/KateK77/careflow-ehr/pull/59), [949a6d74415561070a1bf3e6ccd712b24c1160dc](https://github.com/KateK77/careflow-ehr/commit/949a6d74415561070a1bf3e6ccd712b24c1160dc).
 - Original prompt: [Chinese](prompt.original.zh.md), [English](prompt.en.v1.0.md).

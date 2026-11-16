@@ -21,7 +21,7 @@ class HostedSettingsTests(SimpleTestCase):
             "CAREFLOW_HOSTED_DEMO": "1", "CAREFLOW_SECRET_KEY": secrets.token_urlsafe(48),
             "CAREFLOW_PUBLIC_ORIGIN": "https://demo.example.invalid",
             "CAREFLOW_HOSTED_DB": str(Path(tempfile.gettempdir()) / "hosted-demo-unused.sqlite3"),
-            
+
         }
         values.update(changes)
         with patch.dict(os.environ, values):

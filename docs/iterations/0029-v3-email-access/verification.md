@@ -84,4 +84,6 @@ No email recovery exists, by instruction. No publicly accessible site is claimed
 
 ## GitHub verification
 
-The PR will record the published implementation SHA and actual CI link. GitHub CI runs Django checks, the default regression suite and migration consistency; local Chromium and CUA results must not be mislabeled as GitHub checks.
+[PR #61](https://github.com/KateK77/careflow-ehr/pull/61) contains implementation [bf8cf41cde748ccb15be1c7f236bd1686cf0add9](https://github.com/KateK77/careflow-ehr/commit/bf8cf41cde748ccb15be1c7f236bd1686cf0add9). The PR tracks actual CI runs for each published head. GitHub CI runs Django checks, the default regression suite and migration consistency; local Chromium and CUA results must not be mislabeled as GitHub checks.
+
+Final whitespace review found one blank line with trailing spaces in the newly added deployment test; it was removed in the traceability follow-up. No executable logic changed.

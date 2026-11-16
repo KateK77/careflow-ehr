@@ -1,5 +1,5 @@
 {% extends "core/base.html" %}{% block content %}
 <section class="panel account-panel">{% if patient_account %}<h1>Patient account created</h1>
 <p>Sign in with your username and password. Your new fictional chart is separate from every other patient record.</p><a class="button" href="{% url 'portal_login' %}">Patient sign in</a>
-{% else %}<h1>Staff application submitted</h1><p>Your account is awaiting Administrator approval. You cannot sign in until your staff role is approved.</p><a href="{% url 'login' %}">Staff sign in</a>{% endif %}
+{% else %}<h1>Staff application submitted</h1><p>Your registration succeeded, but staff access is not active yet. Your requested role must be approved by an Administrator. Ask the local operator to open Staff applications, review your username and choose Approve. After approval, sign in with the same username and password.</p><a href="{% url 'login' %}">Staff sign in after approval</a>{% endif %}
 <p>No email or verification code is required. Keep your login details safe.</p><a href="{% url 'home' %}">Back to portals</a></section>{% endblock %}

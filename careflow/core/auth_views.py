@@ -1,9 +1,11 @@
 from django.contrib.auth.views import LoginView, LogoutView
 
 from careflow.patients.models import AuditEvent
+from careflow.accounts.forms import StaffAuthenticationForm
 
 
 class DemoLoginView(LoginView):
+    authentication_form = StaffAuthenticationForm
     template_name = "registration/login.html"
 
     def get_success_url(self):

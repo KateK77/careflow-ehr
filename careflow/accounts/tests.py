@@ -289,3 +289,50 @@ class AccountTests(TestCase):
         self.client.get("/accounts/complete/patient/")
         self.assertFalse(Enrollment.objects.exists())
         self.assertEqual(self.client.put("/accounts/register/patient/", self.data).status_code, 405)
+
+
+    def test_pending_staff_correct_password_explains_approval_without_login(self):
+        item = self.create("staff")
+        response = self.client.post("/login/", {"username": item.user.username, "password": self.password})
+        self.assertContains(response, "Your staff application is awaiting Administrator approval")
+        self.assertNotIn("_auth_user_id", self.client.session)
+        item.user.refresh_from_db()
+        self.assertFalse(item.user.is_active)
+        self.assertFalse(item.user.groups.exists())
+
+    def test_pending_status_not_disclosed_for_wrong_password_or_unknown_user(self):
+        item = self.create("staff")
+        for username in (item.user.username, "nonexistent"):
+            response = self.client.post("/login/", {"username": username, "password": "wrong-password"})
+            self.assertNotContains(response, "Your staff application is awaiting Administrator approval")
+            self.assertNotIn("_auth_user_id", self.client.session)
+
+    def test_rejected_and_unrelated_inactive_accounts_keep_generic_failure(self):
+        item = self.create("staff")
+        services.review(self.admin, item.pk, self.decision(item, decision="reject", role=""))
+        inactive = get_user_model().objects.create_user("inactive-legacy", password=self.password, is_active=False)
+        for user in (item.user, inactive):
+            response = self.client.post("/login/", {"username": user.username, "password": self.password})
+            self.assertNotContains(response, "Your staff application is awaiting Administrator approval")
+            self.assertNotIn("_auth_user_id", self.client.session)
+
+    def test_pending_status_is_not_exposed_through_patient_login(self):
+        item = self.create("staff")
+        response = self.client.post("/portal/login/", {"username": item.user.username, "password": self.password})
+        self.assertNotContains(response, "Your staff application is awaiting Administrator approval")
+        self.assertNotIn("_auth_user_id", self.client.session)
+
+    def test_staff_login_works_after_approval_with_same_registration_password(self):
+        item = self.create("staff")
+        services.review(self.admin, item.pk, self.decision(item))
+        response = self.client.post("/login/", {"username": item.user.username, "password": self.password})
+        self.assertRedirects(response, "/app/dashboard/")
+        self.assertEqual(int(self.client.session["_auth_user_id"]), item.user_id)
+        self.assertEqual(self.client.get("/app/accounts/applications/").status_code, 403)
+
+    def test_staff_completion_and_signup_explain_operator_review(self):
+        response = self.client.get("/accounts/complete/staff/")
+        self.assertContains(response, "Staff applications")
+        self.assertContains(response, "requested role")
+        form_response = self.client.get("/accounts/register/staff/")
+        self.assertNotContains(form_response, 'value="Administrator"')

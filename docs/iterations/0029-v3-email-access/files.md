@@ -66,3 +66,5 @@ Relative to parent PR #59. Local QA, credentials, outboxes and databases are exc
 - `docs/requirements/v3.0/prompt.en.v3.1.md`
 - `requirements-hosted.txt`
 - `tools/v3_preview.py`
+
+Staff-login follow-up additionally modifies careflow/core/auth_views.py and adds login-followup.md and screenshots/staff-pending-login.png in this iteration. Existing account forms/tests, completion/login templates and browser checks are updated.

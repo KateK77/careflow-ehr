@@ -36,3 +36,7 @@ Alternatively, create your own patient account using the home-page registration 
 This worktree belongs to the same Git repository. The original root remains on v2, preserving prior servers and files. The v3 PR stacks on #59; neither PR is automatically merged. A GitHub PR is source for review, not a public running site.
 
 The local preview uses HTTP on loopback only. Hosted configuration is separate, HTTPS-only and requires new persistent storage and a securely provisioned owner account. No free host account has been authorized yet; no public URL or external availability is claimed.
+
+## Staff login clarification
+
+New staff registrations require Administrator approval. Pending applicants who enter the correct password now receive explicit guidance rather than the generic incorrect-credentials error. [Follow-up evidence](login-followup.md). Patient registrations can log in immediately through the Patient Portal.

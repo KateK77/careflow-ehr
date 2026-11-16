@@ -1,8 +1,10 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.password_validation import validate_password
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.hashers import check_password
 from django.core.validators import RegexValidator
-from .models import STAFF_ROLES
+from .models import Enrollment, STAFF_ROLES
 
 username_validator = RegexValidator(r"\A[a-z0-9_.-]{3,40}\Z",
     "Use 3–40 lowercase letters, digits, dots, hyphens or underscores.")
@@ -56,3 +58,28 @@ class ReviewForm(forms.Form):
         if data.get("decision") == "approve" and not data.get("role"):
             self.add_error("role", "Choose an approved staff role.")
         return data
+
+
+class StaffAuthenticationForm(AuthenticationForm):
+    def get_invalid_login_error(self):
+        # Explain a pending application only after proving its password. Never
+        # authenticate inactive accounts or expose their review status by username alone.
+        username = self.cleaned_data.get("username")
+        password = self.cleaned_data.get("password")
+        if username and password:
+            item = Enrollment.objects.select_related("user").filter(
+                user__username=username, user__is_active=False,
+                kind="staff", status="pending").first()
+            if item is not None:
+                valid_password = check_password(password, item.user.password)
+                if valid_password:
+                    return forms.ValidationError(
+                        "Your staff application is awaiting Administrator approval. "
+                        "Ask the local operator to review it in Staff applications, "
+                        "then sign in with the same username and password.",
+                        code="staff_pending",
+                    )
+            else:
+                # Keep an extra password-hash operation for other failed logins too.
+                get_user_model()().set_password(password)
+        return super().get_invalid_login_error()

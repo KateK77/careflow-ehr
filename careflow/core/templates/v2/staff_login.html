@@ -11,7 +11,7 @@
   </section>
   <section class="panel login-panel">
     <span class="eyebrow">WELCOME BACK</span><h2>Staff sign in</h2>
-    <p class="muted">Use the staff account assigned by your local operator.</p>
+    <p class="muted">Use an approved staff account. Newly registered staff must wait for Administrator approval.</p>
     <form method="post">
       {% csrf_token %}{{ form.non_field_errors }}
       {% for field in form %}<div class="field">{{ field.label_tag }}{{ field }}{{ field.errors }}</div>{% endfor %}

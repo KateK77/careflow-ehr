@@ -87,3 +87,7 @@ No email recovery exists, by instruction. No publicly accessible site is claimed
 [PR #61](https://github.com/KateK77/careflow-ehr/pull/61) contains implementation [bf8cf41cde748ccb15be1c7f236bd1686cf0add9](https://github.com/KateK77/careflow-ehr/commit/bf8cf41cde748ccb15be1c7f236bd1686cf0add9). The PR tracks actual CI runs for each published head. GitHub CI runs Django checks, the default regression suite and migration consistency; local Chromium and CUA results must not be mislabeled as GitHub checks.
 
 Final whitespace review found one blank line with trailing spaces in the newly added deployment test; it was removed in the traceability follow-up. No executable logic changed.
+
+## Subsequent staff-login feedback
+
+The original results above are retained. The [staff-login follow-up](login-followup.md) adds six regression cases: **536 Django tests and 32 Chromium workflows pass**. It corrects the pending-approval error message without granting access. The user independently confirmed patient signup/login works; pending staff still require Administrator review. See the follow-up for concurrent user database changes and same-database restart evidence.

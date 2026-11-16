@@ -37,3 +37,7 @@ All **62 existing SQLite files** matched the pre-run SHA-256 manifest. No existi
 Local main remains 00c624553cc265e6275a9d2750ab0041a7e6d97f; remote main baseline is a9e0913b626b88908ad2ca3041d2ec9497ba7d15. Neither was synchronized or modified as part of this task. Main remains the repository default.
 
 Documentation verification passed: executable catalog equals versioned JSON/Markdown; 100 unique native contracts each have matching request/response counts; 203 published evidence artifacts match SHA-256; current-document relative links resolve; Git whitespace check passed. Reviewed new public text artifacts contained no matches for the tested OpenAI/GitHub/private-key signatures. This scoped scan is not comprehensive secret certification.
+
+## GitHub CI and review
+
+[Django CI on implementation commit 6187ce8](https://github.com/KateK77/careflow-ehr/actions/runs/43806783464) passed. Final publication-head checks are linked in [PR #63](https://github.com/KateK77/careflow-ehr/pull/63/checks) and the [branch workflow history](https://github.com/KateK77/careflow-ehr/actions?query=branch%3Adocs%2Fpublic-showcase-cua100). The PR description records the final verified run after publication. CI runs Django checks/tests; local Chromium and paid native CUA evidence are separate. No merge is authorized by this report.

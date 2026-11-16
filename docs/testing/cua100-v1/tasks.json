@@ -2376,11 +2376,6 @@
         "Claim order"
       ],
       [
-        "fill",
-        "#id_reason",
-        "Synthetic benchmark claim"
-      ],
-      [
         "check",
         "#id_confirmed"
       ],
@@ -2389,7 +2384,7 @@
         "Claim order"
       ]
     ],
-    "goal": "Claim order for the one synthetic order. Use reason Synthetic benchmark claim. Explicitly confirm and verify the resulting workflow state.",
+    "goal": "Claim order for the one synthetic order. Explicitly confirm and verify the resulting workflow state.",
     "sql": [
       [
         "SELECT COUNT(*) FROM medications_pharmacyreview",
@@ -2568,10 +2563,10 @@
         "Confirm laboratory action"
       ]
     ],
-    "goal": "Claim requisition. Use reason Synthetic benchmark claim. Confirm synthetic data and verify final state.",
+    "goal": "Claim requisition. Review the draft and explicitly confirm publication. Confirm synthetic data and verify final state.",
     "sql": [
       [
-        "SELECT COUNT(*) FROM labs_laborder WHERE assigned_lab_id IS NOT NULL",
+        "SELECT COUNT(*) FROM labs_laborder WHERE assigned_lab_staff_id IS NOT NULL",
         1
       ]
     ],
@@ -2705,11 +2700,15 @@
         "Acknowledge current publication"
       ],
       [
+        "check",
+        "#id_synthetic_confirmed"
+      ],
+      [
         "button",
         "Confirm acknowledgement"
       ]
     ],
-    "goal": "Review and acknowledge the current synthetic laboratory publication. Verify it is acknowledged.",
+    "goal": "Review the current synthetic laboratory publication, explicitly confirm synthetic information and acknowledge it. Verify it is acknowledged.",
     "sql": [
       [
         "SELECT COUNT(*) FROM labs_labresultreview",

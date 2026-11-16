@@ -75,7 +75,12 @@ class Policy:
 
 class Driver(BrowserDriver):
     def __init__(self,*args,**kwargs):
-        self.http=[];self.action_log=[];super().__init__(*args,**kwargs)
+        self.http=[];self.action_log=[]
+        try:super().__init__(*args,**kwargs)
+        except Exception:
+            if getattr(self,"route_error",None) is not None:
+                raise RuntimeError("Isolated browser route failed") from self.route_error
+            raise
         self.page.on("response",self.observe)
     def before_action(self,action):
         approved=super().before_action(action)
@@ -241,14 +246,14 @@ def run_one(args,task,key=None):
                     browser.close()
     except Exception as e:
         failure=diagnostics.failure(e)
-        import traceback
+        import traceback,re
         chain=[];current=e
         while current is not None and len(chain)<6:
-            chain.append({"class":type(current).__name__,"errno":getattr(current,"errno",None),"winerror":getattr(current,"winerror",None),"file":Path(getattr(current,"filename","") or "").name,
+            chain.append({"class":type(current).__name__,"browser_code":(re.search(r"net::[A-Z_]+|Timeout [0-9]+ms exceeded",str(current)).group(0) if re.search(r"net::[A-Z_]+|Timeout [0-9]+ms exceeded",str(current)) else None),"errno":getattr(current,"errno",None),"winerror":getattr(current,"winerror",None),"file":Path(getattr(current,"filename","") or "").name,
                 "frames":[{"file":Path(f.filename).name,"line":f.lineno,"function":f.name} for f in traceback.extract_tb(current.__traceback__)[-6:]]})
             current=current.__cause__ or current.__context__
         result["safe_error_frames"]=chain
-        status="BLOCKED" if diagnostics.stage in {"configuration","responses_api","responses_request","native_sdk_setup"} else "FAIL"
+        status="BLOCKED" if diagnostics.stage in {"configuration","qa_startup","browser_launch","browser_context","fixture_login","responses_api","responses_request","native_sdk_setup"} else "FAIL"
         if driver:
             result["requested_action_log"]=driver.action_log
             result["screenshot_stage"]=driver.screenshot_stage;result["capture_state"]=driver.capture_state

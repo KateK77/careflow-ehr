@@ -816,7 +816,7 @@
 
 - Role: Pharmacist; difficulty: 5/5; fixture: base.
 - Target: `/app/pharmacy/`; expected HTTP 200; final: `/app/pharmacy/orders/{meduuid}/`.
-- Task: Claim order for the one synthetic order. Use reason Synthetic benchmark claim. Explicitly confirm and verify the resulting workflow state.
+- Task: Claim order for the one synthetic order. Explicitly confirm and verify the resulting workflow state.
 - Visible result: Pharmacy Verification.
 - Database assertions: `[["SELECT COUNT(*) FROM medications_pharmacyreview", 1]]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
@@ -852,9 +852,9 @@
 
 - Role: Lab Staff; difficulty: 5/5; fixture: base.
 - Target: `/app/lab/workspace/`; expected HTTP 200; final: `/app/lab/processing/{labuuid}/`.
-- Task: Claim requisition. Use reason Synthetic benchmark claim. Confirm synthetic data and verify final state.
+- Task: Claim requisition. Review the draft and explicitly confirm publication. Confirm synthetic data and verify final state.
 - Visible result: Synthetic.
-- Database assertions: `[["SELECT COUNT(*) FROM labs_laborder WHERE assigned_lab_id IS NOT NULL", 1]]`; read-only tasks preserve all business tables.
+- Database assertions: `[["SELECT COUNT(*) FROM labs_laborder WHERE assigned_lab_staff_id IS NOT NULL", 1]]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
 ## CF-096 â€” Collect specimen with identity
@@ -879,7 +879,7 @@
 
 - Role: Physician; difficulty: 5/5; fixture: lab_published.
 - Target: `/app/lab/reports/{labuuid}/`; expected HTTP 200; final: `/app/lab/reports/{labuuid}/`.
-- Task: Review and acknowledge the current synthetic laboratory publication. Verify it is acknowledged.
+- Task: Review the current synthetic laboratory publication, explicitly confirm synthetic information and acknowledge it. Verify it is acknowledged.
 - Visible result: acknowledged.
 - Database assertions: `[["SELECT COUNT(*) FROM labs_labresultreview", 1]]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.

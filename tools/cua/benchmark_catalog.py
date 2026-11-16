@@ -164,7 +164,7 @@ write("Mismatched password confirmation","Anonymous","/accounts/register/patient
 "passwords do not match",post=["/accounts/register/patient/"],sql=[q("SELECT COUNT(*) FROM auth_user WHERE username='benchmark-new'",0)])
 # Advanced, isolated clinical transitions and multistep journeys.
 for title,variant,action,label,fields,text,sqls in [
-("Claim signed requisition","base","claim","Claim order",[fill("#id_reason","Synthetic benchmark claim")],"Pharmacy Verification",[q("SELECT COUNT(*) FROM medications_pharmacyreview",1)]),
+("Claim signed requisition","base","claim","Claim order",[],"Pharmacy Verification",[q("SELECT COUNT(*) FROM medications_pharmacyreview",1)]),
 ("Request clarification","pharmacy_claimed","clarify","Request clarification",[fill("#id_reason","Synthetic benchmark clarification")],"Clarification requested",[q("SELECT status FROM medications_pharmacyreview","clarification")]),
 ("Approve pharmacy verification","pharmacy_claimed","approve","Approve verification",[],"Approved",[q("SELECT status FROM medications_pharmacyreview","approved")]),
 ("Record simulated dispensing","pharmacy_approved","dispense","Record simulated dispensing",[fill("#id_quantity","2")],"Simulated dispensing recorded",[q("SELECT COUNT(*) FROM medications_pharmacydispenseevent",1)]),
@@ -174,17 +174,17 @@ for title,variant,action,label,fields,text,sqls in [
     label+" for the one synthetic order. "+("Use reason Synthetic benchmark "+("claim" if action=="claim" else "clarification")+". " if fields and action!="dispense" else "Use quantity 2. " if action=="dispense" else "")+"Explicitly confirm and verify the resulting workflow state.",
     [link(label)]+fields+[check("#id_confirmed"),button(label)],text,level=5,variant=variant,final=detail,extra=[detail,detail+action+"/"],post=[detail+action+"/"],sql=sqls)
 for title,role,variant,action,label,steps,text,sqls in [
-("Claim lab requisition","Lab Staff","base","claim","Claim requisition",[fill("#id_reason","Synthetic benchmark claim")],"Synthetic",[q("SELECT COUNT(*) FROM labs_laborder WHERE assigned_lab_id IS NOT NULL",1)]),
+("Claim lab requisition","Lab Staff","base","claim","Claim requisition",[fill("#id_reason","Synthetic benchmark claim")],"Synthetic",[q("SELECT COUNT(*) FROM labs_laborder WHERE assigned_lab_staff_id IS NOT NULL",1)]),
 ("Collect specimen with identity","Nurse","base","collect","Collect specimen",[fill("#id_mrn","LAB-01"),fill("#id_dob","1980-01-01"),check("#id_identity_confirmed")],"Collected",[q("SELECT status FROM labs_labspecimen","collected")]),
 ("Publish prepared lab report","Lab Staff","lab_result","publish","Preview and finalize",[],"Fulfilled",[q("SELECT status FROM labs_labresult","final"),q("SELECT status FROM labs_laborder","fulfilled")]),
 ]:
     detail="/app/lab/processing/{labuuid}/"
     workflow=[link(label)]+steps+[check("#id_synthetic_confirmed")]+([button("Preview report"),button("Confirm publication")] if action=="publish" else [button("Confirm laboratory action")])
     write(title,role,"/app/lab/workspace/" if action=="claim" else detail,
-    label+". "+("Use MRN LAB-01 and DOB 1980-01-01; explicitly confirm identity. " if action=="collect" else "Use reason Synthetic benchmark claim. " if action=="claim" else "Review the draft and explicitly confirm publication. ")+"Confirm synthetic data and verify final state.",
+    label+". "+("Use MRN LAB-01 and DOB 1980-01-01; explicitly confirm identity. " if action=="collect" else "Review the draft and explicitly confirm publication. ")+"Confirm synthetic data and verify final state.",
     workflow,text,level=5,variant=variant,final=detail,extra=[detail,detail+action+"/"],post=[detail+action+"/"],sql=sqls)
-write("Acknowledge exact lab revision","Physician","/app/lab/reports/{labuuid}/","Review and acknowledge the current synthetic laboratory publication. Verify it is acknowledged.",
-[link("Acknowledge current publication"),button("Confirm acknowledgement")],"acknowledged",level=5,variant="lab_published",
+write("Acknowledge exact lab revision","Physician","/app/lab/reports/{labuuid}/","Review the current synthetic laboratory publication, explicitly confirm synthetic information and acknowledge it. Verify it is acknowledged.",
+[link("Acknowledge current publication"),check("#id_synthetic_confirmed"),button("Confirm acknowledgement")],"acknowledged",level=5,variant="lab_published",
 extra=["/app/lab/reports/{labuuid}/acknowledge/"],post=["/app/lab/reports/{labuuid}/acknowledge/"],sql=[q("SELECT COUNT(*) FROM labs_labresultreview",1)])
 write("Compose and sign SOAP journey","Physician","/app/patients/1/encounters/1/note/",
 "Fill all four SOAP sections with Synthetic benchmark plus section name, confirm synthetic data, save draft, review and explicitly sign.",

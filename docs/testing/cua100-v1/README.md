@@ -59,3 +59,5 @@ Blocked/not-run tasks remain visible; they are never quietly removed to inflate 
 Native execution is complete: **85/100 passed, 15 failed**. Read/authorization: **69/70**; validation/write/clinical: **16/30**. There were no paid failure retries. Three initial zero-request startup blocks were fixed offline before their first paid attempts.
 
 Read the [full results and 100 evidence links](results.md), [failure analysis](findings.md), [CSV](results.csv), [JSON](results.json) and [evidence integrity manifest](evidence-sha256.json). Total estimated token cost: **USD 3.379979**, from 336 responses. Offline verification: **536 Django tests, 44 CUA framework tests and 100 task rehearsals passed**. These counts remain separate from native results.
+
+Evidence hashes refer to the **published Git blob bytes**, including LF-normalized JSON, rather than Windows working-copy CRLF bytes. Verify a text artifact using its raw GitHub download or git show HEAD:path. Binary screenshot bytes are unchanged.

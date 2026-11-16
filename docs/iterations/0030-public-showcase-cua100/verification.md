@@ -41,3 +41,5 @@ Documentation verification passed: executable catalog equals versioned JSON/Mark
 ## GitHub CI and review
 
 [Django CI on implementation commit 6187ce8](https://github.com/KateK77/careflow-ehr/actions/runs/43806783464) passed. Final publication-head checks are linked in [PR #63](https://github.com/KateK77/careflow-ehr/pull/63/checks) and the [branch workflow history](https://github.com/KateK77/careflow-ehr/actions?query=branch%3Adocs%2Fpublic-showcase-cua100). The PR description records the final verified run after publication. CI runs Django checks/tests; local Chromium and paid native CUA evidence are separate. No merge is authorized by this report.
+
+Unauthenticated GitHub raw access returned HTTP 200 and the published results JSON is structurally identical to the local report. Git's Windows CRLF-to-LF normalization changes raw text hashes; the evidence manifest therefore hashes the 203 **published Git blobs**, not platform-specific working-copy text. Screenshot bytes remain identical.

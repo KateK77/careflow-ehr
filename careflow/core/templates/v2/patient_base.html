@@ -3,15 +3,15 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{% block title %}Patient Portal{% endblock %} · CareFlow EHR 2.0</title>
-<link rel="stylesheet" href="{% static 'core/v2.css' %}">
+<title>{% block title %}Patient Portal{% endblock %} · CareFlow EHR 3.0</title>
+<link rel="stylesheet" href="{% static 'core/v3.css' %}">
 <script src="{% static 'core/navigation.js' %}" defer></script>
 </head>
 <body class="v2-patient">
 <a class="skip" href="#content">Skip to content</a>
 <header class="portal-header">
   <a class="brand" href="{% if patient %}{% url 'portal_home' %}{% else %}{% url 'home' %}{% endif %}"><span class="brandmark">CF</span><span>CareFlow <strong>EHR</strong></span></a>
-  <span class="version-pill">Patient Portal · 2.0</span>
+  <span class="version-pill">Patient Portal · 3.0</span>
   <span class="demo">DEMO — NOT FOR CLINICAL USE</span>
   {% if patient %}<form method="post" action="{% url 'portal_logout' %}">{% csrf_token %}<button class="quiet">Sign out</button></form>{% endif %}
 </header>
@@ -28,6 +28,6 @@
 </nav>
 {% endif %}
 <main id="content" class="portal-main" tabindex="-1">{% block content %}{% endblock %}
-<footer>Synthetic patient data only · Local demonstration · CareFlow EHR 2.0 preview</footer></main>
+<footer>Synthetic patient data only · Local demonstration · CareFlow EHR 3.0 preview</footer></main>
 </body>
 </html>

@@ -1,0 +1,13 @@
+{% extends "core/base.html" %}
+{% block title %}{{ title }} · CareFlow EHR 3.0{% endblock %}
+{% block content %}
+<section class="panel account-panel">
+<p class="eyebrow">CAREFLOW ACCOUNT ACCESS</p><h1>{{ title }}</h1><p class="muted">{{ intro }}</p>
+<p class="notice">No email required. Keep your username and password safe: email recovery is not available. Use fictional information only.</p>
+<form method="post">{% csrf_token %}{{ form.non_field_errors }}
+{% for field in form %}<div class="field">{% if field.field.widget.input_type == "checkbox" %}
+<label class="account-confirmation" for="{{ field.id_for_label }}">{{ field }}<span>{{ field.label }} (required)</span></label>
+{% else %}{{ field.label_tag }}{{ field }}{% endif %}{{ field.errors }}{% if field.help_text %}<small>{{ field.help_text }}</small>{% endif %}</div>{% endfor %}
+<button type="submit">{{ button }}</button></form>
+<nav class="account-links" aria-label="Account help"><a href="{% url 'login' %}">Staff sign in</a><a href="{% url 'portal_login' %}">Patient sign in</a><a href="{% url 'home' %}">Back to portals</a></nav></section>
+{% endblock %}

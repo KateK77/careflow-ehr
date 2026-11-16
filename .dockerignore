@@ -1,0 +1,12 @@
+**
+!requirements.txt
+!requirements-hosted.txt
+!manage.py
+!careflow/
+!careflow/**
+!deploy/
+!deploy/container_start.py
+**/__pycache__
+**/*.pyc
+**/*.sqlite3
+**/.env*

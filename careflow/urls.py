@@ -5,6 +5,7 @@ from careflow.core.auth_views import DemoLoginView, DemoLogoutView
 
 
 urlpatterns = [
+    path("", include("careflow.accounts.urls")),
     path("login/", DemoLoginView.as_view(), name="login"),
     path("logout/", DemoLogoutView.as_view(), name="logout"),
     path("app/", include("careflow.patients.urls")),

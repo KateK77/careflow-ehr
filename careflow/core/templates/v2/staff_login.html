@@ -1,5 +1,5 @@
 {% extends "core/base.html" %}
-{% block title %}Staff sign in · CareFlow EHR 2.0{% endblock %}
+{% block title %}Staff sign in · CareFlow EHR 3.0{% endblock %}
 {% block content %}
 <div class="login-layout">
   <section class="login-story">
@@ -19,7 +19,7 @@
       <button type="submit">Sign in to workspace</button>
     </form>
     <p class="small muted">Access follows your assigned roles. Use fictional information only.</p>
-    <div class="login-links"><a href="{% url 'home' %}">Back to portal selection</a><a href="{% url 'portal_login' %}">Patient Portal sign in</a></div>
+    <div class="login-links"><a href="{% url 'account_signup' 'staff' %}">Apply for staff access</a><a href="{% url 'home' %}">Back to portal selection</a><a href="{% url 'portal_login' %}">Patient Portal sign in</a></div>
   </section>
 </div>
 {% endblock %}

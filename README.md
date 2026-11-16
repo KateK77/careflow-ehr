@@ -4,6 +4,12 @@
 
 > **SYNTHETIC DATA ONLY — NOT FOR CLINICAL USE.** No real patient data, medical treatment, payer transactions, or production deployment. The development settings use `DEBUG=True` and a development secret. Hosted or clinical use requires a separate security, privacy, architecture, and regulatory review.
 
+## Version 3.0 preview — blue interface and simple registration
+
+The current v3 proposal adds patient signup and reviewed staff applications using **username, password and confirmation**, with no email requirement. Existing Django workflows remain. This is a preview branch, not a released or publicly deployed site.
+
+See [v3 setup and accounts](docs/iterations/0029-v3-email-access/README.md), [latest requirements](docs/requirements/v3.0/prompt.en.v3.1.md), [verification](docs/iterations/0029-v3-email-access/verification.md) and [zero-budget deployment preparation](docs/deployment/v3/README.md). Source is tracked in [Issue #60](https://github.com/KateK77/careflow-ehr/issues/60), on feature/v3-account-registration stacked above PR #59. No email service or paid hosting is configured.
+
 ## Version 2.0 website preview
 
 The new website presentation is on `feature/v2-website`, stacked on PR #57. It includes a new dual-portal landing, staff and patient layouts, real dashboard agenda, grouped registration and clearer appointment progression. Existing Django workflows and access controls remain.

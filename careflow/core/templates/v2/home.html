@@ -3,13 +3,13 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CareFlow EHR 2.0 | Healthcare Management System</title>
-  <link rel="stylesheet" href="{% static 'core/v2.css' %}">
+  <title>CareFlow EHR 3.0 | Healthcare Management System</title>
+  <link rel="stylesheet" href="{% static 'core/v3.css' %}">
 </head>
 <body class="v2-public">
 <a class="skip" href="#main">Skip to content</a>
 <header class="public-header">
-  <div class="brand"><span class="brandmark" aria-hidden="true">CF</span><span>CareFlow <strong>EHR</strong></span><span class="version-pill">2.0 Preview</span></div>
+  <div class="brand"><span class="brandmark" aria-hidden="true">CF</span><span>CareFlow <strong>EHR</strong></span><span class="version-pill">3.0 Preview</span></div>
   <span class="demo">DEMO — NOT FOR CLINICAL USE</span>
 </header>
 <main id="main" class="public-main" tabindex="-1">
@@ -37,11 +37,13 @@
       <div class="portal-emblem" aria-hidden="true">+</div>
       <div class="portal-copy"><span class="eyebrow">FOR YOUR CARE TEAM</span><h2 id="staff-portal">Staff Portal</h2><p>Physicians, Nurses, Pharmacists &amp; Administrators</p></div>
       <a class="button landing-action" href="{% url 'login' %}">Staff Sign In <span aria-hidden="true">↗</span></a>
+      <a class="portal-register" href="{% url 'account_signup' 'staff' %}">Apply for staff access →</a>
     </section>
     <section class="landing-card patient-card" aria-labelledby="patient-portal">
       <div class="portal-emblem" aria-hidden="true">≡</div>
       <div class="portal-copy"><span class="eyebrow">FOR YOUR OWN RECORDS</span><h2 id="patient-portal">Patient Portal</h2><p>Appointments, Medical Records &amp; Test Results</p></div>
       <a class="button landing-action" href="{% url 'portal_login' %}">Patient Sign In <span aria-hidden="true">↗</span></a>
+      <a class="portal-register" href="{% url 'account_signup' 'patient' %}">Create patient account →</a>
     </section>
   </div>
   <footer class="public-footer"><span>Use only synthetic patient data.</span><span>Local educational prototype · Not for clinical use</span></footer>

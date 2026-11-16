@@ -1,0 +1,6 @@
+{% extends "core/base.html" %}{% block content %}
+<h1>Staff account applications</h1><p>Review each applicant before granting a staff role. Public registration cannot grant Administrator access.</p>
+<div class="table-scroll"><table class="clinical-table"><thead><tr><th>Username</th><th>Requested role</th><th>Decision</th><th>Action</th></tr></thead>
+<tbody>{% for item in page %}<tr><td>{{ item.user.username }}</td><td>{{ item.requested_role }}</td><td>{{ item.status|title }}</td><td><a href="{% url 'account_application' item.pk %}">Review application</a></td></tr>{% empty %}<tr><td colspan="4">No staff applications yet.</td></tr>{% endfor %}</tbody></table></div>
+<p>{% if page.has_previous %}<a href="?page={{ page.previous_page_number }}">Previous</a>{% endif %} Page {{ page.number }} of {{ page.paginator.num_pages }} {% if page.has_next %}<a href="?page={{ page.next_page_number }}">Next</a>{% endif %}</p>
+{% endblock %}

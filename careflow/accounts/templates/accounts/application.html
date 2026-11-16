@@ -1,0 +1,6 @@
+{% extends "core/base.html" %}{% block content %}
+<h1>Review staff application</h1><section class="panel"><h2>{{ item.user.username }}</h2><p>Requested {{ item.requested_role }} · {{ item.status|title }} · v{{ item.version }}</p>
+{% if eligible %}<form method="post">{% csrf_token %}{{ form.non_field_errors }}{{ form.version }}{% for field in form.visible_fields %}<div class="field">{{ field.label_tag }}{{ field }}{{ field.errors }}</div>{% endfor %}<button type="submit">Save review decision</button></form>
+{% else %}<p>This application is not currently eligible for a new decision.</p>{{ form.non_field_errors }}{% endif %}</section>
+<section class="panel"><h2>Account history</h2>{% for event in events %}<p>{% if event.action == 'registration' %}Account registered{% elif event.action == 'staff_approved' %}Staff access approved{% elif event.action == 'staff_rejected' %}Staff application rejected{% elif event.action == 'operator_bootstrap' %}Operator created{% else %}Account event{% endif %} · {{ event.occurred_at }} · {{ event.actor.username|default:"Account service" }}{% if event.role %} · {{ event.role }}{% endif %}{% if event.reason %} — {{ event.reason }}{% endif %}</p>{% endfor %}</section>
+<a href="{% url 'account_applications' %}">Back to applications</a>{% endblock %}

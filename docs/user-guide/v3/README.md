@@ -8,8 +8,8 @@ This is the blue-interface v3 preview selected by the owner for this development
 
 - Current owner's local site: http://127.0.0.1:8015/.
 - **Public website: [https://jiawen.pythonanywhere.com/](https://jiawen.pythonanywhere.com/).** Share this link with visitors. It does not require the owner's computer to remain on.
-- The source and this guide are in a private GitHub repository. Only authorized collaborators can view them.
-- GitHub Pages alone cannot run Django. The public runtime is PythonAnywhere; a private GitHub source link does not give visitors repository access.
+- The owner has now made the GitHub source repository public. See the [latest showcase](https://github.com/KateK77/careflow-ehr/tree/docs/public-showcase-cua100); main remains the default branch.
+- GitHub Pages alone cannot run Django. The public runtime is PythonAnywhere; the public GitHub repository contains source and documentation, not a Django runtime.
 
 ## Register a patient account
 
@@ -91,7 +91,7 @@ The following usernames exist in both the owner's local preview and the public d
 | Too many attempts | The rate limit returns HTTP 429; wait for the stated retry interval. |
 | Nothing in a new chart | New signup creates a new fictional record; existing patients are not automatically linked. |
 | Friend cannot open 127.0.0.1:8015 | That is local-only; share https://jiawen.pythonanywhere.com/ instead. |
-| Friend cannot read the GitHub repository | The source repository is private; grant collaborator access or share the public website URL. |
+| Friend wants the latest showcase | Share the showcase branch link above; main stays the default branch. |
 
 ## Verification and publication limits
 

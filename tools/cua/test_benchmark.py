@@ -74,6 +74,10 @@ class EvidenceTests(unittest.TestCase):
         before={"table":"hash","_audit_rows":[(1,1,1,"patient_create")]}
         after={"table":"hash","_audit_rows":[(1,1,2,"patient_create")]}
         self.assertFalse(read_only_unchanged(before,after))
+    def test_clinical_denial_audit_is_preserved_and_allowed(self):
+        self.assertTrue(read_only_unchanged({"_audit_rows":[]},{"_audit_rows":[(1,1,None,"clinical_access_denied","denied")]}))
+    def test_denial_label_without_denied_outcome_fails(self):
+        self.assertFalse(read_only_unchanged({"_audit_rows":[]},{"_audit_rows":[(1,1,None,"clinical_access_denied","success")]}))
     def test_business_write_cannot_hide_as_read_audit(self):
         self.assertFalse(read_only_unchanged({"table":"a","_audit_rows":[]},{"table":"b","_audit_rows":[(1,1,1,"patient_view")]}))
     def test_new_write_audit_is_not_read_only(self):

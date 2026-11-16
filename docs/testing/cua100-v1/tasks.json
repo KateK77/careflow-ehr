@@ -1910,6 +1910,11 @@
         "Synthetic benchmark"
       ],
       [
+        "select",
+        "#id_source",
+        "documented"
+      ],
+      [
         "check",
         "#id_synthetic_confirmed"
       ],
@@ -1918,7 +1923,7 @@
         "Save record"
       ]
     ],
-    "goal": "Create record labelled Synthetic benchmark, category Past medical history. Keep default provenance, confirm synthetic data and save.",
+    "goal": "Create record labelled Synthetic benchmark, category Past medical history. Select Source Documented, confirm synthetic data and save.",
     "sql": [
       [
         "SELECT COUNT(*) FROM history_medicalhistory WHERE patient_id=1",
@@ -1952,6 +1957,11 @@
         "Synthetic benchmark"
       ],
       [
+        "select",
+        "#id_source",
+        "documented"
+      ],
+      [
         "check",
         "#id_synthetic_confirmed"
       ],
@@ -1960,7 +1970,7 @@
         "Save record"
       ]
     ],
-    "goal": "Create record labelled Synthetic benchmark, default Active status. Keep default provenance, confirm synthetic data and save.",
+    "goal": "Create record labelled Synthetic benchmark, default Active status. Select Source Documented, confirm synthetic data and save.",
     "sql": [
       [
         "SELECT COUNT(*) FROM history_problem WHERE patient_id=1",
@@ -1994,9 +2004,19 @@
         "Synthetic rash"
       ],
       [
+        "select",
+        "#id_severity",
+        "mild"
+      ],
+      [
         "fill",
         "#id_label",
         "Synthetic benchmark"
+      ],
+      [
+        "select",
+        "#id_source",
+        "documented"
       ],
       [
         "check",
@@ -2007,7 +2027,7 @@
         "Save record"
       ]
     ],
-    "goal": "Create record labelled Synthetic benchmark, reaction Synthetic rash. Keep default provenance, confirm synthetic data and save.",
+    "goal": "Create record labelled Synthetic benchmark, reaction Synthetic rash, severity Mild. Select Source Documented, confirm synthetic data and save.",
     "sql": [
       [
         "SELECT COUNT(*) FROM history_allergy WHERE patient_id=1",
@@ -2056,6 +2076,11 @@
         "Synthetic benchmark"
       ],
       [
+        "select",
+        "#id_source",
+        "documented"
+      ],
+      [
         "check",
         "#id_synthetic_confirmed"
       ],
@@ -2064,7 +2089,7 @@
         "Save record"
       ]
     ],
-    "goal": "Create record labelled Synthetic benchmark, dose 1 demo unit, route oral, frequency daily. Keep default provenance, confirm synthetic data and save.",
+    "goal": "Create record labelled Synthetic benchmark, dose 1 demo unit, route oral, frequency daily. Select Source Documented, confirm synthetic data and save.",
     "sql": [
       [
         "SELECT COUNT(*) FROM history_medicationstatement WHERE patient_id=1",

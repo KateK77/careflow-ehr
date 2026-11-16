@@ -735,7 +735,7 @@
 
 - Role: Physician; difficulty: 4/5; fixture: base.
 - Target: `/app/patients/1/history/medical/new/`; expected HTTP 200; final: `/app/patients/1/history/medical/1/`.
-- Task: Create record labelled Synthetic benchmark, category Past medical history. Keep default provenance, confirm synthetic data and save.
+- Task: Create record labelled Synthetic benchmark, category Past medical history. Select Source Documented, confirm synthetic data and save.
 - Visible result: Synthetic benchmark.
 - Database assertions: `[["SELECT COUNT(*) FROM history_medicalhistory WHERE patient_id=1", 1]]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
@@ -744,7 +744,7 @@
 
 - Role: Physician; difficulty: 4/5; fixture: base.
 - Target: `/app/patients/1/history/problems/new/`; expected HTTP 200; final: `/app/patients/1/history/problems/1/`.
-- Task: Create record labelled Synthetic benchmark, default Active status. Keep default provenance, confirm synthetic data and save.
+- Task: Create record labelled Synthetic benchmark, default Active status. Select Source Documented, confirm synthetic data and save.
 - Visible result: Synthetic benchmark.
 - Database assertions: `[["SELECT COUNT(*) FROM history_problem WHERE patient_id=1", 1]]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
@@ -753,7 +753,7 @@
 
 - Role: Physician; difficulty: 4/5; fixture: base.
 - Target: `/app/patients/1/history/allergies/new/`; expected HTTP 200; final: `/app/patients/1/history/allergies/1/`.
-- Task: Create record labelled Synthetic benchmark, reaction Synthetic rash. Keep default provenance, confirm synthetic data and save.
+- Task: Create record labelled Synthetic benchmark, reaction Synthetic rash, severity Mild. Select Source Documented, confirm synthetic data and save.
 - Visible result: Synthetic benchmark.
 - Database assertions: `[["SELECT COUNT(*) FROM history_allergy WHERE patient_id=1", 1]]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
@@ -762,7 +762,7 @@
 
 - Role: Physician; difficulty: 4/5; fixture: base.
 - Target: `/app/patients/1/history/medications/new/`; expected HTTP 200; final: `/app/patients/1/history/medications/1/`.
-- Task: Create record labelled Synthetic benchmark, dose 1 demo unit, route oral, frequency daily. Keep default provenance, confirm synthetic data and save.
+- Task: Create record labelled Synthetic benchmark, dose 1 demo unit, route oral, frequency daily. Select Source Documented, confirm synthetic data and save.
 - Visible result: Synthetic benchmark.
 - Database assertions: `[["SELECT COUNT(*) FROM history_medicationstatement WHERE patient_id=1", 1]]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.

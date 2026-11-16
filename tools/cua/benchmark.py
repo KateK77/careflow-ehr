@@ -32,7 +32,7 @@ def read_only_unchanged(before,after):
     old=before["_audit_rows"];new=after["_audit_rows"]
     return (all(after.get(k)==v for k,v in before.items() if k!="_audit_rows")
             and new[:len(old)]==old
-            and all((row[3].endswith("_view") or row[3]=="access_denied" and row[4]=="denied") for row in new[len(old):]))
+            and all((row[3].endswith("_view") or row[3] in {"access_denied","clinical_access_denied"} and row[4]=="denied") for row in new[len(old):]))
 def protected_snapshot(db,pk):
     with closing(sqlite3.connect("file:"+str(db)+"?mode=ro",uri=True)) as c:
         return repr(c.execute("SELECT * FROM clinical_note WHERE id=?",(pk,)).fetchone())
@@ -173,7 +173,7 @@ def run_one(args,task,key=None):
     output=args.output/task["id"];output.mkdir(parents=True,exist_ok=False)
     diagnostics=Diagnostics();diagnostics.stage="qa_startup";status="BLOCKED";failure=None;checks={};driver=None
     limits=LIMITS[task["difficulty"]]
-    result={"id":task["id"],"title":task["title"],"mode":args.mode,"difficulty":task["difficulty"],"role":task["role"],"limits":{"requests":limits[0],"actions":limits[1],"seconds":limits[2],"estimated_usd_stop":0.8}}
+    result={"tested_commit":subprocess.check_output(["git","rev-parse","HEAD"],cwd=ROOT,text=True).strip(),"id":task["id"],"title":task["title"],"mode":args.mode,"difficulty":task["difficulty"],"role":task["role"],"limits":{"requests":limits[0],"actions":limits[1],"seconds":limits[2],"estimated_usd_stop":0.8}}
     try:
         with tempfile.TemporaryDirectory(prefix="careflow-cua100-") as temporary:
             folder=Path(temporary)
@@ -226,6 +226,7 @@ def run_one(args,task,key=None):
                                 response=toolset.run(client,{"model":args.model,"tools":[{"type":"computer"}],"tool_choice":"auto","parallel_tool_calls":False,"store":False,"max_output_tokens":1024,
                                     "input":[{"role":"user","content":[{"type":"input_text","text":prompt},{"type":"input_image","image_url":initial["image_url"],"detail":"original"}]}]},
                                     max_steps=limits[0],before_action=driver.before_action,approve_safety_checks=lambda _:False,cancelled=driver.cancelled,on_diagnostic=diagnostics.tool_event)
+                        result["model_observation"]=getattr(response,"output_text","")[:2000].replace(fixture["password"],"[redacted]")
                         if response.status!="completed":raise RuntimeError("Native response incomplete")
                         if not driver.actions:raise RuntimeError("No native computer action")
                     diagnostics.stage="independent_verification"

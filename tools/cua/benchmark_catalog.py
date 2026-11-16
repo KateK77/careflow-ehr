@@ -136,12 +136,12 @@ write("Complete signed encounter","Physician","/app/patients/1/encounters/1/","C
 for kind,title,fields,table,detail in [
 ("medical","Past medical history",[select("#id_category","medical")],"history_medicalhistory","category Past medical history"),
 ("problems","Active longitudinal problem",[],"history_problem","default Active status"),
-("allergies","Document fictional allergy",[fill("#id_reaction","Synthetic rash")],"history_allergy","reaction Synthetic rash"),
+("allergies","Document fictional allergy",[fill("#id_reaction","Synthetic rash"),select("#id_severity","mild")],"history_allergy","reaction Synthetic rash, severity Mild"),
 ("medications","Medication statement",[fill("#id_dose","1 demo unit"),fill("#id_route","oral"),fill("#id_frequency","daily")],"history_medicationstatement","dose 1 demo unit, route oral, frequency daily"),
 ]:
     path=f"/app/patients/1/history/{kind}/"
-    write(title,"Physician",path+"new/","Create record labelled Synthetic benchmark, "+detail+". Keep default provenance, confirm synthetic data and save.",
-    fields+[fill("#id_label","Synthetic benchmark"),check("#id_synthetic_confirmed"),button("Save record")],"Synthetic benchmark",
+    write(title,"Physician",path+"new/","Create record labelled Synthetic benchmark, "+detail+". Select Source Documented, confirm synthetic data and save.",
+    fields+[fill("#id_label","Synthetic benchmark"),select("#id_source","documented"),check("#id_synthetic_confirmed"),button("Save record")],"Synthetic benchmark",
     final=path+"1/",extra=[path,path+"1/"],post=[path+"new/"],sql=[q(f"SELECT COUNT(*) FROM {table} WHERE patient_id=1",1)])
 for kind,title,steps,goal,text,query in [
 ("assessment","Nursing assessment",[fill("#id_chief_complaint","Synthetic benchmark"),fill("#id_pain_score","2"),check("#id_ready_for_provider")],

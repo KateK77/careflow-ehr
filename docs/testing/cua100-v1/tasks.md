@@ -1,8 +1,8 @@
 # CareFlow CUA-100 v1.0
 
-100 independent tasks. Difficulty 1â€“5; fresh synthetic database per task. A separate signed SOAP record must remain unchanged in every case. Deterministic offline recipes are NOT native CUA results.
+100 independent tasks. Difficulty 1-5; fresh synthetic database per task. A separate signed SOAP record must remain unchanged in every case. Deterministic offline recipes are NOT native CUA results.
 
-## CF-001 â€” Unified landing
+## CF-001: Unified landing
 
 - Role: Anonymous; difficulty: 1/5; fixture: base.
 - Target: `/`; expected HTTP 200; final: `/`.
@@ -11,7 +11,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-002 â€” Staff sign-in entry
+## CF-002: Staff sign-in entry
 
 - Role: Anonymous; difficulty: 1/5; fixture: base.
 - Target: `/login/`; expected HTTP 200; final: `/login/`.
@@ -20,7 +20,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-003 â€” Patient sign-in entry
+## CF-003: Patient sign-in entry
 
 - Role: Anonymous; difficulty: 1/5; fixture: base.
 - Target: `/portal/login/`; expected HTTP 200; final: `/portal/login/`.
@@ -29,7 +29,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-004 â€” Patient signup fields
+## CF-004: Patient signup fields
 
 - Role: Anonymous; difficulty: 1/5; fixture: base.
 - Target: `/accounts/register/patient/`; expected HTTP 200; final: `/accounts/register/patient/`.
@@ -38,7 +38,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-005 â€” Staff application fields
+## CF-005: Staff application fields
 
 - Role: Anonymous; difficulty: 1/5; fixture: base.
 - Target: `/accounts/register/staff/`; expected HTTP 200; final: `/accounts/register/staff/`.
@@ -47,7 +47,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-006 â€” Administrator dashboard
+## CF-006: Administrator dashboard
 
 - Role: Administrator; difficulty: 1/5; fixture: base.
 - Target: `/app/dashboard/`; expected HTTP 200; final: `/app/dashboard/`.
@@ -56,7 +56,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-007 â€” Physician worklist
+## CF-007: Physician worklist
 
 - Role: Physician; difficulty: 1/5; fixture: base.
 - Target: `/app/physician/`; expected HTTP 200; final: `/app/physician/`.
@@ -65,7 +65,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-008 â€” Nursing workspace
+## CF-008: Nursing workspace
 
 - Role: Nurse; difficulty: 1/5; fixture: base.
 - Target: `/app/nursing/`; expected HTTP 200; final: `/app/nursing/`.
@@ -74,7 +74,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-009 â€” Laboratory worklist
+## CF-009: Laboratory worklist
 
 - Role: Lab Staff; difficulty: 1/5; fixture: base.
 - Target: `/app/lab/workspace/`; expected HTTP 200; final: `/app/lab/workspace/`.
@@ -83,7 +83,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-010 â€” Pharmacy worklist
+## CF-010: Pharmacy worklist
 
 - Role: Pharmacist; difficulty: 1/5; fixture: base.
 - Target: `/app/pharmacy/`; expected HTTP 200; final: `/app/pharmacy/`.
@@ -92,7 +92,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-011 â€” Patient directory
+## CF-011: Patient directory
 
 - Role: FrontDesk; difficulty: 2/5; fixture: base.
 - Target: `/app/patients/`; expected HTTP 200; final: `/app/patients/`.
@@ -101,7 +101,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-012 â€” Patient demographics
+## CF-012: Patient demographics
 
 - Role: FrontDesk; difficulty: 2/5; fixture: base.
 - Target: `/app/patients/1/`; expected HTTP 200; final: `/app/patients/1/`.
@@ -110,7 +110,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-013 â€” Appointment calendar
+## CF-013: Appointment calendar
 
 - Role: FrontDesk; difficulty: 2/5; fixture: base.
 - Target: `/app/schedule/`; expected HTTP 200; final: `/app/schedule/`.
@@ -119,7 +119,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-014 â€” Check-in worklist
+## CF-014: Check-in worklist
 
 - Role: FrontDesk; difficulty: 2/5; fixture: base.
 - Target: `/app/check-in/`; expected HTTP 200; final: `/app/check-in/`.
@@ -128,7 +128,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-015 â€” Appointment creation history
+## CF-015: Appointment creation history
 
 - Role: FrontDesk; difficulty: 2/5; fixture: base.
 - Target: `/app/appointments/2/`; expected HTTP 200; final: `/app/appointments/2/`.
@@ -137,7 +137,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-016 â€” Longitudinal patient chart
+## CF-016: Longitudinal patient chart
 
 - Role: Physician; difficulty: 2/5; fixture: base.
 - Target: `/app/patients/1/chart/`; expected HTTP 200; final: `/app/patients/1/chart/`.
@@ -146,7 +146,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-017 â€” In-progress encounter
+## CF-017: In-progress encounter
 
 - Role: Physician; difficulty: 2/5; fixture: base.
 - Target: `/app/patients/1/encounters/1/`; expected HTTP 200; final: `/app/patients/1/encounters/1/`.
@@ -155,7 +155,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-018 â€” Medical-history empty state
+## CF-018: Medical-history empty state
 
 - Role: Physician; difficulty: 2/5; fixture: base.
 - Target: `/app/patients/1/history/medical/`; expected HTTP 200; final: `/app/patients/1/history/medical/`.
@@ -164,7 +164,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-019 â€” Longitudinal problems
+## CF-019: Longitudinal problems
 
 - Role: Physician; difficulty: 2/5; fixture: base.
 - Target: `/app/patients/1/history/problems/`; expected HTTP 200; final: `/app/patients/1/history/problems/`.
@@ -173,7 +173,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-020 â€” Allergy review status
+## CF-020: Allergy review status
 
 - Role: Physician; difficulty: 2/5; fixture: base.
 - Target: `/app/patients/1/history/allergies/`; expected HTTP 200; final: `/app/patients/1/history/allergies/`.
@@ -182,7 +182,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-021 â€” Medication history
+## CF-021: Medication history
 
 - Role: Physician; difficulty: 2/5; fixture: base.
 - Target: `/app/patients/1/history/medications/`; expected HTTP 200; final: `/app/patients/1/history/medications/`.
@@ -191,7 +191,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-022 â€” Encounter diagnoses
+## CF-022: Encounter diagnoses
 
 - Role: Physician; difficulty: 2/5; fixture: base.
 - Target: `/app/patients/1/encounters/1/diagnoses/`; expected HTTP 200; final: `/app/patients/1/encounters/1/diagnoses/`.
@@ -200,7 +200,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-023 â€” Appointment nursing context
+## CF-023: Appointment nursing context
 
 - Role: Nurse; difficulty: 2/5; fixture: base.
 - Target: `/app/patients/1/nursing/appointments/1/`; expected HTTP 200; final: `/app/patients/1/nursing/appointments/1/`.
@@ -209,7 +209,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-024 â€” Longitudinal flowsheet
+## CF-024: Longitudinal flowsheet
 
 - Role: Nurse; difficulty: 2/5; fixture: base.
 - Target: `/app/patients/1/nursing/flowsheet/`; expected HTTP 200; final: `/app/patients/1/nursing/flowsheet/`.
@@ -218,7 +218,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-025 â€” Lab catalog
+## CF-025: Lab catalog
 
 - Role: Physician; difficulty: 2/5; fixture: base.
 - Target: `/app/lab/catalog/`; expected HTTP 200; final: `/app/lab/catalog/`.
@@ -227,7 +227,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-026 â€” Lab order history
+## CF-026: Lab order history
 
 - Role: Physician; difficulty: 2/5; fixture: base.
 - Target: `/app/patients/1/lab-orders/`; expected HTTP 200; final: `/app/patients/1/lab-orders/`.
@@ -236,7 +236,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-027 â€” Medication catalog
+## CF-027: Medication catalog
 
 - Role: Physician; difficulty: 2/5; fixture: base.
 - Target: `/app/medications/catalog/`; expected HTTP 200; final: `/app/medications/catalog/`.
@@ -245,7 +245,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-028 â€” Signed medication history
+## CF-028: Signed medication history
 
 - Role: Physician; difficulty: 2/5; fixture: base.
 - Target: `/app/patients/1/medication-orders/`; expected HTTP 200; final: `/app/patients/1/medication-orders/`.
@@ -254,7 +254,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-029 â€” Billing worklist
+## CF-029: Billing worklist
 
 - Role: BillingStaff; difficulty: 2/5; fixture: base.
 - Target: `/app/billing/`; expected HTTP 200; final: `/app/billing/`.
@@ -263,7 +263,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-030 â€” Claims queue
+## CF-030: Claims queue
 
 - Role: BillingStaff; difficulty: 2/5; fixture: base.
 - Target: `/app/billing/claims/`; expected HTTP 200; final: `/app/billing/claims/`.
@@ -272,7 +272,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-031 â€” Radiology worklist
+## CF-031: Radiology worklist
 
 - Role: RadiologyStaff; difficulty: 2/5; fixture: base.
 - Target: `/app/radiology/`; expected HTTP 200; final: `/app/radiology/`.
@@ -281,7 +281,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-032 â€” Imaging catalog
+## CF-032: Imaging catalog
 
 - Role: Administrator; difficulty: 2/5; fixture: base.
 - Target: `/app/imaging/catalog/`; expected HTTP 200; final: `/app/imaging/catalog/`.
@@ -290,7 +290,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-033 â€” Inpatient dashboard
+## CF-033: Inpatient dashboard
 
 - Role: HospitalOperations; difficulty: 2/5; fixture: base.
 - Target: `/app/inpatient/`; expected HTTP 200; final: `/app/inpatient/`.
@@ -299,7 +299,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-034 â€” Capacity dashboard
+## CF-034: Capacity dashboard
 
 - Role: HospitalOperations; difficulty: 2/5; fixture: base.
 - Target: `/app/inpatient/capacity/`; expected HTTP 200; final: `/app/inpatient/capacity/`.
@@ -308,7 +308,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-035 â€” Emergency tracking board
+## CF-035: Emergency tracking board
 
 - Role: Nurse; difficulty: 2/5; fixture: base.
 - Target: `/app/ed/`; expected HTTP 200; final: `/app/ed/`.
@@ -317,7 +317,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-036 â€” Anonymous staff redirect
+## CF-036: Anonymous staff redirect
 
 - Role: Anonymous; difficulty: 3/5; fixture: base.
 - Target: `/app/patients/`; expected HTTP 302; final: `/login/?next=/app/patients/`.
@@ -326,7 +326,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: LAB-01, LAB-02, Synthetic protected.
 
-## CF-037 â€” Anonymous patient redirect
+## CF-037: Anonymous patient redirect
 
 - Role: Anonymous; difficulty: 3/5; fixture: base.
 - Target: `/portal/`; expected HTTP 302; final: `/portal/login/?next=/portal/`.
@@ -335,7 +335,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: LAB-01, LAB-02, Synthetic protected.
 
-## CF-038 â€” Patient denied directory
+## CF-038: Patient denied directory
 
 - Role: Patient; difficulty: 3/5; fixture: base.
 - Target: `/app/patients/`; expected HTTP 403; final: `/app/patients/`.
@@ -344,7 +344,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: LAB-01, LAB-02, Synthetic protected.
 
-## CF-039 â€” Patient denied staff approval
+## CF-039: Patient denied staff approval
 
 - Role: Patient; difficulty: 3/5; fixture: base.
 - Target: `/app/accounts/applications/`; expected HTTP 403; final: `/app/accounts/applications/`.
@@ -353,7 +353,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: LAB-01, LAB-02, Synthetic protected.
 
-## CF-040 â€” Patient denied nursing
+## CF-040: Patient denied nursing
 
 - Role: Patient; difficulty: 3/5; fixture: base.
 - Target: `/app/nursing/`; expected HTTP 403; final: `/app/nursing/`.
@@ -362,7 +362,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: LAB-01, LAB-02, Synthetic protected.
 
-## CF-041 â€” Patient denied pharmacy
+## CF-041: Patient denied pharmacy
 
 - Role: Patient; difficulty: 3/5; fixture: base.
 - Target: `/app/pharmacy/`; expected HTTP 403; final: `/app/pharmacy/`.
@@ -371,7 +371,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: LAB-01, LAB-02, Synthetic protected.
 
-## CF-042 â€” Physician denied registration
+## CF-042: Physician denied registration
 
 - Role: Physician; difficulty: 3/5; fixture: base.
 - Target: `/app/patients/new/`; expected HTTP 403; final: `/app/patients/new/`.
@@ -380,7 +380,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: LAB-01, LAB-02, Synthetic protected.
 
-## CF-043 â€” Physician denied demographics edit
+## CF-043: Physician denied demographics edit
 
 - Role: Physician; difficulty: 3/5; fixture: base.
 - Target: `/app/patients/1/edit/`; expected HTTP 403; final: `/app/patients/1/edit/`.
@@ -389,7 +389,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: LAB-01, LAB-02, Synthetic protected.
 
-## CF-044 â€” Physician denied account approval
+## CF-044: Physician denied account approval
 
 - Role: Physician; difficulty: 3/5; fixture: base.
 - Target: `/app/accounts/applications/`; expected HTTP 403; final: `/app/accounts/applications/`.
@@ -398,7 +398,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: LAB-01, LAB-02, Synthetic protected.
 
-## CF-045 â€” FrontDesk denied chart
+## CF-045: FrontDesk denied chart
 
 - Role: FrontDesk; difficulty: 3/5; fixture: base.
 - Target: `/app/patients/1/chart/`; expected HTTP 403; final: `/app/patients/1/chart/`.
@@ -407,7 +407,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: LAB-01, LAB-02, Synthetic protected.
 
-## CF-046 â€” FrontDesk denied SOAP
+## CF-046: FrontDesk denied SOAP
 
 - Role: FrontDesk; difficulty: 3/5; fixture: base.
 - Target: `/app/patients/1/encounters/1/`; expected HTTP 403; final: `/app/patients/1/encounters/1/`.
@@ -416,7 +416,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: LAB-01, LAB-02, Synthetic protected.
 
-## CF-047 â€” FrontDesk denied history
+## CF-047: FrontDesk denied history
 
 - Role: FrontDesk; difficulty: 3/5; fixture: base.
 - Target: `/app/patients/1/history/medical/`; expected HTTP 403; final: `/app/patients/1/history/medical/`.
@@ -425,7 +425,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: LAB-01, LAB-02, Synthetic protected.
 
-## CF-048 â€” Nurse denied SOAP authoring
+## CF-048: Nurse denied SOAP authoring
 
 - Role: Nurse; difficulty: 3/5; fixture: base.
 - Target: `/app/patients/1/encounters/1/note/`; expected HTTP 403; final: `/app/patients/1/encounters/1/note/`.
@@ -434,7 +434,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: LAB-01, LAB-02, Synthetic protected.
 
-## CF-049 â€” Nurse denied patient creation
+## CF-049: Nurse denied patient creation
 
 - Role: Nurse; difficulty: 3/5; fixture: base.
 - Target: `/app/patients/new/`; expected HTTP 403; final: `/app/patients/new/`.
@@ -443,7 +443,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: LAB-01, LAB-02, Synthetic protected.
 
-## CF-050 â€” Lab denied demographics
+## CF-050: Lab denied demographics
 
 - Role: Lab Staff; difficulty: 3/5; fixture: base.
 - Target: `/app/patients/`; expected HTTP 403; final: `/app/patients/`.
@@ -452,7 +452,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: LAB-01, LAB-02, Synthetic protected.
 
-## CF-051 â€” Lab denied physician worklist
+## CF-051: Lab denied physician worklist
 
 - Role: Lab Staff; difficulty: 3/5; fixture: base.
 - Target: `/app/physician/`; expected HTTP 403; final: `/app/physician/`.
@@ -461,7 +461,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: LAB-01, LAB-02, Synthetic protected.
 
-## CF-052 â€” Pharmacist denied chart
+## CF-052: Pharmacist denied chart
 
 - Role: Pharmacist; difficulty: 3/5; fixture: base.
 - Target: `/app/patients/1/chart/`; expected HTTP 403; final: `/app/patients/1/chart/`.
@@ -470,7 +470,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: LAB-01, LAB-02, Synthetic protected.
 
-## CF-053 â€” Pharmacist denied demographics edit
+## CF-053: Pharmacist denied demographics edit
 
 - Role: Pharmacist; difficulty: 3/5; fixture: base.
 - Target: `/app/patients/1/edit/`; expected HTTP 403; final: `/app/patients/1/edit/`.
@@ -479,7 +479,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: LAB-01, LAB-02, Synthetic protected.
 
-## CF-054 â€” Billing denied ED
+## CF-054: Billing denied ED
 
 - Role: BillingStaff; difficulty: 3/5; fixture: base.
 - Target: `/app/ed/`; expected HTTP 403; final: `/app/ed/`.
@@ -488,7 +488,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: LAB-01, LAB-02, Synthetic protected.
 
-## CF-055 â€” Billing denied inpatient
+## CF-055: Billing denied inpatient
 
 - Role: BillingStaff; difficulty: 3/5; fixture: base.
 - Target: `/app/inpatient/`; expected HTTP 403; final: `/app/inpatient/`.
@@ -497,7 +497,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: LAB-01, LAB-02, Synthetic protected.
 
-## CF-056 â€” Radiology denied SOAP
+## CF-056: Radiology denied SOAP
 
 - Role: RadiologyStaff; difficulty: 3/5; fixture: base.
 - Target: `/app/patients/1/encounters/1/`; expected HTTP 403; final: `/app/patients/1/encounters/1/`.
@@ -506,7 +506,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: LAB-01, LAB-02, Synthetic protected.
 
-## CF-057 â€” HospitalOperations denied approval
+## CF-057: HospitalOperations denied approval
 
 - Role: HospitalOperations; difficulty: 3/5; fixture: base.
 - Target: `/app/accounts/applications/`; expected HTTP 403; final: `/app/accounts/applications/`.
@@ -515,7 +515,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: LAB-01, LAB-02, Synthetic protected.
 
-## CF-058 â€” Physician denied unrelated chart
+## CF-058: Physician denied unrelated chart
 
 - Role: Physician; difficulty: 3/5; fixture: base.
 - Target: `/app/patients/2/chart/`; expected HTTP 404; final: `/app/patients/2/chart/`.
@@ -524,7 +524,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: LAB-01, LAB-02, Synthetic protected.
 
-## CF-059 â€” Mismatched patient encounter denied
+## CF-059: Mismatched patient encounter denied
 
 - Role: Physician; difficulty: 3/5; fixture: base.
 - Target: `/app/patients/2/encounters/1/`; expected HTTP 404; final: `/app/patients/2/encounters/1/`.
@@ -533,7 +533,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: LAB-01, LAB-02, Synthetic protected.
 
-## CF-060 â€” Unclaimed pharmacy details denied
+## CF-060: Unclaimed pharmacy details denied
 
 - Role: Pharmacist; difficulty: 3/5; fixture: base.
 - Target: `/app/pharmacy/orders/{meduuid}/`; expected HTTP 404; final: `/app/pharmacy/orders/{meduuid}/`.
@@ -542,7 +542,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: LAB-01, LAB-02, Synthetic protected.
 
-## CF-061 â€” Own patient dashboard
+## CF-061: Own patient dashboard
 
 - Role: Patient; difficulty: 2/5; fixture: base.
 - Target: `/portal/`; expected HTTP 200; final: `/portal/`.
@@ -551,7 +551,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-062 â€” Own appointments
+## CF-062: Own appointments
 
 - Role: Patient; difficulty: 2/5; fixture: base.
 - Target: `/portal/appointments/`; expected HTTP 200; final: `/portal/appointments/`.
@@ -560,7 +560,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-063 â€” Own visits
+## CF-063: Own visits
 
 - Role: Patient; difficulty: 2/5; fixture: base.
 - Target: `/portal/visits/`; expected HTTP 200; final: `/portal/visits/`.
@@ -569,7 +569,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-064 â€” Own medications
+## CF-064: Own medications
 
 - Role: Patient; difficulty: 2/5; fixture: base.
 - Target: `/portal/medications/`; expected HTTP 200; final: `/portal/medications/`.
@@ -578,7 +578,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-065 â€” Released-results empty state
+## CF-065: Released-results empty state
 
 - Role: Patient; difficulty: 2/5; fixture: base.
 - Target: `/portal/results/`; expected HTTP 200; final: `/portal/results/`.
@@ -587,7 +587,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-066 â€” Own messages
+## CF-066: Own messages
 
 - Role: Patient; difficulty: 2/5; fixture: base.
 - Target: `/portal/messages/`; expected HTTP 200; final: `/portal/messages/`.
@@ -596,7 +596,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-067 â€” Own appointment requests
+## CF-067: Own appointment requests
 
 - Role: Patient; difficulty: 2/5; fixture: base.
 - Target: `/portal/requests/`; expected HTTP 200; final: `/portal/requests/`.
@@ -605,7 +605,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-068 â€” Own billing statements
+## CF-068: Own billing statements
 
 - Role: Patient; difficulty: 2/5; fixture: base.
 - Target: `/portal/billing/`; expected HTTP 200; final: `/portal/billing/`.
@@ -614,7 +614,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-069 â€” Owner cannot see unreleased lab result
+## CF-069: Owner cannot see unreleased lab result
 
 - Role: Patient; difficulty: 3/5; fixture: base.
 - Target: `/portal/results/1/`; expected HTTP 404; final: `/portal/results/1/`.
@@ -623,7 +623,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: demo-U, LAB-02.
 
-## CF-070 â€” Other patient cannot see lab result
+## CF-070: Other patient cannot see lab result
 
 - Role: OtherPatient; difficulty: 3/5; fixture: base.
 - Target: `/portal/results/1/`; expected HTTP 404; final: `/portal/results/1/`.
@@ -632,7 +632,7 @@
 - Database assertions: `[]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: demo-U, LAB-01.
 
-## CF-071 â€” Register synthetic patient
+## CF-071: Register synthetic patient
 
 - Role: FrontDesk; difficulty: 4/5; fixture: base.
 - Target: `/app/patients/new/`; expected HTTP 200; final: `/app/patients/3/`.
@@ -641,7 +641,7 @@
 - Database assertions: `[["SELECT COUNT(*) FROM patients_patient WHERE mrn='SYN-BENCH-NEW'", 1], ["SELECT COUNT(*) FROM patients_auditevent WHERE action='patient_create'", 1]]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-072 â€” Required synthetic confirmation
+## CF-072: Required synthetic confirmation
 
 - Role: FrontDesk; difficulty: 4/5; fixture: base.
 - Target: `/app/patients/new/`; expected HTTP 200; final: `/app/patients/new/`.
@@ -650,7 +650,7 @@
 - Database assertions: `[["SELECT COUNT(*) FROM patients_patient", 2]]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-073 â€” Duplicate MRN rejection
+## CF-073: Duplicate MRN rejection
 
 - Role: FrontDesk; difficulty: 4/5; fixture: base.
 - Target: `/app/patients/new/`; expected HTTP 200; final: `/app/patients/new/`.
@@ -659,7 +659,7 @@
 - Database assertions: `[["SELECT COUNT(*) FROM patients_patient", 2]]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-074 â€” Edit demographics and audit
+## CF-074: Edit demographics and audit
 
 - Role: FrontDesk; difficulty: 4/5; fixture: base.
 - Target: `/app/patients/1/edit/`; expected HTTP 200; final: `/app/patients/1/`.
@@ -668,7 +668,7 @@
 - Database assertions: `[["SELECT last_name FROM patients_patient WHERE id=1", "Updated"], ["SELECT COUNT(*) FROM patients_auditevent WHERE action='patient_update'", 1]]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-075 â€” Schedule and confirm appointment
+## CF-075: Schedule and confirm appointment
 
 - Role: FrontDesk; difficulty: 4/5; fixture: base.
 - Target: `/app/appointments/new/`; expected HTTP 200; final: `/app/appointments/4/`.
@@ -677,7 +677,7 @@
 - Database assertions: `[["SELECT COUNT(*) FROM scheduling_appointment", 4], ["SELECT patient_id FROM scheduling_appointment WHERE id=4", 1], ["SELECT COUNT(*) FROM patients_auditevent WHERE action='appointment_create'", 2]]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-076 â€” Check in and audit
+## CF-076: Check in and audit
 
 - Role: FrontDesk; difficulty: 4/5; fixture: base.
 - Target: `/app/appointments/2/`; expected HTTP 200; final: `/app/appointments/2/`.
@@ -686,7 +686,7 @@
 - Database assertions: `[["SELECT status FROM scheduling_appointment WHERE id=2", "arrived"], ["SELECT COUNT(*) FROM patients_auditevent WHERE action='appointment_arrive'", 1]]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-077 â€” Reschedule same patient
+## CF-077: Reschedule same patient
 
 - Role: FrontDesk; difficulty: 4/5; fixture: base.
 - Target: `/app/appointments/2/edit/`; expected HTTP 200; final: `/app/appointments/2/`.
@@ -695,7 +695,7 @@
 - Database assertions: `[["SELECT version FROM scheduling_appointment WHERE id=2", 2], ["SELECT patient_id FROM scheduling_appointment WHERE id=2", 1]]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-078 â€” Cancel with retained reason
+## CF-078: Cancel with retained reason
 
 - Role: FrontDesk; difficulty: 4/5; fixture: base.
 - Target: `/app/appointments/2/`; expected HTTP 200; final: `/app/appointments/2/`.
@@ -704,7 +704,7 @@
 - Database assertions: `[["SELECT status FROM scheduling_appointment WHERE id=2", "cancelled"], ["SELECT COUNT(*) FROM patients_auditevent WHERE action='appointment_cancel'", 1]]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-079 â€” Create four-section SOAP
+## CF-079: Create four-section SOAP
 
 - Role: Physician; difficulty: 4/5; fixture: base.
 - Target: `/app/patients/1/encounters/1/note/`; expected HTTP 200; final: `/app/patients/1/encounters/1/`.
@@ -713,7 +713,7 @@
 - Database assertions: `[["SELECT COUNT(*) FROM clinical_note WHERE encounter_id=1 AND signed_at IS NULL", 1]]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-080 â€” Sign existing SOAP
+## CF-080: Sign existing SOAP
 
 - Role: Physician; difficulty: 4/5; fixture: note_draft.
 - Target: `/app/patients/1/encounters/1/`; expected HTTP 200; final: `/app/patients/1/encounters/1/`.
@@ -722,7 +722,7 @@
 - Database assertions: `[["SELECT COUNT(*) FROM clinical_note WHERE encounter_id=1 AND signed_at IS NOT NULL", 1]]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-081 â€” Complete signed encounter
+## CF-081: Complete signed encounter
 
 - Role: Physician; difficulty: 4/5; fixture: note_signed.
 - Target: `/app/patients/1/encounters/1/`; expected HTTP 200; final: `/app/patients/1/encounters/1/`.
@@ -731,7 +731,7 @@
 - Database assertions: `[["SELECT status FROM clinical_encounter WHERE id=1", "completed"]]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-082 â€” Past medical history
+## CF-082: Past medical history
 
 - Role: Physician; difficulty: 4/5; fixture: base.
 - Target: `/app/patients/1/history/medical/new/`; expected HTTP 200; final: `/app/patients/1/history/medical/1/`.
@@ -740,7 +740,7 @@
 - Database assertions: `[["SELECT COUNT(*) FROM history_medicalhistory WHERE patient_id=1", 1]]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-083 â€” Active longitudinal problem
+## CF-083: Active longitudinal problem
 
 - Role: Physician; difficulty: 4/5; fixture: base.
 - Target: `/app/patients/1/history/problems/new/`; expected HTTP 200; final: `/app/patients/1/history/problems/1/`.
@@ -749,7 +749,7 @@
 - Database assertions: `[["SELECT COUNT(*) FROM history_problem WHERE patient_id=1", 1]]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-084 â€” Document fictional allergy
+## CF-084: Document fictional allergy
 
 - Role: Physician; difficulty: 4/5; fixture: base.
 - Target: `/app/patients/1/history/allergies/new/`; expected HTTP 200; final: `/app/patients/1/history/allergies/1/`.
@@ -758,7 +758,7 @@
 - Database assertions: `[["SELECT COUNT(*) FROM history_allergy WHERE patient_id=1", 1]]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-085 â€” Medication statement
+## CF-085: Medication statement
 
 - Role: Physician; difficulty: 4/5; fixture: base.
 - Target: `/app/patients/1/history/medications/new/`; expected HTTP 200; final: `/app/patients/1/history/medications/1/`.
@@ -767,7 +767,7 @@
 - Database assertions: `[["SELECT COUNT(*) FROM history_medicationstatement WHERE patient_id=1", 1]]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-086 â€” Nursing assessment
+## CF-086: Nursing assessment
 
 - Role: Nurse; difficulty: 4/5; fixture: base.
 - Target: `/app/patients/1/nursing/appointments/1/assessment/new/`; expected HTTP 200; final: `/app/patients/1/nursing/appointments/1/assessment/1/`.
@@ -776,7 +776,7 @@
 - Database assertions: `[["SELECT COUNT(*) FROM nursing_roomingassessment WHERE ready_for_provider=1", 1]]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-087 â€” Vital-sign panel
+## CF-087: Vital-sign panel
 
 - Role: Nurse; difficulty: 4/5; fixture: base.
 - Target: `/app/patients/1/nursing/appointments/1/vitals/new/`; expected HTTP 200; final: `/app/patients/1/nursing/appointments/1/vitals/1/`.
@@ -785,7 +785,7 @@
 - Database assertions: `[["SELECT COUNT(*) FROM nursing_vitalobservation WHERE systolic=120 AND diastolic=80", 1]]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-088 â€” Approve pending staff application
+## CF-088: Approve pending staff application
 
 - Role: Administrator; difficulty: 4/5; fixture: base.
 - Target: `/app/accounts/applications/{pending}/`; expected HTTP 200; final: `/app/accounts/applications/`.
@@ -794,7 +794,7 @@
 - Database assertions: `[["SELECT status FROM accounts_enrollment WHERE user_id=(SELECT id FROM auth_user WHERE username='benchmark-pending')", "approved"]]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-089 â€” Reject pending staff application
+## CF-089: Reject pending staff application
 
 - Role: Administrator; difficulty: 4/5; fixture: base.
 - Target: `/app/accounts/applications/{pending}/`; expected HTTP 200; final: `/app/accounts/applications/`.
@@ -803,7 +803,7 @@
 - Database assertions: `[["SELECT status FROM accounts_enrollment WHERE user_id=(SELECT id FROM auth_user WHERE username='benchmark-pending')", "rejected"]]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-090 â€” Mismatched password confirmation
+## CF-090: Mismatched password confirmation
 
 - Role: Anonymous; difficulty: 4/5; fixture: base.
 - Target: `/accounts/register/patient/`; expected HTTP 200; final: `/accounts/register/patient/`.
@@ -812,7 +812,7 @@
 - Database assertions: `[["SELECT COUNT(*) FROM auth_user WHERE username='benchmark-new'", 0]]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-091 â€” Claim signed requisition
+## CF-091: Claim signed requisition
 
 - Role: Pharmacist; difficulty: 5/5; fixture: base.
 - Target: `/app/pharmacy/`; expected HTTP 200; final: `/app/pharmacy/orders/{meduuid}/`.
@@ -821,7 +821,7 @@
 - Database assertions: `[["SELECT COUNT(*) FROM medications_pharmacyreview", 1]]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-092 â€” Request clarification
+## CF-092: Request clarification
 
 - Role: Pharmacist; difficulty: 5/5; fixture: pharmacy_claimed.
 - Target: `/app/pharmacy/orders/{meduuid}/`; expected HTTP 200; final: `/app/pharmacy/orders/{meduuid}/`.
@@ -830,7 +830,7 @@
 - Database assertions: `[["SELECT status FROM medications_pharmacyreview", "clarification"]]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-093 â€” Approve pharmacy verification
+## CF-093: Approve pharmacy verification
 
 - Role: Pharmacist; difficulty: 5/5; fixture: pharmacy_claimed.
 - Target: `/app/pharmacy/orders/{meduuid}/`; expected HTTP 200; final: `/app/pharmacy/orders/{meduuid}/`.
@@ -839,7 +839,7 @@
 - Database assertions: `[["SELECT status FROM medications_pharmacyreview", "approved"]]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-094 â€” Record simulated dispensing
+## CF-094: Record simulated dispensing
 
 - Role: Pharmacist; difficulty: 5/5; fixture: pharmacy_approved.
 - Target: `/app/pharmacy/orders/{meduuid}/`; expected HTTP 200; final: `/app/pharmacy/orders/{meduuid}/`.
@@ -848,7 +848,7 @@
 - Database assertions: `[["SELECT COUNT(*) FROM medications_pharmacydispenseevent", 1]]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-095 â€” Claim lab requisition
+## CF-095: Claim lab requisition
 
 - Role: Lab Staff; difficulty: 5/5; fixture: base.
 - Target: `/app/lab/workspace/`; expected HTTP 200; final: `/app/lab/processing/{labuuid}/`.
@@ -857,7 +857,7 @@
 - Database assertions: `[["SELECT COUNT(*) FROM labs_laborder WHERE assigned_lab_staff_id IS NOT NULL", 1]]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-096 â€” Collect specimen with identity
+## CF-096: Collect specimen with identity
 
 - Role: Nurse; difficulty: 5/5; fixture: base.
 - Target: `/app/lab/processing/{labuuid}/`; expected HTTP 200; final: `/app/lab/processing/{labuuid}/`.
@@ -866,7 +866,7 @@
 - Database assertions: `[["SELECT status FROM labs_labspecimen", "collected"]]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-097 â€” Publish prepared lab report
+## CF-097: Publish prepared lab report
 
 - Role: Lab Staff; difficulty: 5/5; fixture: lab_result.
 - Target: `/app/lab/processing/{labuuid}/`; expected HTTP 200; final: `/app/lab/processing/{labuuid}/`.
@@ -875,7 +875,7 @@
 - Database assertions: `[["SELECT status FROM labs_labresult", "final"], ["SELECT status FROM labs_laborder", "fulfilled"]]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-098 â€” Acknowledge exact lab revision
+## CF-098: Acknowledge exact lab revision
 
 - Role: Physician; difficulty: 5/5; fixture: lab_published.
 - Target: `/app/lab/reports/{labuuid}/`; expected HTTP 200; final: `/app/lab/reports/{labuuid}/`.
@@ -884,7 +884,7 @@
 - Database assertions: `[["SELECT COUNT(*) FROM labs_labresultreview", 1]]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-099 â€” Compose and sign SOAP journey
+## CF-099: Compose and sign SOAP journey
 
 - Role: Physician; difficulty: 5/5; fixture: base.
 - Target: `/app/patients/1/encounters/1/note/`; expected HTTP 200; final: `/app/patients/1/encounters/1/`.
@@ -893,7 +893,7 @@
 - Database assertions: `[["SELECT COUNT(*) FROM clinical_note WHERE encounter_id=1 AND signed_at IS NOT NULL", 1]]`; read-only tasks preserve all business tables.
 - Forbidden denied-page text: not applicable.
 
-## CF-100 â€” Schedule and check-in journey
+## CF-100: Schedule and check-in journey
 
 - Role: FrontDesk; difficulty: 5/5; fixture: base.
 - Target: `/app/appointments/new/`; expected HTTP 200; final: `/app/appointments/4/`.

@@ -4,6 +4,27 @@
 
 [Open the live demo](https://jiawen.pythonanywhere.com/) · [Staff sign in](https://jiawen.pythonanywhere.com/login/) · [Patient sign in](https://jiawen.pythonanywhere.com/portal/login/) · [Create a patient account](https://jiawen.pythonanywhere.com/accounts/register/patient/)
 
+## Native AI test results
+
+**100 tasks executed | 85 passed | 15 failed | 85% overall pass rate**
+
+Actual screenshot-driven OpenAI Computer Use results, with one paid attempt per task. No paid failure retries. Three initial zero-request startup blocks were fixed offline before their first paid attempts; original evidence is retained.
+
+| Difficulty | Tasks | Passed | Failed | Pass rate |
+| --- | ---: | ---: | ---: | ---: |
+| 1/5 | 10 | 10 | 0 | 100.00% |
+| 2/5 | 33 | 33 | 0 | 100.00% |
+| 3/5 | 27 | 26 | 1 | 96.30% |
+| 4/5 | 20 | 8 | 12 | 40.00% |
+| 5/5 | 10 | 8 | 2 | 80.00% |
+| **Total** | **100** | **85** | **15** | **85.00%** |
+
+Read/authorization tasks: **69/70 (98.57%)**. Write/clinical tasks: **16/30 (53.33%)**. Estimated token cost: **USD 3.38** across **336 API responses**.
+
+[Browse all 100 tasks and difficulty levels](docs/testing/cua100-v1/tasks.md) | [Full results and per-task screenshots](docs/testing/cua100-v1/results.md) | [Downloadable CSV](docs/testing/cua100-v1/results.csv) | [Failure analysis](docs/testing/cua100-v1/findings.md)
+
+Separate offline verification: **536 Django tests, 44 CUA harness tests and 100 deterministic Chromium rehearsals passed**. These are not counted as native AI successes. Important writes still require human review: one synthetic rejection task incorrectly selected approval.
+
 ![CareFlow's blue interface with Staff and Patient Portal entries](docs/showcase/v3/screenshots/landing-desktop.png)
 
 > **DEMO — NOT FOR CLINICAL USE.** Use fictional information only. CareFlow is independently developed and is not affiliated with Epic Systems or any EHR vendor. Clinical, medication, financial and hospital workflows are educational simulations.

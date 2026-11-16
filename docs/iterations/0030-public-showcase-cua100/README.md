@@ -25,3 +25,13 @@ The previous root README is preserved byte-for-byte under docs/showcase/v3/READM
 ## Initial verification
 
 Before live calls: 536 Django tests passed in 94.868 seconds; 40 offline CUA tests passed in 79.626 seconds. System check and migration consistency passed with an isolated database path. Full task rehearsals and native results are recorded separately as execution proceeds; these counts do not imply all 100 native tasks passed.
+
+## Final evaluation
+
+[PR #63](https://github.com/KateK77/careflow-ehr/pull/63) remains unmerged and stacked on PR #61.
+
+Native CUA: **85/100 passed**; read/authorization **69/70**, write/clinical **16/30**. **336 API responses**, estimated token cost **USD 3.379979**, no paid failure retries. [Complete results](../../testing/cua100-v1/results.md) include per-task screenshots, action logs and independent assertions. [Findings](../../testing/cua100-v1/findings.md) preserve all 15 failures and the pre-API readiness race.
+
+Final offline CUA suite: **44 passing tests**; all **100 deterministic task rehearsals** passed after correcting test definitions. **62 existing SQLite files** retained their SHA-256 hashes. Main/default branch, application code, historical requirements and public-host data were preserved.
+
+Implementation commits: 875a406, 672809a, 6187ce8 and 563b5b8; the final report commit is the head of the linked PR. Full SHA provenance is included in individual result JSON where originally recorded.

@@ -71,6 +71,10 @@ This benchmark progresses from simple page entry and scoped record reading to ac
 
 The native path uses the official OpenAI Responses API `computer` tool and `ComputerToolset`. The model observes screenshots and chooses real mouse/keyboard actions. Deterministic Chromium rehearsals are reported separately and never counted as native AI passes.
 
+**Actual native result: 85/100 passed (85%).** Read/authorization tasks: 69/70 (98.57%); write/clinical tasks: 16/30 (53.33%). All 100 received one paid native attempt; failed paid tasks were not retried. Estimated token cost: **USD 3.379979**.
+
+[Full results, screenshots and action evidence](docs/testing/cua100-v1/results.md) · [Failure analysis](docs/testing/cua100-v1/findings.md)
+
 Results distinguish **PASS, FAIL, BLOCKED and NOT_RUN**, retain first attempts, and report execution coverage and measured token-cost estimates. No unexecuted task is marked passed. See the results record for the exact tested commit, model, counts and limitations.
 
 ## Engineering and verification

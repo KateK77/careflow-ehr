@@ -1,0 +1,191 @@
+{
+  "tested_commit": "6187ce833528fc4290d1473a2b4ae646ecb30bf2",
+  "id": "CF-073",
+  "title": "Duplicate MRN rejection",
+  "mode": "native",
+  "difficulty": 4,
+  "role": "FrontDesk",
+  "limits": {
+    "requests": 10,
+    "actions": 60,
+    "seconds": 240,
+    "estimated_usd_stop": 0.8
+  },
+  "model_observation": "Submitted once after confirming synthetic data. The visible result shows the duplicate MRN error: \u201cA patient with this MRN already exists.\u201d",
+  "requested_action_log": [
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 468,
+      "y": 348
+    },
+    {
+      "type": "type",
+      "approved": true,
+      "text_length": 6
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 929,
+      "y": 350
+    },
+    {
+      "type": "type",
+      "approved": true,
+      "text_length": 9
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 469,
+      "y": 431
+    },
+    {
+      "type": "type",
+      "approved": true,
+      "text_length": 9
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 913,
+      "y": 432
+    },
+    {
+      "type": "type",
+      "approved": true,
+      "text_length": 10
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 560,
+      "y": 567
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "scroll",
+      "approved": true,
+      "x": 1220,
+      "y": 745,
+      "scroll_x": 0,
+      "scroll_y": 633
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "scroll",
+      "approved": true,
+      "x": 1226,
+      "y": 744,
+      "scroll_x": 0,
+      "scroll_y": 693
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 311,
+      "y": 586
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 366,
+      "y": 670
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    }
+  ],
+  "http": [
+    {
+      "path": "/app/patients/new/",
+      "query": "",
+      "status": 200,
+      "location": null
+    },
+    {
+      "path": "/app/patients/new/",
+      "query": "",
+      "status": 200,
+      "location": null
+    }
+  ],
+  "final_path": "/app/patients/new/",
+  "status": "PASS",
+  "checks": {
+    "final_url": true,
+    "visible_expected": true,
+    "signed_soap_preserved": true,
+    "database_1": true,
+    "integrity": true,
+    "foreign_keys": true
+  },
+  "failure": null,
+  "stage": "independent_verification",
+  "actions": [
+    "screenshot",
+    "click",
+    "type",
+    "click",
+    "type",
+    "click",
+    "type",
+    "click",
+    "type",
+    "click",
+    "screenshot",
+    "scroll",
+    "screenshot",
+    "scroll",
+    "screenshot",
+    "click",
+    "click",
+    "screenshot"
+  ],
+  "completed_actions": [
+    "screenshot",
+    "click",
+    "type",
+    "click",
+    "type",
+    "click",
+    "type",
+    "click",
+    "type",
+    "click",
+    "screenshot",
+    "scroll",
+    "screenshot",
+    "scroll",
+    "screenshot",
+    "click",
+    "click",
+    "screenshot"
+  ],
+  "requests": 6,
+  "responses": 6,
+  "usage": {
+    "input_tokens": 32478,
+    "output_tokens": 303,
+    "responses_with_usage": 6,
+    "complete": true,
+    "estimated_token_cost_usd": 0.08574
+  },
+  "exception_chain": []
+}

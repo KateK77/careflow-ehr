@@ -1,0 +1,211 @@
+{
+  "tested_commit": "6187ce833528fc4290d1473a2b4ae646ecb30bf2",
+  "id": "CF-071",
+  "title": "Register synthetic patient",
+  "mode": "native",
+  "difficulty": 4,
+  "role": "FrontDesk",
+  "limits": {
+    "requests": 10,
+    "actions": 60,
+    "seconds": 240,
+    "estimated_usd_stop": 0.8
+  },
+  "model_observation": "Registered synthetic patient successfully. Result page shows \u201cSynthetic patient record saved\u201d for Synthetic Benchmark, MRN SYN-BENCH-NEW, DOB 1990-01-15, recorded sex Unknown.",
+  "requested_action_log": [
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 457,
+      "y": 349
+    },
+    {
+      "type": "type",
+      "approved": true,
+      "text_length": 13
+    },
+    {
+      "type": "keypress",
+      "approved": true,
+      "keys": [
+        "TAB"
+      ]
+    },
+    {
+      "type": "type",
+      "approved": true,
+      "text_length": 9
+    },
+    {
+      "type": "keypress",
+      "approved": true,
+      "keys": [
+        "TAB"
+      ]
+    },
+    {
+      "type": "type",
+      "approved": true,
+      "text_length": 9
+    },
+    {
+      "type": "keypress",
+      "approved": true,
+      "keys": [
+        "TAB"
+      ]
+    },
+    {
+      "type": "type",
+      "approved": true,
+      "text_length": 10
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 606,
+      "y": 568
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "scroll",
+      "approved": true,
+      "x": 1234,
+      "y": 774,
+      "scroll_x": 0,
+      "scroll_y": 677
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "scroll",
+      "approved": true,
+      "x": 1228,
+      "y": 770,
+      "scroll_x": 0,
+      "scroll_y": 599
+    },
+    {
+      "type": "scroll",
+      "approved": true,
+      "x": 1228,
+      "y": 770,
+      "scroll_x": 0,
+      "scroll_y": 566
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 311,
+      "y": 586
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 356,
+      "y": 670
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    }
+  ],
+  "http": [
+    {
+      "path": "/app/patients/new/",
+      "query": "",
+      "status": 200,
+      "location": null
+    },
+    {
+      "path": "/app/patients/new/",
+      "query": "",
+      "status": 302,
+      "location": "/app/patients/3/"
+    },
+    {
+      "path": "/app/patients/3/",
+      "query": "",
+      "status": 200,
+      "location": null
+    }
+  ],
+  "final_path": "/app/patients/3/",
+  "status": "PASS",
+  "checks": {
+    "final_url": true,
+    "visible_expected": true,
+    "signed_soap_preserved": true,
+    "database_1": true,
+    "database_2": true,
+    "integrity": true,
+    "foreign_keys": true
+  },
+  "failure": null,
+  "stage": "independent_verification",
+  "actions": [
+    "screenshot",
+    "click",
+    "type",
+    "keypress",
+    "type",
+    "keypress",
+    "type",
+    "keypress",
+    "type",
+    "click",
+    "screenshot",
+    "scroll",
+    "screenshot",
+    "scroll",
+    "scroll",
+    "screenshot",
+    "click",
+    "click",
+    "screenshot"
+  ],
+  "completed_actions": [
+    "screenshot",
+    "click",
+    "type",
+    "keypress",
+    "type",
+    "keypress",
+    "type",
+    "keypress",
+    "type",
+    "click",
+    "screenshot",
+    "scroll",
+    "screenshot",
+    "scroll",
+    "scroll",
+    "screenshot",
+    "click",
+    "click",
+    "screenshot"
+  ],
+  "requests": 6,
+  "responses": 6,
+  "usage": {
+    "input_tokens": 32436,
+    "output_tokens": 328,
+    "responses_with_usage": 6,
+    "complete": true,
+    "estimated_token_cost_usd": 0.08601
+  },
+  "exception_chain": []
+}

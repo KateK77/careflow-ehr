@@ -25,3 +25,15 @@ The new redacted route trace for CF-035 showed GET /, no query, but a mismatched
 The test fixture now publishes the port atomically, and the reader waits for a validated port in 1–65535 under the existing startup deadline. Network restrictions are unchanged. Both the empty-file and invalid-port regressions pass. All 44 offline CUA tests pass; CF-002, CF-031 and CF-035 pass post-fix isolated Chromium preflight. Their original zero-request failures remain in the ledger. Subsequent execution is their first paid native attempt, not a paid failure retry.
 
 Source manifests now retain module SHA-256 hashes and the Git baseline loaded at process startup, rather than reading a potentially changed HEAD for each task. No application behavior or existing database was modified.
+
+## Final native outcome and preservation
+
+100 unique tasks received native API execution: **85 PASS / 15 FAIL**, **85%**. Read/authorization **69/70 (98.57%)**; validation/write/clinical **16/30 (53.33%)**. The original first-launch ledger was 82 PASS / 15 FAIL / 3 pre-API BLOCKED; the blocked cases later received their first paid attempts after the offline fix. No paid failed case was retried.
+
+336 requests received 336 responses, with **1,279,839 input tokens** and **12,025 output tokens**. Conservative estimated token cost: **USD 3.379979**. See [results](../../testing/cua100-v1/results.md), [findings](../../testing/cua100-v1/findings.md), and [machine-readable outcomes](../../testing/cua100-v1/results.json).
+
+All **62 existing SQLite files** matched the pre-run SHA-256 manifest. No existing database was migrated, seeded or reset; temporary synthetic fixture migrations are distinct. The hosted database was not used by this evaluation. Historical source documents and the previous README snapshot are preserved. No application business logic changed.
+
+Local main remains 00c624553cc265e6275a9d2750ab0041a7e6d97f; remote main baseline is a9e0913b626b88908ad2ca3041d2ec9497ba7d15. Neither was synchronized or modified as part of this task. Main remains the repository default.
+
+Documentation verification passed: executable catalog equals versioned JSON/Markdown; 100 unique native contracts each have matching request/response counts; 203 published evidence artifacts match SHA-256; current-document relative links resolve; Git whitespace check passed. Reviewed new public text artifacts contained no matches for the tested OpenAI/GitHub/private-key signatures. This scoped scan is not comprehensive secret certification.

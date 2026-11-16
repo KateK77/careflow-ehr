@@ -1,0 +1,84 @@
+{
+  "tested_commit": "672809a5ccb082dde3512c0634c52fc33ace96b1",
+  "id": "CF-018",
+  "title": "Medical-history empty state",
+  "mode": "native",
+  "difficulty": 2,
+  "role": "Physician",
+  "limits": {
+    "requests": 4,
+    "actions": 18,
+    "seconds": 120,
+    "estimated_usd_stop": 0.8
+  },
+  "model_observation": "Access allowed. The link opened the real application to a patient chart page (\u201cSynthetic Lab\u201d, LAB-01) on the \u201cMedical history\u201d tab, showing the chart content rather than an access-denied message.",
+  "requested_action_log": [
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 253,
+      "y": 289
+    },
+    {
+      "type": "wait",
+      "approved": true
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    }
+  ],
+  "http": [
+    {
+      "path": "/__benchmark__/",
+      "query": "",
+      "status": 200,
+      "location": null
+    },
+    {
+      "path": "/app/patients/1/history/medical/",
+      "query": "",
+      "status": 200,
+      "location": null
+    }
+  ],
+  "final_path": "/app/patients/1/history/medical/",
+  "status": "PASS",
+  "checks": {
+    "final_url": true,
+    "visible_expected": true,
+    "signed_soap_preserved": true,
+    "exact_http_status": true,
+    "business_rows_unchanged": true,
+    "integrity": true,
+    "foreign_keys": true
+  },
+  "failure": null,
+  "stage": "independent_verification",
+  "actions": [
+    "screenshot",
+    "click",
+    "wait",
+    "screenshot"
+  ],
+  "completed_actions": [
+    "screenshot",
+    "click",
+    "wait",
+    "screenshot"
+  ],
+  "requests": 3,
+  "responses": 3,
+  "usage": {
+    "input_tokens": 10253,
+    "output_tokens": 96,
+    "responses_with_usage": 3,
+    "complete": true,
+    "estimated_token_cost_usd": 0.027072
+  },
+  "exception_chain": []
+}

@@ -1,0 +1,84 @@
+{
+  "tested_commit": "672809a5ccb082dde3512c0634c52fc33ace96b1",
+  "id": "CF-012",
+  "title": "Patient demographics",
+  "mode": "native",
+  "difficulty": 2,
+  "role": "FrontDesk",
+  "limits": {
+    "requests": 4,
+    "actions": 18,
+    "seconds": 120,
+    "estimated_usd_stop": 0.8
+  },
+  "model_observation": "Access allowed. The route opened to a patient demographic summary page for \u201cSynthetic Lab,\u201d showing patient details and actions like \u201cEdit demographics\u201d and \u201cSchedule appointment.\u201d",
+  "requested_action_log": [
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 255,
+      "y": 285
+    },
+    {
+      "type": "wait",
+      "approved": true
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    }
+  ],
+  "http": [
+    {
+      "path": "/__benchmark__/",
+      "query": "",
+      "status": 200,
+      "location": null
+    },
+    {
+      "path": "/app/patients/1/",
+      "query": "",
+      "status": 200,
+      "location": null
+    }
+  ],
+  "final_path": "/app/patients/1/",
+  "status": "PASS",
+  "checks": {
+    "final_url": true,
+    "visible_expected": true,
+    "signed_soap_preserved": true,
+    "exact_http_status": true,
+    "business_rows_unchanged": true,
+    "integrity": true,
+    "foreign_keys": true
+  },
+  "failure": null,
+  "stage": "independent_verification",
+  "actions": [
+    "screenshot",
+    "click",
+    "wait",
+    "screenshot"
+  ],
+  "completed_actions": [
+    "screenshot",
+    "click",
+    "wait",
+    "screenshot"
+  ],
+  "requests": 3,
+  "responses": 3,
+  "usage": {
+    "input_tokens": 10253,
+    "output_tokens": 86,
+    "responses_with_usage": 3,
+    "complete": true,
+    "estimated_token_cost_usd": 0.026922
+  },
+  "exception_chain": []
+}

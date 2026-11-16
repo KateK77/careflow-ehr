@@ -1,0 +1,155 @@
+{
+  "tested_commit": "6187ce833528fc4290d1473a2b4ae646ecb30bf2",
+  "id": "CF-096",
+  "title": "Collect specimen with identity",
+  "mode": "native",
+  "difficulty": 5,
+  "role": "Nurse",
+  "limits": {
+    "requests": 14,
+    "actions": 85,
+    "seconds": 360,
+    "estimated_usd_stop": 0.8
+  },
+  "model_observation": "Specimen collection was completed for synthetic patient MRN LAB-01, DOB 1980-01-01 after explicit identity confirmation. Final state shows \u201cLaboratory action recorded with audit history\u201d and Specimen attempts now lists \u201cAttempt 1 \u00b7 Collected\u201d; received remains \u201cNot received.\u201d",
+  "requested_action_log": [
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 360,
+      "y": 367
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 296,
+      "y": 320
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 507,
+      "y": 396
+    },
+    {
+      "type": "type",
+      "approved": true,
+      "text_length": 6
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 432,
+      "y": 487
+    },
+    {
+      "type": "type",
+      "approved": true,
+      "text_length": 10
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 297,
+      "y": 590
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 388,
+      "y": 731
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    }
+  ],
+  "http": [
+    {
+      "path": "/app/lab/processing/9748f298-17e1-401d-8cee-227eb1fb99f4/",
+      "query": "",
+      "status": 200,
+      "location": null
+    },
+    {
+      "path": "/app/lab/processing/9748f298-17e1-401d-8cee-227eb1fb99f4/collect/",
+      "query": "",
+      "status": 200,
+      "location": null
+    },
+    {
+      "path": "/app/lab/processing/9748f298-17e1-401d-8cee-227eb1fb99f4/collect/",
+      "query": "",
+      "status": 302,
+      "location": "/app/lab/processing/9748f298-17e1-401d-8cee-227eb1fb99f4/"
+    },
+    {
+      "path": "/app/lab/processing/9748f298-17e1-401d-8cee-227eb1fb99f4/",
+      "query": "",
+      "status": 200,
+      "location": null
+    }
+  ],
+  "final_path": "/app/lab/processing/9748f298-17e1-401d-8cee-227eb1fb99f4/",
+  "status": "PASS",
+  "checks": {
+    "final_url": true,
+    "visible_expected": true,
+    "signed_soap_preserved": true,
+    "database_1": true,
+    "integrity": true,
+    "foreign_keys": true
+  },
+  "failure": null,
+  "stage": "independent_verification",
+  "actions": [
+    "screenshot",
+    "click",
+    "screenshot",
+    "click",
+    "click",
+    "type",
+    "click",
+    "type",
+    "click",
+    "screenshot",
+    "click",
+    "screenshot"
+  ],
+  "completed_actions": [
+    "screenshot",
+    "click",
+    "screenshot",
+    "click",
+    "click",
+    "type",
+    "click",
+    "type",
+    "click",
+    "screenshot",
+    "click",
+    "screenshot"
+  ],
+  "requests": 5,
+  "responses": 5,
+  "usage": {
+    "input_tokens": 23560,
+    "output_tokens": 248,
+    "responses_with_usage": 5,
+    "complete": true,
+    "estimated_token_cost_usd": 0.06262
+  },
+  "exception_chain": []
+}

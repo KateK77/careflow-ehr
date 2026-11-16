@@ -1,0 +1,154 @@
+{
+  "tested_commit": "6187ce833528fc4290d1473a2b4ae646ecb30bf2",
+  "id": "CF-083",
+  "title": "Active longitudinal problem",
+  "mode": "native",
+  "difficulty": 4,
+  "role": "Physician",
+  "limits": {
+    "requests": 10,
+    "actions": 60,
+    "seconds": 240,
+    "estimated_usd_stop": 0.8
+  },
+  "model_observation": "I entered the label \u201cSynthetic benchmark,\u201d left Status as Active, confirmed the synthetic-data checkbox, but Source did not successfully change to \u201cDocumented\u201d before stopping. No save was submitted.",
+  "requested_action_log": [
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 744,
+      "y": 438
+    },
+    {
+      "type": "type",
+      "approved": true,
+      "text_length": 19
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 1196,
+      "y": 658
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 505,
+      "y": 595
+    },
+    {
+      "type": "scroll",
+      "approved": true,
+      "x": 1246,
+      "y": 745,
+      "scroll_x": 0,
+      "scroll_y": 499
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 1196,
+      "y": 657
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 475,
+      "y": 656
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 1216,
+      "y": 160
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 406,
+      "y": 158
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    }
+  ],
+  "http": [
+    {
+      "path": "/app/patients/1/history/problems/new/",
+      "query": "",
+      "status": 200,
+      "location": null
+    }
+  ],
+  "final_path": "/app/patients/1/history/problems/new/",
+  "status": "FAIL",
+  "checks": {
+    "final_url": false,
+    "visible_expected": false,
+    "signed_soap_preserved": true,
+    "database_1": false,
+    "integrity": true,
+    "foreign_keys": true
+  },
+  "failure": null,
+  "stage": "independent_verification",
+  "actions": [
+    "screenshot",
+    "click",
+    "type",
+    "click",
+    "screenshot",
+    "click",
+    "scroll",
+    "screenshot",
+    "click",
+    "click",
+    "screenshot",
+    "click",
+    "click",
+    "screenshot"
+  ],
+  "completed_actions": [
+    "screenshot",
+    "click",
+    "type",
+    "click",
+    "screenshot",
+    "click",
+    "scroll",
+    "screenshot",
+    "click",
+    "click",
+    "screenshot",
+    "click",
+    "click",
+    "screenshot"
+  ],
+  "requests": 6,
+  "responses": 6,
+  "usage": {
+    "input_tokens": 32045,
+    "output_tokens": 273,
+    "responses_with_usage": 6,
+    "complete": true,
+    "estimated_token_cost_usd": 0.084208
+  },
+  "exception_chain": []
+}

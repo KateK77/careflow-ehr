@@ -1,0 +1,92 @@
+{
+  "id": "CF-036",
+  "title": "Anonymous staff redirect",
+  "mode": "native",
+  "difficulty": 3,
+  "role": "Anonymous",
+  "limits": {
+    "requests": 4,
+    "actions": 18,
+    "seconds": 120,
+    "estimated_usd_stop": 0.8
+  },
+  "requested_action_log": [
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 258,
+      "y": 285
+    },
+    {
+      "type": "wait",
+      "approved": true
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    }
+  ],
+  "http": [
+    {
+      "path": "/__benchmark__/",
+      "query": "",
+      "status": 200,
+      "location": null
+    },
+    {
+      "path": "/app/patients/",
+      "query": "",
+      "status": 302,
+      "location": "/login/?next=/app/patients/"
+    },
+    {
+      "path": "/login/",
+      "query": "next=/app/patients/",
+      "status": 200,
+      "location": null
+    }
+  ],
+  "final_path": "/login/?next=/app/patients/",
+  "status": "PASS",
+  "checks": {
+    "final_url": true,
+    "visible_expected": true,
+    "signed_soap_preserved": true,
+    "exact_http_status": true,
+    "redirect_destination": true,
+    "business_rows_unchanged": true,
+    "no_disclosure_LAB-01": true,
+    "no_disclosure_LAB-02": true,
+    "no_disclosure_Synthetic protected": true,
+    "integrity": true,
+    "foreign_keys": true
+  },
+  "failure": null,
+  "stage": "independent_verification",
+  "actions": [
+    "screenshot",
+    "click",
+    "wait",
+    "screenshot"
+  ],
+  "completed_actions": [
+    "screenshot",
+    "click",
+    "wait",
+    "screenshot"
+  ],
+  "requests": 3,
+  "responses": 3,
+  "usage": {
+    "input_tokens": 10271,
+    "output_tokens": 92,
+    "responses_with_usage": 3,
+    "complete": true,
+    "estimated_token_cost_usd": 0.027058
+  },
+  "exception_chain": []
+}

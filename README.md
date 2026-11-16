@@ -1,67 +1,139 @@
 # CareFlow EHR
 
-**An end-to-end electronic health record and hospital-workflow prototype for local education, research, and software engineering.** Built independently with Django and server-rendered templates, using workflow concepts familiar from enterprise EHRs. This project is not affiliated with Epic or any EHR vendor.
+**An end-to-end synthetic EHR and hospital workflow platform, with a measured native AI browser evaluation.**
 
-> **SYNTHETIC DATA ONLY — NOT FOR CLINICAL USE.** No real patient data, medical treatment, payer transactions, or production deployment. The development settings use `DEBUG=True` and a development secret. Hosted or clinical use requires a separate security, privacy, architecture, and regulatory review.
+CareFlow connects patient registration, clinical documentation, nursing, diagnostics, pharmacy and hospital operations in one role-aware Django application. Built independently around common enterprise EHR workflows; not affiliated with Epic Systems.
 
-## v1.0 release-candidate status
+<img src="docs/showcase/v3/screenshots/staff-dashboard.png" alt="CareFlow staff dashboard with synthetic appointments, patient directory and role-aware navigation" width="1280">
 
-Phases **0–4B are merged into `main`**. Phases **5–8 are implemented, tested on the integrated release branch, and pending final review** in [Draft PR #47](https://github.com/KateK77/careflow-ehr/pull/47) (`release/v1.0` → `main`). **This is not yet a merged or tagged release.** See [current project status](docs/project-status.md).
+*Actual v3 interface in an isolated synthetic environment. [Explore the product gallery](docs/showcase/portfolio/gallery.md).*
 
-## Features
+## Live Demo
 
-| Module | Implemented synthetic workflows |
+### [Open Live Demo](https://jiawen.pythonanywhere.com/)
+
+**[Staff Sign In](https://jiawen.pythonanywhere.com/login/) · [Patient Sign In](https://jiawen.pythonanywhere.com/portal/login/) · [Demo Accounts](#demo-accounts) · [Quick Walkthrough](#quick-walkthrough)**
+
+The hosted Django website is online; its homepage and both sign-in routes returned HTTP 200 on November 16, 2026. No installation is required. Public shared staff credentials are **not yet available**. Explore the screenshots immediately, or optionally [create your own fictional patient account](https://jiawen.pythonanywhere.com/accounts/register/patient/). New patient accounts begin with their own chart; staff applications require approval.
+
+> **DEMO — NOT FOR CLINICAL USE.** Fictional patients and simulated clinical/financial workflows only. Free hosting has capacity and renewal limits.
+
+## Demo Accounts
+
+**Public shared accounts are intentionally not enabled in this documentation release.** Existing operator and private demonstration passwords are not public demo credentials and are not disclosed here. The entries below are availability notices, not placeholder login credentials.
+
+| Role | Demo Username | Demo Password | What to Explore |
+| --- | --- | --- | --- |
+| Physician | Unavailable | Not published | Charts, encounters, SOAP |
+| Nurse | Unavailable | Not published | Worklist, vitals, flowsheets |
+| Front Desk | Unavailable | Not published | Registration, scheduling, check-in |
+| Patient | Unavailable | Not published | Appointments, released records, messages |
+| Pharmacist | Unavailable | Not published | Verification, simulated dispensing |
+| Laboratory Staff | Unavailable | Not published | Specimens, report publication |
+| Administrator | Screenshot only | Never published | Role-aware dashboard and staff review |
+
+No shared-account login or representative-data verification is claimed. A safe public account needs its own credentials, backend restrictions and an isolated data lifecycle. [Account availability and proposed safeguards](docs/showcase/portfolio/demo-access-plan.md).
+
+## Quick Walkthrough
+
+1. **Open the website** to see the unified staff/patient entry. No setup is required.
+2. **Preview the staff journey:** [physician workspace and patient chart](docs/showcase/portfolio/gallery.md#physician-workspace-and-patient-chart).
+3. **Follow the nursing and patient views:** [nursing worklist and Patient Portal](docs/showcase/portfolio/gallery.md#nursing-workspace-and-patient-portal).
+4. **Try personal patient access, optionally:** register a fictional account, sign in through Patient Sign In, and inspect your own dashboard. This is a new-account experience, not a pre-populated shared clinical tour.
+5. **Inspect the AI evaluation:** open a task's expected behavior, result JSON, screenshot and failure analysis below.
+
+Already have private staff access from the owner? Use Staff Sign In. Public signup cannot grant Administrator access.
+
+## Core Features
+
+| Area | Implemented synthetic workflows |
 | --- | --- |
-| Patient administration | Staff role-based access; registration, MRN uniqueness, search, demographic editing, appointments, scheduling and check-in |
-| Physician and clinical | Authorized patient charts, encounters, SOAP drafting/signing, history, problems, allergies and encounter diagnoses |
-| Nursing and laboratory | Rooming and vitals; longitudinal flowsheets; laboratory catalog, orders, specimen processing, results, corrections/withdrawals and physician review |
-| Medication and MAR | Medication orders, pharmacist verification, simulated dispensing, nurse administration events, holds/refusals/omissions and corrections |
-| Patient Portal | Dedicated linked patient sign-in, authorized released records, messages, appointment requests and released billing statements |
-| Billing and insurance | Synthetic coverage, charges, statements, mock claims, denials/appeals and simulated patient/payer payments and reversals |
-| Imaging and radiology | Imaging orders, exam scheduling and execution, preliminary/final/corrected/withdrawn report versions, physician acknowledgement |
-| Inpatient and ED | Facilities and bed availability; admission, transfers, discharge; ED arrival, fictional triage, room assignment, provider review and ED-to-inpatient handoff |
+| Patient access | Registration, demographics, MRN search, appointments and check-in |
+| Physician care | Scoped worklists, encounters, medical history, diagnoses and signed SOAP notes |
+| Nursing | Rooming assessments, vital signs, longitudinal flowsheets and MAR |
+| Laboratory | Orders, specimens, results, corrections, withdrawals and revision-specific review |
+| Medication and pharmacy | Orders, clarification, verification and simulated dispensing |
+| Patient Portal | Released records, messages, appointment requests and patient-visible statements |
+| Revenue cycle | Synthetic coverage, itemized statements, mock claims, payments and reversals |
+| Imaging and hospital operations | Radiology reports, inpatient beds/transfers/discharge and ED tracking |
 
-All clinical measurements, triage labels, pharmacy transactions and claim outcomes are fictional simulation data, not validated clinical logic.
+Backend role checks, patient/encounter scope, optimistic versions and audit events connect these workflows. There is no real prescribing, payment processing or clinical decision support.
 
-## Architecture and engineering practices
+## AI CUA Benchmark
 
-- **Stack:** Python, Django 5.2, SQLite for local development, server-rendered templates.
-- **Design:** Modular monolith with separate patient, scheduling, clinical, nursing, lab, medication, MAR, portal, billing, imaging and hospital modules.
-- **Correctness:** Role/record access controls, constrained workflow transitions, optimistic version checks, transactions, immutable version history through supported services, and audit events.
-- **Engineering process:** GitHub Issues, feature branches, stacked PRs, a two-parent Phase 5–7 integration commit, Django tests, local Chromium browser workflows, CI and manual acceptance records.
-- **Limits:** Direct database access can bypass application-level guarantees. No claims of clinical validation, certification, accessibility conformance, full security assurance, production scalability or real interoperability.
+**85 / 100 passed — 85% overall success rate**
 
-[Architecture](docs/architecture.md) · [Decisions](docs/decisions/) · [Roadmap](docs/roadmap.md) · [Iteration history](docs/iterations/)
+| Evaluation | Recorded result |
+| --- | --- |
+| Model requested | GPT-5.4 |
+| API / tool | OpenAI Responses API + native ComputerToolset |
+| Evaluated tasks | 100: **85 passed, 15 failed** |
+| Read-only / authorization | **69/70 — 98.57%** |
+| Write / clinical workflows | **16/30 — 53.33%** |
+| API responses recorded | 336 |
+| Estimated token cost | **$3.38 — not a verified invoice** |
 
-## Local setup: fresh, isolated synthetic database
+### Difficulty Breakdown
 
-From the repository root with **Python 3.12+**, on Windows PowerShell:
+| Difficulty | Passed | Total | Success Rate |
+| --- | ---: | ---: | ---: |
+| Level 1 | 10 | 10 | 100% |
+| Level 2 | 33 | 33 | 100% |
+| Level 3 | 26 | 27 | 96.30% |
+| Level 4 | 8 | 20 | 40% |
+| Level 5 | 8 | 10 | 80% |
 
-```powershell
-python -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt
-$env:CAREFLOW_DB_PATH = Join-Path (Resolve-Path '.venv').Path 'careflow-v1-fresh-demo.sqlite3'
-.\.venv\Scripts\python.exe manage.py migrate
-.\.venv\Scripts\python.exe manage.py check
-.\.venv\Scripts\python.exe manage.py runserver 127.0.0.1:8000
+[All 100 Test Cases](docs/testing/cua100-v1/tasks.md) · [Per-Task Results](docs/testing/cua100-v1/results.md) · [Difficulty Breakdown](docs/testing/cua100-v1/results.md#difficulty-breakdown) · [Screenshots & Action Traces](docs/testing/cua100-v1/results.md#per-task-native-outcomes)
+
+**What this measures.** The native execution path requests screenshot-driven computer actions from GPT-5.4. Playwright executes browser actions; the framework prepares synthetic data, performs applicable logins, positions the starting page and checks UI/database outcomes independently. It is not 100 wholly autonomous, zero-script end-to-end journeys. Separate offline rehearsals are not counted as native passes.
+
+**Evidence limits.** Public artifacts contain 100 per-task records and 100 last-capture screenshots, but not complete raw API requests/responses or all intermediate captures. Requested model configuration is recorded; exact served model snapshots and billed charges are not independently verified. CF-032, CF-033 and CF-034 have source-hash provenance mismatches. The 85% rate applies to this benchmark only; it does not establish clinical readiness or production security.
+
+[Full Audit & Evidence Limits](docs/showcase/portfolio/cua-evidence-audit.md) · [Failure Analysis](docs/testing/cua100-v1/findings.md) · [Evaluation Methodology](docs/testing/cua100-v1/README.md) · [Evidence Integrity Manifest](docs/testing/cua100-v1/evidence-sha256.json)
+
+Consequential AI writes need human review: one synthetic task intended to reject a staff application instead approved it. Failed paid tasks were not retried; three initial zero-request startup blocks were fixed offline before first paid execution.
+
+## Architecture & Tech Stack
+
+```mermaid
+flowchart LR
+    Staff[Staff workspace] --> Django[Django views and workflow services]
+    Patient[Patient Portal] --> Django
+    Django --> Access[Role and patient authorization]
+    Access --> Domains[Clinical and administrative modules]
+    Domains --> SQLite[(SQLite synthetic records)]
+    Domains --> Audit[Versioned records and audit events]
+    CUA[Native ComputerToolset] --> Browser[Isolated Chromium / Playwright]
+    Browser --> QA[Fresh local Django QA instance]
 ```
 
-Open [staff login](http://127.0.0.1:8000/login/), [patient portal login](http://127.0.0.1:8000/portal/login/) or [health endpoint](http://127.0.0.1:8000/health/). A fresh database is empty; use the documented [opt-in synthetic seeding](docs/iterations/0002-patient-registration/README.md) and [integrated demo account/preview guide](docs/iterations/0022-emergency-tracking/preview-and-uat.md) only for your intended database. No demo password is published.
+| Layer | Technology / engineering focus |
+| --- | --- |
+| Application | Python, Django 5.2 modular monolith, server-rendered HTML/CSS |
+| Persistence | SQLite, additive migrations, transactional workflow services |
+| Access and integrity | Django sessions, CSRF, backend RBAC, scoped records, optimistic concurrency |
+| Evaluation | OpenAI Python SDK 3.31.0, Responses computer tool, Playwright 1.61.0 / Chromium |
+| Delivery | GitHub Issues, feature branches, PR review and GitHub Actions |
+| Hosted demo | PythonAnywhere, WSGI, WhiteNoise, HTTPS |
 
-**Important:** Existing `db.sqlite3` and Phase 3–8 UAT preview databases must never be reset, reseeded, overwritten or migrated as a routine setup step. Always verify `CAREFLOW_DB_PATH` before running management commands: if unset, Django defaults to `db.sqlite3`. Existing accepted-preview setup is documented [here](docs/iterations/0022-emergency-tracking/preview-and-uat.md).
+For engineering review: inspect the workflow boundaries, independent verification assertions, audit history and openly reported AI failures. [Architecture](docs/architecture.md) · [Technical decisions](docs/decisions/) · [Hosted setup](https://github.com/KateK77/careflow-ehr/blob/3ae015ec5155ccbb9ca44766f0d13e2a3a8d2070/docs/deployment/v3/README.md).
 
-## Tests and evidence
+## Full Evaluation Evidence
 
-```powershell
-.\.venv\Scripts\python.exe manage.py check
-.\.venv\Scripts\python.exe manage.py makemigrations --check --dry-run
-.\.venv\Scripts\python.exe manage.py test
-```
+- [Task contracts: Markdown](docs/testing/cua100-v1/tasks.md) / [JSON](docs/testing/cua100-v1/tasks.json)
+- [Results with per-task evidence links](docs/testing/cua100-v1/results.md) / [CSV](docs/testing/cua100-v1/results.csv) / [JSON](docs/testing/cua100-v1/results.json)
+- [100 native run records](docs/testing/cua100-v1/evidence/native/) / [100 last-capture screenshots](docs/testing/cua100-v1/evidence/screenshots/)
+- [Preserved pre-API startup failures](docs/testing/cua100-v1/evidence/preflight/)
+- [Deterministic rehearsal records](docs/testing/cua100-v1/offline-rehearsals.json)
+- [Independent audit findings and provenance limits](docs/showcase/portfolio/cua-evidence-audit.md)
+- [Executable harness at its evaluated revision](https://github.com/KateK77/careflow-ehr/tree/563b5b879e85ce664aecc3d9a3d78042191e52f4/tools/cua)
 
-For code candidate `d6881ff`, Codex reported **345 passing Django tests, 23 local Chromium workflows and two additional audit probes**. [GitHub Actions CI on release PR #47](https://github.com/KateK77/careflow-ehr/actions/runs/43150653448) passed Django system checks, tests and migration consistency against `main`. **Chromium workflows and audit probes were run locally, not by that CI job.** The user separately reported successful core manual UAT for Phases 5–8, selected cross-patient/role isolation and preservation of a signed SOAP note and MAR history. These results do not cover all edge cases, roles, browsers or load. The new documentation commit requires its own CI verification.
+Recorded offline verification: **536 Django tests, 44 CUA harness tests and 100 task rehearsals passed**. These are distinct from native API results. CI executes Django checks/regression tests/migration consistency, not paid CUA testing.
 
-## Development and PR history
+## Development & Limitations
 
-Phases 0–4B are merged, through [PR #30](https://github.com/KateK77/careflow-ehr/pull/30). Original Phase 5–8 work remains tracked in open PRs [#32](https://github.com/KateK77/careflow-ehr/pull/32), [#34](https://github.com/KateK77/careflow-ehr/pull/34), [#36](https://github.com/KateK77/careflow-ehr/pull/36), [#38](https://github.com/KateK77/careflow-ehr/pull/38), [#40](https://github.com/KateK77/careflow-ehr/pull/40), [#42](https://github.com/KateK77/careflow-ehr/pull/42), [#44](https://github.com/KateK77/careflow-ehr/pull/44), and [#46](https://github.com/KateK77/careflow-ehr/pull/46). The complete integration is in [Draft PR #47](https://github.com/KateK77/careflow-ehr/pull/47); existing iteration documents are preserved as historical evidence.
+[Fresh local setup](docs/showcase/portfolio/development-status.md#local-setup) · [Current source, PR and deployment status](docs/showcase/portfolio/development-status.md) · [Iteration history](docs/iterations/) · [Original requirements](docs/requirements/)
 
-**No merger, release tag, external hosting or clinical deployment is implied by this README.**
+The portfolio documentation is published independently of the hosted v3 application stack; the linked status page names the application baseline, deployed snapshot and open dependencies. Historical requirements, Chinese source documents, English translations and test evidence remain preserved.
+
+This is an educational portfolio prototype, not a certified EHR. No exhaustive security, accessibility, concurrency or clinical validation is claimed. SQLite/free hosting constrain scale and availability; application audits are not administrator-proof database immutability. The native benchmark used fresh local fixtures, never existing clinical databases or public-host writes.

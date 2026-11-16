@@ -1,0 +1,92 @@
+{
+  "tested_commit": "563b5b879e85ce664aecc3d9a3d78042191e52f4",
+  "source_sha256": {
+    "benchmark.py": "3db72333979d58880477a2119f08be1f69cf725add2aa6bac8c0d28bc264b1b1",
+    "benchmark_catalog.py": "58a909549744b668c390ab043b4de1ee6d931bbbb0b0658c130e58611faca4b2",
+    "benchmark_server.py": "4ce19bd3dff35cf80d07c2a1187e93a081ced0884de102ab6a598b6d04844a1c",
+    "driver.py": "a0200f76c723c9893f803478c4cf9701e96649d7dbc8235d476e71fd10e8ab28"
+  },
+  "id": "CF-070",
+  "title": "Other patient cannot see lab result",
+  "mode": "native",
+  "difficulty": 3,
+  "role": "OtherPatient",
+  "limits": {
+    "requests": 4,
+    "actions": 18,
+    "seconds": 120,
+    "estimated_usd_stop": 0.8
+  },
+  "model_observation": "Access is denied. The route shows a \u201cPortal access\u201d page stating \u201cThis page is unavailable.\u201d",
+  "requested_action_log": [
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 189,
+      "y": 285
+    },
+    {
+      "type": "wait",
+      "approved": true
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    }
+  ],
+  "http": [
+    {
+      "path": "/__benchmark__/",
+      "query": "",
+      "status": 200,
+      "location": null
+    },
+    {
+      "path": "/portal/results/1/",
+      "query": "",
+      "status": 404,
+      "location": null
+    }
+  ],
+  "final_path": "/portal/results/1/",
+  "status": "PASS",
+  "checks": {
+    "final_url": true,
+    "visible_expected": true,
+    "signed_soap_preserved": true,
+    "exact_http_status": true,
+    "business_rows_unchanged": true,
+    "no_disclosure_demo-U": true,
+    "no_disclosure_LAB-01": true,
+    "integrity": true,
+    "foreign_keys": true
+  },
+  "failure": null,
+  "stage": "independent_verification",
+  "actions": [
+    "screenshot",
+    "click",
+    "wait",
+    "screenshot"
+  ],
+  "completed_actions": [
+    "screenshot",
+    "click",
+    "wait",
+    "screenshot"
+  ],
+  "requests": 3,
+  "responses": 3,
+  "usage": {
+    "input_tokens": 10253,
+    "output_tokens": 74,
+    "responses_with_usage": 3,
+    "complete": true,
+    "estimated_token_cost_usd": 0.026742
+  },
+  "exception_chain": []
+}

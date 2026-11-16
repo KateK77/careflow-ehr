@@ -1,0 +1,188 @@
+{
+  "tested_commit": "6187ce833528fc4290d1473a2b4ae646ecb30bf2",
+  "id": "CF-084",
+  "title": "Document fictional allergy",
+  "mode": "native",
+  "difficulty": 4,
+  "role": "Physician",
+  "limits": {
+    "requests": 10,
+    "actions": 60,
+    "seconds": 240,
+    "estimated_usd_stop": 0.8
+  },
+  "safe_error_frames": [
+    {
+      "class": "KeypressRejected",
+      "browser_code": null,
+      "errno": null,
+      "winerror": null,
+      "file": "",
+      "frames": [
+        {
+          "file": "benchmark.py",
+          "line": 231,
+          "function": "run_one"
+        },
+        {
+          "file": "computer.py",
+          "line": 618,
+          "function": "run"
+        },
+        {
+          "file": "computer.py",
+          "line": 739,
+          "function": "_dispatch"
+        },
+        {
+          "file": "_tool_lifecycle.py",
+          "line": 88,
+          "function": "invoke"
+        },
+        {
+          "file": "driver.py",
+          "line": 218,
+          "function": "keypress"
+        }
+      ]
+    }
+  ],
+  "requested_action_log": [
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 816,
+      "y": 429
+    },
+    {
+      "type": "type",
+      "approved": true,
+      "text_length": 19
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 770,
+      "y": 655
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 486,
+      "y": 595
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 738,
+      "y": 742
+    },
+    {
+      "type": "type",
+      "approved": true,
+      "text_length": 14
+    },
+    {
+      "type": "scroll",
+      "approved": true,
+      "x": 1229,
+      "y": 742,
+      "scroll_x": 0,
+      "scroll_y": 528
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 513,
+      "y": 129
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 506,
+      "y": 126
+    },
+    {
+      "type": "keypress",
+      "approved": true,
+      "keys": [
+        "[unrecognized]",
+        "[unrecognized]"
+      ]
+    }
+  ],
+  "screenshot_stage": "sdk_output_validation",
+  "capture_state": {
+    "path": "/app/patients/1/history/allergies/new/",
+    "attempt": 1,
+    "load_wait_completed": true,
+    "routes_in_flight": 0,
+    "page_closed": false
+  },
+  "status": "FAIL",
+  "checks": {},
+  "failure": "Smoke failed (KeypressRejected). Stage: computer_action. HTTP status: 200. API code: none. Reason: unclassified. Tool event: driver_failed/keypress. Compatibility: no signal. Request sent: confirmed by HTTP response (5 attempted, 5 HTTP responses).",
+  "stage": "computer_action",
+  "actions": [
+    "screenshot",
+    "click",
+    "type",
+    "click",
+    "screenshot",
+    "click",
+    "click",
+    "type",
+    "scroll",
+    "screenshot",
+    "screenshot",
+    "click",
+    "click",
+    "keypress"
+  ],
+  "completed_actions": [
+    "screenshot",
+    "click",
+    "type",
+    "click",
+    "screenshot",
+    "click",
+    "click",
+    "type",
+    "scroll",
+    "screenshot",
+    "screenshot",
+    "click",
+    "click"
+  ],
+  "requests": 5,
+  "responses": 5,
+  "usage": {
+    "input_tokens": 23538,
+    "output_tokens": 335,
+    "responses_with_usage": 5,
+    "complete": true,
+    "estimated_token_cost_usd": 0.06387
+  },
+  "exception_chain": [
+    {
+      "class": "KeypressRejected",
+      "signature": "keypress_disallowed_combination"
+    }
+  ]
+}

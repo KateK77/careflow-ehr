@@ -1,0 +1,90 @@
+{
+  "tested_commit": "6187ce833528fc4290d1473a2b4ae646ecb30bf2",
+  "source_sha256": {
+    "benchmark.py": "73a34982ba1958e191029b56891b33bbdec401221d26d9b7ddc652e07065a62b",
+    "benchmark_catalog.py": "58a909549744b668c390ab043b4de1ee6d931bbbb0b0658c130e58611faca4b2",
+    "benchmark_server.py": "fbe26302f1eee4fdc9aa8ce1d0867dea7c9b09641c7684fd5b44ad769de97c2a",
+    "driver.py": "a0200f76c723c9893f803478c4cf9701e96649d7dbc8235d476e71fd10e8ab28"
+  },
+  "id": "CF-032",
+  "title": "Imaging catalog",
+  "mode": "native",
+  "difficulty": 2,
+  "role": "Administrator",
+  "limits": {
+    "requests": 4,
+    "actions": 18,
+    "seconds": 120,
+    "estimated_usd_stop": 0.8
+  },
+  "model_observation": "Access allowed. The route opened successfully to the \u201cSynthetic Imaging Catalog\u201d page.",
+  "requested_action_log": [
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 242,
+      "y": 285
+    },
+    {
+      "type": "wait",
+      "approved": true
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    }
+  ],
+  "http": [
+    {
+      "path": "/__benchmark__/",
+      "query": "",
+      "status": 200,
+      "location": null
+    },
+    {
+      "path": "/app/imaging/catalog/",
+      "query": "",
+      "status": 200,
+      "location": null
+    }
+  ],
+  "final_path": "/app/imaging/catalog/",
+  "status": "PASS",
+  "checks": {
+    "final_url": true,
+    "visible_expected": true,
+    "signed_soap_preserved": true,
+    "exact_http_status": true,
+    "business_rows_unchanged": true,
+    "integrity": true,
+    "foreign_keys": true
+  },
+  "failure": null,
+  "stage": "independent_verification",
+  "actions": [
+    "screenshot",
+    "click",
+    "wait",
+    "screenshot"
+  ],
+  "completed_actions": [
+    "screenshot",
+    "click",
+    "wait",
+    "screenshot"
+  ],
+  "requests": 3,
+  "responses": 3,
+  "usage": {
+    "input_tokens": 10253,
+    "output_tokens": 70,
+    "responses_with_usage": 3,
+    "complete": true,
+    "estimated_token_cost_usd": 0.026683
+  },
+  "exception_chain": []
+}

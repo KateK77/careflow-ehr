@@ -1,0 +1,153 @@
+{
+  "tested_commit": "6187ce833528fc4290d1473a2b4ae646ecb30bf2",
+  "id": "CF-079",
+  "title": "Create four-section SOAP",
+  "mode": "native",
+  "difficulty": 4,
+  "role": "Physician",
+  "limits": {
+    "requests": 10,
+    "actions": 60,
+    "seconds": 240,
+    "estimated_usd_stop": 0.8
+  },
+  "safe_error_frames": [
+    {
+      "class": "ValueError",
+      "browser_code": null,
+      "errno": null,
+      "winerror": null,
+      "file": "",
+      "frames": [
+        {
+          "file": "benchmark.py",
+          "line": 231,
+          "function": "run_one"
+        },
+        {
+          "file": "computer.py",
+          "line": 618,
+          "function": "run"
+        },
+        {
+          "file": "computer.py",
+          "line": 739,
+          "function": "_dispatch"
+        },
+        {
+          "file": "_tool_lifecycle.py",
+          "line": 88,
+          "function": "invoke"
+        },
+        {
+          "file": "driver.py",
+          "line": 201,
+          "function": "scroll"
+        },
+        {
+          "file": "driver.py",
+          "line": 144,
+          "function": "_point"
+        }
+      ]
+    }
+  ],
+  "requested_action_log": [
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 697,
+      "y": 482
+    },
+    {
+      "type": "type",
+      "approved": true,
+      "text_length": 30
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 746,
+      "y": 643
+    },
+    {
+      "type": "type",
+      "approved": true,
+      "text_length": 29
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 735,
+      "y": 792
+    },
+    {
+      "type": "type",
+      "approved": true,
+      "text_length": 30
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "scroll",
+      "approved": true,
+      "x": 1237,
+      "y": 832,
+      "scroll_x": 0,
+      "scroll_y": 539
+    }
+  ],
+  "screenshot_stage": "sdk_output_validation",
+  "capture_state": {
+    "path": "/app/patients/1/encounters/1/note/",
+    "attempt": 1,
+    "load_wait_completed": true,
+    "routes_in_flight": 0,
+    "page_closed": false
+  },
+  "status": "FAIL",
+  "checks": {},
+  "failure": "Smoke failed (ValueError). Stage: computer_action. HTTP status: 200. API code: none. Reason: unclassified. Tool event: driver_failed/scroll. Compatibility: no signal. Request sent: confirmed by HTTP response (3 attempted, 3 HTTP responses).",
+  "stage": "computer_action",
+  "actions": [
+    "screenshot",
+    "click",
+    "type",
+    "click",
+    "type",
+    "click",
+    "type",
+    "screenshot",
+    "scroll"
+  ],
+  "completed_actions": [
+    "screenshot",
+    "click",
+    "type",
+    "click",
+    "type",
+    "click",
+    "type",
+    "screenshot"
+  ],
+  "requests": 3,
+  "responses": 3,
+  "usage": {
+    "input_tokens": 10330,
+    "output_tokens": 163,
+    "responses_with_usage": 3,
+    "complete": true,
+    "estimated_token_cost_usd": 0.02827
+  },
+  "exception_chain": [
+    {
+      "class": "ValueError"
+    }
+  ]
+}

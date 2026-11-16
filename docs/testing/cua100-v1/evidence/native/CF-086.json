@@ -1,0 +1,141 @@
+{
+  "tested_commit": "6187ce833528fc4290d1473a2b4ae646ecb30bf2",
+  "id": "CF-086",
+  "title": "Nursing assessment",
+  "mode": "native",
+  "difficulty": 4,
+  "role": "Nurse",
+  "limits": {
+    "requests": 10,
+    "actions": 60,
+    "seconds": 240,
+    "estimated_usd_stop": 0.8
+  },
+  "safe_error_frames": [
+    {
+      "class": "ValueError",
+      "browser_code": null,
+      "errno": null,
+      "winerror": null,
+      "file": "",
+      "frames": [
+        {
+          "file": "computer.py",
+          "line": 618,
+          "function": "run"
+        },
+        {
+          "file": "computer.py",
+          "line": 739,
+          "function": "_dispatch"
+        },
+        {
+          "file": "_tool_lifecycle.py",
+          "line": 88,
+          "function": "invoke"
+        },
+        {
+          "file": "benchmark.py",
+          "line": 113,
+          "function": "click"
+        },
+        {
+          "file": "driver.py",
+          "line": 156,
+          "function": "click"
+        },
+        {
+          "file": "driver.py",
+          "line": 144,
+          "function": "_point"
+        }
+      ]
+    }
+  ],
+  "requested_action_log": [
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 468,
+      "y": 544
+    },
+    {
+      "type": "type",
+      "approved": true,
+      "text_length": 19
+    },
+    {
+      "type": "scroll",
+      "approved": true,
+      "x": 1226,
+      "y": 744,
+      "scroll_x": 0,
+      "scroll_y": 509
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "scroll",
+      "approved": true,
+      "x": 1229,
+      "y": 742,
+      "scroll_x": 0,
+      "scroll_y": 586
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 492,
+      "y": 923
+    }
+  ],
+  "screenshot_stage": "sdk_output_validation",
+  "capture_state": {
+    "path": "/app/patients/1/nursing/appointments/1/assessment/new/",
+    "attempt": 1,
+    "load_wait_completed": true,
+    "routes_in_flight": 0,
+    "page_closed": false
+  },
+  "status": "FAIL",
+  "checks": {},
+  "failure": "Smoke failed (ValueError). Stage: computer_action. HTTP status: 200. API code: none. Reason: unclassified. Tool event: driver_failed/click. Compatibility: no signal. Request sent: confirmed by HTTP response (3 attempted, 3 HTTP responses).",
+  "stage": "computer_action",
+  "actions": [
+    "screenshot",
+    "click",
+    "type",
+    "scroll",
+    "screenshot",
+    "scroll",
+    "click"
+  ],
+  "completed_actions": [
+    "screenshot",
+    "click",
+    "type",
+    "scroll",
+    "screenshot",
+    "scroll"
+  ],
+  "requests": 3,
+  "responses": 3,
+  "usage": {
+    "input_tokens": 10280,
+    "output_tokens": 140,
+    "responses_with_usage": 3,
+    "complete": true,
+    "estimated_token_cost_usd": 0.0278
+  },
+  "exception_chain": [
+    {
+      "class": "ValueError"
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "tested_commit": "672809a5ccb082dde3512c0634c52fc33ace96b1",
+  "id": "CF-015",
+  "title": "Appointment creation history",
+  "mode": "native",
+  "difficulty": 2,
+  "role": "FrontDesk",
+  "limits": {
+    "requests": 4,
+    "actions": 18,
+    "seconds": 120,
+    "estimated_usd_stop": 0.8
+  },
+  "model_observation": "Access is allowed. The requested route opened to a CareFlow EHR appointment page for \u201cSynthetic Lab\u201d with visible appointment details and action buttons like \u201cReschedule / edit\u201d and \u201cMark Arrived.\u201d",
+  "requested_action_log": [
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 255,
+      "y": 288
+    },
+    {
+      "type": "wait",
+      "approved": true
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    }
+  ],
+  "http": [
+    {
+      "path": "/__benchmark__/",
+      "query": "",
+      "status": 200,
+      "location": null
+    },
+    {
+      "path": "/app/appointments/2/",
+      "query": "",
+      "status": 200,
+      "location": null
+    }
+  ],
+  "final_path": "/app/appointments/2/",
+  "status": "PASS",
+  "checks": {
+    "final_url": true,
+    "visible_expected": true,
+    "signed_soap_preserved": true,
+    "exact_http_status": true,
+    "business_rows_unchanged": true,
+    "integrity": true,
+    "foreign_keys": true
+  },
+  "failure": null,
+  "stage": "independent_verification",
+  "actions": [
+    "screenshot",
+    "click",
+    "wait",
+    "screenshot"
+  ],
+  "completed_actions": [
+    "screenshot",
+    "click",
+    "wait",
+    "screenshot"
+  ],
+  "requests": 3,
+  "responses": 3,
+  "usage": {
+    "input_tokens": 10253,
+    "output_tokens": 95,
+    "responses_with_usage": 3,
+    "complete": true,
+    "estimated_token_cost_usd": 0.027058
+  },
+  "exception_chain": []
+}

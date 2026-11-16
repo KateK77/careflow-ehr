@@ -1,0 +1,146 @@
+{
+  "tested_commit": "6187ce833528fc4290d1473a2b4ae646ecb30bf2",
+  "id": "CF-075",
+  "title": "Schedule and confirm appointment",
+  "mode": "native",
+  "difficulty": 4,
+  "role": "FrontDesk",
+  "limits": {
+    "requests": 10,
+    "actions": 60,
+    "seconds": 240,
+    "estimated_usd_stop": 0.8
+  },
+  "safe_error_frames": [
+    {
+      "class": "ValueError",
+      "browser_code": null,
+      "errno": null,
+      "winerror": null,
+      "file": "",
+      "frames": [
+        {
+          "file": "benchmark.py",
+          "line": 231,
+          "function": "run_one"
+        },
+        {
+          "file": "computer.py",
+          "line": 618,
+          "function": "run"
+        },
+        {
+          "file": "computer.py",
+          "line": 739,
+          "function": "_dispatch"
+        },
+        {
+          "file": "_tool_lifecycle.py",
+          "line": 88,
+          "function": "invoke"
+        },
+        {
+          "file": "benchmark.py",
+          "line": 123,
+          "function": "type"
+        }
+      ]
+    }
+  ],
+  "requested_action_log": [
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 369,
+      "y": 417
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 357,
+      "y": 479
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 859,
+      "y": 417
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 919,
+      "y": 480
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 447,
+      "y": 493
+    },
+    {
+      "type": "type",
+      "approved": true,
+      "text_length": 16
+    }
+  ],
+  "screenshot_stage": "sdk_output_validation",
+  "capture_state": {
+    "path": "/app/appointments/new/",
+    "attempt": 1,
+    "load_wait_completed": true,
+    "routes_in_flight": 0,
+    "page_closed": false
+  },
+  "status": "FAIL",
+  "checks": {},
+  "failure": "Smoke failed (ValueError). Stage: computer_action. HTTP status: 200. API code: none. Reason: unclassified. Tool event: driver_failed/type. Compatibility: no signal. Request sent: confirmed by HTTP response (4 attempted, 4 HTTP responses).",
+  "stage": "computer_action",
+  "actions": [
+    "screenshot",
+    "click",
+    "screenshot",
+    "click",
+    "click",
+    "screenshot",
+    "click",
+    "click",
+    "type"
+  ],
+  "completed_actions": [
+    "screenshot",
+    "click",
+    "screenshot",
+    "click",
+    "click",
+    "screenshot",
+    "click",
+    "click"
+  ],
+  "requests": 4,
+  "responses": 4,
+  "usage": {
+    "input_tokens": 16219,
+    "output_tokens": 173,
+    "responses_with_usage": 4,
+    "complete": true,
+    "estimated_token_cost_usd": 0.043143
+  },
+  "exception_chain": [
+    {
+      "class": "ValueError"
+    }
+  ]
+}

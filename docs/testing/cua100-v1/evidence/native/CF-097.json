@@ -1,0 +1,132 @@
+{
+  "tested_commit": "6187ce833528fc4290d1473a2b4ae646ecb30bf2",
+  "id": "CF-097",
+  "title": "Publish prepared lab report",
+  "mode": "native",
+  "difficulty": 5,
+  "role": "Lab Staff",
+  "limits": {
+    "requests": 14,
+    "actions": 85,
+    "seconds": 360,
+    "estimated_usd_stop": 0.8
+  },
+  "model_observation": "Previewed the draft, confirmed the synthetic-data checkbox, and finalized publication. Final state shows success banner \u201cLaboratory action recorded with audit history\u201d and the order status changed to \u201cFulfilled \u00b7 v8.\u201d",
+  "requested_action_log": [
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 503,
+      "y": 366
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 298,
+      "y": 317
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 349,
+      "y": 376
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 357,
+      "y": 651
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    }
+  ],
+  "http": [
+    {
+      "path": "/app/lab/processing/80faf5d3-5853-4977-bdb0-e75043d84097/",
+      "query": "",
+      "status": 200,
+      "location": null
+    },
+    {
+      "path": "/app/lab/processing/80faf5d3-5853-4977-bdb0-e75043d84097/publish/",
+      "query": "",
+      "status": 200,
+      "location": null
+    },
+    {
+      "path": "/app/lab/processing/80faf5d3-5853-4977-bdb0-e75043d84097/publish/",
+      "query": "",
+      "status": 200,
+      "location": null
+    },
+    {
+      "path": "/app/lab/processing/80faf5d3-5853-4977-bdb0-e75043d84097/publish/",
+      "query": "",
+      "status": 302,
+      "location": "/app/lab/processing/80faf5d3-5853-4977-bdb0-e75043d84097/"
+    },
+    {
+      "path": "/app/lab/processing/80faf5d3-5853-4977-bdb0-e75043d84097/",
+      "query": "",
+      "status": 200,
+      "location": null
+    }
+  ],
+  "final_path": "/app/lab/processing/80faf5d3-5853-4977-bdb0-e75043d84097/",
+  "status": "PASS",
+  "checks": {
+    "final_url": true,
+    "visible_expected": true,
+    "signed_soap_preserved": true,
+    "database_1": true,
+    "database_2": true,
+    "integrity": true,
+    "foreign_keys": true
+  },
+  "failure": null,
+  "stage": "independent_verification",
+  "actions": [
+    "screenshot",
+    "click",
+    "screenshot",
+    "click",
+    "click",
+    "screenshot",
+    "click",
+    "screenshot"
+  ],
+  "completed_actions": [
+    "screenshot",
+    "click",
+    "screenshot",
+    "click",
+    "click",
+    "screenshot",
+    "click",
+    "screenshot"
+  ],
+  "requests": 5,
+  "responses": 5,
+  "usage": {
+    "input_tokens": 23347,
+    "output_tokens": 176,
+    "responses_with_usage": 5,
+    "complete": true,
+    "estimated_token_cost_usd": 0.061007
+  },
+  "exception_chain": []
+}

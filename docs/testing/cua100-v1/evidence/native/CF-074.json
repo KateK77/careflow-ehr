@@ -1,0 +1,106 @@
+{
+  "tested_commit": "6187ce833528fc4290d1473a2b4ae646ecb30bf2",
+  "id": "CF-074",
+  "title": "Edit demographics and audit",
+  "mode": "native",
+  "difficulty": 4,
+  "role": "FrontDesk",
+  "limits": {
+    "requests": 10,
+    "actions": 60,
+    "seconds": 240,
+    "estimated_usd_stop": 0.8
+  },
+  "safe_error_frames": [
+    {
+      "class": "KeypressRejected",
+      "browser_code": null,
+      "errno": null,
+      "winerror": null,
+      "file": "",
+      "frames": [
+        {
+          "file": "benchmark.py",
+          "line": 231,
+          "function": "run_one"
+        },
+        {
+          "file": "computer.py",
+          "line": 618,
+          "function": "run"
+        },
+        {
+          "file": "computer.py",
+          "line": 739,
+          "function": "_dispatch"
+        },
+        {
+          "file": "_tool_lifecycle.py",
+          "line": 88,
+          "function": "invoke"
+        },
+        {
+          "file": "driver.py",
+          "line": 218,
+          "function": "keypress"
+        }
+      ]
+    }
+  ],
+  "requested_action_log": [
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 455,
+      "y": 429
+    },
+    {
+      "type": "keypress",
+      "approved": true,
+      "keys": [
+        "[unrecognized]",
+        "[unrecognized]"
+      ]
+    }
+  ],
+  "screenshot_stage": "sdk_output_validation",
+  "capture_state": {
+    "path": "/app/patients/1/edit/",
+    "attempt": 1,
+    "load_wait_completed": true,
+    "routes_in_flight": 0,
+    "page_closed": false
+  },
+  "status": "FAIL",
+  "checks": {},
+  "failure": "Smoke failed (KeypressRejected). Stage: computer_action. HTTP status: 200. API code: none. Reason: unclassified. Tool event: driver_failed/keypress. Compatibility: no signal. Request sent: confirmed by HTTP response (2 attempted, 2 HTTP responses).",
+  "stage": "computer_action",
+  "actions": [
+    "screenshot",
+    "click",
+    "keypress"
+  ],
+  "completed_actions": [
+    "screenshot",
+    "click"
+  ],
+  "requests": 2,
+  "responses": 2,
+  "usage": {
+    "input_tokens": 5561,
+    "output_tokens": 88,
+    "responses_with_usage": 2,
+    "complete": true,
+    "estimated_token_cost_usd": 0.015222
+  },
+  "exception_chain": [
+    {
+      "class": "KeypressRejected",
+      "signature": "keypress_disallowed_combination"
+    }
+  ]
+}

@@ -1,0 +1,5856 @@
+[
+  {
+    "id": "CF-001",
+    "title": "Unified landing",
+    "mode": "offline",
+    "difficulty": 1,
+    "role": "Anonymous",
+    "limits": {
+      "requests": 4,
+      "actions": 16,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "tested_commit": "672809a5ccb082dde3512c0634c52fc33ace96b1",
+    "id": "CF-002",
+    "title": "Staff sign-in entry",
+    "mode": "offline",
+    "difficulty": 1,
+    "role": "Anonymous",
+    "limits": {
+      "requests": 4,
+      "actions": 16,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "requested_action_log": [
+      {
+        "type": "click",
+        "approved": true,
+        "x": 230,
+        "y": 285
+      },
+      {
+        "type": "screenshot",
+        "approved": true
+      }
+    ],
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/login/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/login/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-003",
+    "title": "Patient sign-in entry",
+    "mode": "offline",
+    "difficulty": 1,
+    "role": "Anonymous",
+    "limits": {
+      "requests": 4,
+      "actions": 16,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/portal/login/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/portal/login/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-004",
+    "title": "Patient signup fields",
+    "mode": "offline",
+    "difficulty": 1,
+    "role": "Anonymous",
+    "limits": {
+      "requests": 4,
+      "actions": 16,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/accounts/register/patient/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/accounts/register/patient/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-005",
+    "title": "Staff application fields",
+    "mode": "offline",
+    "difficulty": 1,
+    "role": "Anonymous",
+    "limits": {
+      "requests": 4,
+      "actions": 16,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/accounts/register/staff/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/accounts/register/staff/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-006",
+    "title": "Administrator dashboard",
+    "mode": "offline",
+    "difficulty": 1,
+    "role": "Administrator",
+    "limits": {
+      "requests": 4,
+      "actions": 16,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/dashboard/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/dashboard/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-007",
+    "title": "Physician worklist",
+    "mode": "offline",
+    "difficulty": 1,
+    "role": "Physician",
+    "limits": {
+      "requests": 4,
+      "actions": 16,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/physician/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/physician/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-008",
+    "title": "Nursing workspace",
+    "mode": "offline",
+    "difficulty": 1,
+    "role": "Nurse",
+    "limits": {
+      "requests": 4,
+      "actions": 16,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/nursing/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/nursing/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-009",
+    "title": "Laboratory worklist",
+    "mode": "offline",
+    "difficulty": 1,
+    "role": "Lab Staff",
+    "limits": {
+      "requests": 4,
+      "actions": 16,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/lab/workspace/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/lab/workspace/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-010",
+    "title": "Pharmacy worklist",
+    "mode": "offline",
+    "difficulty": 1,
+    "role": "Pharmacist",
+    "limits": {
+      "requests": 4,
+      "actions": 16,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/pharmacy/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/pharmacy/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-011",
+    "title": "Patient directory",
+    "mode": "offline",
+    "difficulty": 2,
+    "role": "FrontDesk",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/patients/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/patients/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-012",
+    "title": "Patient demographics",
+    "mode": "offline",
+    "difficulty": 2,
+    "role": "FrontDesk",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/patients/1/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/patients/1/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-013",
+    "title": "Appointment calendar",
+    "mode": "offline",
+    "difficulty": 2,
+    "role": "FrontDesk",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/schedule/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/schedule/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-014",
+    "title": "Check-in worklist",
+    "mode": "offline",
+    "difficulty": 2,
+    "role": "FrontDesk",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/check-in/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/check-in/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-015",
+    "title": "Appointment creation history",
+    "mode": "offline",
+    "difficulty": 2,
+    "role": "FrontDesk",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/appointments/2/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/appointments/2/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-016",
+    "title": "Longitudinal patient chart",
+    "mode": "offline",
+    "difficulty": 2,
+    "role": "Physician",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/patients/1/chart/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/patients/1/chart/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-017",
+    "title": "In-progress encounter",
+    "mode": "offline",
+    "difficulty": 2,
+    "role": "Physician",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/patients/1/encounters/1/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/patients/1/encounters/1/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-018",
+    "title": "Medical-history empty state",
+    "mode": "offline",
+    "difficulty": 2,
+    "role": "Physician",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/patients/1/history/medical/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/patients/1/history/medical/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-019",
+    "title": "Longitudinal problems",
+    "mode": "offline",
+    "difficulty": 2,
+    "role": "Physician",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/patients/1/history/problems/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/patients/1/history/problems/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-020",
+    "title": "Allergy review status",
+    "mode": "offline",
+    "difficulty": 2,
+    "role": "Physician",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/patients/1/history/allergies/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/patients/1/history/allergies/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-021",
+    "title": "Medication history",
+    "mode": "offline",
+    "difficulty": 2,
+    "role": "Physician",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/patients/1/history/medications/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/patients/1/history/medications/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-022",
+    "title": "Encounter diagnoses",
+    "mode": "offline",
+    "difficulty": 2,
+    "role": "Physician",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/patients/1/encounters/1/diagnoses/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/patients/1/encounters/1/diagnoses/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-023",
+    "title": "Appointment nursing context",
+    "mode": "offline",
+    "difficulty": 2,
+    "role": "Nurse",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/patients/1/nursing/appointments/1/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/patients/1/nursing/appointments/1/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-024",
+    "title": "Longitudinal flowsheet",
+    "mode": "offline",
+    "difficulty": 2,
+    "role": "Nurse",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/patients/1/nursing/flowsheet/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/patients/1/nursing/flowsheet/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-025",
+    "title": "Lab catalog",
+    "mode": "offline",
+    "difficulty": 2,
+    "role": "Physician",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/lab/catalog/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/lab/catalog/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-026",
+    "title": "Lab order history",
+    "mode": "offline",
+    "difficulty": 2,
+    "role": "Physician",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/patients/1/lab-orders/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/patients/1/lab-orders/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-027",
+    "title": "Medication catalog",
+    "mode": "offline",
+    "difficulty": 2,
+    "role": "Physician",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/medications/catalog/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/medications/catalog/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-028",
+    "title": "Signed medication history",
+    "mode": "offline",
+    "difficulty": 2,
+    "role": "Physician",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/patients/1/medication-orders/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/patients/1/medication-orders/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-029",
+    "title": "Billing worklist",
+    "mode": "offline",
+    "difficulty": 2,
+    "role": "BillingStaff",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/billing/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/billing/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-030",
+    "title": "Claims queue",
+    "mode": "offline",
+    "difficulty": 2,
+    "role": "BillingStaff",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/billing/claims/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/billing/claims/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-031",
+    "title": "Radiology worklist",
+    "mode": "offline",
+    "difficulty": 2,
+    "role": "RadiologyStaff",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/radiology/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/radiology/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-032",
+    "title": "Imaging catalog",
+    "mode": "offline",
+    "difficulty": 2,
+    "role": "Administrator",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/imaging/catalog/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/imaging/catalog/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-033",
+    "title": "Inpatient dashboard",
+    "mode": "offline",
+    "difficulty": 2,
+    "role": "HospitalOperations",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/inpatient/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/inpatient/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-034",
+    "title": "Capacity dashboard",
+    "mode": "offline",
+    "difficulty": 2,
+    "role": "HospitalOperations",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/inpatient/capacity/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/inpatient/capacity/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-035",
+    "title": "Emergency tracking board",
+    "mode": "offline",
+    "difficulty": 2,
+    "role": "Nurse",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/ed/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/ed/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-036",
+    "title": "Anonymous staff redirect",
+    "mode": "offline",
+    "difficulty": 3,
+    "role": "Anonymous",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/patients/",
+        "query": "",
+        "status": 302,
+        "location": "/login/?next=/app/patients/"
+      },
+      {
+        "path": "/login/",
+        "query": "next=/app/patients/",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/login/?next=/app/patients/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "redirect_destination": true,
+      "business_rows_unchanged": true,
+      "no_disclosure_LAB-01": true,
+      "no_disclosure_LAB-02": true,
+      "no_disclosure_Synthetic protected": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-037",
+    "title": "Anonymous patient redirect",
+    "mode": "offline",
+    "difficulty": 3,
+    "role": "Anonymous",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/portal/",
+        "query": "",
+        "status": 302,
+        "location": "/portal/login/?next=/portal/"
+      },
+      {
+        "path": "/portal/login/",
+        "query": "next=/portal/",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/portal/login/?next=/portal/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "redirect_destination": true,
+      "business_rows_unchanged": true,
+      "no_disclosure_LAB-01": true,
+      "no_disclosure_LAB-02": true,
+      "no_disclosure_Synthetic protected": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-038",
+    "title": "Patient denied directory",
+    "mode": "offline",
+    "difficulty": 3,
+    "role": "Patient",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/patients/",
+        "query": "",
+        "status": 403,
+        "location": null
+      }
+    ],
+    "final_path": "/app/patients/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "no_disclosure_LAB-01": true,
+      "no_disclosure_LAB-02": true,
+      "no_disclosure_Synthetic protected": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-039",
+    "title": "Patient denied staff approval",
+    "mode": "offline",
+    "difficulty": 3,
+    "role": "Patient",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/accounts/applications/",
+        "query": "",
+        "status": 403,
+        "location": null
+      }
+    ],
+    "final_path": "/app/accounts/applications/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "no_disclosure_LAB-01": true,
+      "no_disclosure_LAB-02": true,
+      "no_disclosure_Synthetic protected": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-040",
+    "title": "Patient denied nursing",
+    "mode": "offline",
+    "difficulty": 3,
+    "role": "Patient",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/nursing/",
+        "query": "",
+        "status": 403,
+        "location": null
+      }
+    ],
+    "final_path": "/app/nursing/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "no_disclosure_LAB-01": true,
+      "no_disclosure_LAB-02": true,
+      "no_disclosure_Synthetic protected": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-041",
+    "title": "Patient denied pharmacy",
+    "mode": "offline",
+    "difficulty": 3,
+    "role": "Patient",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/pharmacy/",
+        "query": "",
+        "status": 403,
+        "location": null
+      }
+    ],
+    "final_path": "/app/pharmacy/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "no_disclosure_LAB-01": true,
+      "no_disclosure_LAB-02": true,
+      "no_disclosure_Synthetic protected": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-042",
+    "title": "Physician denied registration",
+    "mode": "offline",
+    "difficulty": 3,
+    "role": "Physician",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/patients/new/",
+        "query": "",
+        "status": 403,
+        "location": null
+      }
+    ],
+    "final_path": "/app/patients/new/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "no_disclosure_LAB-01": true,
+      "no_disclosure_LAB-02": true,
+      "no_disclosure_Synthetic protected": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-043",
+    "title": "Physician denied demographics edit",
+    "mode": "offline",
+    "difficulty": 3,
+    "role": "Physician",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/patients/1/edit/",
+        "query": "",
+        "status": 403,
+        "location": null
+      }
+    ],
+    "final_path": "/app/patients/1/edit/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "no_disclosure_LAB-01": true,
+      "no_disclosure_LAB-02": true,
+      "no_disclosure_Synthetic protected": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-044",
+    "title": "Physician denied account approval",
+    "mode": "offline",
+    "difficulty": 3,
+    "role": "Physician",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/accounts/applications/",
+        "query": "",
+        "status": 403,
+        "location": null
+      }
+    ],
+    "final_path": "/app/accounts/applications/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "no_disclosure_LAB-01": true,
+      "no_disclosure_LAB-02": true,
+      "no_disclosure_Synthetic protected": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "tested_commit": "672809a5ccb082dde3512c0634c52fc33ace96b1",
+    "id": "CF-045",
+    "title": "FrontDesk denied chart",
+    "mode": "offline",
+    "difficulty": 3,
+    "role": "FrontDesk",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "requested_action_log": [
+      {
+        "type": "click",
+        "approved": true,
+        "x": 230,
+        "y": 285
+      },
+      {
+        "type": "screenshot",
+        "approved": true
+      }
+    ],
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/patients/1/chart/",
+        "query": "",
+        "status": 403,
+        "location": null
+      }
+    ],
+    "final_path": "/app/patients/1/chart/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "no_disclosure_LAB-01": true,
+      "no_disclosure_LAB-02": true,
+      "no_disclosure_Synthetic protected": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "tested_commit": "672809a5ccb082dde3512c0634c52fc33ace96b1",
+    "id": "CF-046",
+    "title": "FrontDesk denied SOAP",
+    "mode": "offline",
+    "difficulty": 3,
+    "role": "FrontDesk",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "requested_action_log": [
+      {
+        "type": "click",
+        "approved": true,
+        "x": 230,
+        "y": 285
+      },
+      {
+        "type": "screenshot",
+        "approved": true
+      }
+    ],
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/patients/1/encounters/1/",
+        "query": "",
+        "status": 403,
+        "location": null
+      }
+    ],
+    "final_path": "/app/patients/1/encounters/1/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "no_disclosure_LAB-01": true,
+      "no_disclosure_LAB-02": true,
+      "no_disclosure_Synthetic protected": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "tested_commit": "672809a5ccb082dde3512c0634c52fc33ace96b1",
+    "id": "CF-047",
+    "title": "FrontDesk denied history",
+    "mode": "offline",
+    "difficulty": 3,
+    "role": "FrontDesk",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "requested_action_log": [
+      {
+        "type": "click",
+        "approved": true,
+        "x": 230,
+        "y": 285
+      },
+      {
+        "type": "screenshot",
+        "approved": true
+      }
+    ],
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/patients/1/history/medical/",
+        "query": "",
+        "status": 403,
+        "location": null
+      }
+    ],
+    "final_path": "/app/patients/1/history/medical/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "no_disclosure_LAB-01": true,
+      "no_disclosure_LAB-02": true,
+      "no_disclosure_Synthetic protected": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-048",
+    "title": "Nurse denied SOAP authoring",
+    "mode": "offline",
+    "difficulty": 3,
+    "role": "Nurse",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/patients/1/encounters/1/note/",
+        "query": "",
+        "status": 403,
+        "location": null
+      }
+    ],
+    "final_path": "/app/patients/1/encounters/1/note/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "no_disclosure_LAB-01": true,
+      "no_disclosure_LAB-02": true,
+      "no_disclosure_Synthetic protected": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-049",
+    "title": "Nurse denied patient creation",
+    "mode": "offline",
+    "difficulty": 3,
+    "role": "Nurse",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/patients/new/",
+        "query": "",
+        "status": 403,
+        "location": null
+      }
+    ],
+    "final_path": "/app/patients/new/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "no_disclosure_LAB-01": true,
+      "no_disclosure_LAB-02": true,
+      "no_disclosure_Synthetic protected": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-050",
+    "title": "Lab denied demographics",
+    "mode": "offline",
+    "difficulty": 3,
+    "role": "Lab Staff",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/patients/",
+        "query": "",
+        "status": 403,
+        "location": null
+      }
+    ],
+    "final_path": "/app/patients/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "no_disclosure_LAB-01": true,
+      "no_disclosure_LAB-02": true,
+      "no_disclosure_Synthetic protected": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "tested_commit": "672809a5ccb082dde3512c0634c52fc33ace96b1",
+    "id": "CF-051",
+    "title": "Lab denied physician worklist",
+    "mode": "offline",
+    "difficulty": 3,
+    "role": "Lab Staff",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "requested_action_log": [
+      {
+        "type": "click",
+        "approved": true,
+        "x": 230,
+        "y": 285
+      },
+      {
+        "type": "screenshot",
+        "approved": true
+      }
+    ],
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/physician/",
+        "query": "",
+        "status": 403,
+        "location": null
+      }
+    ],
+    "final_path": "/app/physician/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "no_disclosure_LAB-01": true,
+      "no_disclosure_LAB-02": true,
+      "no_disclosure_Synthetic protected": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "tested_commit": "672809a5ccb082dde3512c0634c52fc33ace96b1",
+    "id": "CF-052",
+    "title": "Pharmacist denied chart",
+    "mode": "offline",
+    "difficulty": 3,
+    "role": "Pharmacist",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "requested_action_log": [
+      {
+        "type": "click",
+        "approved": true,
+        "x": 230,
+        "y": 285
+      },
+      {
+        "type": "screenshot",
+        "approved": true
+      }
+    ],
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/patients/1/chart/",
+        "query": "",
+        "status": 403,
+        "location": null
+      }
+    ],
+    "final_path": "/app/patients/1/chart/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "no_disclosure_LAB-01": true,
+      "no_disclosure_LAB-02": true,
+      "no_disclosure_Synthetic protected": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-053",
+    "title": "Pharmacist denied demographics edit",
+    "mode": "offline",
+    "difficulty": 3,
+    "role": "Pharmacist",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/patients/1/edit/",
+        "query": "",
+        "status": 403,
+        "location": null
+      }
+    ],
+    "final_path": "/app/patients/1/edit/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "no_disclosure_LAB-01": true,
+      "no_disclosure_LAB-02": true,
+      "no_disclosure_Synthetic protected": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-054",
+    "title": "Billing denied ED",
+    "mode": "offline",
+    "difficulty": 3,
+    "role": "BillingStaff",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/ed/",
+        "query": "",
+        "status": 403,
+        "location": null
+      }
+    ],
+    "final_path": "/app/ed/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "no_disclosure_LAB-01": true,
+      "no_disclosure_LAB-02": true,
+      "no_disclosure_Synthetic protected": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-055",
+    "title": "Billing denied inpatient",
+    "mode": "offline",
+    "difficulty": 3,
+    "role": "BillingStaff",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/inpatient/",
+        "query": "",
+        "status": 403,
+        "location": null
+      }
+    ],
+    "final_path": "/app/inpatient/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "no_disclosure_LAB-01": true,
+      "no_disclosure_LAB-02": true,
+      "no_disclosure_Synthetic protected": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "tested_commit": "672809a5ccb082dde3512c0634c52fc33ace96b1",
+    "id": "CF-056",
+    "title": "Radiology denied SOAP",
+    "mode": "offline",
+    "difficulty": 3,
+    "role": "RadiologyStaff",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "requested_action_log": [
+      {
+        "type": "click",
+        "approved": true,
+        "x": 230,
+        "y": 285
+      },
+      {
+        "type": "screenshot",
+        "approved": true
+      }
+    ],
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/patients/1/encounters/1/",
+        "query": "",
+        "status": 403,
+        "location": null
+      }
+    ],
+    "final_path": "/app/patients/1/encounters/1/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "no_disclosure_LAB-01": true,
+      "no_disclosure_LAB-02": true,
+      "no_disclosure_Synthetic protected": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-057",
+    "title": "HospitalOperations denied approval",
+    "mode": "offline",
+    "difficulty": 3,
+    "role": "HospitalOperations",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/accounts/applications/",
+        "query": "",
+        "status": 403,
+        "location": null
+      }
+    ],
+    "final_path": "/app/accounts/applications/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "no_disclosure_LAB-01": true,
+      "no_disclosure_LAB-02": true,
+      "no_disclosure_Synthetic protected": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-058",
+    "title": "Physician denied unrelated chart",
+    "mode": "offline",
+    "difficulty": 3,
+    "role": "Physician",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/patients/2/chart/",
+        "query": "",
+        "status": 404,
+        "location": null
+      }
+    ],
+    "final_path": "/app/patients/2/chart/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "no_disclosure_LAB-01": true,
+      "no_disclosure_LAB-02": true,
+      "no_disclosure_Synthetic protected": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-059",
+    "title": "Mismatched patient encounter denied",
+    "mode": "offline",
+    "difficulty": 3,
+    "role": "Physician",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/patients/2/encounters/1/",
+        "query": "",
+        "status": 404,
+        "location": null
+      }
+    ],
+    "final_path": "/app/patients/2/encounters/1/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "no_disclosure_LAB-01": true,
+      "no_disclosure_LAB-02": true,
+      "no_disclosure_Synthetic protected": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-060",
+    "title": "Unclaimed pharmacy details denied",
+    "mode": "offline",
+    "difficulty": 3,
+    "role": "Pharmacist",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/pharmacy/orders/07a1143f-f14b-466b-9989-fd4bc102da0a/",
+        "query": "",
+        "status": 404,
+        "location": null
+      }
+    ],
+    "final_path": "/app/pharmacy/orders/07a1143f-f14b-466b-9989-fd4bc102da0a/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "no_disclosure_LAB-01": true,
+      "no_disclosure_LAB-02": true,
+      "no_disclosure_Synthetic protected": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-061",
+    "title": "Own patient dashboard",
+    "mode": "offline",
+    "difficulty": 2,
+    "role": "Patient",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/portal/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/portal/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-062",
+    "title": "Own appointments",
+    "mode": "offline",
+    "difficulty": 2,
+    "role": "Patient",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/portal/appointments/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/portal/appointments/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-063",
+    "title": "Own visits",
+    "mode": "offline",
+    "difficulty": 2,
+    "role": "Patient",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/portal/visits/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/portal/visits/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-064",
+    "title": "Own medications",
+    "mode": "offline",
+    "difficulty": 2,
+    "role": "Patient",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/portal/medications/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/portal/medications/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-065",
+    "title": "Released-results empty state",
+    "mode": "offline",
+    "difficulty": 2,
+    "role": "Patient",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/portal/results/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/portal/results/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-066",
+    "title": "Own messages",
+    "mode": "offline",
+    "difficulty": 2,
+    "role": "Patient",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/portal/messages/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/portal/messages/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-067",
+    "title": "Own appointment requests",
+    "mode": "offline",
+    "difficulty": 2,
+    "role": "Patient",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/portal/requests/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/portal/requests/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-068",
+    "title": "Own billing statements",
+    "mode": "offline",
+    "difficulty": 2,
+    "role": "Patient",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/portal/billing/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/portal/billing/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-069",
+    "title": "Owner cannot see unreleased lab result",
+    "mode": "offline",
+    "difficulty": 3,
+    "role": "Patient",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/portal/results/1/",
+        "query": "",
+        "status": 404,
+        "location": null
+      }
+    ],
+    "final_path": "/portal/results/1/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "no_disclosure_demo-U": true,
+      "no_disclosure_LAB-02": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-070",
+    "title": "Other patient cannot see lab result",
+    "mode": "offline",
+    "difficulty": 3,
+    "role": "OtherPatient",
+    "limits": {
+      "requests": 4,
+      "actions": 18,
+      "seconds": 120,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/__benchmark__/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/portal/results/1/",
+        "query": "",
+        "status": 404,
+        "location": null
+      }
+    ],
+    "final_path": "/portal/results/1/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "exact_http_status": true,
+      "business_rows_unchanged": true,
+      "no_disclosure_demo-U": true,
+      "no_disclosure_LAB-01": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [
+      "click",
+      "screenshot"
+    ],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-071",
+    "title": "Register synthetic patient",
+    "mode": "offline",
+    "difficulty": 4,
+    "role": "FrontDesk",
+    "limits": {
+      "requests": 10,
+      "actions": 60,
+      "seconds": 240,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/app/patients/new/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/patients/new/",
+        "query": "",
+        "status": 302,
+        "location": "/app/patients/3/"
+      },
+      {
+        "path": "/app/patients/3/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/patients/3/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "database_1": true,
+      "database_2": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-072",
+    "title": "Required synthetic confirmation",
+    "mode": "offline",
+    "difficulty": 4,
+    "role": "FrontDesk",
+    "limits": {
+      "requests": 10,
+      "actions": 60,
+      "seconds": 240,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/app/patients/new/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/patients/new/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "required_field_invalid": true,
+      "explicit_submit_attempt": true,
+      "database_1": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-073",
+    "title": "Duplicate MRN rejection",
+    "mode": "offline",
+    "difficulty": 4,
+    "role": "FrontDesk",
+    "limits": {
+      "requests": 10,
+      "actions": 60,
+      "seconds": 240,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/app/patients/new/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/patients/new/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/patients/new/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "database_1": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-074",
+    "title": "Edit demographics and audit",
+    "mode": "offline",
+    "difficulty": 4,
+    "role": "FrontDesk",
+    "limits": {
+      "requests": 10,
+      "actions": 60,
+      "seconds": 240,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/app/patients/1/edit/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/patients/1/edit/",
+        "query": "",
+        "status": 302,
+        "location": "/app/patients/1/"
+      },
+      {
+        "path": "/app/patients/1/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/patients/1/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "database_1": true,
+      "database_2": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-075",
+    "title": "Schedule and confirm appointment",
+    "mode": "offline",
+    "difficulty": 4,
+    "role": "FrontDesk",
+    "limits": {
+      "requests": 10,
+      "actions": 60,
+      "seconds": 240,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/app/appointments/new/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/appointments/new/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/appointments/new/",
+        "query": "",
+        "status": 302,
+        "location": "/app/appointments/4/"
+      },
+      {
+        "path": "/app/appointments/4/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/appointments/4/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "database_1": true,
+      "database_2": true,
+      "database_3": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-076",
+    "title": "Check in and audit",
+    "mode": "offline",
+    "difficulty": 4,
+    "role": "FrontDesk",
+    "limits": {
+      "requests": 10,
+      "actions": 60,
+      "seconds": 240,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/app/appointments/2/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/appointments/2/transition/",
+        "query": "",
+        "status": 302,
+        "location": "/app/appointments/2/"
+      },
+      {
+        "path": "/app/appointments/2/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/appointments/2/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "database_1": true,
+      "database_2": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-077",
+    "title": "Reschedule same patient",
+    "mode": "offline",
+    "difficulty": 4,
+    "role": "FrontDesk",
+    "limits": {
+      "requests": 10,
+      "actions": 60,
+      "seconds": 240,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/app/appointments/2/edit/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/appointments/2/edit/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/appointments/2/edit/",
+        "query": "",
+        "status": 302,
+        "location": "/app/appointments/2/"
+      },
+      {
+        "path": "/app/appointments/2/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/appointments/2/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "database_1": true,
+      "database_2": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-078",
+    "title": "Cancel with retained reason",
+    "mode": "offline",
+    "difficulty": 4,
+    "role": "FrontDesk",
+    "limits": {
+      "requests": 10,
+      "actions": 60,
+      "seconds": 240,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/app/appointments/2/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/appointments/2/transition/",
+        "query": "",
+        "status": 302,
+        "location": "/app/appointments/2/"
+      },
+      {
+        "path": "/app/appointments/2/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/appointments/2/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "database_1": true,
+      "database_2": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-079",
+    "title": "Create four-section SOAP",
+    "mode": "offline",
+    "difficulty": 4,
+    "role": "Physician",
+    "limits": {
+      "requests": 10,
+      "actions": 60,
+      "seconds": 240,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/app/patients/1/encounters/1/note/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/patients/1/encounters/1/note/",
+        "query": "",
+        "status": 302,
+        "location": "/app/patients/1/encounters/1/"
+      },
+      {
+        "path": "/app/patients/1/encounters/1/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/patients/1/encounters/1/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "database_1": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-080",
+    "title": "Sign existing SOAP",
+    "mode": "offline",
+    "difficulty": 4,
+    "role": "Physician",
+    "limits": {
+      "requests": 10,
+      "actions": 60,
+      "seconds": 240,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/app/patients/1/encounters/1/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/patients/1/encounters/1/notes/2/sign/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/patients/1/encounters/1/notes/2/sign/",
+        "query": "",
+        "status": 302,
+        "location": "/app/patients/1/encounters/1/"
+      },
+      {
+        "path": "/app/patients/1/encounters/1/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/patients/1/encounters/1/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "database_1": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-081",
+    "title": "Complete signed encounter",
+    "mode": "offline",
+    "difficulty": 4,
+    "role": "Physician",
+    "limits": {
+      "requests": 10,
+      "actions": 60,
+      "seconds": 240,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/app/patients/1/encounters/1/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/patients/1/encounters/1/complete/",
+        "query": "",
+        "status": 302,
+        "location": "/app/patients/1/encounters/1/"
+      },
+      {
+        "path": "/app/patients/1/encounters/1/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/patients/1/encounters/1/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "database_1": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "tested_commit": "672809a5ccb082dde3512c0634c52fc33ace96b1",
+    "id": "CF-082",
+    "title": "Past medical history",
+    "mode": "offline",
+    "difficulty": 4,
+    "role": "Physician",
+    "limits": {
+      "requests": 10,
+      "actions": 60,
+      "seconds": 240,
+      "estimated_usd_stop": 0.8
+    },
+    "requested_action_log": [],
+    "http": [
+      {
+        "path": "/app/patients/1/history/medical/new/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/patients/1/history/medical/new/",
+        "query": "",
+        "status": 302,
+        "location": "/app/patients/1/history/medical/1/"
+      },
+      {
+        "path": "/app/patients/1/history/medical/1/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/patients/1/history/medical/1/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "database_1": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "tested_commit": "672809a5ccb082dde3512c0634c52fc33ace96b1",
+    "id": "CF-083",
+    "title": "Active longitudinal problem",
+    "mode": "offline",
+    "difficulty": 4,
+    "role": "Physician",
+    "limits": {
+      "requests": 10,
+      "actions": 60,
+      "seconds": 240,
+      "estimated_usd_stop": 0.8
+    },
+    "requested_action_log": [],
+    "http": [
+      {
+        "path": "/app/patients/1/history/problems/new/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/patients/1/history/problems/new/",
+        "query": "",
+        "status": 302,
+        "location": "/app/patients/1/history/problems/1/"
+      },
+      {
+        "path": "/app/patients/1/history/problems/1/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/patients/1/history/problems/1/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "database_1": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "tested_commit": "672809a5ccb082dde3512c0634c52fc33ace96b1",
+    "id": "CF-084",
+    "title": "Document fictional allergy",
+    "mode": "offline",
+    "difficulty": 4,
+    "role": "Physician",
+    "limits": {
+      "requests": 10,
+      "actions": 60,
+      "seconds": 240,
+      "estimated_usd_stop": 0.8
+    },
+    "requested_action_log": [],
+    "http": [
+      {
+        "path": "/app/patients/1/history/allergies/new/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/patients/1/history/allergies/new/",
+        "query": "",
+        "status": 302,
+        "location": "/app/patients/1/history/allergies/1/"
+      },
+      {
+        "path": "/app/patients/1/history/allergies/1/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/patients/1/history/allergies/1/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "database_1": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "tested_commit": "672809a5ccb082dde3512c0634c52fc33ace96b1",
+    "id": "CF-085",
+    "title": "Medication statement",
+    "mode": "offline",
+    "difficulty": 4,
+    "role": "Physician",
+    "limits": {
+      "requests": 10,
+      "actions": 60,
+      "seconds": 240,
+      "estimated_usd_stop": 0.8
+    },
+    "requested_action_log": [],
+    "http": [
+      {
+        "path": "/app/patients/1/history/medications/new/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/patients/1/history/medications/new/",
+        "query": "",
+        "status": 302,
+        "location": "/app/patients/1/history/medications/1/"
+      },
+      {
+        "path": "/app/patients/1/history/medications/1/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/patients/1/history/medications/1/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "database_1": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-086",
+    "title": "Nursing assessment",
+    "mode": "offline",
+    "difficulty": 4,
+    "role": "Nurse",
+    "limits": {
+      "requests": 10,
+      "actions": 60,
+      "seconds": 240,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/app/patients/1/nursing/appointments/1/assessment/new/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/patients/1/nursing/appointments/1/assessment/new/",
+        "query": "",
+        "status": 302,
+        "location": "/app/patients/1/nursing/appointments/1/assessment/1/"
+      },
+      {
+        "path": "/app/patients/1/nursing/appointments/1/assessment/1/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/patients/1/nursing/appointments/1/assessment/1/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "database_1": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-087",
+    "title": "Vital-sign panel",
+    "mode": "offline",
+    "difficulty": 4,
+    "role": "Nurse",
+    "limits": {
+      "requests": 10,
+      "actions": 60,
+      "seconds": 240,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/app/patients/1/nursing/appointments/1/vitals/new/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/patients/1/nursing/appointments/1/vitals/new/",
+        "query": "",
+        "status": 302,
+        "location": "/app/patients/1/nursing/appointments/1/vitals/1/"
+      },
+      {
+        "path": "/app/patients/1/nursing/appointments/1/vitals/1/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/patients/1/nursing/appointments/1/vitals/1/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "database_1": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-088",
+    "title": "Approve pending staff application",
+    "mode": "offline",
+    "difficulty": 4,
+    "role": "Administrator",
+    "limits": {
+      "requests": 10,
+      "actions": 60,
+      "seconds": 240,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/app/accounts/applications/1/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/accounts/applications/1/",
+        "query": "",
+        "status": 302,
+        "location": "/app/accounts/applications/"
+      },
+      {
+        "path": "/app/accounts/applications/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/accounts/applications/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "database_1": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-089",
+    "title": "Reject pending staff application",
+    "mode": "offline",
+    "difficulty": 4,
+    "role": "Administrator",
+    "limits": {
+      "requests": 10,
+      "actions": 60,
+      "seconds": 240,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/app/accounts/applications/1/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/accounts/applications/1/",
+        "query": "",
+        "status": 302,
+        "location": "/app/accounts/applications/"
+      },
+      {
+        "path": "/app/accounts/applications/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/accounts/applications/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "database_1": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-090",
+    "title": "Mismatched password confirmation",
+    "mode": "offline",
+    "difficulty": 4,
+    "role": "Anonymous",
+    "limits": {
+      "requests": 10,
+      "actions": 60,
+      "seconds": 240,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/accounts/register/patient/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/accounts/register/patient/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/accounts/register/patient/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "database_1": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "tested_commit": "672809a5ccb082dde3512c0634c52fc33ace96b1",
+    "id": "CF-091",
+    "title": "Claim signed requisition",
+    "mode": "offline",
+    "difficulty": 5,
+    "role": "Pharmacist",
+    "limits": {
+      "requests": 14,
+      "actions": 85,
+      "seconds": 360,
+      "estimated_usd_stop": 0.8
+    },
+    "requested_action_log": [],
+    "http": [
+      {
+        "path": "/app/pharmacy/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/pharmacy/orders/8c249e09-447f-4f70-9f0e-e66a929e0797/claim/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/pharmacy/orders/8c249e09-447f-4f70-9f0e-e66a929e0797/claim/",
+        "query": "",
+        "status": 302,
+        "location": "/app/pharmacy/orders/8c249e09-447f-4f70-9f0e-e66a929e0797/"
+      },
+      {
+        "path": "/app/pharmacy/orders/8c249e09-447f-4f70-9f0e-e66a929e0797/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/pharmacy/orders/8c249e09-447f-4f70-9f0e-e66a929e0797/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "database_1": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-092",
+    "title": "Request clarification",
+    "mode": "offline",
+    "difficulty": 5,
+    "role": "Pharmacist",
+    "limits": {
+      "requests": 14,
+      "actions": 85,
+      "seconds": 360,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/app/pharmacy/orders/a5caf5a4-6403-4db8-a9d3-337bc9dd32f4/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/pharmacy/orders/a5caf5a4-6403-4db8-a9d3-337bc9dd32f4/clarify/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/pharmacy/orders/a5caf5a4-6403-4db8-a9d3-337bc9dd32f4/clarify/",
+        "query": "",
+        "status": 302,
+        "location": "/app/pharmacy/orders/a5caf5a4-6403-4db8-a9d3-337bc9dd32f4/"
+      },
+      {
+        "path": "/app/pharmacy/orders/a5caf5a4-6403-4db8-a9d3-337bc9dd32f4/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/pharmacy/orders/a5caf5a4-6403-4db8-a9d3-337bc9dd32f4/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "database_1": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-093",
+    "title": "Approve pharmacy verification",
+    "mode": "offline",
+    "difficulty": 5,
+    "role": "Pharmacist",
+    "limits": {
+      "requests": 14,
+      "actions": 85,
+      "seconds": 360,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/app/pharmacy/orders/03853de1-7cd7-437a-b7cd-427e9e78e94b/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/pharmacy/orders/03853de1-7cd7-437a-b7cd-427e9e78e94b/approve/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/pharmacy/orders/03853de1-7cd7-437a-b7cd-427e9e78e94b/approve/",
+        "query": "",
+        "status": 302,
+        "location": "/app/pharmacy/orders/03853de1-7cd7-437a-b7cd-427e9e78e94b/"
+      },
+      {
+        "path": "/app/pharmacy/orders/03853de1-7cd7-437a-b7cd-427e9e78e94b/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/pharmacy/orders/03853de1-7cd7-437a-b7cd-427e9e78e94b/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "database_1": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-094",
+    "title": "Record simulated dispensing",
+    "mode": "offline",
+    "difficulty": 5,
+    "role": "Pharmacist",
+    "limits": {
+      "requests": 14,
+      "actions": 85,
+      "seconds": 360,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/app/pharmacy/orders/71610b8b-0bc3-431a-83cf-4d35525cfa82/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/pharmacy/orders/71610b8b-0bc3-431a-83cf-4d35525cfa82/dispense/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/pharmacy/orders/71610b8b-0bc3-431a-83cf-4d35525cfa82/dispense/",
+        "query": "",
+        "status": 302,
+        "location": "/app/pharmacy/orders/71610b8b-0bc3-431a-83cf-4d35525cfa82/"
+      },
+      {
+        "path": "/app/pharmacy/orders/71610b8b-0bc3-431a-83cf-4d35525cfa82/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/pharmacy/orders/71610b8b-0bc3-431a-83cf-4d35525cfa82/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "database_1": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "tested_commit": "672809a5ccb082dde3512c0634c52fc33ace96b1",
+    "id": "CF-095",
+    "title": "Claim lab requisition",
+    "mode": "offline",
+    "difficulty": 5,
+    "role": "Lab Staff",
+    "limits": {
+      "requests": 14,
+      "actions": 85,
+      "seconds": 360,
+      "estimated_usd_stop": 0.8
+    },
+    "requested_action_log": [],
+    "http": [
+      {
+        "path": "/app/lab/workspace/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/lab/processing/89b684ca-cb8e-406c-b04c-77946cbadbd8/claim/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/lab/processing/89b684ca-cb8e-406c-b04c-77946cbadbd8/claim/",
+        "query": "",
+        "status": 302,
+        "location": "/app/lab/processing/89b684ca-cb8e-406c-b04c-77946cbadbd8/"
+      },
+      {
+        "path": "/app/lab/processing/89b684ca-cb8e-406c-b04c-77946cbadbd8/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/lab/processing/89b684ca-cb8e-406c-b04c-77946cbadbd8/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "database_1": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-096",
+    "title": "Collect specimen with identity",
+    "mode": "offline",
+    "difficulty": 5,
+    "role": "Nurse",
+    "limits": {
+      "requests": 14,
+      "actions": 85,
+      "seconds": 360,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/app/lab/processing/d1ba78b4-5316-4be0-b9e5-6ebeee23a8ed/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/lab/processing/d1ba78b4-5316-4be0-b9e5-6ebeee23a8ed/collect/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/lab/processing/d1ba78b4-5316-4be0-b9e5-6ebeee23a8ed/collect/",
+        "query": "",
+        "status": 302,
+        "location": "/app/lab/processing/d1ba78b4-5316-4be0-b9e5-6ebeee23a8ed/"
+      },
+      {
+        "path": "/app/lab/processing/d1ba78b4-5316-4be0-b9e5-6ebeee23a8ed/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/lab/processing/d1ba78b4-5316-4be0-b9e5-6ebeee23a8ed/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "database_1": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-097",
+    "title": "Publish prepared lab report",
+    "mode": "offline",
+    "difficulty": 5,
+    "role": "Lab Staff",
+    "limits": {
+      "requests": 14,
+      "actions": 85,
+      "seconds": 360,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/app/lab/processing/0d89e117-2c73-441c-bb0e-f8db3b478b6d/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/lab/processing/0d89e117-2c73-441c-bb0e-f8db3b478b6d/publish/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/lab/processing/0d89e117-2c73-441c-bb0e-f8db3b478b6d/publish/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/lab/processing/0d89e117-2c73-441c-bb0e-f8db3b478b6d/publish/",
+        "query": "",
+        "status": 302,
+        "location": "/app/lab/processing/0d89e117-2c73-441c-bb0e-f8db3b478b6d/"
+      },
+      {
+        "path": "/app/lab/processing/0d89e117-2c73-441c-bb0e-f8db3b478b6d/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/lab/processing/0d89e117-2c73-441c-bb0e-f8db3b478b6d/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "database_1": true,
+      "database_2": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "tested_commit": "672809a5ccb082dde3512c0634c52fc33ace96b1",
+    "id": "CF-098",
+    "title": "Acknowledge exact lab revision",
+    "mode": "offline",
+    "difficulty": 5,
+    "role": "Physician",
+    "limits": {
+      "requests": 14,
+      "actions": 85,
+      "seconds": 360,
+      "estimated_usd_stop": 0.8
+    },
+    "requested_action_log": [],
+    "http": [
+      {
+        "path": "/app/lab/reports/0095bd77-b999-4eee-968c-fa52ab2b8741/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/lab/reports/0095bd77-b999-4eee-968c-fa52ab2b8741/acknowledge/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/lab/reports/0095bd77-b999-4eee-968c-fa52ab2b8741/acknowledge/",
+        "query": "",
+        "status": 302,
+        "location": "/app/lab/reports/0095bd77-b999-4eee-968c-fa52ab2b8741/"
+      },
+      {
+        "path": "/app/lab/reports/0095bd77-b999-4eee-968c-fa52ab2b8741/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/lab/reports/0095bd77-b999-4eee-968c-fa52ab2b8741/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "database_1": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-099",
+    "title": "Compose and sign SOAP journey",
+    "mode": "offline",
+    "difficulty": 5,
+    "role": "Physician",
+    "limits": {
+      "requests": 14,
+      "actions": 85,
+      "seconds": 360,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/app/patients/1/encounters/1/note/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/patients/1/encounters/1/note/",
+        "query": "",
+        "status": 302,
+        "location": "/app/patients/1/encounters/1/"
+      },
+      {
+        "path": "/app/patients/1/encounters/1/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/patients/1/encounters/1/notes/2/sign/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/patients/1/encounters/1/notes/2/sign/",
+        "query": "",
+        "status": 302,
+        "location": "/app/patients/1/encounters/1/"
+      },
+      {
+        "path": "/app/patients/1/encounters/1/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/patients/1/encounters/1/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "database_1": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  },
+  {
+    "id": "CF-100",
+    "title": "Schedule and check-in journey",
+    "mode": "offline",
+    "difficulty": 5,
+    "role": "FrontDesk",
+    "limits": {
+      "requests": 14,
+      "actions": 85,
+      "seconds": 360,
+      "estimated_usd_stop": 0.8
+    },
+    "http": [
+      {
+        "path": "/app/appointments/new/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/appointments/new/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/appointments/new/",
+        "query": "",
+        "status": 302,
+        "location": "/app/appointments/4/"
+      },
+      {
+        "path": "/app/appointments/4/",
+        "query": "",
+        "status": 200,
+        "location": null
+      },
+      {
+        "path": "/app/appointments/4/transition/",
+        "query": "",
+        "status": 302,
+        "location": "/app/appointments/4/"
+      },
+      {
+        "path": "/app/appointments/4/",
+        "query": "",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "final_path": "/app/appointments/4/",
+    "status": "PASS",
+    "checks": {
+      "final_url": true,
+      "visible_expected": true,
+      "signed_soap_preserved": true,
+      "database_1": true,
+      "database_2": true,
+      "database_3": true,
+      "integrity": true,
+      "foreign_keys": true
+    },
+    "failure": null,
+    "stage": "independent_verification",
+    "actions": [],
+    "completed_actions": [],
+    "requests": 0,
+    "responses": 0,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "responses_with_usage": 0,
+      "complete": true,
+      "estimated_token_cost_usd": null
+    },
+    "exception_chain": []
+  }
+]

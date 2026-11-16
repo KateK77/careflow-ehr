@@ -1,0 +1,126 @@
+{
+  "tested_commit": "6187ce833528fc4290d1473a2b4ae646ecb30bf2",
+  "id": "CF-094",
+  "title": "Record simulated dispensing",
+  "mode": "native",
+  "difficulty": 5,
+  "role": "Pharmacist",
+  "limits": {
+    "requests": 14,
+    "actions": 85,
+    "seconds": 360,
+    "estimated_usd_stop": 0.8
+  },
+  "model_observation": "Recorded simulated dispensing for the synthetic order with quantity 2. Verified the workflow state now shows: \u201cSimulated dispensing recorded: 2 units by synthetic-pharmacist \u2026\u201d and the verification page remains Approved.",
+  "requested_action_log": [
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 370,
+      "y": 742
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 301,
+      "y": 572
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 467,
+      "y": 629
+    },
+    {
+      "type": "type",
+      "approved": true,
+      "text_length": 1
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 411,
+      "y": 672
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    }
+  ],
+  "http": [
+    {
+      "path": "/app/pharmacy/orders/c0653168-aca8-478a-8aa1-3655a8bd4725/",
+      "query": "",
+      "status": 200,
+      "location": null
+    },
+    {
+      "path": "/app/pharmacy/orders/c0653168-aca8-478a-8aa1-3655a8bd4725/dispense/",
+      "query": "",
+      "status": 200,
+      "location": null
+    },
+    {
+      "path": "/app/pharmacy/orders/c0653168-aca8-478a-8aa1-3655a8bd4725/dispense/",
+      "query": "",
+      "status": 302,
+      "location": "/app/pharmacy/orders/c0653168-aca8-478a-8aa1-3655a8bd4725/"
+    },
+    {
+      "path": "/app/pharmacy/orders/c0653168-aca8-478a-8aa1-3655a8bd4725/",
+      "query": "",
+      "status": 200,
+      "location": null
+    }
+  ],
+  "final_path": "/app/pharmacy/orders/c0653168-aca8-478a-8aa1-3655a8bd4725/",
+  "status": "PASS",
+  "checks": {
+    "final_url": true,
+    "visible_expected": true,
+    "signed_soap_preserved": true,
+    "database_1": true,
+    "integrity": true,
+    "foreign_keys": true
+  },
+  "failure": null,
+  "stage": "independent_verification",
+  "actions": [
+    "screenshot",
+    "click",
+    "screenshot",
+    "click",
+    "click",
+    "type",
+    "click",
+    "screenshot"
+  ],
+  "completed_actions": [
+    "screenshot",
+    "click",
+    "screenshot",
+    "click",
+    "click",
+    "type",
+    "click",
+    "screenshot"
+  ],
+  "requests": 4,
+  "responses": 4,
+  "usage": {
+    "input_tokens": 16211,
+    "output_tokens": 163,
+    "responses_with_usage": 4,
+    "complete": true,
+    "estimated_token_cost_usd": 0.042972
+  },
+  "exception_chain": []
+}

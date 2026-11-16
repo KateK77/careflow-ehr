@@ -1,0 +1,90 @@
+{
+  "tested_commit": "6187ce833528fc4290d1473a2b4ae646ecb30bf2",
+  "id": "CF-076",
+  "title": "Check in and audit",
+  "mode": "native",
+  "difficulty": 4,
+  "role": "FrontDesk",
+  "limits": {
+    "requests": 10,
+    "actions": 60,
+    "seconds": 240,
+    "estimated_usd_stop": 0.8
+  },
+  "model_observation": "Appointment marked Arrived successfully. Check-in now shows `16 Nov 2026 04:53:49 UTC \u00b7 lab-FrontDesk`, confirming the check-in actor is `lab-FrontDesk` and patient checked-in history is visible.",
+  "requested_action_log": [
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 491,
+      "y": 563
+    },
+    {
+      "type": "wait",
+      "approved": true
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    }
+  ],
+  "http": [
+    {
+      "path": "/app/appointments/2/",
+      "query": "",
+      "status": 200,
+      "location": null
+    },
+    {
+      "path": "/app/appointments/2/transition/",
+      "query": "",
+      "status": 302,
+      "location": "/app/appointments/2/"
+    },
+    {
+      "path": "/app/appointments/2/",
+      "query": "",
+      "status": 200,
+      "location": null
+    }
+  ],
+  "final_path": "/app/appointments/2/",
+  "status": "PASS",
+  "checks": {
+    "final_url": true,
+    "visible_expected": true,
+    "signed_soap_preserved": true,
+    "database_1": true,
+    "database_2": true,
+    "integrity": true,
+    "foreign_keys": true
+  },
+  "failure": null,
+  "stage": "independent_verification",
+  "actions": [
+    "screenshot",
+    "click",
+    "wait",
+    "screenshot"
+  ],
+  "completed_actions": [
+    "screenshot",
+    "click",
+    "wait",
+    "screenshot"
+  ],
+  "requests": 3,
+  "responses": 3,
+  "usage": {
+    "input_tokens": 10223,
+    "output_tokens": 109,
+    "responses_with_usage": 3,
+    "complete": true,
+    "estimated_token_cost_usd": 0.027193
+  },
+  "exception_chain": []
+}

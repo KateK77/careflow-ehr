@@ -1,0 +1,184 @@
+{
+  "tested_commit": "6187ce833528fc4290d1473a2b4ae646ecb30bf2",
+  "id": "CF-098",
+  "title": "Acknowledge exact lab revision",
+  "mode": "native",
+  "difficulty": 5,
+  "role": "Physician",
+  "limits": {
+    "requests": 14,
+    "actions": 85,
+    "seconds": 360,
+    "estimated_usd_stop": 0.8
+  },
+  "model_observation": "Acknowledged the current synthetic laboratory publication and confirmed synthetic information only. Verification shown on screen: \u201cLaboratory review/history action recorded.\u201d and status updated to \u201cCurrent report acknowledged.\u201d",
+  "requested_action_log": [
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 605,
+      "y": 389
+    },
+    {
+      "type": "wait",
+      "approved": true
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "scroll",
+      "approved": true,
+      "x": 1237,
+      "y": 744,
+      "scroll_x": 0,
+      "scroll_y": 524
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 298,
+      "y": 795
+    },
+    {
+      "type": "scroll",
+      "approved": true,
+      "x": 1223,
+      "y": 742,
+      "scroll_x": 0,
+      "scroll_y": 519
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 1135,
+      "y": 727
+    },
+    {
+      "type": "wait",
+      "approved": true
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 563,
+      "y": 620
+    },
+    {
+      "type": "type",
+      "approved": true,
+      "text_length": 71
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 379,
+      "y": 672
+    },
+    {
+      "type": "wait",
+      "approved": true
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    }
+  ],
+  "http": [
+    {
+      "path": "/app/lab/reports/8af0e069-7de6-42c8-814e-c3521f8464d3/",
+      "query": "",
+      "status": 200,
+      "location": null
+    },
+    {
+      "path": "/app/lab/reports/8af0e069-7de6-42c8-814e-c3521f8464d3/acknowledge/",
+      "query": "",
+      "status": 200,
+      "location": null
+    },
+    {
+      "path": "/app/lab/reports/8af0e069-7de6-42c8-814e-c3521f8464d3/acknowledge/",
+      "query": "",
+      "status": 302,
+      "location": "/app/lab/reports/8af0e069-7de6-42c8-814e-c3521f8464d3/"
+    },
+    {
+      "path": "/app/lab/reports/8af0e069-7de6-42c8-814e-c3521f8464d3/",
+      "query": "",
+      "status": 200,
+      "location": null
+    }
+  ],
+  "final_path": "/app/lab/reports/8af0e069-7de6-42c8-814e-c3521f8464d3/",
+  "status": "PASS",
+  "checks": {
+    "final_url": true,
+    "visible_expected": true,
+    "signed_soap_preserved": true,
+    "database_1": true,
+    "integrity": true,
+    "foreign_keys": true
+  },
+  "failure": null,
+  "stage": "independent_verification",
+  "actions": [
+    "screenshot",
+    "click",
+    "wait",
+    "screenshot",
+    "screenshot",
+    "scroll",
+    "click",
+    "scroll",
+    "click",
+    "wait",
+    "screenshot",
+    "click",
+    "type",
+    "click",
+    "wait",
+    "screenshot"
+  ],
+  "completed_actions": [
+    "screenshot",
+    "click",
+    "wait",
+    "screenshot",
+    "screenshot",
+    "scroll",
+    "click",
+    "scroll",
+    "click",
+    "wait",
+    "screenshot",
+    "click",
+    "type",
+    "click",
+    "wait",
+    "screenshot"
+  ],
+  "requests": 6,
+  "responses": 6,
+  "usage": {
+    "input_tokens": 31908,
+    "output_tokens": 281,
+    "responses_with_usage": 6,
+    "complete": true,
+    "estimated_token_cost_usd": 0.083985
+  },
+  "exception_chain": []
+}

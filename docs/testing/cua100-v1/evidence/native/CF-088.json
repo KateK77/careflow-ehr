@@ -1,0 +1,98 @@
+{
+  "tested_commit": "6187ce833528fc4290d1473a2b4ae646ecb30bf2",
+  "id": "CF-088",
+  "title": "Approve pending staff application",
+  "mode": "native",
+  "difficulty": 4,
+  "role": "Administrator",
+  "limits": {
+    "requests": 10,
+    "actions": 60,
+    "seconds": 240,
+    "estimated_usd_stop": 0.8
+  },
+  "model_observation": "Approved benchmark-pending as Nurse with reason \u201cSynthetic benchmark review.\u201d Verified the recorded decision shows \u201cApproved.\u201d",
+  "requested_action_log": [
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 534,
+      "y": 446
+    },
+    {
+      "type": "type",
+      "approved": true,
+      "text_length": 27
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 364,
+      "y": 513
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    }
+  ],
+  "http": [
+    {
+      "path": "/app/accounts/applications/1/",
+      "query": "",
+      "status": 200,
+      "location": null
+    },
+    {
+      "path": "/app/accounts/applications/1/",
+      "query": "",
+      "status": 302,
+      "location": "/app/accounts/applications/"
+    },
+    {
+      "path": "/app/accounts/applications/",
+      "query": "",
+      "status": 200,
+      "location": null
+    }
+  ],
+  "final_path": "/app/accounts/applications/",
+  "status": "PASS",
+  "checks": {
+    "final_url": true,
+    "visible_expected": true,
+    "signed_soap_preserved": true,
+    "database_1": true,
+    "integrity": true,
+    "foreign_keys": true
+  },
+  "failure": null,
+  "stage": "independent_verification",
+  "actions": [
+    "screenshot",
+    "click",
+    "type",
+    "click",
+    "screenshot"
+  ],
+  "completed_actions": [
+    "screenshot",
+    "click",
+    "type",
+    "click",
+    "screenshot"
+  ],
+  "requests": 3,
+  "responses": 3,
+  "usage": {
+    "input_tokens": 10256,
+    "output_tokens": 98,
+    "responses_with_usage": 3,
+    "complete": true,
+    "estimated_token_cost_usd": 0.02711
+  },
+  "exception_chain": []
+}

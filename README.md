@@ -24,13 +24,17 @@ The hosted Django website is online; its homepage and both sign-in routes return
 
 | Role | Demo Username | Demo Password | What to Explore |
 | --- | --- | --- | --- |
-| Physician | physician.demo | 9OhOo0dN1c-B0C7YMwteHBktuwh2bWTG | Charts, encounters, SOAP |
-| nurse | nurse.demo | XIVnhQ687X5EKCDKSbQhFzsvz6FVXOMl | Worklist, vitals, flowsheets |
+| Physician | physician.demo | 9OhOo0dN1c-B0C7YMwteHBktuwh2bWTG | Charts, encounters, diagnoses, SOAP notes, orders |
+| Nurse | nurse.demo | XIVnhQ687X5EKCDKSbQhFzsvz6FVXOMl | Worklist, vitals, flowsheets, medication administration |
 | Front Desk | frontdesk.demo | UbPLJQ6Z9ZQyvKwWgWpYYRw62WOXIOpW | Registration, scheduling, check-in |
-| Patient | patient1.demo | Not published | Appointments, released records, messages |
-| Pharmacist | Unavailable | F0vUvFJVRPJKQIfaj4H6Set215rUIpaG | Verification, simulated dispensing |
-| Laboratory Staff | lab.demo | b4pFPlxhiWVWiDK3nyca6kvON3FHLhWp | Specimens, report publication |
-| Administrator | administrator.demo | _6_VekGD7QalzQ5nDC_PC-6B3qPV0wui | Role-aware dashboard and staff review |
+| Patient1 | patient1.demo | F0vUvFJVRPJKQIfaj4H6Set215rUIpaG | Appointments, medical records, lab results, messages |
+| Patient2 | patient2.demo | lkhx4wWS5YJy4xf8G43DH1xQ4vXrCkJZ | Appointments, medical records, lab results, messages |
+| Pharmacist | pharmacist.demo | PyhvT9U1mlWY3X62LpyjuyAzO_TJ9R5H | Medication verification, simulated dispensing |
+| Laboratory Staff | lab.demo | b4pFPlxhiWVWiDK3nyca6kvON3FHLhWp | Specimens, lab results, report publication |
+| Administrator | administrator.demo | _6_VekGD7QalzQ5nDC_PC-6B3qPV0wui | Dashboard, staff management, access control, audit logs |
+| Billing Staff | billing.demo | BYU1RaMt8WgQ4w7cYmTagfGSPoJ5y2mv | Billing records, financial workflows |
+| Radiology Staff | radiology.demo | R96E3AMnad5bFeegyt_BMy8NNR_2RdQO | Imaging orders, radiology reports, result review |
+| Hospital Operations | hospital.demo | XsmnDWR6_VWcYhXQtnuxFm5wp2Z0oux2 | Admissions, bed management, inpatient workflows, discharge |
 
 No shared-account login or representative-data verification is claimed. A safe public account needs its own credentials, backend restrictions and an isolated data lifecycle. [Account availability and proposed safeguards](docs/showcase/portfolio/demo-access-plan.md).
 

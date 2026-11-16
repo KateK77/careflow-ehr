@@ -1,0 +1,132 @@
+{
+  "tested_commit": "6187ce833528fc4290d1473a2b4ae646ecb30bf2",
+  "id": "CF-090",
+  "title": "Mismatched password confirmation",
+  "mode": "native",
+  "difficulty": 4,
+  "role": "Anonymous",
+  "limits": {
+    "requests": 10,
+    "actions": 60,
+    "seconds": 240,
+    "estimated_usd_stop": 0.8
+  },
+  "model_observation": "Submitted once with username `benchmark-new`, password and mismatched confirm password. The form showed a validation error: \u201cThe passwords do not match.\u201d",
+  "requested_action_log": [
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 584,
+      "y": 377
+    },
+    {
+      "type": "type",
+      "approved": true,
+      "text_length": 13
+    },
+    {
+      "type": "keypress",
+      "approved": true,
+      "keys": [
+        "TAB"
+      ]
+    },
+    {
+      "type": "type",
+      "approved": true,
+      "text_length": 11
+    },
+    {
+      "type": "keypress",
+      "approved": true,
+      "keys": [
+        "TAB"
+      ]
+    },
+    {
+      "type": "type",
+      "approved": true,
+      "text_length": 17
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 348,
+      "y": 656
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 415,
+      "y": 722
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    }
+  ],
+  "http": [
+    {
+      "path": "/accounts/register/patient/",
+      "query": "",
+      "status": 200,
+      "location": null
+    },
+    {
+      "path": "/accounts/register/patient/",
+      "query": "",
+      "status": 200,
+      "location": null
+    }
+  ],
+  "final_path": "/accounts/register/patient/",
+  "status": "PASS",
+  "checks": {
+    "final_url": true,
+    "visible_expected": true,
+    "signed_soap_preserved": true,
+    "database_1": true,
+    "integrity": true,
+    "foreign_keys": true
+  },
+  "failure": null,
+  "stage": "independent_verification",
+  "actions": [
+    "screenshot",
+    "click",
+    "type",
+    "keypress",
+    "type",
+    "keypress",
+    "type",
+    "click",
+    "click",
+    "screenshot"
+  ],
+  "completed_actions": [
+    "screenshot",
+    "click",
+    "type",
+    "keypress",
+    "type",
+    "keypress",
+    "type",
+    "click",
+    "click",
+    "screenshot"
+  ],
+  "requests": 3,
+  "responses": 3,
+  "usage": {
+    "input_tokens": 10363,
+    "output_tokens": 158,
+    "responses_with_usage": 3,
+    "complete": true,
+    "estimated_token_cost_usd": 0.028278
+  },
+  "exception_chain": []
+}

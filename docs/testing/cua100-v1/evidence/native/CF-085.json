@@ -1,0 +1,299 @@
+{
+  "tested_commit": "6187ce833528fc4290d1473a2b4ae646ecb30bf2",
+  "id": "CF-085",
+  "title": "Medication statement",
+  "mode": "native",
+  "difficulty": 4,
+  "role": "Physician",
+  "limits": {
+    "requests": 10,
+    "actions": 60,
+    "seconds": 240,
+    "estimated_usd_stop": 0.8
+  },
+  "safe_error_frames": [
+    {
+      "class": "RuntimeError",
+      "browser_code": null,
+      "errno": null,
+      "winerror": null,
+      "file": "",
+      "frames": [
+        {
+          "file": "computer.py",
+          "line": 618,
+          "function": "run"
+        },
+        {
+          "file": "computer.py",
+          "line": 762,
+          "function": "_dispatch"
+        },
+        {
+          "file": "_tool_lifecycle.py",
+          "line": 88,
+          "function": "invoke"
+        },
+        {
+          "file": "driver.py",
+          "line": 302,
+          "function": "screenshot"
+        },
+        {
+          "file": "driver.py",
+          "line": 265,
+          "function": "_capture_png"
+        },
+        {
+          "file": "driver.py",
+          "line": 132,
+          "function": "_check"
+        }
+      ]
+    }
+  ],
+  "requested_action_log": [
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 739,
+      "y": 473
+    },
+    {
+      "type": "type",
+      "approved": true,
+      "text_length": 19
+    },
+    {
+      "type": "scroll",
+      "approved": true,
+      "x": 1228,
+      "y": 744,
+      "scroll_x": 0,
+      "scroll_y": 546
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 1028,
+      "y": 692
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 969,
+      "y": 692
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 594,
+      "y": 147
+    },
+    {
+      "type": "scroll",
+      "approved": true,
+      "x": 1237,
+      "y": 744,
+      "scroll_x": 0,
+      "scroll_y": -451
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 467,
+      "y": 147
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 485,
+      "y": 535
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 719,
+      "y": 681
+    },
+    {
+      "type": "type",
+      "approved": true,
+      "text_length": 11
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 772,
+      "y": 764
+    },
+    {
+      "type": "type",
+      "approved": true,
+      "text_length": 4
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 778,
+      "y": 478
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 490,
+      "y": 535
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 757,
+      "y": 478
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 756,
+      "y": 478
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 749,
+      "y": 478
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 726,
+      "y": 476
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 721,
+      "y": 476
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 717,
+      "y": 476
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 123,
+      "y": 123
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    }
+  ],
+  "screenshot_stage": "playwright_capture",
+  "capture_state": {
+    "path": "/app/patients/1/history/medications/new/",
+    "attempt": 1,
+    "load_wait_completed": true,
+    "routes_in_flight": 0,
+    "page_closed": false
+  },
+  "status": "FAIL",
+  "checks": {},
+  "failure": "Smoke failed (RuntimeError). Stage: computer_screenshot. HTTP status: 200. API code: none. Reason: unclassified. Tool event: driver_failed/screenshot. Compatibility: no signal. Request sent: confirmed by HTTP response (6 attempted, 6 HTTP responses).",
+  "stage": "computer_screenshot",
+  "actions": [
+    "screenshot",
+    "click",
+    "type",
+    "scroll",
+    "screenshot",
+    "click",
+    "click",
+    "screenshot",
+    "click",
+    "scroll",
+    "click",
+    "screenshot",
+    "click",
+    "click",
+    "type",
+    "click",
+    "type",
+    "click",
+    "click",
+    "click",
+    "click",
+    "click",
+    "click",
+    "click",
+    "click",
+    "screenshot",
+    "click",
+    "screenshot"
+  ],
+  "completed_actions": [
+    "screenshot",
+    "click",
+    "type",
+    "scroll",
+    "screenshot",
+    "click",
+    "click",
+    "screenshot",
+    "click",
+    "scroll",
+    "click",
+    "screenshot",
+    "click",
+    "click",
+    "type",
+    "click",
+    "type",
+    "click",
+    "click",
+    "click",
+    "click",
+    "click",
+    "click",
+    "click",
+    "click",
+    "screenshot",
+    "click"
+  ],
+  "requests": 6,
+  "responses": 6,
+  "usage": {
+    "input_tokens": 32402,
+    "output_tokens": 475,
+    "responses_with_usage": 6,
+    "complete": true,
+    "estimated_token_cost_usd": 0.08813
+  },
+  "exception_chain": [
+    {
+      "class": "RuntimeError"
+    }
+  ]
+}

@@ -1,0 +1,123 @@
+{
+  "tested_commit": "6187ce833528fc4290d1473a2b4ae646ecb30bf2",
+  "id": "CF-091",
+  "title": "Claim signed requisition",
+  "mode": "native",
+  "difficulty": 5,
+  "role": "Pharmacist",
+  "limits": {
+    "requests": 14,
+    "actions": 85,
+    "seconds": 360,
+    "estimated_usd_stop": 0.8
+  },
+  "model_observation": "Claimed the only visible synthetic order. The resulting workflow state shows the order is assigned to synthetic-pharmacist and is now in Pharmacy Verification with status \u201cAwaiting verification\u201d; dispensing remains \u201cNot recorded.\u201d",
+  "requested_action_log": [
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 1136,
+      "y": 305
+    },
+    {
+      "type": "wait",
+      "approved": true
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 295,
+      "y": 298
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 344,
+      "y": 334
+    },
+    {
+      "type": "wait",
+      "approved": true
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    }
+  ],
+  "http": [
+    {
+      "path": "/app/pharmacy/",
+      "query": "",
+      "status": 200,
+      "location": null
+    },
+    {
+      "path": "/app/pharmacy/orders/2bcdd4a4-4011-4c01-9b2c-98f4541e9e15/claim/",
+      "query": "",
+      "status": 200,
+      "location": null
+    },
+    {
+      "path": "/app/pharmacy/orders/2bcdd4a4-4011-4c01-9b2c-98f4541e9e15/claim/",
+      "query": "",
+      "status": 302,
+      "location": "/app/pharmacy/orders/2bcdd4a4-4011-4c01-9b2c-98f4541e9e15/"
+    },
+    {
+      "path": "/app/pharmacy/orders/2bcdd4a4-4011-4c01-9b2c-98f4541e9e15/",
+      "query": "",
+      "status": 200,
+      "location": null
+    }
+  ],
+  "final_path": "/app/pharmacy/orders/2bcdd4a4-4011-4c01-9b2c-98f4541e9e15/",
+  "status": "PASS",
+  "checks": {
+    "final_url": true,
+    "visible_expected": true,
+    "signed_soap_preserved": true,
+    "database_1": true,
+    "integrity": true,
+    "foreign_keys": true
+  },
+  "failure": null,
+  "stage": "independent_verification",
+  "actions": [
+    "screenshot",
+    "click",
+    "wait",
+    "screenshot",
+    "click",
+    "click",
+    "wait",
+    "screenshot"
+  ],
+  "completed_actions": [
+    "screenshot",
+    "click",
+    "wait",
+    "screenshot",
+    "click",
+    "click",
+    "wait",
+    "screenshot"
+  ],
+  "requests": 4,
+  "responses": 4,
+  "usage": {
+    "input_tokens": 16177,
+    "output_tokens": 153,
+    "responses_with_usage": 4,
+    "complete": true,
+    "estimated_token_cost_usd": 0.042737
+  },
+  "exception_chain": []
+}

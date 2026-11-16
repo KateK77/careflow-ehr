@@ -1,0 +1,142 @@
+{
+  "tested_commit": "6187ce833528fc4290d1473a2b4ae646ecb30bf2",
+  "id": "CF-095",
+  "title": "Claim lab requisition",
+  "mode": "native",
+  "difficulty": 5,
+  "role": "Lab Staff",
+  "limits": {
+    "requests": 14,
+    "actions": 85,
+    "seconds": 360,
+    "estimated_usd_stop": 0.8
+  },
+  "model_observation": "Requisition was successfully claimed. The page confirmed synthetic data, recorded the laboratory action, and the final visible state shows \u201cLaboratory processing\u201d with the order in \u201cSubmitted\u201d status and lab assignee \u201clab-Lab-Staff.\u201d",
+  "requested_action_log": [
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 682,
+      "y": 409
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 297,
+      "y": 262
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 764,
+      "y": 362
+    },
+    {
+      "type": "type",
+      "approved": true,
+      "text_length": 72
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 406,
+      "y": 448
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "scroll",
+      "approved": true,
+      "x": 1241,
+      "y": 744,
+      "scroll_x": 0,
+      "scroll_y": 643
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    }
+  ],
+  "http": [
+    {
+      "path": "/app/lab/workspace/",
+      "query": "",
+      "status": 200,
+      "location": null
+    },
+    {
+      "path": "/app/lab/processing/2f4b3728-6fb2-445f-9f61-47a703136ff1/claim/",
+      "query": "",
+      "status": 200,
+      "location": null
+    },
+    {
+      "path": "/app/lab/processing/2f4b3728-6fb2-445f-9f61-47a703136ff1/claim/",
+      "query": "",
+      "status": 302,
+      "location": "/app/lab/processing/2f4b3728-6fb2-445f-9f61-47a703136ff1/"
+    },
+    {
+      "path": "/app/lab/processing/2f4b3728-6fb2-445f-9f61-47a703136ff1/",
+      "query": "",
+      "status": 200,
+      "location": null
+    }
+  ],
+  "final_path": "/app/lab/processing/2f4b3728-6fb2-445f-9f61-47a703136ff1/",
+  "status": "PASS",
+  "checks": {
+    "final_url": true,
+    "visible_expected": true,
+    "signed_soap_preserved": true,
+    "database_1": true,
+    "integrity": true,
+    "foreign_keys": true
+  },
+  "failure": null,
+  "stage": "independent_verification",
+  "actions": [
+    "screenshot",
+    "click",
+    "screenshot",
+    "click",
+    "click",
+    "type",
+    "click",
+    "screenshot",
+    "scroll",
+    "screenshot"
+  ],
+  "completed_actions": [
+    "screenshot",
+    "click",
+    "screenshot",
+    "click",
+    "click",
+    "type",
+    "click",
+    "screenshot",
+    "scroll",
+    "screenshot"
+  ],
+  "requests": 5,
+  "responses": 5,
+  "usage": {
+    "input_tokens": 23444,
+    "output_tokens": 222,
+    "responses_with_usage": 5,
+    "complete": true,
+    "estimated_token_cost_usd": 0.06194
+  },
+  "exception_chain": []
+}

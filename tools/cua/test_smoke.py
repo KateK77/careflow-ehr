@@ -36,7 +36,7 @@ class ComputerSmokeTests(unittest.TestCase):
     def test_patient_sdk_continues_with_screenshot_and_same_browser(self):
         diagnostic = Diagnostics()
         with tempfile.TemporaryDirectory(prefix="careflow-cua-test-") as temp:
-            with qa_site(ROOT / ".venv/Scripts/python.exe", Path(temp)) as origin, sync_playwright() as playwright:
+            with qa_site(Path(os.environ.get("CAREFLOW_DJANGO_PYTHON", ROOT / ".venv/Scripts/python.exe")), Path(temp)) as origin, sync_playwright() as playwright:
                 browser = playwright.chromium.launch(timeout=10000)
                 try:
                     context = browser.new_context(

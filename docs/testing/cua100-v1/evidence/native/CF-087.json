@@ -1,0 +1,216 @@
+{
+  "tested_commit": "6187ce833528fc4290d1473a2b4ae646ecb30bf2",
+  "id": "CF-087",
+  "title": "Vital-sign panel",
+  "mode": "native",
+  "difficulty": 4,
+  "role": "Nurse",
+  "limits": {
+    "requests": 10,
+    "actions": 60,
+    "seconds": 240,
+    "estimated_usd_stop": 0.8
+  },
+  "safe_error_frames": [
+    {
+      "class": "KeypressRejected",
+      "browser_code": null,
+      "errno": null,
+      "winerror": null,
+      "file": "",
+      "frames": [
+        {
+          "file": "benchmark.py",
+          "line": 231,
+          "function": "run_one"
+        },
+        {
+          "file": "computer.py",
+          "line": 618,
+          "function": "run"
+        },
+        {
+          "file": "computer.py",
+          "line": 739,
+          "function": "_dispatch"
+        },
+        {
+          "file": "_tool_lifecycle.py",
+          "line": 88,
+          "function": "invoke"
+        },
+        {
+          "file": "driver.py",
+          "line": 218,
+          "function": "keypress"
+        }
+      ]
+    }
+  ],
+  "requested_action_log": [
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "scroll",
+      "approved": true,
+      "x": 1219,
+      "y": 744,
+      "scroll_x": 0,
+      "scroll_y": 528
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "scroll",
+      "approved": true,
+      "x": 1217,
+      "y": 742,
+      "scroll_x": 0,
+      "scroll_y": 622
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "scroll",
+      "approved": true,
+      "x": 1221,
+      "y": 746,
+      "scroll_x": 0,
+      "scroll_y": -362
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 410,
+      "y": 176
+    },
+    {
+      "type": "type",
+      "approved": true,
+      "text_length": 4
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 1220,
+      "y": 261
+    },
+    {
+      "type": "keypress",
+      "approved": true,
+      "keys": [
+        "ARROWDOWN"
+      ]
+    },
+    {
+      "type": "keypress",
+      "approved": true,
+      "keys": [
+        "ENTER"
+      ]
+    },
+    {
+      "type": "screenshot",
+      "approved": true
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 431,
+      "y": 212
+    },
+    {
+      "type": "type",
+      "approved": true,
+      "text_length": 3
+    },
+    {
+      "type": "click",
+      "approved": true,
+      "x": 448,
+      "y": 294
+    },
+    {
+      "type": "keypress",
+      "approved": true,
+      "keys": [
+        "[unrecognized]",
+        "[unrecognized]"
+      ]
+    }
+  ],
+  "screenshot_stage": "sdk_output_validation",
+  "capture_state": {
+    "path": "/app/patients/1/nursing/appointments/1/vitals/new/",
+    "attempt": 1,
+    "load_wait_completed": true,
+    "routes_in_flight": 0,
+    "page_closed": false
+  },
+  "status": "FAIL",
+  "checks": {},
+  "failure": "Smoke failed (KeypressRejected). Stage: computer_action. HTTP status: 200. API code: none. Reason: unclassified. Tool event: driver_failed/keypress. Compatibility: no signal. Request sent: confirmed by HTTP response (6 attempted, 6 HTTP responses).",
+  "stage": "computer_action",
+  "actions": [
+    "screenshot",
+    "scroll",
+    "screenshot",
+    "scroll",
+    "screenshot",
+    "screenshot",
+    "scroll",
+    "click",
+    "type",
+    "click",
+    "keypress",
+    "keypress",
+    "screenshot",
+    "click",
+    "type",
+    "click",
+    "keypress"
+  ],
+  "completed_actions": [
+    "screenshot",
+    "scroll",
+    "screenshot",
+    "scroll",
+    "screenshot",
+    "screenshot",
+    "scroll",
+    "click",
+    "type",
+    "click",
+    "keypress",
+    "keypress",
+    "screenshot",
+    "click",
+    "type",
+    "click"
+  ],
+  "requests": 6,
+  "responses": 6,
+  "usage": {
+    "input_tokens": 31914,
+    "output_tokens": 396,
+    "responses_with_usage": 6,
+    "complete": true,
+    "estimated_token_cost_usd": 0.085725
+  },
+  "exception_chain": [
+    {
+      "class": "KeypressRejected",
+      "signature": "keypress_disallowed_combination"
+    }
+  ]
+}

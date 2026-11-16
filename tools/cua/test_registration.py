@@ -59,7 +59,7 @@ class RegistrationTests(unittest.TestCase):
     def rehearse(self, scenario):
         with tempfile.TemporaryDirectory(prefix="careflow-registration-test-") as temporary:
             directory = Path(temporary)
-            with qa_site(ROOT / ".venv/Scripts/python.exe", directory, scenario) as origin, sync_playwright() as pw:
+            with qa_site(Path(os.environ.get("CAREFLOW_DJANGO_PYTHON", ROOT / ".venv/Scripts/python.exe")), directory, scenario) as origin, sync_playwright() as pw:
                 fixture = json.loads((directory / "fixture.json").read_text(encoding="utf8"))
                 policy = RegistrationPolicy(fixture, scenario)
                 browser = pw.chromium.launch(timeout=10000, env=local_environment())

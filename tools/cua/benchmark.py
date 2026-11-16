@@ -12,6 +12,8 @@ from diagnostics import Diagnostics
 from benchmark_catalog import TASKS
 
 ROOT=Path(__file__).resolve().parents[2]
+SOURCE_COMMIT=subprocess.check_output(["git","rev-parse","HEAD"],cwd=ROOT,text=True).strip()
+SOURCE_SHA256={name:hashlib.sha256(Path(__file__).with_name(name).read_bytes()).hexdigest() for name in ("benchmark.py","benchmark_catalog.py","benchmark_server.py","driver.py")}
 LIMITS={1:(4,16,120),2:(4,18,120),3:(4,18,120),4:(10,60,240),5:(14,85,360)}
 LANDINGS={"/","/login/","/portal/login/","/portal/","/app/dashboard/","/app/lab/workspace/","/app/pharmacy/","/app/billing/","/app/radiology/","/app/inpatient/"}
 
@@ -45,10 +47,13 @@ def server(python,folder,variant):
     p=subprocess.Popen([str(python),str(Path(__file__).with_name("benchmark_server.py")),str(folder),variant],cwd=ROOT,env=env,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
     try:
         deadline=time.monotonic()+60
-        while not (folder/"server-port").exists():
+        while True:
             if p.poll() is not None or time.monotonic()>deadline:raise RuntimeError("Isolated fixture server failed")
+            try:port=(folder/"server-port").read_text(encoding="ascii").strip()
+            except FileNotFoundError:port=""
+            if port.isascii() and port.isdecimal() and 1<=int(port)<=65535:break
             time.sleep(.1)
-        yield "http://127.0.0.1:"+(folder/"server-port").read_text().strip()
+        yield "http://127.0.0.1:"+str(int(port))
     finally:
         (folder/"STOP").touch()
         try:p.wait(timeout=5)
@@ -75,13 +80,20 @@ class Policy:
 
 class Driver(BrowserDriver):
     def __init__(self,*args,**kwargs):
-        self.http=[];self.action_log=[]
+        self.http=[];self.action_log=[];self.network_decisions=[]
         try:super().__init__(*args,**kwargs)
-        except Exception:
+        except Exception as error:
+            error.benchmark_network=self.network_decisions[-12:]
             if getattr(self,"route_error",None) is not None:
                 raise RuntimeError("Isolated browser route failed") from self.route_error
             raise
         self.page.on("response",self.observe)
+    def _handle_request(self,route):
+        r=route.request;p=urlsplit(r.url)
+        self.network_decisions.append({"method":r.method,"path":p.path,"has_query":bool(p.query),
+            "same_origin":f"{p.scheme}://{p.netloc}"==self.origin,"allowed_get":self.allows(r.url)})
+        return super()._handle_request(route)
+
     def before_action(self,action):
         approved=super().before_action(action)
         item={"type":action.type,"approved":approved}
@@ -178,7 +190,7 @@ def run_one(args,task,key=None):
     output=args.output/task["id"];output.mkdir(parents=True,exist_ok=False)
     diagnostics=Diagnostics();diagnostics.stage="qa_startup";status="BLOCKED";failure=None;checks={};driver=None
     limits=LIMITS[task["difficulty"]]
-    result={"tested_commit":subprocess.check_output(["git","rev-parse","HEAD"],cwd=ROOT,text=True).strip(),"id":task["id"],"title":task["title"],"mode":args.mode,"difficulty":task["difficulty"],"role":task["role"],"limits":{"requests":limits[0],"actions":limits[1],"seconds":limits[2],"estimated_usd_stop":0.8}}
+    result={"tested_commit":SOURCE_COMMIT,"source_sha256":SOURCE_SHA256,"id":task["id"],"title":task["title"],"mode":args.mode,"difficulty":task["difficulty"],"role":task["role"],"limits":{"requests":limits[0],"actions":limits[1],"seconds":limits[2],"estimated_usd_stop":0.8}}
     try:
         with tempfile.TemporaryDirectory(prefix="careflow-cua100-") as temporary:
             folder=Path(temporary)
@@ -253,6 +265,7 @@ def run_one(args,task,key=None):
                 "frames":[{"file":Path(f.filename).name,"line":f.lineno,"function":f.name} for f in traceback.extract_tb(current.__traceback__)[-6:]]})
             current=current.__cause__ or current.__context__
         result["safe_error_frames"]=chain
+        result["network_decisions"]=getattr(e,"benchmark_network",driver.network_decisions[-12:] if driver else [])
         status="BLOCKED" if diagnostics.stage in {"configuration","qa_startup","browser_launch","browser_context","fixture_login","responses_api","responses_request","native_sdk_setup"} else "FAIL"
         if driver:
             result["requested_action_log"]=driver.action_log

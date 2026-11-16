@@ -1,8 +1,8 @@
 """Offline contracts for CUA-100; not live Computer Use acceptance."""
 import copy,tempfile,unittest
 from pathlib import Path
-from unittest.mock import Mock
-from benchmark import Driver,Policy,expand,summary,read_only_unchanged
+from unittest.mock import Mock,patch
+from benchmark import Driver,Policy,expand,summary,read_only_unchanged,server
 from benchmark_catalog import TASKS
 class CatalogTests(unittest.TestCase):
     def test_exactly_100_unique_independent_tasks(self):
@@ -82,4 +82,25 @@ class EvidenceTests(unittest.TestCase):
         self.assertFalse(read_only_unchanged({"table":"a","_audit_rows":[]},{"table":"b","_audit_rows":[(1,1,1,"patient_view")]}))
     def test_new_write_audit_is_not_read_only(self):
         self.assertFalse(read_only_unchanged({"_audit_rows":[]},{"_audit_rows":[(1,1,1,"patient_update")]}))
+
+class ServerReadinessTests(unittest.TestCase):
+    def test_invalid_port_never_becomes_a_navigation_origin(self):
+        for invalid in ("0","65536","80/path","not-a-port"):
+            with self.subTest(invalid=invalid),tempfile.TemporaryDirectory() as temporary:
+                folder=Path(temporary);(folder/"server-port").write_text(invalid)
+                process=Mock();process.poll.side_effect=[None,1]
+                with patch("benchmark.subprocess.Popen",return_value=process),patch("benchmark.time.sleep"):
+                    with self.assertRaisesRegex(RuntimeError,"fixture server failed"):
+                        with server(Path("synthetic-python"),folder,"base"):
+                            self.fail("Invalid origin was exposed")
+
+    def test_empty_port_file_is_not_a_ready_server(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            folder=Path(temporary);port_file=folder/"server-port";port_file.write_text("")
+            process=Mock();process.poll.return_value=None
+            def finish_publication(_):port_file.write_text("54321",encoding="ascii")
+            with patch("benchmark.subprocess.Popen",return_value=process),patch("benchmark.time.sleep",side_effect=finish_publication):
+                with server(Path("synthetic-python"),folder,"base") as origin:
+                    self.assertEqual(origin,"http://127.0.0.1:54321")
+
 if __name__=="__main__":unittest.main()

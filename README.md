@@ -53,6 +53,14 @@ The live entry page works at desktop and mobile sizes. Screenshots show the actu
 
 </details>
 
+### Staff workspace and longitudinal chart
+
+These screenshots come from isolated synthetic Chromium rehearsals, not live patient records or AI-generated mockups.
+
+![Staff dashboard with today's synthetic appointments](docs/showcase/v3/screenshots/staff-dashboard.png)
+
+![Physician patient chart and clinical timeline](docs/showcase/v3/screenshots/patient-chart.png)
+
 Separate portal sessions and server-side role/patient checks protect workflow boundaries. Sign out before switching roles, or use independent browser profiles.
 
 ## AI-driven browser evaluation: CUA-100

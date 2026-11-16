@@ -95,7 +95,8 @@ def main():
             return [body]
         return app(environ,start_response)
     with make_server("127.0.0.1",0,application,handler_class=Quiet) as server:
-        (folder/"server-port").write_text(str(server.server_port),encoding="ascii")
+        (folder/"server-port.tmp").write_text(str(server.server_port),encoding="ascii")
+        (folder/"server-port.tmp").replace(folder/"server-port")
         server.timeout=0.25
         while not (folder/"STOP").exists():server.handle_request()
 if __name__=="__main__":main()

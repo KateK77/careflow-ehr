@@ -6,7 +6,7 @@ Verified November 16, 2026 (America/Chicago). Detailed history is kept here so t
 
 - Application baseline on main before the documentation publication: a9e0913b626b88908ad2ca3041d2ec9497ba7d15, the v1.0 integration.
 - Hosted v3 source recorded by deployment: a9ae1885ee9a98fad6687697db1fcb2581540c75. This task does not redeploy or independently certify the entire hosted filesystem against that historical snapshot.
-- Original portfolio branch: docs/public-showcase-cua100, PR #63. A separately approved documentation-only branch is prepared from main for default-page publication.
+- Original portfolio branch: docs/public-showcase-cua100, PR #63. [PR #64](https://github.com/KateK77/careflow-ehr/pull/64), docs/portfolio-main, publishes documentation from the main baseline without importing the functional stack.
 - PR #63 remains a draft/open PR targeting feature/v3-account-registration, not main. GitHub reports mergeable against its present base; no discussion/review entries were returned by the PR timeline check.
 - The local main pointer is older than remote main and has not been changed as part of this documentation work.
 

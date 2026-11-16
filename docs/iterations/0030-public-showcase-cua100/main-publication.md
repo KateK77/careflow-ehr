@@ -7,3 +7,9 @@ Scope: README and docs only. The selected showcase and CUA documents/evidence ar
 The hosted v3 application remains a separate deployed snapshot. This publication does not deploy, migrate, provision accounts, publish passwords, make paid calls or change clinical software. The public demo sandbox remains a proposal.
 
 Verification is recorded after static checks, evidence byte comparison, GitHub desktop/mobile rendering and main-baseline CI. PR #63 remains open as historical stacked work; only this documentation publication PR is conditionally approved for merge.
+
+## Publication evidence
+
+[PR #64](https://github.com/KateK77/careflow-ehr/pull/64) is the owner-approved default-branch publication. Actual GitHub Chromium rendering passed for this branch at 1280x1000 and 390x844: both HTTP 200, expected sections present, hero decoded, and no horizontal overflow (README widths 838 and 324 pixels). All active relative links resolve. All 203 evidence SHA-256 values and original task/result files match the source branch.
+
+Only README.md and docs/ differ from the application baseline. CI and final merge state are recorded in [PR #64 checks](https://github.com/KateK77/careflow-ehr/pull/64/checks); the original stacked [PR #63](https://github.com/KateK77/careflow-ehr/pull/63) remains separate. No paid tests were run, and no public shared credentials were created or verified. The owner explicitly deferred that next-stage work.

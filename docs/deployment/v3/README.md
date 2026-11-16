@@ -6,11 +6,11 @@ Current scope: username/password/confirmation, with no email service. Budget: US
 
 [GitHub Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages) serves static content. Django sessions, database writes and workflows need an application server. A verified public HTTPS URL can later be added to the repository or profile. Keep source private unless the owner separately authorizes making it public; non-collaborators cannot access a private README.
 
-## Free candidate
+## Selected free host — PythonAnywhere
 
 PythonAnywhere documents a [free account](https://help.pythonanywhere.com/pages/FreeAccountsFeatures/), [SQLite support](https://help.pythonanywhere.com/pages/KindsOfDatabases) and [existing Django deployment](https://help.pythonanywhere.com/pages/DeployExistingDjangoProject/). At review time the free tier has one web worker, 512 MiB storage and a one-month app expiry. Renewal, storage, CPU and network restrictions matter; this is not unlimited/permanent hosting.
 
-The owner must first authenticate a free host account securely and authorize source access. Do not send passwords in chat. No sender account is needed. If a required feature costs money, stop. No host login or public domain is currently available to this task.
+The user selected this free-hosting route on 2026-11-15. The owner must first create and authenticate a free host account securely and authorize source access. Do not send passwords in chat. No sender account is needed. If a required feature costs money, stop. No host login or public domain is currently available to this task.
 
 ## Configuration
 

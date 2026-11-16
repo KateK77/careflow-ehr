@@ -40,3 +40,7 @@ The local preview uses HTTP on loopback only. Hosted configuration is separate, 
 ## Staff login clarification
 
 New staff registrations require Administrator approval. Pending applicants who enter the correct password now receive explicit guidance rather than the generic incorrect-credentials error. [Follow-up evidence](login-followup.md). Patient registrations can log in immediately through the Patient Portal.
+
+## Final local handover
+
+[Visitor/operator guide](../../user-guide/v3/README.md) and [final publication request](final-handover.md) record usernames, separate private password delivery, staff approval and the remaining hosting dependency.

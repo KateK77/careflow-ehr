@@ -4,6 +4,10 @@
 
 > **SYNTHETIC DATA ONLY — NOT FOR CLINICAL USE.** No real patient data, medical treatment, payer transactions, or production deployment. The development settings use `DEBUG=True` and a development secret. Hosted or clinical use requires a separate security, privacy, architecture, and regulatory review.
 
+## Start here: accounts and access rules
+
+Read the [v3 visitor and operator guide](docs/user-guide/v3/README.md) for patient registration, staff approval, demo usernames and login troubleshooting. Patient signup activates immediately; staff signup requires an Administrator review. Passwords remain in the owner's private handover. **Public website: not yet provisioned.** The current localhost preview cannot be opened from another person's computer.
+
 ## Version 3.0 preview — blue interface and simple registration
 
 The current v3 proposal adds patient signup and reviewed staff applications using **username, password and confirmation**, with no email requirement. Existing Django workflows remain. This is a preview branch, not a released or publicly deployed site.

@@ -29,3 +29,7 @@ Limits:
 - No public URL, hosting account or TLS endpoint has been provisioned.
 - Original clinical prototype limits, deferred features and historical manual evidence remain unchanged.
 - No comprehensive accessibility, concurrency, penetration, provider-load or clinical certification claims.
+
+## Owner selection of the final local version
+
+The owner selected the current website as the final version for this round and requested GitHub publication, public access and an account/rules guide. See [final handover](final-handover.md). Earlier acceptance statements above are preserved as history. This selection does not claim unperformed security/clinical tests or a completed public deployment.

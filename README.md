@@ -20,7 +20,7 @@ The hosted Django website is online; its homepage and both sign-in routes return
 
 ## Demo Accounts
 
-**Public shared accounts are pending a separate safety/provisioning approval.** Existing operator and private demonstration passwords are not public demo credentials and are not disclosed here. The entries below are availability notices, not placeholder login credentials.
+**Public shared accounts are intentionally not enabled in this documentation release.** Existing operator and private demonstration passwords are not public demo credentials and are not disclosed here. The entries below are availability notices, not placeholder login credentials.
 
 | Role | Demo Username | Demo Password | What to Explore |
 | --- | --- | --- | --- |
@@ -116,7 +116,7 @@ flowchart LR
 | Delivery | GitHub Issues, feature branches, PR review and GitHub Actions |
 | Hosted demo | PythonAnywhere, WSGI, WhiteNoise, HTTPS |
 
-For engineering review: inspect the workflow boundaries, independent verification assertions, audit history and openly reported AI failures. [Architecture](docs/architecture.md) · [Technical decisions](docs/decisions/) · [Hosted setup](docs/deployment/v3/README.md).
+For engineering review: inspect the workflow boundaries, independent verification assertions, audit history and openly reported AI failures. [Architecture](docs/architecture.md) · [Technical decisions](docs/decisions/) · [Hosted setup](https://github.com/KateK77/careflow-ehr/blob/3ae015ec5155ccbb9ca44766f0d13e2a3a8d2070/docs/deployment/v3/README.md).
 
 ## Full Evaluation Evidence
 
@@ -134,6 +134,6 @@ Recorded offline verification: **536 Django tests, 44 CUA harness tests and 100 
 
 [Fresh local setup](docs/showcase/portfolio/development-status.md#local-setup) · [Current source, PR and deployment status](docs/showcase/portfolio/development-status.md) · [Iteration history](docs/iterations/) · [Original requirements](docs/requirements/)
 
-The hosted v3 snapshot and the repository's default branch have different integration states; the linked status page names exact commits and open dependencies. Historical requirements, Chinese source documents, English translations and test evidence remain preserved.
+The portfolio documentation is published independently of the hosted v3 application stack; the linked status page names the application baseline, deployed snapshot and open dependencies. Historical requirements, Chinese source documents, English translations and test evidence remain preserved.
 
 This is an educational portfolio prototype, not a certified EHR. No exhaustive security, accessibility, concurrency or clinical validation is claimed. SQLite/free hosting constrain scale and availability; application audits are not administrator-proof database immutability. The native benchmark used fresh local fixtures, never existing clinical databases or public-host writes.

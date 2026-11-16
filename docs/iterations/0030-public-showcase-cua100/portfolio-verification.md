@@ -25,9 +25,9 @@ The current account plan and full stacked-PR integration state are linked from t
 
 - Static Markdown/image/fact checks passed: links resolve locally, five difficulty rows match results.json, no observed mojibake, and original testing files have no diff.
 - All 23 benchmark unit tests passed in 0.019 seconds; no browser/API acceptance was rerun.
-- Free browser layout review of the published branch at desktop/mobile widths is pending.
+- Actual GitHub Chromium review passed at 1280x1000 and 390x844: HTTP 200, expected sections and image loading; README content widths 838/324 pixels with no horizontal overflow.
 - GitHub CI on the updated branch.
-- Owner decision on a documentation-only main publication path.
-- Separate public shared-account implementation/provisioning approval.
+- Owner approved a new documentation-only PR from main with conditional merge; retain PR #63 as the stacked record.
+- Owner explicitly deferred public shared accounts and deployment; retain a per-visitor isolated workflow proposal only.
 
 These pending items are not claimed completed by this record.

@@ -1,28 +1,49 @@
-# Public demo account availability and approval plan
+# Next-stage public demo proposal
 
-Status: proposal only. No new accounts, deployment, passwords, permissions or online database records have been changed for this portfolio update.
+Status: design proposal only, November 16, 2026. The owner chose screenshots and documentation for this round. No shared credentials, new deployment, account provisioning, paid resources or online database changes are authorized by this document.
 
-## Current verified access
+## Goal
 
-The live homepage, staff sign-in and patient sign-in routes returned HTTP 200 on November 16, 2026. This confirms route availability, not successful authentication or representative data for every role.
+A recruiter can open the website, start a temporary synthetic demonstration without registration, switch between several staff/patient roles and complete connected workflows. Each visitor receives independent data so one visitor cannot affect another visitor or the existing hosted application.
 
-Prior deployment evidence records private, uniquely passworded staff and patient accounts. These are not approved public shared credentials. The existing Administrator can approve staff enrollment; Physician, Nurse, FrontDesk, Lab Staff and Pharmacist roles have genuine synthetic workflow write access. The application currently has no verified per-account public read-only mode or automated reset lifecycle.
+The current homepage and sign-in routes are reachable. Existing accounts are private, have normal role-specific write permissions and are not safe shared public credentials. No public role login or representative-data verification is claimed in this release. Administrator functions remain screenshot-only until a restricted sandbox design is separately reviewed.
 
-No public shared account is therefore listed as usable, and no private credential is disclosed. Administrator access is screenshot-only. All seven requested shared-role login/feature checks remain BLOCKED on safe provisioning approval.
+## Options to evaluate
 
-## Proposed safe next increment (requires separate approval)
+| Approach | Advantages | Constraints |
+| --- | --- | --- |
+| Separate SQLite database per visitor | Clear data boundary; existing relational workflow models can be reused; reset replaces only one disposable sandbox | Requires safe request-scoped routing, connection cleanup, fixture startup and storage limits; existing free-host capacity is unverified |
+| Separate process/container per visitor | Stronger execution boundary; explicit lifecycle | Higher startup/resource cost; no new hosting or charges are approved |
+| Shared database with mandatory tenant scope | Potentially lower startup cost | Requires comprehensive tenant-aware models, queries, constraints and audit paths; easy to miss direct-object routes; substantial application changes |
+| Read-only shared showcase | Simplest fallback for tours | Does not satisfy the goal of complete independent write workflows |
 
-1. Provision a separate demonstration instance/database from NEW synthetic fixtures, without importing or replacing the current hosted or local databases. Verify hosting capacity and cost before selecting a deployment; no paid infrastructure is authorized.
-2. Add a server-enforced public-demo read-only boundary for dedicated shared accounts. Preserve role/patient scoping and CSRF. Permit only the minimum login/logout operations; deny clinical/admin mutations, credential changes, account creation/review and privilege elevation for shared sessions. Hiding buttons is insufficient.
-3. Keep maintenance Administrator/superuser identities private and separate. Public role accounts must not be staff/superusers for Django administration. Start with read-only Physician, Nurse, FrontDesk, Lab Staff, Pharmacist and one linked Patient; use administrator screenshots.
-4. Populate fictional charts, appointments, notes, vitals, lab results and pharmacy records using dedicated test fixtures. Generate separate new passwords that have never been used for development, hosting or the owner's private accounts.
-5. Back up and integrity-check the new fixture database before release. If a future write sandbox is approved, allocate a fresh database per visitor/session or replace only an explicitly identified disposable sandbox from its immutable seed; never reset the existing persistent database.
-6. Verify every login, correct workspace, one representative read, cross-role/patient isolation and direct write denial with free browser tests. Verify passwords cannot be changed and server administration is inaccessible. Only then publish actual verified shared credentials in the README.
+Prefer evaluating per-visitor disposable databases first for this SQLite prototype, then verify isolation and host capacity before selecting an implementation. No claim is made that the present free PythonAnywhere account can support the target concurrency or a second isolated deployment.
 
-The read-only boundary is additional implementation/deployment work, outside this documentation-only approval. It must not be implemented implicitly here. The current website can remain unchanged while this proposal is reviewed.
+## Proposed visitor journey
 
-## Risks and remaining decisions
+1. Choose Start isolated demo. The server creates an unpredictable sandbox identifier and a signed, HttpOnly, Secure session binding. The client never supplies a database filename or existing patient ID as authority.
+2. Build a NEW database from a versioned synthetic fixture template. Do not clone the existing hosted database or local previews. Pre-provision fictional patients, appointments, notes, vitals, laboratory and pharmacy prerequisites within that sandbox.
+3. Offer explicit role switching for Physician, Nurse, FrontDesk, Lab Staff, Pharmacist and Patient. Resolve the sandbox-local identity on the server; no reusable maintenance password or global user impersonation is exposed.
+4. Preserve normal RBAC, patient/encounter relationships, CSRF, signing, version checks and audit events. Switching to a role grants access only to that visitor's sandbox. A full Administrator/superuser account, server administration and host controls remain inaccessible.
+5. Show a clear synthetic-demo banner, remaining session lifetime and Reset my demo. Reset affects only that registered disposable sandbox.
 
-Shared writable accounts let visitors affect each other's records and audit identities. Read-only access mitigates clinical data mutation but still needs session/rate-limit/storage management. Existing free-host single-worker/quota limits and the capacity for a second isolated instance need verification; zero additional cost is not assumed.
+## Isolation and reset requirements
 
-Approval needed: whether to undertake the isolated read-only shared-demo increment, including its explicit account provisioning and hosting plan. Until then, retain screenshots and optional individual patient signup as the honest available experience.
+- Resolve all authentication, sessions, clinical records, audit events, jobs and cached data inside the same validated sandbox scope. A request must fail closed when scope is absent or mismatched.
+- Bind every object request and role selection to the authenticated visitor session. Test copied URLs, cookies, UUIDs, guessed IDs, cross-tab and cross-browser access.
+- Store sandbox files in a dedicated directory with a server-side registry. Validate resolved absolute paths and ownership before cleanup; reject symlinks and user-controlled paths.
+- Create new files atomically and verify schema/template integrity before exposing them. On reset, close connections, allocate a replacement sandbox and expire the old session. Never overwrite an active shared or existing clinical database.
+- Remove only registered expired sandbox artifacts after a safe grace period; preserve short, sanitized operational metrics without storing real visitor data.
+- Apply explicit limits on active sessions, request rate, disk use, fixture creation, lifetime and per-sandbox workload. Evaluate queue/deny behavior under saturation.
+- Keep payment, prescribing, dispensing and external integrations fictional. No outbound clinical connections or paid AI calls are part of the visitor sandbox.
+- Deployment rollback must preserve the current site and database; the existing deployment remains unchanged until a separate migration/deployment plan is approved.
+
+## Acceptance gates before any public launch
+
+Free automated and Chromium tests must show two concurrent visitors with different data, all requested role workspaces, one connected synthetic patient journey, cross-visitor denial on reads/writes, preserved RBAC/CSRF, inability to change another sandbox or maintenance identity, and reset/expiry without affecting other sessions.
+
+Test partially completed requests, signed records, stale tabs, invalid sandbox tokens, cleanup races, restarts, quota exhaustion and recovery. Verify every intended role has representative data and works without registration or published private credentials. Measure actual hosting resource use and identify recurring cost before deployment approval.
+
+## Approval boundary
+
+This proposal is retained for a later implementation decision. The current round publishes only documentation and real screenshots. Do not create accounts, expose existing passwords, deploy services, alter online databases, reset existing data or incur charges under this proposal.

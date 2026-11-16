@@ -3,8 +3,8 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{% block title %}CareFlow EHR 2.0{% endblock %}</title>
-<link rel="stylesheet" href="{% static 'core/v2.css' %}">
+<title>{% block title %}CareFlow EHR 3.0{% endblock %}</title>
+<link rel="stylesheet" href="{% static 'core/v3.css' %}">
 <script src="{% static 'core/ui.js' %}" defer></script>
 <script src="{% static 'core/navigation.js' %}" defer></script>
 </head>
@@ -12,7 +12,7 @@
 <a class="skip" href="#main">Skip to content</a>
 <header class="topbar">
   {% include "v2/brand.html" %}
-  <span class="version-pill">2.0 Preview</span>
+  <span class="version-pill">3.0 Preview</span>
   <span class="demo">DEMO — NOT FOR CLINICAL USE</span>
   {% include "v2/identity.html" %}
 </header>
@@ -37,7 +37,7 @@
       {% if can_read_clinical %}<a href="{% url 'physician_workspace' %}">Physician workspace</a><a href="{% url 'lab_catalog' %}">Laboratory catalog</a>{% endif %}
       {% if show_nursing_workspace %}<a href="{% url 'nursing_workspace' %}">Nursing workspace</a>{% endif %}
       {% if can_browse_medications %}<a href="{% url 'med_catalog' %}">Medication Catalog</a>{% endif %}
-      {% if 'Administrator' in staff_roles %}<a href="{% url 'imaging_catalog' %}">Imaging catalog</a>{% endif %}
+      {% if 'Administrator' in staff_roles %}<a href="{% url 'imaging_catalog' %}">Imaging catalog</a><a href="{% url 'account_applications' %}">Staff applications</a>{% endif %}
     </div>
     {% endif %}
     {% if show_lab_workspace or show_lab_review or show_pharmacy_workspace or show_radiology_workspace %}
@@ -63,13 +63,13 @@
     {% endif %}
   </nav>
   <p class="navigation-hint">Scroll for more workspace links.</p>
-  <div class="sidebar-foot"><strong>Local demonstration</strong><br>Synthetic data. Real workflows.<br><span>CareFlow EHR 2.0 preview</span></div>
+  <div class="sidebar-foot"><strong>Local demonstration</strong><br>Synthetic data. Real workflows.<br><span>CareFlow EHR 3.0 preview</span></div>
 </aside>
 {% endif %}
 <main id="main" tabindex="-1">
 {% if messages %}<div aria-live="polite">{% for message in messages %}<div class="notice {{ message.tags }}">{{ message }}</div>{% endfor %}</div>{% endif %}
 {% block content %}{% endblock %}
-<footer>Synthetic patient data only · Educational and research prototype · CareFlow EHR 2.0 preview</footer>
+<footer>Synthetic patient data only · Educational and research prototype · CareFlow EHR 3.0 preview</footer>
 </main>
 </div>
 </body>

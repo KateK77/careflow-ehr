@@ -1,0 +1,23 @@
+/* CareFlow 3.0: blue-led design; semantic green, amber and red remain meaningful. */
+@import url("./v2.css");
+:root {
+  --ink: #192d48; --muted: #536980;
+  --accent: #245da8; --accent-dark: #183f77;
+  --line: #dbe4ef; --canvas: #f4f7fb; --tint: #eaf1fc;
+  --shadow: 0 3px 16px #193e6810;
+}
+.quiet { background: #eef3fb; }
+.accent-dot { background: #4b83c7; }
+.hero-tags span { color: #335d8b; background: #edf3fc; border-color: #d7e4f3; }
+.journey-illustration { background: radial-gradient(ellipse at 50% 50%,#dae7fa,transparent 70%),#f0f4fb; }
+.journey-orbit { border-color: #a4bddc; }
+.journey-node { border-color: #d6e1ef; box-shadow: 0 6px 18px #244b7810; }
+.portal-welcome { background: #e8f0fc; }
+.patient-card .button { background: #54619a; }
+.account-panel { max-width: 680px; margin: 24px auto; }
+.account-panel .field { margin-bottom: 18px; }
+.account-confirmation { display: flex; align-items: flex-start; gap: 10px; border: 1px solid var(--line); border-radius: 8px; padding: 14px; background: var(--tint); cursor: pointer; }
+.account-panel input[type=checkbox] { width: 20px; margin: 1px 0 0; }
+.account-links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; font-size: 13px; }
+.portal-register { grid-column: 2; margin-top: 12px; font-weight: 600; }
+@media(max-width:700px) { .account-panel { margin: 0 auto; } }

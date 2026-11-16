@@ -16,6 +16,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "careflow.core",
+    "careflow.accounts",
     "careflow.patients",
     "careflow.scheduling",
     "careflow.clinical",
@@ -36,6 +37,7 @@ MIDDLEWARE = [
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "careflow.portal.access.PortalBoundary",
+    "careflow.accounts.middleware.AccountSafety",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
@@ -83,3 +85,9 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
+
+
+# Registration uses usernames only; no outbound account email.
+EMAIL_BACKEND = "django.core.mail.backends.dummy.EmailBackend"
+CAREFLOW_AUTH_IP_LIMIT = 60
+CAREFLOW_AUTH_IDENTITY_LIMIT = 15

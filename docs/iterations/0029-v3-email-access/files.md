@@ -1,0 +1,70 @@
+# Modified files — v3.1
+
+Relative to parent PR #59. Local QA, credentials, outboxes and databases are excluded.
+
+- `.dockerignore`
+- `Dockerfile`
+- `README.md`
+- `careflow/accounts/__init__.py`
+- `careflow/accounts/apps.py`
+- `careflow/accounts/browser_tests.py`
+- `careflow/accounts/forms.py`
+- `careflow/accounts/management/__init__.py`
+- `careflow/accounts/management/commands/__init__.py`
+- `careflow/accounts/management/commands/bootstrap_demo_operator.py`
+- `careflow/accounts/middleware.py`
+- `careflow/accounts/migrations/0001_initial.py`
+- `careflow/accounts/migrations/__init__.py`
+- `careflow/accounts/models.py`
+- `careflow/accounts/services.py`
+- `careflow/accounts/templates/accounts/application.html`
+- `careflow/accounts/templates/accounts/applications.html`
+- `careflow/accounts/templates/accounts/complete.html`
+- `careflow/accounts/templates/accounts/form.html`
+- `careflow/accounts/templates/accounts/limited.html`
+- `careflow/accounts/templates/accounts/unavailable.html`
+- `careflow/accounts/test_deployment.py`
+- `careflow/accounts/tests.py`
+- `careflow/accounts/urls.py`
+- `careflow/accounts/views.py`
+- `careflow/core/static/core/v3.css`
+- `careflow/core/templates/v2/base.html`
+- `careflow/core/templates/v2/dashboard.html`
+- `careflow/core/templates/v2/home.html`
+- `careflow/core/templates/v2/patient_base.html`
+- `careflow/core/templates/v2/patient_form.html`
+- `careflow/core/templates/v2/staff_login.html`
+- `careflow/core/tests.py`
+- `careflow/core/ui_browser_tests.py`
+- `careflow/portal/templates/portal/login.html`
+- `careflow/settings.py`
+- `careflow/settings_hosted_demo.py`
+- `careflow/urls.py`
+- `careflow/wsgi.py`
+- `deploy/container_start.py`
+- `docs/deployment/v3/README.md`
+- `docs/iterations/0029-v3-email-access/README.md`
+- `docs/iterations/0029-v3-email-access/acceptance.md`
+- `docs/iterations/0029-v3-email-access/architecture.md`
+- `docs/iterations/0029-v3-email-access/feedback.md`
+- `docs/iterations/0029-v3-email-access/files.md`
+- `docs/iterations/0029-v3-email-access/history/README.before-v3.md`
+- `docs/iterations/0029-v3-email-access/history/README.md`
+- `docs/iterations/0029-v3-email-access/history/draft-email-README.md`
+- `docs/iterations/0029-v3-email-access/history/draft-email-acceptance.md`
+- `docs/iterations/0029-v3-email-access/history/draft-email-architecture.md`
+- `docs/iterations/0029-v3-email-access/history/draft-email-prompt.en.v3.0.md`
+- `docs/iterations/0029-v3-email-access/prompt.en.v1.0.md`
+- `docs/iterations/0029-v3-email-access/prompt.original.zh.md`
+- `docs/iterations/0029-v3-email-access/screenshots/v3-home-desktop.png`
+- `docs/iterations/0029-v3-email-access/screenshots/v3-patient-registration-desktop.png`
+- `docs/iterations/0029-v3-email-access/screenshots/v3-registration-320.png`
+- `docs/iterations/0029-v3-email-access/screenshots/v3-registration-390.png`
+- `docs/iterations/0029-v3-email-access/verification.md`
+- `docs/requirements/v3.0/README.md`
+- `docs/requirements/v3.0/prompt.en.v3.0.md`
+- `docs/requirements/v3.0/prompt.en.v3.1.md`
+- `requirements-hosted.txt`
+- `tools/v3_preview.py`
+
+Staff-login follow-up additionally modifies careflow/core/auth_views.py and adds login-followup.md and screenshots/staff-pending-login.png in this iteration. Existing account forms/tests, completion/login templates and browser checks are updated.

@@ -1,5 +1,5 @@
 {% extends "core/base.html" %}
-{% block title %}{% if patient.pk %}Edit patient{% else %}Register patient{% endif %} · CareFlow EHR 2.0{% endblock %}
+{% block title %}{% if patient.pk %}Edit patient{% else %}Register patient{% endif %} · CareFlow EHR 3.0{% endblock %}
 {% block content %}
 <div class="eyebrow">PATIENT ACCESS / {% if patient.pk %}DEMOGRAPHICS{% else %}REGISTRATION{% endif %}</div>
 <div class="page-heading"><div><h1>{% if patient.pk %}Edit demographic record{% else %}Register synthetic patient{% endif %}</h1><p class="muted">Required fields are marked *. Only fictional data may be entered.</p></div><a href="{% url 'patient_list' %}">Back to patients</a></div>

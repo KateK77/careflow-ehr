@@ -11,3 +11,7 @@ The [package README](v1.0/README.md), [original workspace rules](v1.0/AGENTS.md)
 ## English development reading copies — 2026-11-07
 
 Use the [English baseline v1.0, translation revision 1.0.0](v1.0-en/README.md) for future development alongside the authoritative original documents above. Original source files remain immutable. [Language policy v1.0](../policies/language/v1.0/README.md) defines preservation, translation and versioning rules.
+
+## Complete product descriptions by version
+
+For an independently readable, consolidated description of each product generation, use the [version descriptions](versions/README.md): [v1.0](versions/v1.0.md), [v2.0](versions/v2.0.md), and [v3.0](versions/v3.0.md). Each includes the full functional, interface, permission, data and acceptance requirements. Original source documents above remain unchanged.
